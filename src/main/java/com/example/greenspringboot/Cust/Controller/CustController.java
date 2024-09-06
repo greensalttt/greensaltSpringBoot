@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustController {
 
-    @GetMapping("/hello")
+    @GetMapping("/test")
     public String getHello(){
-        return "HelloSpringBoot";
+        return "test";
     }
 }
