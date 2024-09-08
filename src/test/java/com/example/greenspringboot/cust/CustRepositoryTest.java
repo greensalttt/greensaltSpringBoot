@@ -1,4 +1,4 @@
-package com.example.greenspringboot;
+package com.example.greenspringboot.cust;
 
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
@@ -14,7 +14,6 @@ public class CustRepositoryTest {
     @Test
     public void crudTest() {
         Cust cust = Cust.builder()
-//                .c_id("111")
                 .name("김김김")
                 .phn("123456789")
                 .build();
