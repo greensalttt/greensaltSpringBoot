@@ -1,0 +1,288 @@
+
+/*#top{*/
+/*    margin-bottom: 300px;*/
+/*}*/
+
+
+#content {
+    display: flex;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    justify-content: space-between;
+    text-align: center;
+
+}
+
+.box {
+    position: relative;
+    width: 100%;
+    font-size: 13px;
+}
+
+#cdBox {
+    display: grid;
+    position: relative;
+    width: 100%;
+    margin-top: 50px;
+
+}
+
+#vinylBox {
+    display: grid;
+    position: relative;
+    width: 100%;
+    margin-top: 50px;
+
+}
+
+.one {
+    overflow: hidden;
+    padding: 10px;
+    width: 222px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: inline-block;
+}
+
+
+img {
+    vertical-align: middle;
+}
+
+.container1 {
+    position: relative;
+    margin-right: 30px;
+}
+
+.mySlides {
+    display: none;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: silver;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+.caption-container p {
+    color: silver;
+}
+
+.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+
+.container2 {
+    position: relative;
+}
+
+.prev2,
+.next2 {
+    cursor: pointer;
+    position: absolute;
+    top: 90%;
+    width: auto;
+    padding: 3px;
+    margin-top: 8px;
+    color: silver;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+
+.prev2 {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.next2 {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.dot {
+    position: relative;
+    top: 5px;
+    left: 0;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+
+#king {
+    display: flex;
+    width: 1130px;
+}
+
+.container1,
+.container2 {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#two2 {
+    text-align: center;
+}
+
+.three>p {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.week {
+    color: dimgrey;
+    display: flex;
+    font-size: 14px;
+    margin-bottom: -5px;
+}
+
+.more {
+    position: relative;
+    float: right;
+    bottom: 10px;
+    font-size: 13px;
+    margin-left: auto;
+    right: 5px;
+}
+
+.more>a {
+    color: dimgray;
+}
+
+
+
+.mySlides2 img {
+    margin-bottom: 10px;
+}
+
+.mySlides2>.text {
+    margin-bottom: 10px;
+}
+
+.text {
+    position: relative;
+    top: 3px;
+    font-size: 14px;
+    color: dimgray;
+}
+
+
+.column2 {
+    float: left;
+    width: 23%;
+    margin-right: 17px;
+}
+
+.card2 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container3 {
+    padding: 0 16px;
+}
+
+.sub {
+    color: grey;
+    font-size: 14px;
+}
+
+#god {
+    display: flex;
+    font-size: 16px;
+    margin-top: 50px;
+    text-align: left;
+}
+
+.cartBox {
+    position: relative;
+    float: left;
+}
+
+.new {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 120px;
+    height: 120px;
+}
+
+.small {
+    font-size: 13px;
+}
+.more2 {
+    position: relative;
+    float: right;
+    bottom: 30px;
+    font-size: 13px;
+    margin-left: auto;
+    right: 32px;
+}
+
+.more2>a {
+    color: dimgray;
+}

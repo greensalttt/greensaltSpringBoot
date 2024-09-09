@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: black;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+    margin: 0 auto;
+    max-width: 1130px;
+    height: 160px;
+    position: relative;
+    overflow-x: hidden;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    color: #000;
+}
+
+#headerTitle {
+    display: flex;
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    top: 53px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    left: 53px;
+}
+
+#headerTitle>#greenClover {
+    display: flex;
+    position: relative;
+    right: 195px;
+    width: 50px;
+    height: 50px;
+    bottom: 5px;
+}
+
+#headerNav {
+    display: flex;
+    position: relative;
+    left: 263px;
+    top: 100px;
+}
+
+#headerNav>ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#headerNav>ul>li>a {
+    display: flex;
+    float: left;
+    padding: 5px 27px;
+    color: gray;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#search {
+    position: absolute;
+    bottom: 60px;
+    left: 290px;
+    width: 550px;
+    height: 40px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    background-image: url("/icon_img/searchIcon.png");
+    background-size: 14px 14px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+
+#custIcon {
+    position: relative;
+    float: right;
+    top: 60px;
+}
+
+#custIconImg {
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    /* 애니메이션 효과 */
+}
+
+#custIconImg:hover {
+    transform: scale(1.1);
+    /* 이미지 확대 효과 */
+}
+
+#links {
+    display: none;
+    /* 기본적으로 링크들을 숨김 */
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 1000;
+    /* 다른 요소 위에 표시되게 함 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    /* 애니메이션 효과 */
+    height: 70px;
+    width: 80px;
+}
+
+#links.show {
+    display: block;
+    opacity: 1;
+}
+
+#links a {
+    display: block;
+    padding: 5px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 2px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+#links a:hover {
+    background-color: #f0f0f0;
+    color: darkgreen;
+}
