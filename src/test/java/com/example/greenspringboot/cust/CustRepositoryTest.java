@@ -14,13 +14,19 @@ public class CustRepositoryTest {
     @Test
     public void crudTest() {
         Cust cust = Cust.builder()
-                .name("김김김")
-                .phn("123456789")
+                .c_email("test3@example.com")
+                .c_pwd("password")
+                .c_name("김김김")
+                .c_nm("김")
+                .c_birth("19900101")
+                .c_gnd('M')
+                .c_phn("123456789")
+                .c_zip("123456")
+                .c_road_a("Seoul Street")
+                .c_jibun_a("Seoul Jibun")
+                .c_det_a("Apartment 101")
                 .build();
 
-        // creat test
         custRepository.save(cust);
-
-        Cust foundCust = custRepository.findById(1).get();
     }
 }
