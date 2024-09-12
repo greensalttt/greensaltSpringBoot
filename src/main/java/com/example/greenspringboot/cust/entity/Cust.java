@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Cust {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer c_id;
@@ -24,8 +23,8 @@ public class Cust {
     @Builder.Default
     private String c_stat_cd = "M";
 
-    @Column(nullable = false, unique = true)
-    private String c_email;
+    @Column(name = "c_email", nullable = false, unique = true)
+    private String cEmail;
 
     @Column(nullable = false)
     private String c_pwd;

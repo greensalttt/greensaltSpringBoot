@@ -13,7 +13,7 @@ public class CustDto {
     private int c_id;
     private String c_grd_cd;
     private String c_stat_cd;
-    private String c_email;
+    private String cEmail;
     private String c_pwd;
     private String c_name;
     private String c_nm;
@@ -38,8 +38,8 @@ public class CustDto {
 
     public CustDto(){}
 
-    public CustDto(String c_email, String c_pwd, String c_name, String c_nm, String c_birth, char c_gnd, String c_phn, String c_zip, String c_road_a, String c_jibun_a, String c_det_a, String sms_agr, String email_agr) {
-        this.c_email = c_email;
+    public CustDto(String cEmail, String c_pwd, String c_name, String c_nm, String c_birth, char c_gnd, String c_phn, String c_zip, String c_road_a, String c_jibun_a, String c_det_a, String sms_agr, String email_agr) {
+        this.cEmail = cEmail;
         this.c_pwd = c_pwd;
         this.c_name = c_name;
         this.c_nm = c_nm;

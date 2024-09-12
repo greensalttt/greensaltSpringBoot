@@ -208,7 +208,10 @@
             margin-top: 8px;
         }
 
-
+        #verify:disabled, #nmCheck:disabled, #zipBtn:disabled {
+            color: gray;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -223,7 +226,7 @@
             <p id="check-result"></p>
             <label id="email">이메일</label>
             <input id="verify" type="button" value="인증번호 받기" disabled>
-            <input class="special-class" type="text" id="c_email" name="c_email" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
+            <input class="special-class" type="text" id="cEmail" name="cEmail" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
             <p id="mail-check-warn"></p>
             <label>인증번호</label>
             <input class="special-class" type="text" id="c_email2" name="c_email2" maxlength="10" disabled>
@@ -497,51 +500,54 @@
 
 
 <script>
-    $('#c_email').on('input', function() {
+    $('#cEmail').on('input', function() {
         emailCheck();
     });
 
     $('#c_email2').on('input', function() {
         verifyNumber();
     });
-    /*이메일 중복체크*/
 
+    /*이메일 중복체크*/
     function emailCheck() {
-        const email = document.getElementById("c_email").value;
+        const email = document.getElementById("cEmail").value;
         const checkResult = document.getElementById("check-result");
         const verifyButton = $('#verify');
 
         if (!email.trim()) {
             checkResult.style.color = "red";
+            checkResult.style.fontSize = "11px";
             checkResult.innerHTML = "이메일을 입력해주세요.";
-            verifyButton.prop('disabled', true); // 버튼 비활성화
+            verifyButton.prop('disabled', true);
             return;
         }
 
         var emailPattern = /^((?![가-힣]).)*([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         if (!emailPattern.test(email)) {
             checkResult.style.color = "red";
+            checkResult.style.fontSize = "11px";
             checkResult.innerHTML = "이메일 형식을 다시 확인해주세요.";
-            verifyButton.prop('disabled', true); // 버튼 비활성화
+            verifyButton.prop('disabled', true);
             return;
         }
 
         console.log("입력한 이메일", email);
         $.ajax({
             type: "post",
-            url: "/register/email-check",
+            url: "/emailCCheck",
             data: {
-                "c_email": email
+                "cEmail": email
             },
             success: function (emailGood) {
                 console.log("요청성공", emailGood);
                 if (emailGood == "ok") {
                     checkResult.style.color = "green";
                     checkResult.innerHTML = "인증번호를 받기를 진행해주세요.";
+                    checkResult.style.fontSize = "11px";
                     verifyButton.prop('disabled', false); // 버튼 활성화
                 } else {
-                    // console.log("이미 사용중인 이메일");
                     checkResult.style.color = "red";
+                    checkResult.style.fontSize = "11px";
                     checkResult.innerHTML = "이미 사용중인 이메일입니다.";
                     verifyButton.prop('disabled', true); // 버튼 비활성화
                 }
@@ -581,7 +587,7 @@
 
         alert('인증번호가 전송되었습니다.'); // 인증번호 전송 알림
 
-        const email = $('#c_email').val(); // 이메일 주소값 얻어오기
+        const email = $('#cEmail').val(); // 이메일 주소값 얻어오기
         console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
         const checkInput = $('#c_email2') // 인증번호 입력하는곳
         const url = '/register/mailCheck?email=' + email; // URL 생성
@@ -608,9 +614,9 @@
             $resultMsg.html('인증번호가 일치합니다.');
             $resultMsg.css('color', 'green');
             $('#verify').attr('disabled', true);
-            $('#c_email').attr('readonly', true);
-            $('#c_email').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-            $('#c_email').attr('onChange', 'this.selectedIndex = this.initialSelect');
+            $('#cEmail').attr('readonly', true);
+            $('#cEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+            $('#cEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
             return true;
         } else {
             $resultMsg.html('인증번호를 다시 확인해주세요');
@@ -712,7 +718,7 @@
     /*3-1 이메일 형식 유효성 검사*/
 
     function emailFormatCheck(frm) {
-        var email = frm.c_email.value.trim(); // 공백 제거한 이메일
+        var email = frm.cEmail.value.trim(); // 공백 제거한 이메일
         var emailPattern = /^((?![가-힣]).)*([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
         if (!email) {
