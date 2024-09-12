@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 @SpringBootTest
 public class CustRepositoryTest {
 
@@ -14,7 +16,7 @@ public class CustRepositoryTest {
     @Test
     public void crudTest() {
         Cust cust = Cust.builder()
-                .c_email("test3@example.com")
+                .cEmail("test@naver.com")
                 .c_pwd("password")
                 .c_name("김김김")
                 .c_nm("김")
@@ -28,5 +30,12 @@ public class CustRepositoryTest {
                 .build();
 
         custRepository.save(cust);
+    }
+
+//    이메일이 중복이면 실패, 중복 아니면 성공
+    @Test
+    public void emailCheckTest() {
+        boolean exists = custRepository.existsBycEmail("test@naver.com");
+        assertFalse(exists, "fali");
     }
 }
