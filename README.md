@@ -1,3 +1,17 @@
+## 개발환경
+
+> Java 11 + Spring Boot 2.8.7 + Thymeleaf + JPA
+
+```yaml
+DBMS: MySQL 8.x
+WAS : tomcat 9.0.x
+VCS: github
+Build: Maven
+IDE: IntelliJ IDEA
+```
+<br>
+
+
 ## Commit Message Convention
 
 ```
