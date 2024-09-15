@@ -35,9 +35,9 @@ public class CustRegisterController {
         }
     }
 
-    @GetMapping("/mailCheck")
+    @GetMapping("/verifyEmail")
     @ResponseBody
-    public String mailCheck(String email, HttpServletRequest request) {
+    public String verifyEmail(String email, HttpServletRequest request) {
         try{
             System.out.println("이메일 인증 요청이 들어옴!");
             System.out.println("이메일 인증 이메일 : " + email + "이메일:");

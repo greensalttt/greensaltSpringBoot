@@ -229,7 +229,7 @@
             <input class="special-class" type="text" id="cEmail" name="cEmail" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
             <p id="mail-check-warn"></p>
             <label>인증번호</label>
-            <input class="special-class" type="text" id="c_email2" name="c_email2" maxlength="10" disabled>
+            <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
             <label>비밀번호</label>
             <input class="special-class" type="password" id="c_pwd" name="c_pwd" placeholder="영문/숫자 조합 (4자 이상 15자 이하)" maxlength="15" oninput="pwd2Check(this.form)" disabled>
             <p id="check-pwd"></p>
@@ -504,7 +504,7 @@
         emailCheck();
     });
 
-    $('#c_email2').on('input', function() {
+    $('#emailCode').on('input', function() {
         verifyNumber();
     });
 
@@ -559,7 +559,7 @@
     }
 
     function verifyEmail() {
-        document.getElementById('c_email2').disabled = false;
+        document.getElementById('emailCode').disabled = false;
         document.getElementById('c_pwd').disabled = false;
         document.getElementById('c_pwd2').disabled = false;
         document.getElementById('c_name').disabled = false;
@@ -589,8 +589,8 @@
 
         const email = $('#cEmail').val(); // 이메일 주소값 얻어오기
         console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
-        const checkInput = $('#c_email2') // 인증번호 입력하는곳
-        const url = '/mailCheck?email=' + email; // URL 생성
+        const checkInput = $('#emailCode') // 인증번호 입력하는곳
+        const url = '/verifyEmail?email=' + email; // URL 생성
         $.ajax({
             type: 'GET',  // 클라이언트에서 서버로 인증번호 요청
             url: url, // 생성한 URL 사용
@@ -607,13 +607,14 @@
     });
 
     function verifyNumber() {
-        const inputCode = $('#c_email2').val();
+        const inputCode = $('#emailCode').val();
         const $resultMsg = $('#mail-check-warn');
 
         if (inputCode === code) {
             $resultMsg.html('인증번호가 일치합니다.');
-            $resultMsg.style.fontSize = "11px";
             $resultMsg.css('color', 'green');
+            $resultMsg.css('font-size', '11px');
+
             $('#verify').attr('disabled', true);
             $('#cEmail').attr('readonly', true);
             $('#cEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
@@ -621,8 +622,8 @@
             return true;
         } else {
             $resultMsg.html('인증번호를 다시 확인해주세요');
-            $resultMsg.style.fontSize = "11px";
             $resultMsg.css('color', 'red');
+            $resultMsg.css('font-size', '11px');
             return false;
         }
     }
@@ -734,7 +735,7 @@
     }
 
     function vNum(frm){
-        var vNum = frm.c_email2.value.trim();
+        var vNum = frm.emailCode.value.trim();
         if(!vNum){
             alert("이메일 인증을 진행해주세요.")
             return false;
@@ -909,19 +910,6 @@
         document.body.style.overflowY = "auto"; // 스크롤 복구
         document.body.style.overflowX = "";
     }
-
-
-    // document.addEventListener("keydown", function(event) {
-    //     if (event.key === "Escape") {
-    //         closeModal();
-    //     }
-    // });
-
-    // document.addEventListener("keydown", function(event) {
-    //     if (event.key === "Escape") {
-    //         closeModal2();
-    //     }
-    // });
 
     /*페이지 로드시 이벤트 리스너 등록*/
     document.addEventListener('DOMContentLoaded', function () {
