@@ -212,6 +212,12 @@
             color: gray;
             cursor: not-allowed;
         }
+
+        #myModal, #myModal2{
+            font-size: 11px;
+        }
+
+
     </style>
 </head>
 
@@ -534,7 +540,7 @@
         console.log("입력한 이메일", email);
         $.ajax({
             type: "post",
-            url: "/emailCCheck",
+            url: "/emailCheckPost",
             data: {
                 "cEmail": email
             },
@@ -766,18 +772,22 @@
 
         if(!pwd){
             pwdResult.style.color = "red";
+            pwdResult.style.fontSize = "11px";
             pwdResult.innerHTML = "비밀번호를 입력해주세요.";
             return false;
         }else if(!pwd2){
             pwdResult.style.color = "red";
+            pwdResult.style.fontSize = "11px";
             pwdResult.innerHTML = "비밀번호 확인을 입력해주세요.";
             return false;
         } else if ((pwd !== pwd2) || (pwd2 !== pwd)) {
             pwdResult.style.color = "red";
+            pwdResult.style.fontSize = "11px";
             pwdResult.innerHTML = "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다.";
             return false;
         }else
             pwdResult.style.color = "green";
+        pwdResult.style.fontSize = "11px";
         pwdResult.innerHTML = "비밀번호가 동일합니다.";
         return true;
     }
