@@ -59,8 +59,19 @@ public class CustRegisterController {
     }
 
     @PostMapping("/register")
-    public String registerPost(Cust cust, @RequestParam("emailCode") String userInputCode) {
-        custRepository.save(cust);
-        return "loginForm";
+    public String registerPost(Cust cust, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
+
+        HttpSession session = request.getSession();
+        String savedVerificationCode = (String) session.getAttribute("verificationCode");
+
+        System.out.println("인증번호: " + savedVerificationCode);
+        System.out.println("내가 입력한 값: " + userInputCode);
+
+        if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
+            custRepository.save(cust);
+            return "loginForm";
+        }
+        System.out.println("인증번호 잘못 입력하셨습니다.");
+        return "errorPage";
     }
 }

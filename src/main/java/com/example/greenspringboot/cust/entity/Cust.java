@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+//엔티티에서 클라이언트 유효성 검사 대체 가능?
 public class Cust {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
