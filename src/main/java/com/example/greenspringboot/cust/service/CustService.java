@@ -7,4 +7,6 @@ public interface CustService {
 
     String joinEmail(String cEmail) throws Exception;
 
+    String pwdEncrypt(String cPwd);
+
 }

@@ -3,8 +3,8 @@ import com.example.greenspringboot.cust.repository.CustRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -35,7 +35,7 @@ public class CustServiceImpl implements CustService{
 //        랜덤 객체 생성
         Random r = new Random();
         authNumber = 100000 + r.nextInt(900000);
-        System.out.println("인증번호 : " + authNumber);
+        System.out.println("서비스에서 받아온 인증번호 : " + authNumber);
     }
 
 
@@ -56,4 +56,10 @@ public String joinEmail(String cEmail) throws Exception {
     sendEmail(cEmail, subject, content);
     return Integer.toString(authNumber);
 }
+
+    public String pwdEncrypt(String cPwd){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.encode(cPwd);
+    }
+
 }
