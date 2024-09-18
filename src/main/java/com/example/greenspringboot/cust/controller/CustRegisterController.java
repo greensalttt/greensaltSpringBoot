@@ -3,6 +3,7 @@ package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.service.CustService;
+import com.example.greenspringboot.dto.CustDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,11 +43,10 @@ public class CustRegisterController {
     @ResponseBody
     public String verifyEmail(String email, HttpServletRequest request) {
         try{
-            System.out.println("이메일 인증 요청이 들어옴!");
             System.out.println("이메일 인증 이메일 : " + email);
-
-            String verificationCode = custService.joinEmail(email); // 이메일로 인증번호 발송
-            System.out.println("자바로 받아온 인증번호:  " + verificationCode);
+            // 서비스로 인증번호 받아오기
+            String verificationCode = custService.joinEmail(email);
+            System.out.println("컨트롤러에서 받아온 인증번호:  " + verificationCode);
 
             HttpSession session = request.getSession();
             session.setAttribute("verificationCode", verificationCode); // 세션에 인증번호 저장
@@ -59,7 +59,7 @@ public class CustRegisterController {
     }
 
     @PostMapping("/register")
-    public String registerPost(Cust cust, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
+    public String registerPost(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
 
         HttpSession session = request.getSession();
         String savedVerificationCode = (String) session.getAttribute("verificationCode");
@@ -68,6 +68,7 @@ public class CustRegisterController {
         System.out.println("내가 입력한 값: " + userInputCode);
 
         if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
+            cust.setCPwd(custService.pwdEncrypt(custDto.getcPwd()));
             custRepository.save(cust);
             return "loginForm";
         }

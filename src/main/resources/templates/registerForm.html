@@ -237,10 +237,10 @@
             <label>인증번호</label>
             <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
             <label>비밀번호</label>
-            <input class="special-class" type="password" id="c_pwd" name="c_pwd" placeholder="영문/숫자 조합 (4자 이상 15자 이하)" maxlength="15" oninput="pwd2Check(this.form)" disabled>
+            <input class="special-class" type="password" id="cPwd" name="cPwd" placeholder="영문/숫자 조합 (4자 이상 15자 이하)" maxlength="15" oninput="pwd2Check(this.form)" disabled>
             <p id="check-pwd"></p>
             <label id="pwdCheck">비밀번호 확인</label>
-            <input class="special-class" type="password" id="c_pwd2" name="c_pwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
+            <input class="special-class" type="password" id="cPwd2" name="cPwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
             <label>이름</label>
             <input class="special-class" type="text" id="c_name" name="c_name" maxlength="15" disabled>
             <label id="nickName">닉네임</label>
@@ -566,8 +566,8 @@
 
     function verifyEmail() {
         document.getElementById('emailCode').disabled = false;
-        document.getElementById('c_pwd').disabled = false;
-        document.getElementById('c_pwd2').disabled = false;
+        document.getElementById('cPwd').disabled = false;
+        document.getElementById('cPwd2').disabled = false;
         document.getElementById('c_name').disabled = false;
         document.getElementById('nmCheck').disabled = false;
         document.getElementById('c_nm').disabled = false;
@@ -647,8 +647,8 @@
         var isPii = piiCheck(frm)
         var isCodeVerified = vNum(frm);
 
-        var pwd = frm.c_pwd.value;
-        var pwd2 = frm.c_pwd2.value;
+        var pwd = frm.cPwd.value;
+        var pwd2 = frm.cPwd2.value;
         var name = frm.c_name.value;
         var nm = frm.c_nm.value;
         var zip = frm.c_zip.value;
@@ -756,7 +756,7 @@
     /*3-2 비밀번호 유효성 검사*/
 
     function pwdCheck(frm) {
-        var pwd = frm.c_pwd.value;
+        var pwd = frm.cPwd.value;
         var pwdPattern = /^(?=.*\d)(?=.*[a-z])[a-z0-9]{4,15}$/;
         if (!pwdPattern.test(pwd)) {
             return false;
@@ -766,8 +766,8 @@
 
     /* 비밀번호 확인 유효성 검사 */
     function pwd2Check(frm) {
-        var pwd = frm.c_pwd.value;
-        var pwd2 = frm.c_pwd2.value;
+        var pwd = frm.cPwd.value;
+        var pwd2 = frm.cPwd2.value;
         var pwdResult = document.getElementById("check-pwd")
 
         if(!pwd){

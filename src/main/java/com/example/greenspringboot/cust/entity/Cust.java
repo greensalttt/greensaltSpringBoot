@@ -28,8 +28,8 @@ public class Cust {
     @Column(name = "c_email", nullable = false, unique = true)
     private String cEmail;
 
-    @Column(nullable = false)
-    private String c_pwd;
+    @Column(name = "c_pwd", nullable = false)
+    private String cPwd;
 
     @Column(nullable = false)
     private String c_name;

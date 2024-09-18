@@ -17,7 +17,7 @@ public class CustRepositoryTest {
     public void crudTest() {
         Cust cust = Cust.builder()
                 .cEmail("test@naver.com")
-                .c_pwd("password")
+                .cPwd("password")
                 .c_name("김김김")
                 .c_nm("김")
                 .c_birth("19900101")
