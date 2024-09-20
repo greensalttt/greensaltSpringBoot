@@ -68,6 +68,9 @@ public class CustRegisterController {
         System.out.println("내가 입력한 값: " + userInputCode);
 
         if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
+//            비밀번호 유효성 검사
+            custService.validatePassword(custDto.getcPwd());
+//            비밀번호 해시화
             cust.setCPwd(custService.pwdEncrypt(custDto.getcPwd()));
             custRepository.save(cust);
             return "loginForm";
