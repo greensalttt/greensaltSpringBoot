@@ -1,8 +1,14 @@
 package com.example.greenspringboot.cust.entity;
 
+//import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +21,9 @@ import java.time.LocalDateTime;
 
 //엔티티에서 클라이언트 유효성 검사 대체 가능?
 public class Cust {
+//    pk값 설정
     @Id
+//    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer c_id;
 
@@ -26,12 +34,17 @@ public class Cust {
     private String c_stat_cd = "M";
 
     @Column(name = "c_email", nullable = false, unique = true)
+    @NotBlank(message = "이메일은 필수입니다.")
+    @Email(message = "유효한 이메일 주소여야 합니다.")
     private String cEmail;
 
     @Column(name = "c_pwd", nullable = false)
+    @NotBlank(message = "비밀번호는 필수입니다.")
+//    비밀번호 해쉬화는 따로 서비스를 만들어서 진행
     private String cPwd;
 
     @Column(nullable = false)
+    @NotBlank(message = "이름은 필수입니다.")
     private String c_name;
 
     @Column(nullable = false)

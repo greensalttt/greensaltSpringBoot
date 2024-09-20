@@ -62,4 +62,13 @@ public String joinEmail(String cEmail) throws Exception {
         return encoder.encode(cPwd);
     }
 
+//    비밀번호 서버 유효성 검사
+//    해쉬화 같은 복잡한 것들은 서비스로 빼서 엔티티로 받기 전에 미리 유효성 검사 진행
+    public void validatePassword(String cPwd) {
+        if (!cPwd.matches("^(?=.*\\d)(?=.*[a-z])[a-z0-9]{4,15}$")) {
+            throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
+        }
+    }
+
+
 }

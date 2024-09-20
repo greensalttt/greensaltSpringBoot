@@ -9,4 +9,7 @@ public interface CustService {
 
     String pwdEncrypt(String cPwd);
 
+    void validatePassword(String c);
+
+
 }
