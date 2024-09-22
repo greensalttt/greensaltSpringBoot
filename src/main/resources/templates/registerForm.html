@@ -245,7 +245,7 @@
             <input class="special-class" type="text" id="c_name" name="c_name" maxlength="15" disabled>
             <label id="nickName">닉네임</label>
             <input id="nmCheck" type="button" value="닉네임 중복 확인" disabled>
-            <input class="special-class" type="text" id="c_nm" name="c_nm" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
+            <input class="special-class" type="text" id="cNm" name="cNm" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
             <label>주소</label>
             <div id="ad">
                 <input type="text" id="zip" name="c_zip" placeholder="우편번호" disabled>
@@ -570,7 +570,7 @@
         document.getElementById('cPwd2').disabled = false;
         document.getElementById('c_name').disabled = false;
         document.getElementById('nmCheck').disabled = false;
-        document.getElementById('c_nm').disabled = false;
+        document.getElementById('cNm').disabled = false;
         document.getElementById('zip').disabled = false;
         document.querySelector('[onclick="sample4_execDaumPostcode()"]').disabled = false;
         document.getElementById('roadAddress').disabled = false;
@@ -650,7 +650,7 @@
         var pwd = frm.cPwd.value;
         var pwd2 = frm.cPwd2.value;
         var name = frm.c_name.value;
-        var nm = frm.c_nm.value;
+        var nm = frm.cNm.value;
         var zip = frm.c_zip.value;
         var road = frm.c_road_a.value;
         var det = frm.c_det_a.value;
@@ -802,7 +802,7 @@
     }
 
     function nmCheck(frm) {
-        var nm = frm.c_nm.value;
+        var nm = frm.cNm.value;
         if (nm.length < 2 || nm.length > 10) {
             return false;
         }

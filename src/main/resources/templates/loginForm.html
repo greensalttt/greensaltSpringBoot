@@ -194,26 +194,29 @@
 
 
 <div id="loginform">
-    <form action="<c:url value='/login'/>" method="post" onsubmit="return">
+<!--    <form action="<c:url value='/loginPost'/>" method="post" onsubmit="return">-->
+        <form action="/loginPost" method="post" onsubmit="return">
+
         <h1 id="logo">Green Salt</h1><br><br><br>
 
         <div class="container">
 
             <div id="loginDiv">
-                <input value="${cookie.c_email.value}" id="c_email" name="c_email" class="special-class" type="text" maxlength="30"
-                       placeholder="green@salt.com" required>
+<!--                <input value="${cookie.c_email.value}" id="c_email" name="cEmail" class="special-class" type="text" maxlength="30"-->
+                <input id="c_email" name="cEmail" class="special-class" type="text" maxlength="30" placeholder="green@salt.com" required>
                 <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
             </div>
 
             <div id="pwdDiv">
-                <input id="c_pwd" class="special-class" type="password" name="c_pwd" maxlength="15" placeholder="비밀번호" required>
+                <input id="c_pwd" class="special-class" type="password" name="cPwd" maxlength="15" placeholder="비밀번호" required>
                 <img id="pwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">
             </div>
 
             <input type="hidden" name="toURL" value="${param.toURL}">
 
             <div id="emailRemember">
-                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.c_email.value ? "":"checked"}>
+<!--                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.c_email.value ? "":"checked"}>-->
+                <input type="checkbox" id="remember" name="rememberEmail">
                 <label for="remember" id="emailLabel">이메일 저장</label></div><br>
 
             <button type="submit" id="login">로그인</button>

@@ -16,11 +16,11 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class CustRegisterController {
 
-    @Autowired
-    CustService custService;
+//    @Autowired
+    private final CustService custService;
 
-    @Autowired
-    CustRepository custRepository;
+//    @Autowired
+    private final CustRepository custRepository;
 
     @GetMapping("/register")
     public String register() {
@@ -69,9 +69,9 @@ public class CustRegisterController {
 
         if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
 //            비밀번호 유효성 검사
-            custService.validatePassword(custDto.getcPwd());
+            custService.validatePassword(custDto.getCPwd());
 //            비밀번호 해시화
-            cust.setCPwd(custService.pwdEncrypt(custDto.getcPwd()));
+            cust.setCPwd(custService.pwdEncrypt(custDto.getCPwd()));
             custRepository.save(cust);
             return "loginForm";
         }

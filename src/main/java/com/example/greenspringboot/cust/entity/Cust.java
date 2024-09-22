@@ -25,7 +25,8 @@ public class Cust {
     @Id
 //    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer c_id;
+    @Column(name = "c_id", nullable = false)
+    private Integer cId;
 
     @Builder.Default
     private String c_grd_cd = "Bronze";
@@ -48,17 +49,16 @@ public class Cust {
     @Pattern(regexp = "^[가-힣a-zA-Z]{1,15}$", message = "이름은 한글과 영어만 입력 가능하며, 15자 이하로 입력해야 합니다.")
     private String c_name;
 
-    @Column(nullable = false)
+    @Column(name = "c_nm", nullable = false)
     @NotBlank(message = "닉네임은 필수입니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z]{1,10}$", message = "닉네임은 한글과 영어만 입력 가능하며, 15자 이하로 입력해야 합니다.")
-    private String c_nm;
+    @Pattern(regexp = "^[가-힣a-zA-Z1-9]{2,10}$", message = "닉네임은 한글,영어, 숫자 조합으로 2~10자 이하로 입력해야 합니다.")
+    private String cNm;
 
     @Column(nullable = false)
     @NotBlank(message = "생년월일은 필수입니다.")
     private String c_birth;
 
     @Column(nullable = false)
-    @NotBlank(message = "성별 선택은 필수입니다.")
     private char c_gnd;
 
     @Column(nullable = false)
@@ -73,15 +73,15 @@ public class Cust {
 
     @Column(nullable = false)
     @NotBlank(message = "도로명 주소는 필수입니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,30}$", message = "도로명 주소는 특수문자 없는 30자 이하여야 합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "도로명 주소는 특수문자(공백, -, /) 포함 30자 이하여야 합니다.")
     private String c_road_a;
 
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,30}$", message = "지번 주소는 특수문자 없는 30자 이하여야 합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "지번 주소는 특수문자(공백, -, /) 포함 30자 이하여야 합니다.")
     private String c_jibun_a;
 
     @Column(nullable = false)
     @NotBlank(message = "상세 주소는 필수입니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,30}$", message = "상세 주소는 특수문자 없는 30자 이하여야 합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "상세 주소는 특수문자(공백, -, /) 포함 30자 이하여야 합니다.")
     private String c_det_a;
 
     @Builder.Default
@@ -112,5 +112,13 @@ public class Cust {
 
     @Builder.Default
     private String last_mod_id = "minwook";
+
+//    public Integer getcId() {
+//        return cId;
+//    }
+//
+//    public String getcNm() {
+//        return cNm;
+//    }
 }
 
