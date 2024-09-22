@@ -22,13 +22,13 @@ public class CustRepositoryTest {
     public void crudTest() {
         CustDto custDto = new CustDto("123456789q");
 
-        custService.validatePassword(custDto.getcPwd());
+        custService.validatePassword(custDto.getCPwd());
 
         Cust cust = Cust.builder()
                 .cEmail("test11@naver.com")
-                .cPwd(custService.pwdEncrypt(custDto.getcPwd()))
+                .cPwd(custService.pwdEncrypt(custDto.getCPwd()))
                 .c_name("아아")
-                .c_nm("김")
+                .cNm("김")
                 .c_birth("19900101")
                 .c_gnd('M')
                 .c_phn("123456789")
