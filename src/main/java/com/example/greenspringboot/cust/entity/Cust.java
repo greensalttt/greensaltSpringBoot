@@ -45,30 +45,43 @@ public class Cust {
 
     @Column(nullable = false)
     @NotBlank(message = "이름은 필수입니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z]{1,15}$", message = "이름은 한글과 영어만 입력 가능하며, 15자 이하로 입력해야 합니다.")
     private String c_name;
 
     @Column(nullable = false)
+    @NotBlank(message = "닉네임은 필수입니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z]{1,10}$", message = "닉네임은 한글과 영어만 입력 가능하며, 15자 이하로 입력해야 합니다.")
     private String c_nm;
 
     @Column(nullable = false)
+    @NotBlank(message = "생년월일은 필수입니다.")
     private String c_birth;
 
     @Column(nullable = false)
+    @NotBlank(message = "성별 선택은 필수입니다.")
     private char c_gnd;
 
     @Column(nullable = false)
+    @NotBlank(message = "핸드폰 입력은 필수입니다.")
+    @Pattern(regexp = "^[1-9]{11,12}$", message = "핸드폰 번호는 11~12자 사이여야 합니다.")
     private String c_phn;
 
     @Column(nullable = false)
+    @NotBlank(message = "우편번호는 필수입니다.")
+    @Pattern(regexp = "^[0-9]{1,6}$", message = "우편번호는 6자리의 숫자여야 합니다.")
     private String c_zip;
 
     @Column(nullable = false)
+    @NotBlank(message = "도로명 주소는 필수입니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,30}$", message = "도로명 주소는 특수문자 없는 30자 이하여야 합니다.")
     private String c_road_a;
 
-    @Column(nullable = false)
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,30}$", message = "지번 주소는 특수문자 없는 30자 이하여야 합니다.")
     private String c_jibun_a;
 
     @Column(nullable = false)
+    @NotBlank(message = "상세 주소는 필수입니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{1,30}$", message = "상세 주소는 특수문자 없는 30자 이하여야 합니다.")
     private String c_det_a;
 
     @Builder.Default

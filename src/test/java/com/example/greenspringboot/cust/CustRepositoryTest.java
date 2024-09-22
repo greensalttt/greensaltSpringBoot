@@ -20,14 +20,14 @@ public class CustRepositoryTest {
 
     @Test
     public void crudTest() {
-        CustDto custDto = new CustDto("1234q");
+        CustDto custDto = new CustDto("123456789q");
 
         custService.validatePassword(custDto.getcPwd());
 
         Cust cust = Cust.builder()
-                .cEmail("test5@naver.com")
+                .cEmail("test11@naver.com")
                 .cPwd(custService.pwdEncrypt(custDto.getcPwd()))
-                .c_name("김김김")
+                .c_name("아아")
                 .c_nm("김")
                 .c_birth("19900101")
                 .c_gnd('M')
