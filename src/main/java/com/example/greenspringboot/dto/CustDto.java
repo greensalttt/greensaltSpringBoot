@@ -10,13 +10,13 @@ import java.util.Date;
 @Setter
 @Data
 public class CustDto {
-    private int c_id;
+    private int cId;
     private String c_grd_cd;
     private String c_stat_cd;
     private String cEmail;
     private String cPwd;
     private String c_name;
-    private String c_nm;
+    private String cNm;
     private String c_birth;
     private char c_gnd;
     private String c_phn;
@@ -43,11 +43,33 @@ public class CustDto {
         this.cPwd = cPwd;
     }
 
-    public String getcPwd() {
-        return cPwd;
+    public CustDto(int cId, String cNm){
+        this.cId = cId;
+        this.cNm = cNm;
     }
 
-    public void setcPwd(String cPwd) {
-        this.cPwd = cPwd;
-    }
+//    public String getcPwd() {
+//        return cPwd;
+//    }
+//    public void setcPwd(String cPwd) {
+//        this.cPwd = cPwd;
+//    }
+
+//    public int getcId() {
+//        return cId;
+//    }
+//
+//    public void setcId(int cId) {
+//        this.cId = cId;
+//    }
+//
+//    public String getcNm() {
+//        return cNm;
+//    }
+//
+//    public void setcNm(String cNm) {
+//        this.cNm = cNm;
+//    }
+
+
 }
