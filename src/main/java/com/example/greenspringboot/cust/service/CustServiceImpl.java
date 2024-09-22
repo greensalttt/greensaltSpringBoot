@@ -1,5 +1,7 @@
 package com.example.greenspringboot.cust.service;
+import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
+import com.example.greenspringboot.dto.CustDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -70,5 +73,21 @@ public String joinEmail(String cEmail) throws Exception {
         }
     }
 
+
+//    로그인할 때 고객번호, 닉네임만 세션값으로 필요하니까 이 두 가지만 DTO로 변환하기
+    public CustDto login(String email, String rawPassword) {
+//        엔티티로 DB값을 가져온 후 클라이언트에서 필요한 컬럼만 DTO로 따로 저정해서 컨트롤러로 이동
+        Optional<Cust> custOptional = custRepository.findBycEmail(email);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
+            Cust cust = custOptional.get();
+            CustDto custDto = new CustDto();
+            custDto.setCId(cust.getCId());
+            custDto.setCNm(cust.getCNm());
+            return custDto; // DTO 반환
+        }
+        return null;
+    }
 
 }
