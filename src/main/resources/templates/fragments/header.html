@@ -1,5 +1,8 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<th:block th:if="${session.c_id == null}" th:attr="data-loginOutLink='/login'"></th:block>
+<th:block th:if="${session.c_id != null}" th:attr="data-loginOutLink='/logout'"></th:block>
 <head>
   <meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
@@ -15,8 +18,8 @@
   <div id="custIcon">
     <img id="custIconImg" src="https://cdn-icons-png.flaticon.com/128/3462/3462172.png" alt="User Icon">
     <div id="links">
-<!--      <a id="logoutLink" th:href="@{${sessionScope.c_id != null ? '/logout' : '/login'}}"></a>-->
-      <a href="/login">Login</a>
+      <a th:href="${session.c_id == null ? '/login' : '/logout'}"
+         th:text="${session.c_id == null ? 'Login' : 'Logout'}"></a>
       <a href="/mypage/list">My Page</a>
     </div>
   </div>
