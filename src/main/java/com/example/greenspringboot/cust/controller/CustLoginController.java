@@ -25,6 +25,12 @@ public class CustLoginController {
         return "loginForm";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
+
 
     @PostMapping("/loginPost")
     public String loginPost(@RequestParam String cEmail, @RequestParam String cPwd, HttpServletRequest request) {
