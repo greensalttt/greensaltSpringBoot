@@ -1,0 +1,54 @@
+#myPage {
+    margin: auto;
+}
+
+.none {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    color: dimgray;
+    font-weight: bold;
+}
+.sp {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.one1 {
+    margin-top: -15px;
+    display: flex;
+    justify-content: center;
+}
+
+.one2 {
+    display: flex;
+    justify-content: center;
+    margin-top: -15px
+}
+
+.ma2 {
+    font-size: 12px;
+    color: black;
+}
+
+.date {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: gray;
+}
+
+
+#title1 {
+    text-align: center;
+    font-weight: bold;
+}
+
+#title2{
+    cursor: pointer;
+    text-decoration: none;
+    color: dimgray;
+    font-size: 14px;
+}
