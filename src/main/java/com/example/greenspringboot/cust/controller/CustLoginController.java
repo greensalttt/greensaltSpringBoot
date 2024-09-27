@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 // 레스트컨트롤러는 서버간의 데이터를 통신할때만, 뷰를 반환할때는 일반 컨트롤러
@@ -43,9 +44,16 @@ public class CustLoginController {
             session.setAttribute("cName", custDto.getCName());
             session.setAttribute("cNm", custDto.getCNm());
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = custDto.getRegDt().format(formatter);
+            session.setAttribute("regDt", formattedDate); // 포맷된 문자열을 세션에 저장
+
+
             System.out.println("Session cId: " + session.getAttribute("cId"));
             System.out.println("Session cName: " + session.getAttribute("cName"));
             System.out.println("Session cNm: " + session.getAttribute("cNm"));
+            System.out.println("Session regDt: " + session.getAttribute("regDt"));
+
             return "index";
         }
         return "errorPage";

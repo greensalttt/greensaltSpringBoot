@@ -86,6 +86,7 @@ public String joinEmail(String cEmail) throws Exception {
             custDto.setCId(cust.getCId());
             custDto.setCName(cust.getCName());
             custDto.setCNm(cust.getCNm());
+            custDto.setRegDt(cust.getRegDt());
             return custDto; // DTO 반환
         }
         return null;

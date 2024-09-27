@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -26,7 +27,7 @@ public class CustDto {
     private String c_det_a;
     private String sms_agr;
     private String email_agr;
-    private Date reg_dt;
+    private LocalDateTime regDt;
     private Date login_dt;
     private int visit_cnt;
     private String tot_amt;
@@ -43,9 +44,10 @@ public class CustDto {
         this.cPwd = cPwd;
     }
 
-    public CustDto(int cId, String cName, String cNm){
+    public CustDto(int cId, String cName, String cNm, LocalDateTime regDt){
         this.cId = cId;
         this.cName = cName;
         this.cNm = cNm;
+        this.regDt = regDt;
     }
 }

@@ -8,40 +8,35 @@
 <body>
 <div th:fragment="myPageHeaderFragment">
     <div id="myPage">
-<!--    <p id="title1"><a id="title2" href="/myPage"><%=session.getAttribute("cName")%>님의 MY PAGE</a></p>-->
-        <p id="title1">
+     <p id="title1">
             <a id="title2" th:href="@{/myPage}" th:text="${session.cName} + '님의 MY PAGE'"></a>
         </p>
 
         <div class="one1">
         <div class="sp">
             <span class="date">닉네임</span>
-<!--            <span class="ma2">-->
-<!--                    th:text="${session.cNm}-->
-<!--                </span>-->
-
             <span class="ma2" th:text="${session.cNm}"></span>
 
         </div>
         <div class="sp">
             <span class="date">등급</span>
             <span class="ma2">
-                    <%=session.getAttribute("grd_name")%>
+                    Bronze
                 </span>
         </div>
         <div class="sp">
             <span class="date">포인트</span>
             <span class="ma2">
-                    <%=session.getAttribute("tot_amt")%>p
+                    0p
                 </span>
         </div>
         <div class="sp">
             <span class="date">방문</span>
-            <span class="ma2"><%=session.getAttribute("visit_cnt")%>회</span>
+            <span class="ma2">0회</span>
         </div>
         <div class="sp">
             <span class="date">가입일</span>
-            <span class="ma2"><%=session.getAttribute("reg_dt")%></span>
+            <span class="ma2" th:text="${session.regDt}"></span>
         </div>
     </div>
 
@@ -55,9 +50,9 @@
         <div class="sp">
             <span><a class="none" onclick="test()">좋아요</a></span>
         </div>
-        <%--        <div class="sp">--%>
-        <%--            <span><a class="none" onclick="test()">배송지 목록</a></span>--%>
-        <%--        </div>--%>
+<!--                <div class="sp">-->
+<!--                    <span><a class="none" onclick="test()">배송지 목록</a></span>-->
+<!--                </div>-->
         <div class="sp">
             <span><a class="none" href="/mypage/info">개인정보 수정</a></span>
         </div>

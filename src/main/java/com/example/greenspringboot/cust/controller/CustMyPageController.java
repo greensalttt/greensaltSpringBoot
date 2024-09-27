@@ -12,10 +12,6 @@ public class CustMyPageController {
 
     @GetMapping("/myPage")
     public String myPage(HttpSession session){
-//        CustDto custDto = new CustDto();
-//        session.setAttribute("cName", custDto.getCName());
-//        session.setAttribute("cNm", custDto.getCNm());
-
         System.out.println("마이페이지 연결: " + session.getAttribute("cName"));
         return "myPage";
     }

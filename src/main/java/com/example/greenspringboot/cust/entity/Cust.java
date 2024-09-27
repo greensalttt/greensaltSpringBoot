@@ -90,7 +90,8 @@ public class Cust {
     private char email_agr = 'N';
 
     @Builder.Default
-    private LocalDateTime reg_dt = LocalDateTime.now();
+    @Column(name= "reg_dt", nullable = false)
+    private LocalDateTime regDt = LocalDateTime.now();
 
     @Builder.Default
     private LocalDateTime login_dt = LocalDateTime.now();
