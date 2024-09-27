@@ -27,7 +27,7 @@ public class CustRepositoryTest {
         Cust cust = Cust.builder()
                 .cEmail("test11@naver.com")
                 .cPwd(custService.pwdEncrypt(custDto.getCPwd()))
-                .c_name("아아")
+                .cName("아아")
                 .cNm("김")
                 .c_birth("19900101")
                 .c_gnd('M')

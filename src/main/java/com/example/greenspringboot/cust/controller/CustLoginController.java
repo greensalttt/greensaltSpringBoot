@@ -33,18 +33,19 @@ public class CustLoginController {
 
 
     @PostMapping("/loginPost")
-    public String loginPost(@RequestParam String cEmail, @RequestParam String cPwd, HttpServletRequest request) {
+    public String loginPost(@RequestParam String cEmail, @RequestParam String cPwd, HttpSession session) {
+
         CustDto custDto = custService.login(cEmail, cPwd);
         if (custDto != null) {
-            /* 새로운 세션 생성 */
-            HttpSession session = request.getSession();
             /* session 변수에 고객 번호랑 닉네임 저장 */
-            session.setAttribute("c_id", custDto.getCId());
-            session.setAttribute("c_nm", custDto.getCNm());
 
-            System.out.println("Session c_id: " + session.getAttribute("c_id"));
-            System.out.println("Session c_nm: " + session.getAttribute("c_nm"));
+            session.setAttribute("cId", custDto.getCId());
+            session.setAttribute("cName", custDto.getCName());
+            session.setAttribute("cNm", custDto.getCNm());
 
+            System.out.println("Session cId: " + session.getAttribute("cId"));
+            System.out.println("Session cName: " + session.getAttribute("cName"));
+            System.out.println("Session cNm: " + session.getAttribute("cNm"));
             return "index";
         }
         return "errorPage";

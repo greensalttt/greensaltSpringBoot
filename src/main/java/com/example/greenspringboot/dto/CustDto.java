@@ -15,7 +15,7 @@ public class CustDto {
     private String c_stat_cd;
     private String cEmail;
     private String cPwd;
-    private String c_name;
+    private String cName;
     private String cNm;
     private String c_birth;
     private char c_gnd;
@@ -43,33 +43,9 @@ public class CustDto {
         this.cPwd = cPwd;
     }
 
-    public CustDto(int cId, String cNm){
+    public CustDto(int cId, String cName, String cNm){
         this.cId = cId;
+        this.cName = cName;
         this.cNm = cNm;
     }
-
-//    public String getcPwd() {
-//        return cPwd;
-//    }
-//    public void setcPwd(String cPwd) {
-//        this.cPwd = cPwd;
-//    }
-
-//    public int getcId() {
-//        return cId;
-//    }
-//
-//    public void setcId(int cId) {
-//        this.cId = cId;
-//    }
-//
-//    public String getcNm() {
-//        return cNm;
-//    }
-//
-//    public void setcNm(String cNm) {
-//        this.cNm = cNm;
-//    }
-
-
 }
