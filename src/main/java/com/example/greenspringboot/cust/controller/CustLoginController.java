@@ -6,11 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -23,7 +26,8 @@ public class CustLoginController {
 
     private final CustService custService;
     @GetMapping("/login")
-    public String login() {
+    public String login(@CookieValue(value = "cEmailCookie", defaultValue = "")String cEmail, Model model) {
+        model.addAttribute("cEmailCookie", cEmail);
         return "loginForm";
     }
 
@@ -35,7 +39,7 @@ public class CustLoginController {
 
 
     @PostMapping("/loginPost")
-    public String loginPost(@RequestParam String cEmail, @RequestParam String cPwd, HttpSession session, Model model) {
+    public String loginPost(@RequestParam String cEmail, @RequestParam String cPwd, @RequestParam(required = false) String rememberEmail, HttpServletResponse response, HttpSession session, Model model) {
 
         CustDto custDto = custService.login(cEmail, cPwd);
         if (custDto != null) {
@@ -56,6 +60,16 @@ public class CustLoginController {
             /*로그인 후에는 이전 URL을 세션에서 삭제합니다.*/
             session.removeAttribute("toURL");
 
+            // 이메일 기억하기 처리
+            if (rememberEmail != null) {
+                Cookie idcookie = new Cookie("cEmailCookie", cEmail);
+                idcookie.setMaxAge(7 * 24 * 3600); // 7일
+                response.addCookie(idcookie);
+            } else {
+                Cookie idcookie = new Cookie("cEmailCookie", "");
+                idcookie.setMaxAge(0); // 쿠키 삭제
+                response.addCookie(idcookie);
+            }
 
             System.out.println("Session cId: " + session.getAttribute("cId"));
             System.out.println("Session cName: " + session.getAttribute("cName"));
