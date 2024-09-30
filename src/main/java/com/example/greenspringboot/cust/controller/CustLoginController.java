@@ -79,6 +79,7 @@ public class CustLoginController {
             return "redirect:" + toURL;
     } else {
         // 비밀번호가 틀렸을 경우 모델에 에러 메시지 추가
+            model.addAttribute("cEmailCookie", cEmail);
         model.addAttribute("errorMessage", "이메일 또는 비밀번호가 잘못되었습니다.");
         return "loginForm"; // 로그인 페이지로 포워딩
     }

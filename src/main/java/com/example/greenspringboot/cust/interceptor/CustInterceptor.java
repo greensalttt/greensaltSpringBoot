@@ -39,19 +39,17 @@ public class CustInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        // 클라이언트의 HTTP 요청 정보를 담는다 (세션, URL)
+        // 현재 연결된 세션 객체를 새로운 세션에 저장
         HttpSession session = request.getSession();
 
         // 현재 요청 URL
         String requestURL = request.getRequestURI();
-        System.out.println("현재 요청 URL: " + requestURL);
 
-        // 세션에서 cId 확인
+        System.out.println("현재 요청 URL: " + requestURL);
         System.out.println("인터셉터 세션 cId 확인: " + session.getAttribute("cId"));
 
         if (session.getAttribute("cId") == null) {
             session.setAttribute("toURL", request.getRequestURI());
-//            response.sendRedirect("/login");
             response.sendRedirect("/login");
             System.out.println("세션을 못찾아서 로그인 페이지로 리다이렉트");
             return false; // 세션이 없으면 요청을 중단
