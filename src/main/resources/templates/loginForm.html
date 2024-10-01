@@ -184,6 +184,30 @@
             font-weight: 500;
             color: black;
         }
+
+        /*#error{*/
+        /*    color: red;*/
+        /*    height: 20px;*/
+        /*}*/
+
+        /*#error {*/
+        /*    font-size: 12px;*/
+        /*    color: red;*/
+        /*    height: 20px;*/
+        /*    line-height: 20px; !* 텍스트 높이와 동일하게 설정 *!*/
+        /*    display: block;*/
+        /*    visibility: hidden; !* 처음에는 공간을 차지하지만 보이지 않음 *!*/
+        /*}*/
+
+        #error {
+            font-size: 12px;
+            color: red;
+            height: 20px;
+            line-height: 20px; /* 텍스트 높이와 동일하게 설정 */
+            display: block;
+        }
+
+
     </style>
 </head>
 
@@ -196,11 +220,11 @@
 <div id="loginform">
    <form action="/loginPost" method="post" onsubmit="return">
 
-        <h1 id="logo">Green Salt</h1><br><br><br>
-            <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+        <h1 id="logo">Green Salt</h1><br>
+       <div id="error" th:text="${errorMessage != null} ? ${errorMessage} : ''"></div>
 
-        <div class="container">
 
+       <div class="container">
             <div id="loginDiv">
                 <input th:value="${cEmailCookie}"  id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30" placeholder="green@salt.com" required>
                 <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
