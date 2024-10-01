@@ -20,7 +20,7 @@
     <div id="links">
       <a th:href="${session.cId == null ? '/login' : '/logout'}"
          th:text="${session.cId == null ? 'Login' : 'Logout'}"></a>
-      <a th:href="@{/myPage}">My Page</a>
+      <a th:href="@{/mypage/list}">My Page</a>
     </div>
   </div>
 
