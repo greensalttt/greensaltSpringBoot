@@ -74,18 +74,27 @@ public String joinEmail(String cEmail) throws Exception {
     }
 
 
-//    로그인할 때 고객번호, 닉네임만 세션값으로 필요하니까 이 두 가지만 DTO로 변환하기
     public CustDto login(String email, String rawPassword) {
-//        엔티티로 DB값을 가져온 후 클라이언트에서 필요한 컬럼만 DTO로 따로 저정해서 컨트롤러로 이동
         Optional<Cust> custOptional = custRepository.findBycEmail(email);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
             Cust cust = custOptional.get();
             CustDto custDto = new CustDto();
+//        엔티티로 DB값을 가져온 후 클라이언트에서 필요한 컬럼만 DTO로 따로 저정해서 컨트롤러로 이동
             custDto.setCId(cust.getCId());
+            custDto.setCEmail(cust.getCEmail());
             custDto.setCName(cust.getCName());
             custDto.setCNm(cust.getCNm());
+            custDto.setCBirth(cust.getCBirth());
+            custDto.setCGnd(cust.getCGnd());
+            custDto.setCPhn(cust.getCPhn());
+            custDto.setCZip(cust.getCZip());
+            custDto.setCRoadA(cust.getCRoadA());
+            custDto.setCJibunA(cust.getCJibunA());
+            custDto.setCDetA(cust.getCDetA());
+            custDto.setSmsAgr(String.valueOf(cust.getSmsAgr()));
+            custDto.setEmailAgr(String.valueOf(cust.getEmailAgr()));
             custDto.setRegDt(cust.getRegDt());
             return custDto; // DTO 반환
         }
