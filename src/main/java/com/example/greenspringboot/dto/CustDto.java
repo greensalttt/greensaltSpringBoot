@@ -18,15 +18,15 @@ public class CustDto {
     private String cPwd;
     private String cName;
     private String cNm;
-    private String c_birth;
-    private char c_gnd;
-    private String c_phn;
-    private String c_zip;
-    private String c_road_a;
-    private String c_jibun_a;
-    private String c_det_a;
-    private String sms_agr;
-    private String email_agr;
+    private String cBirth;
+    private String cGnd;
+    private String cPhn;
+    private String cZip;
+    private String cRoadA;
+    private String cJibunA;
+    private String cDetA;
+    private String smsAgr;
+    private String emailAgr;
     private LocalDateTime regDt;
     private Date login_dt;
     private int visit_cnt;
@@ -44,10 +44,20 @@ public class CustDto {
         this.cPwd = cPwd;
     }
 
-    public CustDto(int cId, String cName, String cNm, LocalDateTime regDt){
+    public CustDto(int cId, String cEmail, String cName, String cNm, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, LocalDateTime regDt){
         this.cId = cId;
+        this.cEmail = cEmail;
         this.cName = cName;
         this.cNm = cNm;
+        this.cBirth = cBirth;
+        this.cGnd = cGnd;
+        this.cPhn = cPhn;
+        this.cZip = cZip;
+        this.cRoadA = cRoadA;
+        this.cJibunA = cJibunA;
+        this.cDetA = cDetA;
+        this.smsAgr = smsAgr;
+        this.emailAgr = emailAgr;
         this.regDt = regDt;
     }
 }
