@@ -242,45 +242,43 @@
             <label id="pwdCheck">비밀번호 확인</label>
             <input class="special-class" type="password" id="cPwd2" name="cPwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
             <label>이름</label>
-            <input class="special-class" type="text" id="c_name" name="c_name" maxlength="15" disabled>
+            <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>
             <label id="nickName">닉네임</label>
             <input id="nmCheck" type="button" value="닉네임 중복 확인" disabled>
             <input class="special-class" type="text" id="cNm" name="cNm" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
             <label>주소</label>
             <div id="ad">
-                <input type="text" id="zip" name="c_zip" placeholder="우편번호" disabled>
+                <input type="text" id="zip" name="cZip" placeholder="우편번호" disabled>
                 <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" readonly disabled></div>
-            <input type="text" id="roadAddress" name="c_road_a" placeholder="도로명주소" disabled>
-            <input type="text" id="jibunAddress" name="c_jibun_a" maxlength="30" placeholder="지번주소는 선택사항입니다." disabled>
+            <input type="text" id="roadAddress" name="cRoadA" placeholder="도로명주소" disabled>
+            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" placeholder="지번주소는 선택사항입니다." disabled>
             <span id="guide" style="color:#999;display:none"></span>
-            <input type="text" id="detailAddress" name="c_det_a" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>
+            <input type="text" id="detailAddress" name="cDetA" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>
             <label>휴대폰</label>
-            <input class="special-class" type="text" id="c_phn" name="c_phn" placeholder="&nbsp;-제외" maxlength="12" disabled>
+            <input class="special-class" type="text" id="c_phn" name="cPhn" placeholder="&nbsp;-제외" maxlength="12" disabled>
             <label>성별</label>
             <div id="gndLine">
-                <input type="radio" id="female" name="c_gnd" value="여" disabled>
+                <input type="radio" id="female" name="cGnd" value="여" disabled>
                 <label for="female" id="femaleLabel">여성</label> &nbsp;&nbsp;
 
-                <input type="radio" id="male" name="c_gnd" value="남" disabled>
+                <input type="radio" id="male" name="cGnd" value="남" disabled>
                 <label for="male" id="maleLabel">남성</label><br>
             </div>
 
             <label>생년월일</label>
-            <input type="date" id="birth" name="c_birth" min="1900-01-01" max="2023-12-31" disabled><br><br>
+            <input type="date" id="birth" name="cBirth" min="1900-01-01" max="2023-12-31" disabled><br><br>
 
             <input type="checkbox" id="touBox" onclick="openModal()" name="touBox" value="Y" disabled>
-
-
             <label for="touBox" id="touLabel">[필수] 이용약관</label><br>
 
             <input type="checkbox" id="piiBox" onclick="openModal2()" name="piiBox" value="Y" disabled>
-
             <label for="piiBox" id="piiLabel">[필수] 개인정보 및 이용</label><br>
 
-            <input type="checkbox" id="sms_agr" name="sms_agr" value="Y" disabled>
+
+            <input type="checkbox" id="sms_agr" name="smsAgr" value="Y" disabled>
             <label for="sms_agr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>
 
-            <input type="checkbox" id="email_agr" name="email_agr" value="Y" disabled>
+            <input type="checkbox" id="email_agr" name="emailAgr" value="Y" disabled>
             <label for="email_agr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>
 
             <button id="rBtn" disabled>가입하기</button>

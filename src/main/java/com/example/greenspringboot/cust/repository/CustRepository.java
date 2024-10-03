@@ -11,4 +11,6 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
     boolean existsBycEmail(String cEmail);
 
     Optional<Cust> findBycEmail(String cEmail);
+
+
 }

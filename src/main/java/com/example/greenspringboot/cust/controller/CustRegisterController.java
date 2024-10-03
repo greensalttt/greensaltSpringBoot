@@ -16,10 +16,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class CustRegisterController {
 
-//    @Autowired
     private final CustService custService;
 
-//    @Autowired
     private final CustRepository custRepository;
 
     @GetMapping("/register")
@@ -72,6 +70,7 @@ public class CustRegisterController {
             custService.validatePassword(custDto.getCPwd());
 //            비밀번호 해시화
             cust.setCPwd(custService.pwdEncrypt(custDto.getCPwd()));
+
             custRepository.save(cust);
             return "loginForm";
         }

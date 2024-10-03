@@ -45,8 +45,19 @@ public class CustLoginController {
         if (custDto != null) {
             /* session 변수에 고객 번호랑 닉네임 저장 */
             session.setAttribute("cId", custDto.getCId());
+            session.setAttribute("cEmail", custDto.getCEmail());
             session.setAttribute("cName", custDto.getCName());
             session.setAttribute("cNm", custDto.getCNm());
+            session.setAttribute("cBirth", custDto.getCBirth());
+            session.setAttribute("cGnd", custDto.getCGnd());
+            session.setAttribute("cPhn", custDto.getCPhn());
+            session.setAttribute("cZip", custDto.getCZip());
+            session.setAttribute("cRoadA", custDto.getCRoadA());
+            session.setAttribute("cJibunA", custDto.getCJibunA());
+            session.setAttribute("cDetA", custDto.getCDetA());
+            session.setAttribute("smsAgr", custDto.getSmsAgr());
+            session.setAttribute("emailAgr", custDto.getEmailAgr());
+
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDate = custDto.getRegDt().format(formatter);
@@ -60,7 +71,7 @@ public class CustLoginController {
             /*로그인 후에는 이전 URL을 세션에서 삭제합니다.*/
             session.removeAttribute("toURL");
 
-            // 이메일 기억하기 처리
+             /*이메일 기억하기 처리*/
             if (rememberEmail != null) {
                 Cookie idcookie = new Cookie("cEmailCookie", cEmail);
                 idcookie.setMaxAge(7 * 24 * 3600); // 7일
