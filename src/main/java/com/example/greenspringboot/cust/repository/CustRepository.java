@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface CustRepository extends JpaRepository<Cust, Integer> {
     boolean existsBycEmail(String cEmail);
 
+    boolean existsBycNm(String cNm);
+
     Optional<Cust> findBycEmail(String cEmail);
 
 

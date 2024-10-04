@@ -29,13 +29,13 @@ public class CustRepositoryTest {
                 .cPwd(custService.pwdEncrypt(custDto.getCPwd()))
                 .cName("아아")
                 .cNm("김")
-                .c_birth("19900101")
-                .c_gnd('M')
-                .c_phn("123456789")
-                .c_zip("123456")
-                .c_road_a("Seoul Street")
-                .c_jibun_a("Seoul Jibun")
-                .c_det_a("Apartment 101")
+                .cBirth("19900101")
+                .cGnd("M")
+                .cPhn("123456789")
+                .cZip("123456")
+                .cRoadA("Seoul Street")
+                .cJibunA("Seoul Jibun")
+                .cDetA("Apartment 101")
                 .build();
         custRepository.save(cust);
     }
@@ -44,6 +44,12 @@ public class CustRepositoryTest {
     @Test
     public void emailCheckTest() {
         boolean exists = custRepository.existsBycEmail("test@naver.com");
+        assertFalse(exists, "fali");
+    }
+
+    @Test
+    public void nmCheckTest() {
+        boolean exists = custRepository.existsBycNm("아이스2");
         assertFalse(exists, "fali");
     }
 }
