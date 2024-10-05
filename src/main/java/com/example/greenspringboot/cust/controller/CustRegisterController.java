@@ -56,6 +56,20 @@ public class CustRegisterController {
         }
     }
 
+
+    //    중복 넥네임 체크
+    @PostMapping("/nickCheckPost")
+    public @ResponseBody String nickCheckPost(@RequestParam("cNick") String cNick) {
+        try {
+            String nickCheckResult = custService.nickCheck(cNick);
+            return nickCheckResult;
+        } catch (Exception e) {
+            // 예외 처리 로직
+            return "nickError";
+        }
+    }
+
+
     @PostMapping("/register")
     public String registerPost(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
 

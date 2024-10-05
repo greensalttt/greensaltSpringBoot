@@ -35,9 +35,9 @@ public class CustServiceImpl implements CustService{
     }
 
     @Override
-    public String nmCheck(String cNm) {
-        if(!custRepository.existsBycNm(cNm)) {
-//            AjAX emailgood의 응답이랑 서비스 리턴값이랑 서로 일치해야됨
+    public String nickCheck(String cNick) {
+        if(!custRepository.existsBycNick(cNick)) {
+//            AjAX와 응답이랑 서비스 리턴값이랑 서로 일치해야됨
             return "ok";
         } else {
             return "fail";
@@ -96,7 +96,7 @@ public String joinEmail(String cEmail) throws Exception {
             custDto.setCId(cust.getCId());
             custDto.setCEmail(cust.getCEmail());
             custDto.setCName(cust.getCName());
-            custDto.setCNm(cust.getCNm());
+            custDto.setCNick(cust.getCNick());
             custDto.setCBirth(cust.getCBirth());
             custDto.setCGnd(cust.getCGnd());
             custDto.setCPhn(cust.getCPhn());

@@ -160,20 +160,20 @@
             width: 100px;
         }
 
-        #nickName, #nmCheck{
+        #nickName, #nickCheck{
             display: inline;
         }
-        #nmCheck{
+        #nickCheck{
             float: right;
             margin-bottom: 5px;
             width: 115px;
         }
 
-        #sms_agr, #smsLabel{
+        #smsAgr, #smsLabel{
             display: inline;
         }
 
-        #email_agr, #emailLabel{
+        #emailAgr, #emailLabel{
             display: inline;
         }
 
@@ -208,7 +208,7 @@
             margin-top: 8px;
         }
 
-        #verify:disabled, #nmCheck:disabled, #zipBtn:disabled {
+        #verify:disabled, #nickCheck:disabled, #zipBtn:disabled {
             color: gray;
             cursor: not-allowed;
         }
@@ -244,8 +244,8 @@
             <label>이름</label>
             <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>
             <label id="nickName">닉네임</label>
-            <input id="nmCheck" type="button" value="닉네임 중복 확인" disabled>
-            <input class="special-class" type="text" id="cNm" name="cNm" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
+            <input id="nickCheck" type="button" value="닉네임 중복 확인" onclick="nickNameCheck()" disabled>
+            <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
             <label>주소</label>
             <div id="ad">
                 <input type="text" id="zip" name="cZip" placeholder="우편번호" disabled>
@@ -255,7 +255,7 @@
             <span id="guide" style="color:#999;display:none"></span>
             <input type="text" id="detailAddress" name="cDetA" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>
             <label>휴대폰</label>
-            <input class="special-class" type="text" id="c_phn" name="cPhn" placeholder="&nbsp;-제외" maxlength="12" disabled>
+            <input class="special-class" type="text" id="cPhn" name="cPhn" placeholder="&nbsp;-제외" maxlength="12" disabled>
             <label>성별</label>
             <div id="gndLine">
                 <input type="radio" id="female" name="cGnd" value="여" disabled>
@@ -275,11 +275,11 @@
             <label for="piiBox" id="piiLabel">[필수] 개인정보 및 이용</label><br>
 
 
-            <input type="checkbox" id="sms_agr" name="smsAgr" value="Y" disabled>
-            <label for="sms_agr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>
+            <input type="checkbox" id="smsAgr" name="smsAgr" value="Y" disabled>
+            <label for="smsAgr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>
 
-            <input type="checkbox" id="email_agr" name="emailAgr" value="Y" disabled>
-            <label for="email_agr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>
+            <input type="checkbox" id="emailAgr" name="emailAgr" value="Y" disabled>
+            <label for="emailAgr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>
 
             <button id="rBtn" disabled>가입하기</button>
         </div>
@@ -504,19 +504,43 @@
 
 
 <script>
-    $('#cEmail').on('input', function() {
+    $('#cEmail').on('input', function () {
         emailCheck();
     });
 
-    $('#emailCode').on('input', function() {
+    $('#emailCode').on('input', function () {
         verifyNumber();
     });
+
+    function nickNameCheck() {
+        const nickName = document.getElementById("cNick").value;
+
+        $.ajax({
+            type: 'POST',
+            url: '/nickCheckPost',
+            data: { cNick: nickName },
+            success: function(response) {
+                if (response === 'nickError') {
+                    alert('닉네임 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
+                } else if (response === 'fail') {
+                    alert('이미 사용 중인 닉네임입니다.');
+                } else {
+                    alert('사용 가능한 닉네임입니다.');
+                }
+            },
+            error: function() {
+                alert('요청 중 오류가 발생했습니다.');
+            }
+        });
+    }
 
     /*이메일 중복체크*/
     function emailCheck() {
         const email = document.getElementById("cEmail").value;
         const checkResult = document.getElementById("check-result");
-        const verifyButton = $('#verify');
+        // const verifyButton = $('#verify');
+        const verifyButton = document.getElementById("verify")
+
 
         if (!email.trim()) {
             checkResult.style.color = "red";
@@ -566,26 +590,26 @@
         document.getElementById('emailCode').disabled = false;
         document.getElementById('cPwd').disabled = false;
         document.getElementById('cPwd2').disabled = false;
-        document.getElementById('c_name').disabled = false;
-        document.getElementById('nmCheck').disabled = false;
-        document.getElementById('cNm').disabled = false;
+        document.getElementById('cName').disabled = false;
+        document.getElementById('nickCheck').disabled = false;
+        document.getElementById('cNick').disabled = false;
         document.getElementById('zip').disabled = false;
         document.querySelector('[onclick="sample4_execDaumPostcode()"]').disabled = false;
         document.getElementById('roadAddress').disabled = false;
         document.getElementById('jibunAddress').disabled = false;
         document.getElementById('detailAddress').disabled = false;
-        document.getElementById('c_phn').disabled = false;
-        document.querySelectorAll('input[name="c_gnd"]').forEach(el => el.disabled = false);
+        document.getElementById('cPhn').disabled = false;
+        document.querySelectorAll('input[name="cGnd"]').forEach(el => el.disabled = false);
         document.getElementById('birth').disabled = false;
         document.getElementById('touBox').disabled = false;
         document.getElementById('piiBox').disabled = false;
-        document.getElementById('sms_agr').disabled = false;
-        document.getElementById('email_agr').disabled = false;
+        document.getElementById('smsAgr').disabled = false;
+        document.getElementById('emailAgr').disabled = false;
         document.getElementById('rBtn').disabled = false;
     }
 
-// 이메일 전송
-    $('#verify').click(function() {
+    // 이메일 전송
+    $('#verify').click(function () {
         const $this = $(this); // 클릭된 버튼을 jQuery 객체로 저장
         $this.prop('disabled', true); // 버튼을 비활성화
 
@@ -598,12 +622,12 @@
         $.ajax({
             type: 'GET',  // 클라이언트에서 서버로 인증번호 요청
             url: url, // 생성한 URL 사용
-            success: function(data) {
+            success: function (data) {
                 console.log("data : " + data);
                 checkInput.attr('disabled', false);
                 code = data;
                 verifyEmail();
-                setTimeout(function() {
+                setTimeout(function () {
                     $this.prop('disabled', false);
                 }, 5000);
             }
@@ -638,7 +662,7 @@
         var isPwd = pwdCheck(frm);
         var isPwd2 = pwd2Check(frm);
         var isName = nameCheck(frm);
-        var isNm = nmCheck(frm);
+        var isNick = nickCheck(frm);
         var isPhn = phnCheck(frm);
         var isGen = genCheck(frm);
         var isTou = touCheck(frm)
@@ -647,13 +671,13 @@
 
         var pwd = frm.cPwd.value;
         var pwd2 = frm.cPwd2.value;
-        var name = frm.c_name.value;
-        var nm = frm.cNm.value;
-        var zip = frm.c_zip.value;
-        var road = frm.c_road_a.value;
-        var det = frm.c_det_a.value;
-        var phn = frm.c_phn.value;
-        var birth = frm.c_birth.value;
+        var name = frm.cName.value;
+        var Nick = frm.cNick.value;
+        var zip = frm.cZip.value;
+        var road = frm.cRoadA.value;
+        var det = frm.cDetA.value;
+        var phn = frm.cPhn.value;
+        var birth = frm.cBirth.value;
 
         if (!isEmailFormat) {
             return false;
@@ -677,10 +701,10 @@
         } else if (!isName) {
             alert("이름은 최대 15자 이하로 작성하셔야 합니다.");
             return false;
-        } else if (!nm) {
+        } else if (!nick) {
             alert('닉네임을을 입력해주세요.');
             return false;
-        } else if (!isNm) {
+        } else if (!isNick) {
             alert("닉네임은 최대 10자 이하로 작성하셔야 합니다.");
             return false;
         } else if (!zip) {
@@ -738,9 +762,9 @@
     }
 
     // 인증번호 검사
-    function vNum(frm){
+    function vNum(frm) {
         var vNum = frm.emailCode.value.trim();
-        if(!vNum){
+        if (!vNum) {
             alert("이메일 인증을 진행해주세요.")
             return false;
         }
@@ -768,12 +792,12 @@
         var pwd2 = frm.cPwd2.value;
         var pwdResult = document.getElementById("check-pwd")
 
-        if(!pwd){
+        if (!pwd) {
             pwdResult.style.color = "red";
             pwdResult.style.fontSize = "11px";
             pwdResult.innerHTML = "비밀번호를 입력해주세요.";
             return false;
-        }else if(!pwd2){
+        } else if (!pwd2) {
             pwdResult.style.color = "red";
             pwdResult.style.fontSize = "11px";
             pwdResult.innerHTML = "비밀번호 확인을 입력해주세요.";
@@ -783,7 +807,7 @@
             pwdResult.style.fontSize = "11px";
             pwdResult.innerHTML = "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다.";
             return false;
-        }else
+        } else
             pwdResult.style.color = "green";
         pwdResult.style.fontSize = "11px";
         pwdResult.innerHTML = "비밀번호가 동일합니다.";
@@ -792,16 +816,16 @@
 
     /*  이름 유효성 검사*/
     function nameCheck(frm) {
-        var name = frm.c_name.value;
+        var name = frm.cName.value;
         if (name.length >= 15) {
             return false;
         }
         return true;
     }
 
-    function nmCheck(frm) {
-        var nm = frm.cNm.value;
-        if (nm.length < 2 || nm.length > 10) {
+    function nickCheck(frm) {
+        var nick = frm.cNick.value;
+        if (nick.length < 2 || nick.length > 10) {
             return false;
         }
         return true;
@@ -809,7 +833,7 @@
 
     /*   휴대폰 유효성 검사*/
     function phnCheck(frm) {
-        var phn = frm.c_phn.value;
+        var phn = frm.cPhn.value;
         var phnPattern = /^[0-9]{11,12}$/;
         if (!phnPattern.test(phn)) {
             return false;
@@ -819,8 +843,8 @@
 
     /*  성별 유효성 검사*/
     function genCheck(frm) {
-        var female = frm.querySelector('input[name="c_gnd"][value="여"]').checked;
-        var male = frm.querySelector('input[name="c_gnd"][value="남"]').checked;
+        var female = frm.querySelector('input[name="cGnd"][value="여"]').checked;
+        var male = frm.querySelector('input[name="cGnd"][value="남"]').checked;
         if (female || male) {
             return true;
         } else {
@@ -851,30 +875,30 @@
     var modalSeen = false;
     var modalSeen2 = false;
 
-
-    function enableTouBox() {
-        var touBox = document.getElementById("touBox");
-        touBox.disabled = false;
-        // 체크박스를 체크하고 다시 체크되지 않도록 합니다.
-        touBox.checked = true;
-        // 체크박스의 onchange 이벤트에 함수를 연결하여 체크박스가 변경되지 않도록 합니다.
-        touBox.onchange = function() {
-            // 체크박스가 항상 체크된 상태로 유지됩니다.
-            touBox.checked = true;
-        };
-    }
-
-    function enablePiiBox() {
-        var piiBox = document.getElementById("piiBox");
-        piiBox.disabled = false;
-        // 체크박스를 체크하고 다시 체크되지 않도록 합니다.
-        piiBox.checked = true;
-        // 체크박스의 onchange 이벤트에 함수를 연결하여 체크박스가 변경되지 않도록 합니다.
-        piiBox.onchange = function() {
-            // 체크박스가 항상 체크된 상태로 유지됩니다.
-            piiBox.checked = true;
-        };
-    }
+    //
+    // function enableTouBox() {
+    //     var touBox = document.getElementById("touBox");
+    //     touBox.disabled = false;
+    //     // 체크박스를 체크하고 다시 체크되지 않도록 합니다.
+    //     touBox.checked = true;
+    //     // 체크박스의 onchange 이벤트에 함수를 연결하여 체크박스가 변경되지 않도록 합니다.
+    //     touBox.onchange = function() {
+    //         // 체크박스가 항상 체크된 상태로 유지됩니다.
+    //         touBox.checked = true;
+    //     };
+    // }
+    //
+    // function enablePiiBox() {
+    //     var piiBox = document.getElementById("piiBox");
+    //     piiBox.disabled = false;
+    //     // 체크박스를 체크하고 다시 체크되지 않도록 합니다.
+    //     piiBox.checked = true;
+    //     // 체크박스의 onchange 이벤트에 함수를 연결하여 체크박스가 변경되지 않도록 합니다.
+    //     piiBox.onchange = function() {
+    //         // 체크박스가 항상 체크된 상태로 유지됩니다.
+    //         piiBox.checked = true;
+    //     };
+    // }
 
     function openModal() {
         var modal = document.getElementById("myModal");

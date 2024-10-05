@@ -28,7 +28,7 @@ public class CustRepositoryTest {
                 .cEmail("test11@naver.com")
                 .cPwd(custService.pwdEncrypt(custDto.getCPwd()))
                 .cName("아아")
-                .cNm("김")
+                .cNick("김")
                 .cBirth("19900101")
                 .cGnd("M")
                 .cPhn("123456789")
@@ -49,7 +49,7 @@ public class CustRepositoryTest {
 
     @Test
     public void nmCheckTest() {
-        boolean exists = custRepository.existsBycNm("아이스2");
+        boolean exists = custRepository.existsBycNick("아이스2");
         assertFalse(exists, "fali");
     }
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CustService {
     String emailCheck(String cEmail);
 
-    String nmCheck(String cNm);
+    String nickCheck(String cNick);
 
     String joinEmail(String cEmail) throws Exception;
 

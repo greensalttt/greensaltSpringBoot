@@ -52,7 +52,7 @@ public class Cust {
     @Column(name = "c_nm", nullable = false)
     @NotBlank(message = "닉네임은 필수입니다.")
     @Pattern(regexp = "^[가-힣a-zA-Z1-9]{2,10}$", message = "닉네임은 한글,영어, 숫자 조합으로 2~10자 이하로 입력해야 합니다.")
-    private String cNm;
+    private String cNick;
 
     @Column(name = "c_birth", nullable = false)
     @NotBlank(message = "생년월일은 필수입니다.")

@@ -17,7 +17,7 @@ public class CustDto {
     private String cEmail;
     private String cPwd;
     private String cName;
-    private String cNm;
+    private String cNick;
     private String cBirth;
     private String cGnd;
     private String cPhn;
@@ -44,11 +44,11 @@ public class CustDto {
         this.cPwd = cPwd;
     }
 
-    public CustDto(int cId, String cEmail, String cName, String cNm, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, LocalDateTime regDt){
+    public CustDto(int cId, String cEmail, String cName, String cNick, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, LocalDateTime regDt){
         this.cId = cId;
         this.cEmail = cEmail;
         this.cName = cName;
-        this.cNm = cNm;
+        this.cNick = cNick;
         this.cBirth = cBirth;
         this.cGnd = cGnd;
         this.cPhn = cPhn;
