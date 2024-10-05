@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface CustService {
     String emailCheck(String cEmail);
 
+    String nmCheck(String cNm);
+
     String joinEmail(String cEmail) throws Exception;
 
     String pwdEncrypt(String cPwd);

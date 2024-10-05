@@ -34,6 +34,17 @@ public class CustServiceImpl implements CustService{
         }
     }
 
+    @Override
+    public String nmCheck(String cNm) {
+        if(!custRepository.existsBycNm(cNm)) {
+//            AjAX emailgood의 응답이랑 서비스 리턴값이랑 서로 일치해야됨
+            return "ok";
+        } else {
+            return "fail";
+        }
+    }
+
+
     public void makeRandomNumber() throws Exception {
 //        랜덤 객체 생성
         Random r = new Random();
