@@ -243,6 +243,7 @@
             <input class="special-class" type="password" id="cPwd2" name="cPwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
             <label>이름</label>
             <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>
+            <p id="nickCheck-result"></p>
             <label id="nickName">닉네임</label>
             <input id="nickCheck" type="button" value="닉네임 중복 확인" onclick="nickNameCheck()" disabled>
             <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
@@ -514,7 +515,22 @@
 
     function nickNameCheck() {
         const nickName = document.getElementById("cNick").value;
+        const nickNameResult = document.getElementById("nickCheck-result")
 
+        if (!nickName) {
+                alert('닉네임은 공백일 수 없습니다.');
+                // callback(false);
+                return false;
+        } else if (nickName.length < 2) {
+            alert('닉네임은 최소 2자 이상이어야 합니다.');
+            // callback(false);
+            return false;
+        } else if (nickName.length > 10) {
+                alert('닉네임은 최대 10자까지 가능합니다.');
+                // callback(false);
+            return false;
+
+        }
         $.ajax({
             type: 'POST',
             url: '/nickCheckPost',
@@ -522,31 +538,71 @@
             success: function(response) {
                 if (response === 'nickError') {
                     alert('닉네임 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    return false;
                 } else if (response === 'fail') {
-                    alert('이미 사용 중인 닉네임입니다.');
+                    // document.getElementById("nickCheck-result").innerText = "이미 사용 중인 닉네임입니다."; // 업데이트
+                    // alert('이미 사용 중인 닉네임입니다.');
+                    nickNameResult.style.color = "red";
+                    nickNameResult.style.fontSize = "11px";
+                    nickNameResult.innerHTML = "이미 사용 중인 닉네임입니다.";
+                    return false;
                 } else {
-                    alert('사용 가능한 닉네임입니다.');
+                    // document.getElementById("nickCheck-result").innerText = "사용 가능한 닉네임입니다."; // 업데이트
+                    // alert('사용 가능한 닉네임입니다.');
+                    nickNameResult.style.color = "green";
+                    nickNameResult.style.fontSize = "11px";
+                    nickNameResult.innerHTML = "사용 가능한 닉네임입니다.";
+                    return true;
                 }
             },
             error: function() {
                 alert('요청 중 오류가 발생했습니다.');
+                return false;
             }
         });
     }
+
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/nickCheckPost',
+    //         data: { cNick: nickName },
+    //         success: function(response) {
+    //             if (response === 'nickError') {
+    //                 alert('닉네임 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
+    //                 // callback(false);
+    //                 return false;
+    //
+    //             } else if (response === 'fail') {
+    //                 alert('이미 사용 중인 닉네임입니다.');
+    //                 // callback(false);
+    //                 return false;
+    //
+    //             } else {
+    //                 alert('사용 가능한 닉네임입니다.');
+    //                 // callback(true);
+    //                 return true;
+    //
+    //             }
+    //         },
+    //         error: function() {
+    //             alert('요청 중 오류가 발생했습니다.');
+    //             // callback(false);
+    //             return false;
+    //
+    //         }
+    //     });
+    // }
 
     /*이메일 중복체크*/
     function emailCheck() {
         const email = document.getElementById("cEmail").value;
         const checkResult = document.getElementById("check-result");
-        // const verifyButton = $('#verify');
-        const verifyButton = document.getElementById("verify")
-
 
         if (!email.trim()) {
             checkResult.style.color = "red";
             checkResult.style.fontSize = "11px";
             checkResult.innerHTML = "이메일을 입력해주세요.";
-            verifyButton.prop('disabled', true);
+            document.getElementById("verify").disabled = true;
             return;
         }
 
@@ -555,7 +611,7 @@
             checkResult.style.color = "red";
             checkResult.style.fontSize = "11px";
             checkResult.innerHTML = "이메일 형식을 다시 확인해주세요.";
-            verifyButton.prop('disabled', true);
+            document.getElementById("verify").disabled = true;
             return;
         }
 
@@ -572,12 +628,14 @@
                     checkResult.style.color = "green";
                     checkResult.innerHTML = "인증번호를 받기를 진행해주세요.";
                     checkResult.style.fontSize = "11px";
-                    verifyButton.prop('disabled', false); // 버튼 활성화
+                    // verifyButton.prop('disabled', false); // 버튼 활성화
+                    document.getElementById("verify").disabled = false;
                 } else {
                     checkResult.style.color = "red";
                     checkResult.style.fontSize = "11px";
                     checkResult.innerHTML = "이미 사용중인 이메일입니다.";
-                    verifyButton.prop('disabled', true); // 버튼 비활성화
+                    // verifyButton.prop('disabled', true); // 버튼 비활성화
+                    document.getElementById("verify").disabled = true;
                 }
             },
             error: function (err) {
@@ -662,7 +720,6 @@
         var isPwd = pwdCheck(frm);
         var isPwd2 = pwd2Check(frm);
         var isName = nameCheck(frm);
-        var isNick = nickCheck(frm);
         var isPhn = phnCheck(frm);
         var isGen = genCheck(frm);
         var isTou = touCheck(frm)
@@ -672,7 +729,6 @@
         var pwd = frm.cPwd.value;
         var pwd2 = frm.cPwd2.value;
         var name = frm.cName.value;
-        var Nick = frm.cNick.value;
         var zip = frm.cZip.value;
         var road = frm.cRoadA.value;
         var det = frm.cDetA.value;
@@ -701,13 +757,8 @@
         } else if (!isName) {
             alert("이름은 최대 15자 이하로 작성하셔야 합니다.");
             return false;
-        } else if (!nick) {
-            alert('닉네임을을 입력해주세요.');
-            return false;
-        } else if (!isNick) {
-            alert("닉네임은 최대 10자 이하로 작성하셔야 합니다.");
-            return false;
-        } else if (!zip) {
+        }
+        else if (!zip) {
             alert('우편번호를 입력해주세요.');
             return false;
         } else if (!road) {
@@ -738,6 +789,10 @@
 
         if (document.getElementById("check-result").innerText.includes("이미 사용중인 이메일입니다.")) {
             alert("중복된 이메일 주소입니다. 다른 이메일 주소를 입력하세요.");
+            return false;
+        }
+
+        if (document.getElementById("nickNameResult").innerText.includes("이미 사용 중인 닉네임입니다.")){
             return false;
         }
 

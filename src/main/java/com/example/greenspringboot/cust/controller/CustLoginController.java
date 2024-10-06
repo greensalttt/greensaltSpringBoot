@@ -47,7 +47,7 @@ public class CustLoginController {
             session.setAttribute("cId", custDto.getCId());
             session.setAttribute("cEmail", custDto.getCEmail());
             session.setAttribute("cName", custDto.getCName());
-            session.setAttribute("cNm", custDto.getCNm());
+            session.setAttribute("cNm", custDto.getCNick());
             session.setAttribute("cBirth", custDto.getCBirth());
             session.setAttribute("cGnd", custDto.getCGnd());
             session.setAttribute("cPhn", custDto.getCPhn());

@@ -48,7 +48,7 @@ public class CustRepositoryTest {
     }
 
     @Test
-    public void nmCheckTest() {
+    public void nickCheckTest() {
         boolean exists = custRepository.existsBycNick("아이스2");
         assertFalse(exists, "fali");
     }
