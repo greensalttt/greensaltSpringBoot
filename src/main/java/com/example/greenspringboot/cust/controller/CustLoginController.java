@@ -47,7 +47,7 @@ public class CustLoginController {
             session.setAttribute("cId", custDto.getCId());
             session.setAttribute("cEmail", custDto.getCEmail());
             session.setAttribute("cName", custDto.getCName());
-            session.setAttribute("cNm", custDto.getCNick());
+            session.setAttribute("cNick", custDto.getCNick());
             session.setAttribute("cBirth", custDto.getCBirth());
             session.setAttribute("cGnd", custDto.getCGnd());
             session.setAttribute("cPhn", custDto.getCPhn());
@@ -84,7 +84,7 @@ public class CustLoginController {
 
             System.out.println("Session cId: " + session.getAttribute("cId"));
             System.out.println("Session cName: " + session.getAttribute("cName"));
-            System.out.println("Session cNm: " + session.getAttribute("cNm"));
+            System.out.println("Session cNick: " + session.getAttribute("cNick"));
             System.out.println("Session regDt: " + session.getAttribute("regDt"));
 
             return "redirect:" + toURL;

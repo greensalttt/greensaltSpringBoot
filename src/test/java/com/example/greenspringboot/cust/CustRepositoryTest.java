@@ -52,4 +52,5 @@ public class CustRepositoryTest {
         boolean exists = custRepository.existsBycNick("아이스2");
         assertFalse(exists, "fali");
     }
+
 }

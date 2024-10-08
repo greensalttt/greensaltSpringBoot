@@ -230,7 +230,7 @@
             <label class="infoLabel">이름*</label>
             <input class="special-class" type="text" name="c_name"  th:value="${session.cName}" disabled>
             <label class="infoLabel">닉네임</label>
-            <input class="special-class" type="text" id="c_nm" name="c_nm" th:value="${session.cNm}" maxlength="10">
+            <input class="special-class" type="text" id="c_nick" name="c_nick" th:value="${session.cNick}" maxlength="10">
             <label class="infoLabel">주소</label>
             <div id="ad">
                 <input type="text" id="zip" name="c_zip" th:value="${session.cZip}">
@@ -326,8 +326,8 @@
     }
 
     function formCheck() {
-        var isNm = newNmCheck();
-        if (!isNm) {
+        var isNick = newNickCheck();
+        if (!isNick) {
             return false;
         }
 
@@ -338,10 +338,10 @@
         return confirm("변경사항을 마무리하시고 적용하시겠습니까?")
     }
 
-    function newNmCheck() {
-        var newNm = document.getElementById("c_nm").value;
+    function newNickCheck() {
+        var newNick = document.getElementById("c_nick").value;
 
-        if (newNm.length < 2 || newNm.length > 10){
+        if (newNick.length < 2 || newNick.length > 10){
             alert("닉네임은 2자 이상 10자 이하로 가능합니다")
             return false;
         }
