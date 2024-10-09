@@ -208,7 +208,7 @@
             margin-top: 8px;
         }
 
-        #verify:disabled, #nickCheck:disabled, #zipBtn:disabled {
+        #verify:disabled, #zipBtn:disabled {
             color: gray;
             cursor: not-allowed;
         }
@@ -226,7 +226,7 @@
 
 
 <div id="myform">
-    <form action="/register" method="POST" onsubmit="return formCheck(this)">
+    <form action="/registerPost" method="POST" onsubmit="return formCheck(this)">
         <h1 id="loginTitle">회원가입</h1>
         <div class="container">
             <p id="check-result"></p>

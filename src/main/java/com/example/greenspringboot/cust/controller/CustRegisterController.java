@@ -70,7 +70,7 @@ public class CustRegisterController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/registerPost")
     public String registerPost(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
 
         HttpSession session = request.getSession();
