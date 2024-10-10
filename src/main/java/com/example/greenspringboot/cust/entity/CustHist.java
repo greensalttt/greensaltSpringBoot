@@ -18,19 +18,19 @@ public class CustHist {
 //    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_hist_num", nullable = false)
-    private Integer cHistNum;
+    private int cHistNum;
 
     @Column(name = "c_id", nullable = false)
-    private Integer cId;
+    private int cId;
 
     @Column(name = "c_cng_cd", nullable = false)
-    private Integer cCngCd;
+    private String cCngCd;
 
     @Column(name = "c_bf", nullable = false)
-    private Integer cBf;
+    private String cBf;
 
     @Column(name = "c_af", nullable = false)
-    private Integer cAf;
+    private String cAf;
 
     @Builder.Default
     private LocalDateTime frst_reg_dt = LocalDateTime.now();

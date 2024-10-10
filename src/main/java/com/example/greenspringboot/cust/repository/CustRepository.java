@@ -1,6 +1,7 @@
 package com.example.greenspringboot.cust.repository;
 
 import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.entity.CustHist;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -14,6 +15,4 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
     boolean existsBycNick(String cNick);
 //    로그인 이메일 찾기
     Optional<Cust> findBycEmail(String cEmail);
-
-
 }

@@ -35,7 +35,6 @@ public class CustDto {
     private String frst_reg_id;
     private Date last_mod_dt;
     private String last_mod_id;
-    private String grd_name;
 
     public CustDto(){}
 

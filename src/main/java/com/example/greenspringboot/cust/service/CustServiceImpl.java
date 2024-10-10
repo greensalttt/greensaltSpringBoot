@@ -1,7 +1,9 @@
 package com.example.greenspringboot.cust.service;
 import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.dto.CustDto;
+import com.example.greenspringboot.dto.CustHistDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -111,5 +113,7 @@ public String joinEmail(String cEmail) throws Exception {
         }
         return null;
     }
+
+//    public CustHistDto
 
 }

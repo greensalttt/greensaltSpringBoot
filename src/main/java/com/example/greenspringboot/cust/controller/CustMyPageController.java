@@ -1,5 +1,7 @@
 package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.entity.CustHist;
+import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpSession;
 public class CustMyPageController {
 
     private final CustRepository custRepository;
+    private final CustHistRepository custHistRepository;
+
 
 
     @GetMapping("/list")
@@ -32,8 +36,9 @@ public class CustMyPageController {
     }
 
     @PostMapping("/infoPost")
-    public String myPageInfoPost(HttpSession session, Cust cust){
+    public String myPageInfoPost(HttpSession session, Cust cust, CustHist custHist){
         custRepository.save(cust);
+        custHistRepository.save(custHist);
         return "myPage";
     }
 }
