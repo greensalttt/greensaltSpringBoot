@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Service
@@ -122,79 +123,27 @@ public String joinEmail(String cEmail) throws Exception {
         return custDto;
     }
 
-//        private Cust convertToEntity(CustDto custDto) {
-//        Cust cust = new Cust();
-//        // custDto의 필드를 cust 엔티티에 설정
-//        cust.setCId(custDto.getCId());
-//        cust.setCRoadA(custDto.getCRoadA());
-//        cust.setCZip(custDto.getCZip());
-//        cust.setCDetA(custDto.getCDetA());
-//        cust.setCPhn(custDto.getCPhn());
-//        cust.setCBirth(custDto.getCBirth());
-//        cust.setSmsAgr(custDto.getSmsAgr());
-//        cust.setEmailAgr(custDto.getEmailAgr());
-//        // 필요에 따라 다른 필드도 설정
-//        return cust;
-//    }
-
-    @Transactional
     public void custHist(CustDto custDto) {
         // 기존 회원 정보 조회
-        Optional<Cust> optionalCust = custRepository.findById(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+
+        System.out.println("서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+
 
         if (optionalCust.isPresent()) {
             // 회원 정보 업데이트
             Cust cust = optionalCust.get();
 
-            cust.setCRoadA(custDto.getCRoadA());
             cust.setCZip(custDto.getCZip());
+            cust.setCRoadA(custDto.getCRoadA());
+            cust.setCJibunA(custDto.getCJibunA());
             cust.setCDetA(custDto.getCDetA());
             cust.setCPhn(custDto.getCPhn());
             cust.setCBirth(custDto.getCBirth());
             cust.setSmsAgr(custDto.getSmsAgr());
             cust.setEmailAgr(custDto.getEmailAgr());
+
             custRepository.save(cust);
         }
     }
-
-//    public CustDto findCustById(int cId) {
-//        Cust cust = custRepository.findBycId(cId); // 엔티티 반환
-//        return convertToDto(cust);
-//    }
-
-
-        // 변경된 필드를 기록
-//        List<CustHistoryDto> historyList = new ArrayList<>();
-//
-//
-//        // 변경된 필드 체크 및 이력 추가
-//        addHistoryIfChanged(historyList, custDto, oldData, "ROAD", oldData.getC_road_a(), custDto.getC_road_a());
-//        addHistoryIfChanged(historyList, custDto, oldData, "ZIP", oldData.getC_zip(), custDto.getC_zip());
-//        addHistoryIfChanged(historyList, custDto, oldData, "DET_A", oldData.getC_det_a(), custDto.getC_det_a());
-//        addHistoryIfChanged(historyList, custDto, oldData, "PHN", oldData.getC_phn(), custDto.getC_phn());
-//        addHistoryIfChanged(historyList, custDto, oldData, "BIRTH", oldData.getC_birth(), custDto.getC_birth());
-//        addHistoryIfChanged(historyList, custDto, oldData, "SMS", oldData.getSms_agr(), custDto.getSms_agr());
-//        addHistoryIfChanged(historyList, custDto, oldData, "EMAIL", oldData.getEmail_agr(), custDto.getEmail_agr());
-//
-//        // 모든 변경 사항 이력 기록
-//        for (CustHistoryDto historyDto : historyList) {
-//            custDao.insertCustHist(historyDto);
-//        }
-
-
-
-
-    // 변경된 필드가 있는 경우에만 이력 추가
-//    private void addHistoryIfChanged(List<CustHistoryDto> historyList, CustDto newData, CustDto oldData,
-//                                     String changeCode, String oldValue, String newValue) {
-//        if (!oldValue.equals(newValue)) {
-//            CustHistoryDto historyDto = new CustHistoryDto();
-//            historyDto.setC_id(newData.getC_id());
-//            historyDto.setC_cng_cd(changeCode);
-//            historyDto.setC_bf(oldValue);
-//            historyDto.setC_af(newValue);
-//            historyList.add(historyDto);
-//        }
-//    }
-
 }

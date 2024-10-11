@@ -49,12 +49,21 @@ public class CustMyPageController {
     }
 
     @PostMapping("/infoPost")
-    public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        int cId = (int) session.getAttribute("cId");
-        custDto.setCId(cId);
+    public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request) {
+
         custService.custHist(custDto);
-        return "myPage";
+
+        HttpSession session = request.getSession();
+        session.setAttribute("cZip", custDto.getCZip());
+        session.setAttribute("cRoadA", custDto.getCRoadA());
+        session.setAttribute("cJibunA", custDto.getCJibunA());
+        session.setAttribute("cDetA", custDto.getCDetA());
+        session.setAttribute("cPhn", custDto.getCPhn());
+        session.setAttribute("cBirth", custDto.getCBirth());
+        session.setAttribute("smsAgr", custDto.getSmsAgr());
+        session.setAttribute("emailAgr", custDto.getEmailAgr());
+
+        return "redirect:/mypage/list";
     }
 
 }
