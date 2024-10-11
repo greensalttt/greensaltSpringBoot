@@ -3,13 +3,20 @@ import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
+import com.example.greenspringboot.cust.service.CustService;
+import com.example.greenspringboot.dto.CustDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 
 @Controller
@@ -17,8 +24,14 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/mypage")
 public class CustMyPageController {
 
-    private final CustRepository custRepository;
+    @Autowired
+    private CustRepository custRepository;
+
+//    @Autowired
     private final CustHistRepository custHistRepository;
+
+    @Autowired
+    private CustService custService;
 
 
 
@@ -36,9 +49,12 @@ public class CustMyPageController {
     }
 
     @PostMapping("/infoPost")
-    public String myPageInfoPost(HttpSession session, Cust cust, CustHist custHist){
-        custRepository.save(cust);
-        custHistRepository.save(custHist);
+    public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        int cId = (int) session.getAttribute("cId");
+        custDto.setCId(cId);
+        custService.custHist(custDto);
         return "myPage";
     }
+
 }

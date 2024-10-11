@@ -226,43 +226,43 @@
             <h1 id="loginTitle">개인정보 수정</h1>
             <p id="check-result"></p>
             <label class="infoLabel">이메일*</label>
-            <input class="special-class" type="text" id="c_email" name="c_email" th:value="${session.cEmail}" disabled>
+            <input class="special-class" type="text" id="c_email" name="cEmail" th:value="${session.cEmail}" disabled>
             <label class="infoLabel">이름*</label>
-            <input class="special-class" type="text" name="c_name"  th:value="${session.cName}" disabled>
-            <label class="infoLabel">닉네임</label>
-            <input class="special-class" type="text" id="c_nick" name="c_nick" th:value="${session.cNick}" maxlength="10">
+            <input class="special-class" type="text" name="cName"  th:value="${session.cName}" disabled>
+            <label class="infoLabel">닉네임*</label>
+            <input class="special-class" type="text" id="c_nick" name="cNick" th:value="${session.cNick}" maxlength="10" disabled>
             <label class="infoLabel">주소</label>
             <div id="ad">
-                <input type="text" id="zip" name="c_zip" th:value="${session.cZip}">
+                <input type="text" id="zip" name="cZip" th:value="${session.cZip}">
                 <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>
-            <input type="text" id="roadAddress" name="c_road_a" th:value="${session.cRoadA}">
-            <input type="text" id="jibunAddress" name="c_jibun_a" maxlength="30" th:value="${session.cJibunA}">
+            <input type="text" id="roadAddress" name="cRoadA" th:value="${session.cRoadA}">
+            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" th:value="${session.cJibunA}">
             <span id="guide" style="color:#999;display:none"></span>
-            <div class="oneLine"><input type="text" id="detailAddress" name="c_det_a" maxlength="30" th:value="${session.cDetA}"><p id="det">건물명 + 상세주소</p></div><br>
+            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" th:value="${session.cDetA}"><p id="det">건물명 + 상세주소</p></div><br>
             <label class="infoLabel">휴대폰</label>
-            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="c_phn" maxlength="12" th:value="${session.cPhn}"><p id="phn">-제외</p></div>
+            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" th:value="${session.cPhn}"><p id="phn">-제외</p></div>
             <label class="infoLabel">성별*</label>
-            <input class="special-class" type="text" name="c_gnd" th:value="${session.cGnd}" disabled>
+            <input class="special-class" type="text" name="cGnd" th:value="${session.cGnd}" disabled>
             <label class="infoLabel" id="aa">생년월일</label>
-            <input type="date" id="c_birth" name="c_birth" min="1900-01-01" max="2023-12-31" th:value="${session.cBirth}"><br><br>
+            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" th:value="${session.cBirth}"><br><br>
             <div id="choice">
 
                 <a class="infoLabel">SMS 수신</a>
-                <input type="radio" id="sms_agr" name="sms_agr" value="Y"
+                <input type="radio" id="sms_agr" name="smsAgr" value="Y"
                        th:checked="${session.smsAgr == 'Y'}">
                 <label for="sms_agr" class="choiceLabel">수신함</label>
 
-                <input type="radio" id="sms_no" name="sms_agr" value="N"
+                <input type="radio" id="sms_no" name="smsAgr" value="N"
                        th:checked="${session.smsAgr == 'N'}">
                 <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>
 
 
                 <a class="infoLabel">이메일 수신</a>
-                <input type="radio" id="email_agr" name="email_agr" value="Y"
+                <input type="radio" id="email_agr" name="emailAgr" value="Y"
                        th:checked="${session.emailAgr == 'Y'}">
                 <label for="email_agr" class="choiceLabel">수신함</label>
 
-                <input type="radio" id="email_no" name="email_agr" value="N"
+                <input type="radio" id="email_no" name="emailAgr" value="N"
                        th:checked="${session.emailAgr == 'N'}">
                 <label for="email_no" class="choiceLabel">수신 안함</label>
             </div><br><br><br><br><br>

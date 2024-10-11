@@ -1,6 +1,7 @@
 package com.example.greenspringboot.cust.service;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
+import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.dto.CustDto;
 import com.example.greenspringboot.dto.CustHistDto;
@@ -10,10 +11,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
-import java.util.Optional;
-import java.util.Random;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +26,11 @@ public class CustServiceImpl implements CustService{
     @Autowired
     private JavaMailSender mailSender;
 
+//    일반 필드는 오토와이어드 필요없음
     private int authNumber;
+
+
+
 
     @Override
     public String emailCheck(String cEmail) {
@@ -85,35 +91,110 @@ public String joinEmail(String cEmail) throws Exception {
             throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
         }
     }
-
-
     public CustDto login(String email, String rawPassword) {
+//        값이 있을수도 없을수도 있을때 옵셔널로 처리
         Optional<Cust> custOptional = custRepository.findBycEmail(email);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
             Cust cust = custOptional.get();
-            CustDto custDto = new CustDto();
-//        엔티티로 DB값을 가져온 후 클라이언트에서 필요한 컬럼만 DTO로 따로 저정해서 컨트롤러로 이동
-            custDto.setCId(cust.getCId());
-            custDto.setCEmail(cust.getCEmail());
-            custDto.setCName(cust.getCName());
-            custDto.setCNick(cust.getCNick());
-            custDto.setCBirth(cust.getCBirth());
-            custDto.setCGnd(cust.getCGnd());
-            custDto.setCPhn(cust.getCPhn());
-            custDto.setCZip(cust.getCZip());
-            custDto.setCRoadA(cust.getCRoadA());
-            custDto.setCJibunA(cust.getCJibunA());
-            custDto.setCDetA(cust.getCDetA());
-            custDto.setSmsAgr(String.valueOf(cust.getSmsAgr()));
-            custDto.setEmailAgr(String.valueOf(cust.getEmailAgr()));
-            custDto.setRegDt(cust.getRegDt());
-            return custDto; // DTO 반환
+            return convertToDto(cust); // 엔티티를 DTO로 변환하여 반환
         }
         return null;
     }
 
-//    public CustHistDto
+    public CustDto convertToDto(Cust cust) {
+        CustDto custDto = new CustDto();
+        custDto.setCId(cust.getCId());
+        custDto.setCEmail(cust.getCEmail());
+        custDto.setCName(cust.getCName());
+        custDto.setCNick(cust.getCNick());
+        custDto.setCBirth(cust.getCBirth());
+        custDto.setCGnd(cust.getCGnd());
+        custDto.setCPhn(cust.getCPhn());
+        custDto.setCZip(cust.getCZip());
+        custDto.setCRoadA(cust.getCRoadA());
+        custDto.setCJibunA(cust.getCJibunA());
+        custDto.setCDetA(cust.getCDetA());
+        custDto.setSmsAgr(cust.getSmsAgr());
+        custDto.setEmailAgr(cust.getEmailAgr());
+        custDto.setRegDt(cust.getRegDt());
+        return custDto;
+    }
+
+//        private Cust convertToEntity(CustDto custDto) {
+//        Cust cust = new Cust();
+//        // custDto의 필드를 cust 엔티티에 설정
+//        cust.setCId(custDto.getCId());
+//        cust.setCRoadA(custDto.getCRoadA());
+//        cust.setCZip(custDto.getCZip());
+//        cust.setCDetA(custDto.getCDetA());
+//        cust.setCPhn(custDto.getCPhn());
+//        cust.setCBirth(custDto.getCBirth());
+//        cust.setSmsAgr(custDto.getSmsAgr());
+//        cust.setEmailAgr(custDto.getEmailAgr());
+//        // 필요에 따라 다른 필드도 설정
+//        return cust;
+//    }
+
+    @Transactional
+    public void custHist(CustDto custDto) {
+        // 기존 회원 정보 조회
+        Optional<Cust> optionalCust = custRepository.findById(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+
+        if (optionalCust.isPresent()) {
+            // 회원 정보 업데이트
+            Cust cust = optionalCust.get();
+
+            cust.setCRoadA(custDto.getCRoadA());
+            cust.setCZip(custDto.getCZip());
+            cust.setCDetA(custDto.getCDetA());
+            cust.setCPhn(custDto.getCPhn());
+            cust.setCBirth(custDto.getCBirth());
+            cust.setSmsAgr(custDto.getSmsAgr());
+            cust.setEmailAgr(custDto.getEmailAgr());
+            custRepository.save(cust);
+        }
+    }
+
+//    public CustDto findCustById(int cId) {
+//        Cust cust = custRepository.findBycId(cId); // 엔티티 반환
+//        return convertToDto(cust);
+//    }
+
+
+        // 변경된 필드를 기록
+//        List<CustHistoryDto> historyList = new ArrayList<>();
+//
+//
+//        // 변경된 필드 체크 및 이력 추가
+//        addHistoryIfChanged(historyList, custDto, oldData, "ROAD", oldData.getC_road_a(), custDto.getC_road_a());
+//        addHistoryIfChanged(historyList, custDto, oldData, "ZIP", oldData.getC_zip(), custDto.getC_zip());
+//        addHistoryIfChanged(historyList, custDto, oldData, "DET_A", oldData.getC_det_a(), custDto.getC_det_a());
+//        addHistoryIfChanged(historyList, custDto, oldData, "PHN", oldData.getC_phn(), custDto.getC_phn());
+//        addHistoryIfChanged(historyList, custDto, oldData, "BIRTH", oldData.getC_birth(), custDto.getC_birth());
+//        addHistoryIfChanged(historyList, custDto, oldData, "SMS", oldData.getSms_agr(), custDto.getSms_agr());
+//        addHistoryIfChanged(historyList, custDto, oldData, "EMAIL", oldData.getEmail_agr(), custDto.getEmail_agr());
+//
+//        // 모든 변경 사항 이력 기록
+//        for (CustHistoryDto historyDto : historyList) {
+//            custDao.insertCustHist(historyDto);
+//        }
+
+
+
+
+    // 변경된 필드가 있는 경우에만 이력 추가
+//    private void addHistoryIfChanged(List<CustHistoryDto> historyList, CustDto newData, CustDto oldData,
+//                                     String changeCode, String oldValue, String newValue) {
+//        if (!oldValue.equals(newValue)) {
+//            CustHistoryDto historyDto = new CustHistoryDto();
+//            historyDto.setC_id(newData.getC_id());
+//            historyDto.setC_cng_cd(changeCode);
+//            historyDto.setC_bf(oldValue);
+//            historyDto.setC_af(newValue);
+//            historyList.add(historyDto);
+//        }
+//    }
 
 }

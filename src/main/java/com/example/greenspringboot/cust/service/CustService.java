@@ -18,5 +18,11 @@ public interface CustService {
 
     CustDto login(String email, String rawPassword);
 
+    void custHist(CustDto custDto);
+
+    CustDto convertToDto(Cust cust)
+            ;
+//    CustDto findCustById(int cId);
+
 
 }

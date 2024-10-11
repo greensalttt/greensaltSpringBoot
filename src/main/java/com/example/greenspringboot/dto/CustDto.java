@@ -59,4 +59,17 @@ public class CustDto {
         this.emailAgr = emailAgr;
         this.regDt = regDt;
     }
+
+    public CustDto(int cId, String cZip, String cRoadA, String cJibunA, String cDetA, String cBirth, String cPhn, String smsAgr, String emailAgr, LocalDateTime regDt){
+        this.cId = cId;
+        this.cZip = cZip;
+        this.cRoadA = cRoadA;
+        this.cJibunA = cJibunA;
+        this.cDetA = cDetA;
+        this.cBirth = cBirth;
+        this.cPhn = cPhn;
+        this.smsAgr = smsAgr;
+        this.emailAgr = emailAgr;
+        this.regDt = regDt;
+    }
 }

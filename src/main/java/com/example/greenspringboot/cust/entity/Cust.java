@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "cust")
@@ -87,11 +88,11 @@ public class Cust {
 
     @Column(name="sms_agr")
     @Builder.Default
-    private char smsAgr = 'N';
+    private String smsAgr = "N";
 
     @Column(name="email_agr")
     @Builder.Default
-    private char emailAgr = 'N';
+    private String emailAgr = "N";
 
     @Builder.Default
     @Column(name= "reg_dt", nullable = false)
@@ -119,4 +120,5 @@ public class Cust {
     private String last_mod_id = "minwook";
 
 }
+
 
