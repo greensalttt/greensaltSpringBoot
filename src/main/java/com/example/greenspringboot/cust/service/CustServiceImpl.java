@@ -125,9 +125,7 @@ public String joinEmail(String cEmail) throws Exception {
 
     public void custHist(CustDto custDto) {
         // 기존 회원 정보 조회
-//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-        Optional<Cust> optionalCust = custRepository.findById(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-
+      Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
         System.out.println("서비스에서 CId: " + custDto.getCId());  // CId 값 확인
 
@@ -147,5 +145,8 @@ public String joinEmail(String cEmail) throws Exception {
 
             custRepository.save(cust);
         }
+    }
+    private void addCustHist(){
+
     }
 }

@@ -44,16 +44,24 @@ public class CustMyPageController {
 //    엔티티는 DB 전송, DTO는 데이터 전송
     @GetMapping("/info")
     public String myPageInfo(HttpSession session){
-        System.out.println("마이페이지 연결: " + session.getAttribute("cName"));
+        System.out.println("개인장보변경 연결: " + session.getAttribute("cName"));
         return "myPageInfo";
     }
 
     @PostMapping("/infoPost")
     public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request) {
 
+        HttpSession session = request.getSession();
+
+//        로그인할때 저장한 cId 세션을 변수로 저장
+        int cId = (int) session.getAttribute("cId");
+
+//        // 현재 데이터 설정
+        custDto.setCId(cId);
+
         custService.custHist(custDto);
 
-        HttpSession session = request.getSession();
+//        세션 업데이트
         session.setAttribute("cZip", custDto.getCZip());
         session.setAttribute("cRoadA", custDto.getCRoadA());
         session.setAttribute("cJibunA", custDto.getCJibunA());
