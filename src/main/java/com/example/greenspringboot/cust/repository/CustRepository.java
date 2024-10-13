@@ -11,7 +11,8 @@ import java.util.Optional;
 //Cust는 테이블 이름, Integer은 테이블의 pk 타입
 public interface CustRepository extends JpaRepository<Cust, Integer> {
 //      고객번호 찾기
-    Optional<Cust> findBycId(int cId);
+//    값이 있을 수도 없을 수도 있을 때 Optional 사용
+//    Optional<Cust> findBycId(int cId);
 
 //  이메일 중복
     boolean existsBycEmail(String cEmail);
