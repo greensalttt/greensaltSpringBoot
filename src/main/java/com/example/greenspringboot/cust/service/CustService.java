@@ -21,9 +21,13 @@ public interface CustService {
 
     void custHist(CustDto custDto, CustDto oldData);
 
-    CustDto convertToDto(Cust cust);
+//    CustDto convertToDto(Cust cust);
             ;
     void updateSession(HttpSession session, CustDto custDto);
+
+    CustDto toDto(Cust cust);
+
+    Cust toEntity(CustDto custDto);
 
 
 

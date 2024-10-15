@@ -100,53 +100,10 @@ public class CustServiceImpl implements CustService {
 
         if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
             Cust cust = custOptional.get();
-            return convertToDto(cust); // 엔티티를 DTO로 변환하여 반환
+            return toDto(cust); // 엔티티를 DTO로 변환하여 반환
         }
         return null;
     }
-
-    public CustDto convertToDto(Cust cust) {
-        CustDto custDto = new CustDto();
-        custDto.setCId(cust.getCId());
-        custDto.setCEmail(cust.getCEmail());
-        custDto.setCName(cust.getCName());
-        custDto.setCNick(cust.getCNick());
-        custDto.setCBirth(cust.getCBirth());
-        custDto.setCGnd(cust.getCGnd());
-        custDto.setCPhn(cust.getCPhn());
-        custDto.setCZip(cust.getCZip());
-        custDto.setCRoadA(cust.getCRoadA());
-        custDto.setCJibunA(cust.getCJibunA());
-        custDto.setCDetA(cust.getCDetA());
-        custDto.setSmsAgr(cust.getSmsAgr());
-        custDto.setEmailAgr(cust.getEmailAgr());
-        custDto.setRegDt(cust.getRegDt());
-        return custDto;
-    }
-
-//    public void custHist(CustDto custDto) {
-//        // 기존 회원 정보 조회
-//      Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-//
-//        System.out.println("서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-//
-////        isPresent() = 값이 있는지 없는지 확인
-//        if (optionalCust.isPresent()) {
-//            // 있으면 get() 으로 가져온다
-//            Cust cust = optionalCust.get();
-//
-//            cust.setCZip(custDto.getCZip());
-//            cust.setCRoadA(custDto.getCRoadA());
-//            cust.setCJibunA(custDto.getCJibunA());
-//            cust.setCDetA(custDto.getCDetA());
-//            cust.setCPhn(custDto.getCPhn());
-//            cust.setCBirth(custDto.getCBirth());
-//            cust.setSmsAgr(custDto.getSmsAgr());
-//            cust.setEmailAgr(custDto.getEmailAgr());
-//
-//            custRepository.save(cust);
-//        }
-//    }
 
     public void custHist(CustDto custDto, CustDto oldData) {
         // 기존 회원 정보 조회
@@ -179,10 +136,6 @@ public class CustServiceImpl implements CustService {
         addCustHist(custHistList, custDto, oldData, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
         addCustHist(custHistList, custDto, oldData, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
         addCustHist(custHistList, custDto, oldData, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
-
-//        for (CustHistDto custHistDto : custHistList) {
-//            custHistRepository.save(CustHist);
-//        }
 
         for (CustHistDto custHistDto : custHistList) {
             // CustHistDto를 CustHist 엔티티로 변환
@@ -218,5 +171,35 @@ public class CustServiceImpl implements CustService {
         session.setAttribute("cBirth", custDto.getCBirth());
         session.setAttribute("smsAgr", custDto.getSmsAgr());
         session.setAttribute("emailAgr", custDto.getEmailAgr());
+    }
+
+    // Cust 엔티티를 CustDto로 변환
+    public CustDto toDto(Cust cust) {
+        CustDto custDto = new CustDto();
+        custDto.setCId(cust.getCId());
+        custDto.setCZip(cust.getCZip());
+        custDto.setCRoadA(cust.getCRoadA());
+        custDto.setCJibunA(cust.getCJibunA());
+        custDto.setCDetA(cust.getCDetA());
+        custDto.setCPhn(cust.getCPhn());
+        custDto.setCBirth(cust.getCBirth());
+        custDto.setSmsAgr(cust.getSmsAgr());
+        custDto.setEmailAgr(cust.getEmailAgr());
+        return custDto;
+    }
+
+    // CustDto를 Cust 엔티티로 변환
+    public Cust toEntity(CustDto custDto) {
+        Cust cust = new Cust();
+        cust.setCId(custDto.getCId());
+        cust.setCZip(custDto.getCZip());
+        cust.setCRoadA(custDto.getCRoadA());
+        cust.setCJibunA(custDto.getCJibunA());
+        cust.setCDetA(custDto.getCDetA());
+        cust.setCPhn(custDto.getCPhn());
+        cust.setCBirth(custDto.getCBirth());
+        cust.setSmsAgr(custDto.getSmsAgr());
+        cust.setEmailAgr(custDto.getEmailAgr());
+        return cust;
     }
 }
