@@ -131,7 +131,8 @@ public class CustServiceImpl implements CustService {
 
         addCustHist(custHistList, custDto, oldData, "ZIP", oldData.getCZip(), custDto.getCZip());
         addCustHist(custHistList, custDto, oldData, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
-        addCustHist(custHistList, custDto, oldData, "DET_A", oldData.getCDetA(), custDto.getCDetA());
+        addCustHist(custHistList, custDto, oldData, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
+        addCustHist(custHistList, custDto, oldData, "DET", oldData.getCDetA(), custDto.getCDetA());
         addCustHist(custHistList, custDto, oldData, "PHN", oldData.getCPhn(), custDto.getCPhn());
         addCustHist(custHistList, custDto, oldData, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
         addCustHist(custHistList, custDto, oldData, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
@@ -177,27 +178,37 @@ public class CustServiceImpl implements CustService {
     public CustDto toDto(Cust cust) {
         CustDto custDto = new CustDto();
         custDto.setCId(cust.getCId());
+        custDto.setCEmail(cust.getCEmail());
+        custDto.setCName(cust.getCName());
+        custDto.setCNick(cust.getCNick());
+        custDto.setCBirth(cust.getCBirth());
+        custDto.setCGnd(cust.getCGnd());
+        custDto.setCPhn(cust.getCPhn());
         custDto.setCZip(cust.getCZip());
         custDto.setCRoadA(cust.getCRoadA());
         custDto.setCJibunA(cust.getCJibunA());
         custDto.setCDetA(cust.getCDetA());
-        custDto.setCPhn(cust.getCPhn());
-        custDto.setCBirth(cust.getCBirth());
         custDto.setSmsAgr(cust.getSmsAgr());
         custDto.setEmailAgr(cust.getEmailAgr());
+        custDto.setRegDt(cust.getRegDt());
         return custDto;
     }
+
+
 
     // CustDto를 Cust 엔티티로 변환
     public Cust toEntity(CustDto custDto) {
         Cust cust = new Cust();
         cust.setCId(custDto.getCId());
+        cust.setCEmail(custDto.getCEmail());
+        cust.setCName(custDto.getCName());
+        cust.setCNick(custDto.getCNick());
+        cust.setCGnd(custDto.getCGnd());
+        cust.setCPhn(custDto.getCPhn());
         cust.setCZip(custDto.getCZip());
         cust.setCRoadA(custDto.getCRoadA());
         cust.setCJibunA(custDto.getCJibunA());
         cust.setCDetA(custDto.getCDetA());
-        cust.setCPhn(custDto.getCPhn());
-        cust.setCBirth(custDto.getCBirth());
         cust.setSmsAgr(custDto.getSmsAgr());
         cust.setEmailAgr(custDto.getEmailAgr());
         return cust;

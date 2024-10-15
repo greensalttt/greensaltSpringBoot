@@ -56,23 +56,9 @@ public class CustMyPageController {
         int cId = (int) session.getAttribute("cId");
 
         Optional<Cust> optionalCust = custRepository.findById(cId);
-
         if (optionalCust.isPresent()) {
-            // Optional에서 엔티티 꺼내기
             Cust oldCust = optionalCust.get();
-
-            // Cust 엔티티를 CustDto로 변환
-            CustDto oldData = new CustDto();
-            oldData.setCId(oldCust.getCId());
-            oldData.setCZip(oldCust.getCZip());
-            oldData.setCRoadA(oldCust.getCRoadA());
-            oldData.setCJibunA(oldCust.getCJibunA());
-            oldData.setCDetA(oldCust.getCDetA());
-            oldData.setCPhn(oldCust.getCPhn());
-            oldData.setCBirth(oldCust.getCBirth());
-            oldData.setSmsAgr(oldCust.getSmsAgr());
-            oldData.setEmailAgr(oldCust.getEmailAgr());
-
+            CustDto oldData = custService.toDto(oldCust);
 
             // 현재 데이터 설정
             custDto.setCId(cId);
