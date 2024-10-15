@@ -80,32 +80,14 @@ public class CustMyPageController {
             // 서비스 호출하여 정보 업데이트 및 이력 기록
             custService.custHist(custDto, oldData);
 
-            updateSession(session, custDto);
+//            updateSession(session, custDto);
+            custService.updateSession(session, custDto);
 
-//        세션 업데이트
-//            session.setAttribute("cZip", custDto.getCZip());
-//            session.setAttribute("cRoadA", custDto.getCRoadA());
-//            session.setAttribute("cJibunA", custDto.getCJibunA());
-//            session.setAttribute("cDetA", custDto.getCDetA());
-//            session.setAttribute("cPhn", custDto.getCPhn());
-//            session.setAttribute("cBirth", custDto.getCBirth());
-//            session.setAttribute("smsAgr", custDto.getSmsAgr());
-//            session.setAttribute("emailAgr", custDto.getEmailAgr());
 
             return "redirect:/mypage/list";
         } else {
             // cId에 해당하는 고객 정보가 없을 경우 처리
             return "errorPage";
         }
-    }
-    private void updateSession(HttpSession session, CustDto custDto) {
-        session.setAttribute("cZip", custDto.getCZip());
-        session.setAttribute("cRoadA", custDto.getCRoadA());
-        session.setAttribute("cJibunA", custDto.getCJibunA());
-        session.setAttribute("cDetA", custDto.getCDetA());
-        session.setAttribute("cPhn", custDto.getCPhn());
-        session.setAttribute("cBirth", custDto.getCBirth());
-        session.setAttribute("smsAgr", custDto.getSmsAgr());
-        session.setAttribute("emailAgr", custDto.getEmailAgr());
     }
 }

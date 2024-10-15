@@ -3,6 +3,7 @@ package com.example.greenspringboot.cust.service;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.dto.CustDto;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public interface CustService {
@@ -20,9 +21,10 @@ public interface CustService {
 
     void custHist(CustDto custDto, CustDto oldData);
 
-    CustDto convertToDto(Cust cust)
+    CustDto convertToDto(Cust cust);
             ;
-//    CustDto findCustById(int cId);
+    void updateSession(HttpSession session, CustDto custDto);
+
 
 
 }

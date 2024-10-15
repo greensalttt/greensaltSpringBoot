@@ -208,4 +208,15 @@ public class CustServiceImpl implements CustService {
             custHistList.add(custHistDto);
         }
     }
+
+    public void updateSession(HttpSession session, CustDto custDto) {
+        session.setAttribute("cZip", custDto.getCZip());
+        session.setAttribute("cRoadA", custDto.getCRoadA());
+        session.setAttribute("cJibunA", custDto.getCJibunA());
+        session.setAttribute("cDetA", custDto.getCDetA());
+        session.setAttribute("cPhn", custDto.getCPhn());
+        session.setAttribute("cBirth", custDto.getCBirth());
+        session.setAttribute("smsAgr", custDto.getSmsAgr());
+        session.setAttribute("emailAgr", custDto.getEmailAgr());
+    }
 }
