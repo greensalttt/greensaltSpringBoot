@@ -27,14 +27,13 @@ public class CustMyPageController {
     @Autowired
     private CustRepository custRepository;
 
-    //    @Autowired
-    private final CustHistRepository custHistRepository;
-
+//    서비스에서 만든 메서드를 사용할려면 오토와이어드 어노테이션 필수
     @Autowired
     private CustService custService;
 
 
     @GetMapping("/list")
+//    view 이름을 반환해야하니 메서드의 타입을 String
     public String myPage(HttpSession session) {
         System.out.println("마이페이지 연결: " + session.getAttribute("cName"));
         return "myPage";
@@ -75,5 +74,11 @@ public class CustMyPageController {
             // cId에 해당하는 고객 정보가 없을 경우 처리
             return "errorPage";
         }
+    }
+
+    @GetMapping("/pwdEdit")
+    public String pwdEdit(){
+        return "pwdEdit";
+
     }
 }
