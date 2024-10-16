@@ -120,7 +120,7 @@
         justify-content: space-between;
     }
 
-    #det, #phn{
+    #det, #phn, #road, #jibun{
         font-size: 12px;
         margin-top: 15px;
     }
@@ -128,6 +128,16 @@
     #phn{
         margin-right: 37px;
     }
+
+    #road{
+        margin-right: 25px;
+    }
+
+    #jibun{
+        margin-right: 30px;
+    }
+
+
 
     .modal {
         display: none; /* 기본적으로 숨김 */
@@ -234,8 +244,8 @@
             <div id="ad">
                 <input type="text" id="zip" name="cZip" th:value="${session.cZip}">
                 <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>
-            <input type="text" id="roadAddress" name="cRoadA" th:value="${session.cRoadA}">
-            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" th:value="${session.cJibunA}">
+            <div class="oneLine"><input type="text" id="roadAddress" name="cRoadA" th:value="${session.cRoadA}"><p id="road">도로명 주소</p></div>
+                <div class="oneLine"><input type="text" id="jibunAddress" name="cJibunA" maxlength="30" th:value="${session.cJibunA}"><p id="jibun">지번 주소</p></div>
             <span id="guide" style="color:#999;display:none"></span>
             <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" th:value="${session.cDetA}"><p id="det">건물명 + 상세주소</p></div><br>
             <label class="infoLabel">휴대폰</label>

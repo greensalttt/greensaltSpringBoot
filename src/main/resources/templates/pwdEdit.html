@@ -1,0 +1,164 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Page Info</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{https://cdn-icons-png.flaticon.com/128/15439/15439306.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myPageHeader.css}">
+
+
+    <style>
+        .container {
+            width: 635px;
+            margin: auto;
+            text-align: left;
+            position: relative;
+            left: -90px;
+        }
+
+        .special-class {
+            width: 400px;
+            padding: 10px;
+            margin-bottom: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .pwdLabel {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 13px;
+            color: gray;
+        }
+
+        #pwdTitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            margin-top: 40px;
+        }
+
+        span {
+            color: gray;
+        }
+
+        #continue {
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            outline: none;
+            font-size: 13px;
+            font-weight: bold;
+            float: right;
+            margin-right: 200px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        #oneLine{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #pp{
+            font-size: 12px;
+            margin-top: 15px;
+        }
+        #check-newPwd{
+            font-size: 11px;
+            height: 20px;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+<<header th:insert="fragments/header :: headerFragment" style="margin-bottom: 200px;"></header>
+<header th:insert="fragments/myPageHeader :: myPageHeaderFragment"></header>
+
+<div id="pwdForm">
+    <form action="/mypage/pwdEdit" method="POST" onsubmit="return pwdEditCheck()">
+        <div class="container">
+            <h1 id="pwdTitle">비밀번호 변경</h1><br><br>
+
+            <label class="pwdLabel">현재 비밀번호</label>
+            <input id="curPwd" class="special-class" type="password" name="curPwd" maxlength="15">
+
+            <label class="pwdLabel">신규 비밀번호</label>
+            <div id="oneLine"><input id="newPwd" class="special-class" type="password" name="c_pwd" maxlength="15" oninput="newPwdCheck(this.form)"><p id="pp">영문/숫자 조합 (4자 이상 15자 이하)</p></div>
+            <p id="check-newPwd"></p>
+
+            <label class="pwdLabel">신규 비밀번호 확인</label>
+            <input id="newPwd2" class="special-class" type="password" maxlength="15" oninput="newPwdCheck(this.form)">
+            <button id="continue">변경</button>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+
+<script>
+
+    let pwdFail = "${pwdFail}"
+    if(pwdFail==="pwdMsg") {
+        alert("현재 비밀번호가 일치하지 않습니다.")
+    }
+
+    function pwdEditCheck(){
+        var curPwd = document.getElementById("curPwd").value;
+        var newPwd = document.getElementById("newPwd").value;
+        var newPwd2 = document.getElementById("newPwd2").value;
+        var newPwdPattern = /^(?=.*\d)(?=.*[a-z])[a-z0-9]{4,15}$/;
+
+
+        if(!newPwdPattern.test(newPwd)) {
+            alert("비밀번호는 소문자 영문/숫자 조합으로 4자 이상 15자 이하로 작성하셔야합니다.")
+            return false;
+        }
+
+        if (curPwd === newPwd) {
+            alert("현재 비밀번호와 새로운 비밀번호가 일치합니다. 다른 비밀번호를 입력해주세요.");
+            return false;
+        }
+
+        if(newPwd !== newPwd2){
+            alert("신규 비밀번호와 신규 비밀번호 확인이 일치하지 않습니다.")
+            return false;
+        } else if(newPwd===newPwd2){
+            return true;
+        }
+    }
+
+    function newPwdCheck() {
+        var newPwdResult = document.getElementById("check-newPwd");
+        var newPwd = document.getElementById("newPwd").value
+        var newPwd2 = document.getElementById("newPwd2").value
+
+        if(!newPwd){
+            newPwdResult.style.color = "red";
+            newPwdResult.innerHTML = "비밀번호를 입력해주세요.";
+            return false;
+        }else if(!newPwd2){
+            newPwdResult.style.color = "red";
+            newPwdResult.innerHTML = "비밀번호 확인을 입력해주세요.";
+            return false;
+        } else if ((newPwd !== newPwd2) || (newPwd2 !== newPwd)) {
+            newPwdResult.style.color = "red";
+            newPwdResult.innerHTML = "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+            return false;
+        }else
+            newPwdResult.style.color = "green";
+        newPwdResult.innerHTML = "비밀번호가 동일합니다.";
+        return true;
+    }
+</script>
+</body>
