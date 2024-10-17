@@ -79,6 +79,12 @@ public class CustMyPageController {
     @GetMapping("/pwdEdit")
     public String pwdEdit(){
         return "pwdEdit";
-
     }
+
+    @PostMapping("/pwdEditPost")
+    public String pwdEditPost(){
+        return "myPage";
+    }
+
+
 }

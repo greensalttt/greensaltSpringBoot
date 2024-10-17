@@ -194,8 +194,6 @@ public class CustServiceImpl implements CustService {
         return custDto;
     }
 
-
-
     // CustDto를 Cust 엔티티로 변환
     public Cust toEntity(CustDto custDto) {
         Cust cust = new Cust();
@@ -211,6 +209,20 @@ public class CustServiceImpl implements CustService {
         cust.setCDetA(custDto.getCDetA());
         cust.setSmsAgr(custDto.getSmsAgr());
         cust.setEmailAgr(custDto.getEmailAgr());
+        return cust;
+    }
+
+//    엔티티 비밀번호를 DTO로
+    public CustDto toPwdDto(Cust cust) {
+        CustDto custDto = new CustDto();
+        custDto.setCPwd(cust.getCPwd());
+        return custDto;
+    }
+
+//    비밀번호 DTO를 엔티티로
+    public Cust toPwdEntity(CustDto custDto) {
+        Cust cust = new Cust();
+        cust.setCPwd(custDto.getCPwd());
         return cust;
     }
 }
