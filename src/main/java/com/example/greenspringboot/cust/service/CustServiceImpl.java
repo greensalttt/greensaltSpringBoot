@@ -114,15 +114,7 @@ public class CustServiceImpl implements CustService {
         if (optionalCust.isPresent()) {
             // 있으면 get() 으로 가져온다
             Cust cust = optionalCust.get();
-
-            cust.setCZip(custDto.getCZip());
-            cust.setCRoadA(custDto.getCRoadA());
-            cust.setCJibunA(custDto.getCJibunA());
-            cust.setCDetA(custDto.getCDetA());
-            cust.setCPhn(custDto.getCPhn());
-            cust.setCBirth(custDto.getCBirth());
-            cust.setSmsAgr(custDto.getSmsAgr());
-            cust.setEmailAgr(custDto.getEmailAgr());
+            toEntity(cust, custDto);
 
             custRepository.save(cust);
         }
@@ -147,7 +139,7 @@ public class CustServiceImpl implements CustService {
             custHist.setCAf(custHistDto.getCAf());
 
             // 이력 저장
-            custHistRepository.save(custHist);  // custHist 엔티티 인스턴스를 저장
+            custHistRepository.save(custHist);
         }
     }
 
@@ -194,25 +186,45 @@ public class CustServiceImpl implements CustService {
         return custDto;
     }
 
-    // CustDto를 Cust 엔티티로 변환
-    public Cust toEntity(CustDto custDto) {
-        Cust cust = new Cust();
-        cust.setCId(custDto.getCId());
-        cust.setCEmail(custDto.getCEmail());
-        cust.setCName(custDto.getCName());
-        cust.setCNick(custDto.getCNick());
-        cust.setCGnd(custDto.getCGnd());
-        cust.setCPhn(custDto.getCPhn());
-        cust.setCZip(custDto.getCZip());
-        cust.setCRoadA(custDto.getCRoadA());
-        cust.setCJibunA(custDto.getCJibunA());
-        cust.setCDetA(custDto.getCDetA());
-        cust.setSmsAgr(custDto.getSmsAgr());
-        cust.setEmailAgr(custDto.getEmailAgr());
-        return cust;
+    // 객체를 매개변수로 넣으면 개인정보 수정에서 하나만 수정해도 전체 수정이 되기떄문에 변경이 있다는 것만 수정해줄 수 있도록 if문이 필요함
+    // 객체를 새로 생성할 경우에는 하나만 수정해도 문제 없지만 객체를 새로 만드는만큼 성능에 부담을 줄 수가 있다.
+    public void toEntity(Cust cust, CustDto custDto) {
+        if (custDto.getCEmail() != null) {
+            cust.setCEmail(custDto.getCEmail());
+        }
+        if (custDto.getCName() != null) {
+            cust.setCName(custDto.getCName());
+        }
+        if (custDto.getCNick() != null) {
+            cust.setCNick(custDto.getCNick());
+        }
+        if (custDto.getCGnd() != null) {
+            cust.setCGnd(custDto.getCGnd());
+        }
+        if (custDto.getCPhn() != null) {
+            cust.setCPhn(custDto.getCPhn());
+        }
+        if (custDto.getCZip() != null) {
+            cust.setCZip(custDto.getCZip());
+        }
+        if (custDto.getCRoadA() != null) {
+            cust.setCRoadA(custDto.getCRoadA());
+        }
+        if (custDto.getCJibunA() != null) {
+            cust.setCJibunA(custDto.getCJibunA());
+        }
+        if (custDto.getCDetA() != null) {
+            cust.setCDetA(custDto.getCDetA());
+        }
+        if (custDto.getSmsAgr() != null) {
+            cust.setSmsAgr(custDto.getSmsAgr());
+        }
+        if (custDto.getEmailAgr() != null) {
+            cust.setEmailAgr(custDto.getEmailAgr());
+        }
     }
 
-//    엔티티 비밀번호를 DTO로
+    //    엔티티 비밀번호를 DTO로
     public CustDto toPwdDto(Cust cust) {
         CustDto custDto = new CustDto();
         custDto.setCPwd(cust.getCPwd());

@@ -27,7 +27,7 @@ public interface CustService {
 
     CustDto toDto(Cust cust);
 
-    Cust toEntity(CustDto custDto);
+    void toEntity(Cust cust, CustDto custDto);
 
 
 

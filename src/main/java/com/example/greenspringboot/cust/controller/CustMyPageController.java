@@ -65,7 +65,6 @@ public class CustMyPageController {
             // 서비스 호출하여 정보 업데이트 및 이력 기록
             custService.custHist(custDto, oldData);
 
-//            updateSession(session, custDto);
             custService.updateSession(session, custDto);
 
 
