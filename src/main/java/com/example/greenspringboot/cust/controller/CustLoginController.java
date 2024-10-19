@@ -1,22 +1,17 @@
 package com.example.greenspringboot.cust.controller;
-import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.dto.CustDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 // 레스트컨트롤러는 서버간의 데이터를 통신할때만, 뷰를 반환할때는 일반 컨트롤러
 //@RestController
@@ -82,10 +77,10 @@ public class CustLoginController {
                 response.addCookie(idcookie);
             }
 
-            System.out.println("Session cId: " + session.getAttribute("cId"));
-            System.out.println("Session cName: " + session.getAttribute("cName"));
-            System.out.println("Session cNick: " + session.getAttribute("cNick"));
-            System.out.println("Session regDt: " + session.getAttribute("regDt"));
+            System.out.println("로그인 컨트롤러 Session cId: " + session.getAttribute("cId"));
+            System.out.println("로그인 컨트롤러 Session cName: " + session.getAttribute("cName"));
+            System.out.println("로그인 컨트롤러 Session cNick: " + session.getAttribute("cNick"));
+            System.out.println("로그인 컨트롤러 Session regDt: " + session.getAttribute("regDt"));
 
             return "redirect:" + toURL;
     } else {

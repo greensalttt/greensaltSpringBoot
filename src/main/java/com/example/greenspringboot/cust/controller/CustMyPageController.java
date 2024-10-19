@@ -35,14 +35,14 @@ public class CustMyPageController {
     @GetMapping("/list")
 //    view 이름을 반환해야하니 메서드의 타입을 String
     public String myPage(HttpSession session) {
-        System.out.println("마이페이지 연결: " + session.getAttribute("cName"));
+        System.out.println("마이페이지 겟맵핑: " + session.getAttribute("cName"));
         return "myPage";
     }
 
     //    엔티티는 DB 전송, DTO는 데이터 전송
     @GetMapping("/info")
     public String myPageInfo(HttpSession session) {
-        System.out.println("개인장보변경 연결: " + session.getAttribute("cName"));
+        System.out.println("개인정보변경 겟맵핑: " + session.getAttribute("cName"));
         return "myPageInfo";
     }
 
@@ -66,6 +66,7 @@ public class CustMyPageController {
             custService.custHist(custDto, oldData);
 
             custService.updateSession(session, custDto);
+            System.out.println("개인정보 변경 완료");
 
 
             return "redirect:/mypage/list";
