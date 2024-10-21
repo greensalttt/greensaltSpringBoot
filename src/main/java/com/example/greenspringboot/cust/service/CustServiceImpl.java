@@ -109,7 +109,7 @@ public class CustServiceImpl implements CustService {
         // 기존 회원 정보 조회
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
-        System.out.println("서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+        System.out.println("개인정보 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
         ////        isPresent() = 값이 있는지 없는지 확인
         if (optionalCust.isPresent()) {
             // 있으면 get() 으로 가져온다
@@ -169,7 +169,7 @@ public class CustServiceImpl implements CustService {
     public void pwdChange(CustDto custDto, CustDto oldData){
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
-        System.out.println("서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
         ////        isPresent() = 값이 있는지 없는지 확인
         if (optionalCust.isPresent()) {
             // 있으면 get() 으로 가져온다
@@ -178,18 +178,14 @@ public class CustServiceImpl implements CustService {
 
             custRepository.save(cust);
         }
-        List<CustHistDto> custHistList = new ArrayList<>();
-        addCustHist(custHistList, custDto, oldData, "PWD", oldData.getCPwd(), custDto.getCPwd());
 
-        for (CustHistDto custHistDto : custHistList) {
             CustHist custHist = new CustHist();
-            custHist.setCId(custHistDto.getCId());
-            custHist.setCCngCd(custHistDto.getCCngCd());
-            custHist.setCBf(custHistDto.getCBf());
-            custHist.setCAf(custHistDto.getCAf());
+            custHist.setCId(custDto.getCId());
+            custHist.setCCngCd("PWD");
+            custHist.setCBf(oldData.getCPwd());
+            custHist.setCAf(custDto.getCPwd());
 
             custHistRepository.save(custHist);
-        }
     }
 
     // Cust 엔티티를 CustDto로 변환

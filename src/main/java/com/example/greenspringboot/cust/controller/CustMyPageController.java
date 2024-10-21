@@ -82,9 +82,26 @@ public class CustMyPageController {
     }
 
     @PostMapping("/pwdEditPost")
-    public String pwdEditPost(){
-        return "myPage";
-    }
+    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout) {
+        HttpSession session = request.getSession();
 
+//        로그인할때 저장한 cId 세션을 변수로 저장
+        int cId = (int) session.getAttribute("cId");
 
-}
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+        if (optionalCust.isPresent()) {
+            Cust oldCust = optionalCust.get();
+            CustDto oldData = custService.toDto(oldCust);
+
+            // 현재 데이터 설정
+            custDto.setCId(cId);
+
+            custService.pwdChange(custDto, oldData);
+
+            sessionLogout.invalidate();
+            return "redirect:/";
+        } else {
+            // cId에 해당하는 고객 정보가 없을 경우 처리
+            return "errorPage";
+        }
+    }}

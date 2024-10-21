@@ -29,6 +29,6 @@ public interface CustService {
 
     void toEntity(Cust cust, CustDto custDto);
 
-
+    void pwdChange(CustDto custDto, CustDto oldData);
 
 }
