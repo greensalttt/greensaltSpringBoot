@@ -7,12 +7,14 @@ import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.dto.CustDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -82,22 +84,29 @@ public class CustMyPageController {
     }
 
     @PostMapping("/pwdEditPost")
-    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout) {
+    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
         HttpSession session = request.getSession();
 
 //        로그인할때 저장한 cId 세션을 변수로 저장
         int cId = (int) session.getAttribute("cId");
 
+//        cust 엔티티를 들고오는 코드이므로 메서드 만들시 매개변수로 엔티티를 받아야됨
         Optional<Cust> optionalCust = custRepository.findById(cId);
         if (optionalCust.isPresent()) {
             Cust oldCust = optionalCust.get();
-            CustDto oldData = custService.toDto(oldCust);
+            CustDto oldData = custService.toPwdDto(oldCust);
 
-            // 현재 데이터 설정
             custDto.setCId(cId);
 
-            custService.pwdChange(custDto, oldData);
+//            /* 입력한 현재 비밀번호와 실제 비밀번호가 일치하는지 확인*/
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(curPwd, oldData.getCPwd())) {
+                msg.addFlashAttribute("pwdFail", "pwdMsg");
+                return "redirect:/mypage/pwdEdit";
+            }
 
+            custService.pwdChange(custDto, oldData);
+            System.out.println("비밀번호 변경 완료");
             sessionLogout.invalidate();
             return "redirect:/";
         } else {
@@ -105,3 +114,5 @@ public class CustMyPageController {
             return "errorPage";
         }
     }}
+
+

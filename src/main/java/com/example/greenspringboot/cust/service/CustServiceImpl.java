@@ -11,10 +11,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -110,7 +108,7 @@ public class CustServiceImpl implements CustService {
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
         System.out.println("개인정보 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-        ////        isPresent() = 값이 있는지 없는지 확인
+        //        isPresent() = 값이 있는지 없는지 확인
         if (optionalCust.isPresent()) {
             // 있으면 get() 으로 가져온다
             Cust cust = optionalCust.get();
@@ -143,6 +141,30 @@ public class CustServiceImpl implements CustService {
         }
     }
 
+
+    public void pwdChange(CustDto custDto, CustDto oldData) {
+        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+
+        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+        ////        isPresent() = 값이 있는지 없는지 확인
+        if (optionalCust.isPresent()) {
+            // 있으면 get() 으로 가져온다
+            Cust cust = optionalCust.get();
+            toPwdEntity(cust, custDto);
+            custRepository.save(cust);
+        }
+        CustHist custHist = new CustHist();
+        custHist.setCId(custDto.getCId());
+        custHist.setCCngCd("PWD");
+        custHist.setCBf(oldData.getCPwd());
+//        custHist.setCAf(custDto.getCPwd());
+        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+
+
+        custHistRepository.save(custHist);
+    }
+
+
     private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
                              String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
@@ -164,28 +186,6 @@ public class CustServiceImpl implements CustService {
         session.setAttribute("cBirth", custDto.getCBirth());
         session.setAttribute("smsAgr", custDto.getSmsAgr());
         session.setAttribute("emailAgr", custDto.getEmailAgr());
-    }
-
-    public void pwdChange(CustDto custDto, CustDto oldData){
-        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-
-        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-        ////        isPresent() = 값이 있는지 없는지 확인
-        if (optionalCust.isPresent()) {
-            // 있으면 get() 으로 가져온다
-            Cust cust = optionalCust.get();
-            toEntity(cust, custDto);
-
-            custRepository.save(cust);
-        }
-
-            CustHist custHist = new CustHist();
-            custHist.setCId(custDto.getCId());
-            custHist.setCCngCd("PWD");
-            custHist.setCBf(oldData.getCPwd());
-            custHist.setCAf(custDto.getCPwd());
-
-            custHistRepository.save(custHist);
     }
 
     // Cust 엔티티를 CustDto로 변환
@@ -253,10 +253,9 @@ public class CustServiceImpl implements CustService {
         return custDto;
     }
 
-//    비밀번호 DTO를 엔티티로
-    public Cust toPwdEntity(CustDto custDto) {
-        Cust cust = new Cust();
-        cust.setCPwd(custDto.getCPwd());
+    public Cust toPwdEntity(Cust cust, CustDto custDto) {
+        cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
         return cust;
     }
+
 }

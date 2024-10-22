@@ -31,4 +31,10 @@ public interface CustService {
 
     void pwdChange(CustDto custDto, CustDto oldData);
 
+    CustDto toPwdDto(Cust cust);
+
+
+    Cust toPwdEntity(Cust cust, CustDto custDto);
+
+
 }
