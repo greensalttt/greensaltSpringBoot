@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -103,6 +104,7 @@ public class CustServiceImpl implements CustService {
         return null;
     }
 
+    @Transactional
     public void custHist(CustDto custDto, CustDto oldData) {
         // 기존 회원 정보 조회
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
@@ -142,6 +144,7 @@ public class CustServiceImpl implements CustService {
     }
 
 
+    @Transactional
     public void pwdChange(CustDto custDto, CustDto oldData) {
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
