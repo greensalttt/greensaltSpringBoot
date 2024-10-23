@@ -89,6 +89,10 @@
         <div class="container">
             <h1 id="pwdTitle">비밀번호 변경</h1><br><br>
 
+<!--            <div th:if="${pwdFail != null}">-->
+<!--                <p th:text="${pwdFail}" style="color: red;"></p>-->
+<!--            </div>-->
+
             <label class="pwdLabel">현재 비밀번호</label>
             <input id="curPwd" class="special-class" type="password" name="curPwd" maxlength="15">
 
@@ -107,9 +111,9 @@
 
 <script>
 
-    let pwdFail = "${pwdFail}"
-    if(pwdFail==="pwdMsg") {
-        alert("현재 비밀번호가 일치하지 않습니다.")
+    let pwdFail = "[[${pwdFail}]]";  // Thymeleaf 구문으로 서버에서 전달된 변수를 읽음
+    if (pwdFail === "pwdMsg") {
+        alert("현재 비밀번호가 일치하지 않습니다.");
     }
 
     function pwdEditCheck(){

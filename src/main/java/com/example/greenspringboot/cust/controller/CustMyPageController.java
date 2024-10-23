@@ -102,6 +102,8 @@ public class CustMyPageController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             if (!encoder.matches(curPwd, oldData.getCPwd())) {
                 msg.addFlashAttribute("pwdFail", "pwdMsg");
+
+
                 return "redirect:/mypage/pwdEdit";
             }
 
