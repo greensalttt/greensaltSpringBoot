@@ -5,7 +5,6 @@ import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.dto.CustDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
-public class CustRegisterController {
+public class RegisterController {
 
     private final CustService custService;
 

@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 //@RestController
 @Controller
 @RequiredArgsConstructor
-public class CustLoginController {
+public class LoginController {
 
     private final CustService custService;
     @GetMapping("/login")
