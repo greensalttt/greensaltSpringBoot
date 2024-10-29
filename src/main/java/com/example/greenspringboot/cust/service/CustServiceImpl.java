@@ -143,9 +143,32 @@ public class CustServiceImpl implements CustService {
         }
     }
 
+//
+//    @Transactional
+//    public void pwdChange(CustDto custDto, CustDto oldData) {
+//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+//
+//        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+//        ////        isPresent() = 값이 있는지 없는지 확인
+//        if (optionalCust.isPresent()) {
+//            // 있으면 get() 으로 가져온다
+//            Cust cust = optionalCust.get();
+//            toPwdEntity(cust, custDto);
+//            custRepository.save(cust);
+//        }
+//        CustHist custHist = new CustHist();
+//        custHist.setCId(custDto.getCId());
+//        custHist.setCCngCd("PWD");
+//        custHist.setCBf(oldData.getCPwd());
+//        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+//
+//        custHistRepository.save(custHist);
+//    }
+
 
     @Transactional
-    public void pwdChange(CustDto custDto, CustDto oldData) {
+    public void pwdChange(CustDto custDto, String cPwd) {
+        CustDto custPwd = new CustDto(cPwd);
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
         System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
@@ -153,20 +176,17 @@ public class CustServiceImpl implements CustService {
         if (optionalCust.isPresent()) {
             // 있으면 get() 으로 가져온다
             Cust cust = optionalCust.get();
-            toPwdEntity(cust, custDto);
+            toPwdEntity(custDto);
             custRepository.save(cust);
         }
         CustHist custHist = new CustHist();
         custHist.setCId(custDto.getCId());
         custHist.setCCngCd("PWD");
-        custHist.setCBf(oldData.getCPwd());
-//        custHist.setCAf(custDto.getCPwd());
-        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-
+        custHist.setCBf(custDto.getCPwd());
+        custHist.setCAf(pwdEncrypt(custPwd.getCPwd()));
 
         custHistRepository.save(custHist);
     }
-
 
     private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
                              String changeCode, String oldValue, String newValue) {
@@ -256,7 +276,8 @@ public class CustServiceImpl implements CustService {
         return custDto;
     }
 
-    public Cust toPwdEntity(Cust cust, CustDto custDto) {
+    public Cust toPwdEntity(CustDto custDto) {
+        Cust cust = new Cust();
         cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
         return cust;
     }
