@@ -29,7 +29,7 @@ public interface CustService {
 
     void toEntity(Cust cust, CustDto custDto);
 
-    void pwdChange(CustDto custDto, CustDto oldData);
+    void pwdChange(int cId, String cPwd, CustDto oldPwd);
 
     CustDto toPwdDto(Cust cust);
 

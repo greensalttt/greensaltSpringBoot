@@ -167,8 +167,8 @@ public class CustServiceImpl implements CustService {
 
 
     @Transactional
-    public void pwdChange(CustDto custDto, String cPwd) {
-        CustDto custPwd = new CustDto(cPwd);
+    public void pwdChange(int cId, String cPwd, CustDto oldPwd) {
+        CustDto custDto = new CustDto(cId, cPwd);
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
 
         System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
@@ -176,14 +176,14 @@ public class CustServiceImpl implements CustService {
         if (optionalCust.isPresent()) {
             // 있으면 get() 으로 가져온다
             Cust cust = optionalCust.get();
-            toPwdEntity(custDto);
+            toPwdEntity(cust, custDto);
             custRepository.save(cust);
         }
         CustHist custHist = new CustHist();
         custHist.setCId(custDto.getCId());
         custHist.setCCngCd("PWD");
-        custHist.setCBf(custDto.getCPwd());
-        custHist.setCAf(pwdEncrypt(custPwd.getCPwd()));
+        custHist.setCBf(oldPwd.getCPwd());
+        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
 
         custHistRepository.save(custHist);
     }
@@ -276,10 +276,14 @@ public class CustServiceImpl implements CustService {
         return custDto;
     }
 
-    public Cust toPwdEntity(CustDto custDto) {
-        Cust cust = new Cust();
-        cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
-        return cust;
-    }
+//    public Cust toPwdEntity(CustDto custDto) {
+//        Cust cust = new Cust();
+//        cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
+//        return cust;
+//    }
+    public Cust toPwdEntity(Cust cust, CustDto custDto) {
+    cust.setCPwd(pwdEncrypt(custDto.getCPwd())); // custDto의 비밀번호를 암호화하여 cust 객체에 설정
+    return cust;
+}
 
 }

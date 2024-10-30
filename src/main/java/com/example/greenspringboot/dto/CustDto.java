@@ -7,8 +7,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
-@Setter
 @Data
 public class CustDto {
     private int cId;
@@ -39,9 +37,12 @@ public class CustDto {
     public CustDto(){}
 
 
-    public CustDto(String cPwd){
+//    여기에 cId 변수 넣고 이 생성자만으로 비밀번호 변경 서비스 메서드 다시 구성해보기
+    public CustDto(int cId, String cPwd){
+        this.cId = cId;
         this.cPwd = cPwd;
     }
+
 
     public CustDto(int cId, String cEmail, String cName, String cNick, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, LocalDateTime regDt){
         this.cId = cId;

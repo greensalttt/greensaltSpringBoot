@@ -20,7 +20,7 @@ public class CustRepositoryTest {
 
     @Test
     public void crudTest() {
-        CustDto custDto = new CustDto("123456789q");
+        CustDto custDto = new CustDto(123,"123456789q");
 
         custService.validatePassword(custDto.getCPwd());
 

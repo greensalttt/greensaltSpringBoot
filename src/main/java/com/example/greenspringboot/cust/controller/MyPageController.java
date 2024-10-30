@@ -80,8 +80,9 @@ public class MyPageController {
         return "pwdEdit";
     }
 
+//    전체 dto 안쓰고 만들 수 있을거 같음
     @PostMapping("/pwdEditPost")
-    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
+    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, String cPwd, RedirectAttributes msg) {
         HttpSession session = request.getSession();
 
 //        로그인할때 저장한 cId 세션을 변수로 저장
@@ -104,7 +105,7 @@ public class MyPageController {
                 return "redirect:/mypage/pwdEdit";
             }
 
-            custService.pwdChange(custDto, oldData);
+            custService.pwdChange(cId, cPwd, oldData);
             System.out.println("비밀번호 변경 완료");
             sessionLogout.invalidate();
             return "redirect:/";

@@ -1,16 +1,11 @@
 package com.example.greenspringboot.cust.entity;
 
-//import com.sun.istack.NotNull;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "cust")
