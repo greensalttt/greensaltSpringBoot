@@ -43,7 +43,7 @@ public class CustDto {
         this.cPwd = cPwd;
     }
 
-
+//    회원가입 Dto 이거 기본 생성자로 대체 가능한거 아닌가??
     public CustDto(int cId, String cEmail, String cName, String cNick, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, LocalDateTime regDt){
         this.cId = cId;
         this.cEmail = cEmail;
@@ -61,6 +61,7 @@ public class CustDto {
         this.regDt = regDt;
     }
 
+//    정보 변경
     public CustDto(int cId, String cZip, String cRoadA, String cJibunA, String cDetA, String cBirth, String cPhn, String smsAgr, String emailAgr, LocalDateTime regDt){
         this.cId = cId;
         this.cZip = cZip;
