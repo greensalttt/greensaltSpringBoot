@@ -1,4 +1,4 @@
-package com.example.greenspringboot.dto;
+package com.example.greenspringboot.cust.dto;
 
 import lombok.Data;
 import lombok.Getter;
