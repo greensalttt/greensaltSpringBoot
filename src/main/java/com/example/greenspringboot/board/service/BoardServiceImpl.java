@@ -2,9 +2,11 @@ package com.example.greenspringboot.board.service;
 
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.repository.BoardRepository;
+import com.example.greenspringboot.board.dto.BoardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,15 +68,17 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Board> getSearchResultPage(String keyword, int page, int size) {
-        // 페이지를 고려하여 검색 결과를 가져옵니다.
-        Page<Board> result = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, PageRequest.of(page, size));
-        return result.getContent();
+    public Page<BoardDto> getSearchResultPage(String keyword, Pageable pageable) {
+        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+
+        // Board -> BoardDto 변환
+//        이거 엔티티였음
+        return boardPage.map(board -> new BoardDto(board.getBno(), board.getTitle(), board.getContent(), board.getCId(), board.getViewCnt(), board.getRegDt()));
     }
 
     @Override
     public int getSearchResultCnt(String keyword) {
-        // 검색 조건에 맞는 게시물의 개수를 반환합니다.
         return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
     }
+
 }
