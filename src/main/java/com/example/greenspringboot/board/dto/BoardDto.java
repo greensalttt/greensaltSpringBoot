@@ -20,4 +20,13 @@ public class BoardDto {
 //    생성자에 대한 이해가 더 필요
 //    굳이 여러개 생성자가 필요 없다? 기본 생성자로 해결 가능한 부분은 기본 생성자로 해결해보기
     public BoardDto(){}
+
+    public BoardDto(int bno, String title, String content, int c_id, int view_cnt, LocalDateTime reg_dt) {
+        this.bno = bno;
+        this.title = title;
+        this.content = content;
+        this.c_id = c_id;
+        this.view_cnt = view_cnt;
+        this.reg_dt = reg_dt;
+    }
 }
