@@ -3,8 +3,8 @@ import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
-import com.example.greenspringboot.dto.CustDto;
-import com.example.greenspringboot.dto.CustHistDto;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustHistDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,11 +18,14 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CustServiceImpl implements CustService {
 
-    private final CustRepository custRepository;
-    private final CustHistRepository custHistRepository;
+    @Autowired
+    private CustRepository custRepository;
+
+    @Autowired
+    private CustHistRepository custHistRepository;
 
 
     @Autowired
@@ -52,7 +55,6 @@ public class CustServiceImpl implements CustService {
         }
     }
 
-
     public void makeRandomNumber() throws Exception {
 //        랜덤 객체 생성
         Random r = new Random();
@@ -70,7 +72,7 @@ public class CustServiceImpl implements CustService {
         helper.setText(content, true); // HTML 형식으로 설정
         mailSender.send(message);
     }
-
+    @Override
     public String joinEmail(String cEmail) throws Exception {
         makeRandomNumber();
         String subject = "WELCOME GREEN :)";
@@ -78,7 +80,7 @@ public class CustServiceImpl implements CustService {
         sendEmail(cEmail, subject, content);
         return Integer.toString(authNumber);
     }
-
+    @Override
     public String pwdEncrypt(String cPwd) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(cPwd);
@@ -86,12 +88,13 @@ public class CustServiceImpl implements CustService {
 
     //    비밀번호 서버 유효성 검사
 //    해쉬화 같은 복잡한 것들은 서비스로 빼서 엔티티로 받기 전에 미리 유효성 검사 진행
+    @Override
     public void validatePassword(String cPwd) {
         if (!cPwd.matches("^(?=.*\\d)(?=.*[a-z])[a-z0-9]{4,15}$")) {
             throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
         }
     }
-
+    @Override
     public CustDto login(String email, String rawPassword) {
 //        값이 있을수도 없을수도 있을때 옵셔널로 처리
         Optional<Cust> custOptional = custRepository.findBycEmail(email);
@@ -105,6 +108,7 @@ public class CustServiceImpl implements CustService {
     }
 
     @Transactional
+    @Override
     public void custHist(CustDto custDto, CustDto oldData) {
         // 기존 회원 정보 조회
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
@@ -143,30 +147,21 @@ public class CustServiceImpl implements CustService {
         }
     }
 
-//
-//    @Transactional
-//    public void pwdChange(CustDto custDto, CustDto oldData) {
-//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-//
-//        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-//        ////        isPresent() = 값이 있는지 없는지 확인
-//        if (optionalCust.isPresent()) {
-//            // 있으면 get() 으로 가져온다
-//            Cust cust = optionalCust.get();
-//            toPwdEntity(cust, custDto);
-//            custRepository.save(cust);
-//        }
-//        CustHist custHist = new CustHist();
-//        custHist.setCId(custDto.getCId());
-//        custHist.setCCngCd("PWD");
-//        custHist.setCBf(oldData.getCPwd());
-//        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-//
-//        custHistRepository.save(custHist);
-//    }
+    private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
+                             String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            CustHistDto custHistDto = new CustHistDto();
+            custHistDto.setCId(newData.getCId());
+            custHistDto.setCCngCd(changeCode);
+            custHistDto.setCBf(oldValue);
+            custHistDto.setCAf(newValue);
+            custHistList.add(custHistDto);
+        }
+    }
 
 
     @Transactional
+    @Override
     public void pwdChange(int cId, String cPwd, CustDto oldPwd) {
         CustDto custDto = new CustDto(cId, cPwd);
         Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
@@ -188,18 +183,7 @@ public class CustServiceImpl implements CustService {
         custHistRepository.save(custHist);
     }
 
-    private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
-                             String changeCode, String oldValue, String newValue) {
-        if (!oldValue.equals(newValue)) {
-            CustHistDto custHistDto = new CustHistDto();
-            custHistDto.setCId(newData.getCId());
-            custHistDto.setCCngCd(changeCode);
-            custHistDto.setCBf(oldValue);
-            custHistDto.setCAf(newValue);
-            custHistList.add(custHistDto);
-        }
-    }
-
+    @Override
     public void updateSession(HttpSession session, CustDto custDto) {
         session.setAttribute("cZip", custDto.getCZip());
         session.setAttribute("cRoadA", custDto.getCRoadA());
@@ -212,6 +196,7 @@ public class CustServiceImpl implements CustService {
     }
 
     // Cust 엔티티를 CustDto로 변환
+    @Override
     public CustDto toDto(Cust cust) {
         CustDto custDto = new CustDto();
         custDto.setCId(cust.getCId());
@@ -233,6 +218,7 @@ public class CustServiceImpl implements CustService {
 
     // 객체를 매개변수로 넣으면 개인정보 수정에서 하나만 수정해도 전체 수정이 되기떄문에 변경이 있다는 것만 수정해줄 수 있도록 if문이 필요함
     // 객체를 새로 생성할 경우에는 하나만 수정해도 문제 없지만 객체를 새로 만드는만큼 성능에 부담을 줄 수가 있다.
+    @Override
     public void toEntity(Cust cust, CustDto custDto) {
         if (custDto.getCEmail() != null) {
             cust.setCEmail(custDto.getCEmail());
@@ -270,6 +256,7 @@ public class CustServiceImpl implements CustService {
     }
 
     //    엔티티 비밀번호를 DTO로
+    @Override
     public CustDto toPwdDto(Cust cust) {
         CustDto custDto = new CustDto();
         custDto.setCPwd(cust.getCPwd());
@@ -281,6 +268,7 @@ public class CustServiceImpl implements CustService {
 //        cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
 //        return cust;
 //    }
+@Override
     public Cust toPwdEntity(Cust cust, CustDto custDto) {
     cust.setCPwd(pwdEncrypt(custDto.getCPwd())); // custDto의 비밀번호를 암호화하여 cust 객체에 설정
     return cust;

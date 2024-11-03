@@ -156,14 +156,17 @@
 <div class="board-container">
     <div class="search-container">
         <form action="/board/list" class="search-form" method="get">
-        <select class="search-option" name="option">
-            <option value="A" th:selected="${ph.sc.option == 'A' or ph.sc.option == ''}">제목+내용</option>
-            <option value="T" th:selected="${ph.sc.option == 'T'}">제목만</option>
-            <option value="W" th:selected="${ph.sc.option == 'W'}">작성자</option>
-        </select>
 
-        <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
-        <input type="submit" class="search-button" value="검색">
+            <select class="search-option" name="option">
+                <option value="A" th:selected="${ph != null and ph.sc != null and (ph.sc.option == 'A' or ph.sc.option == '')}">제목+내용</option>
+                <option value="T" th:selected="${ph != null and ph.sc != null and ph.sc.option == 'T'}">제목만</option>
+                <option value="W" th:selected="${ph != null and ph.sc != null and ph.sc.option == 'W'}">작성자</option>
+            </select>
+
+            <input type="text" name="keyword" class="search-input"
+                   th:value="${ph?.sc?.keyword ?: ''}" placeholder="검색어를 입력해주세요">
+
+            <input type="submit" class="search-button" value="검색">
         </form>
         <a id="writeBtn" class="btn-write" th:href="@{/board/write}">
             <i class="fa fa-pencil"></i> 글쓰기
