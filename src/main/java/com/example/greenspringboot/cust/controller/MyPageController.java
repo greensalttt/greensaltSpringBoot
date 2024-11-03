@@ -2,7 +2,7 @@ package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.service.CustService;
-import com.example.greenspringboot.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

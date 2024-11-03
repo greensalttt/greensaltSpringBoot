@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 //  MyBatis에서는 Dao, JPA에서는 Repository
-//Cust는 엔티티 테이블 이름, Integer은 테이블의 pk 타입
+//Cust는 엔티티 이름, Integer은 테이블의 pk 타입
 public interface CustRepository extends JpaRepository<Cust, Integer> {
 //      고객번호 찾기
 

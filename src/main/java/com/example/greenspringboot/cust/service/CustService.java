@@ -1,10 +1,9 @@
 package com.example.greenspringboot.cust.service;
 
 import com.example.greenspringboot.cust.entity.Cust;
-import com.example.greenspringboot.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustDto;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 public interface CustService {
     String emailCheck(String cEmail);
