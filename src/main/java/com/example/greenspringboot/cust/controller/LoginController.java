@@ -2,6 +2,7 @@ package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.cust.dto.CustDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -16,10 +17,12 @@ import java.time.format.DateTimeFormatter;
 // 레스트컨트롤러는 서버간의 데이터를 통신할때만, 뷰를 반환할때는 일반 컨트롤러
 //@RestController
 @Controller
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class LoginController {
 
-    private final CustService custService;
+    @Autowired
+    private CustService custService;
+//    private final CustService custService;
     @GetMapping("/login")
     public String login(@CookieValue(value = "cEmailCookie", defaultValue = "")String cEmail, Model model) {
         model.addAttribute("cEmailCookie", cEmail);

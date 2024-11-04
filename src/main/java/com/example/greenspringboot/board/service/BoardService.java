@@ -17,7 +17,6 @@ public interface BoardService {
 
     List<Board> getList();
 
-    @Transactional
     Board read(Integer bno);
 
     List<Board> getPage(int page, int size);

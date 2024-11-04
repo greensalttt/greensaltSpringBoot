@@ -3,6 +3,7 @@ package com.example.greenspringboot.board.controller;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,14 @@ import java.time.ZoneId;
 
 @Controller
 //오토와이드 대신에 사용 가능
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
 
-    private final BoardService boardService;
+//    private final BoardService boardService;
+
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/list")
     public String list(Model m,
