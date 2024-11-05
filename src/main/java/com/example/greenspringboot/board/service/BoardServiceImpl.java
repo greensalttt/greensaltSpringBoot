@@ -76,13 +76,15 @@ public class BoardServiceImpl implements BoardService{
 //        return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(), board.getWriter(), board.getViewCnt()));
 //    }
 
+
     @Override
-    public Page<BoardDto> getSearchResultPage(String keyword, int deleted, Pageable pageable) {
+    public Page<BoardDto> getSearchResultPage(String title, String content, int deleted, Pageable pageable) {
         Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(
-                keyword, keyword, deleted, pageable);
+                title, content, deleted, pageable);
         return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(),
                 board.getWriter(), board.getViewCnt()));
     }
+
 
     @Override
     public int getSearchResultCnt(String keyword) {
