@@ -7,26 +7,26 @@ import java.time.LocalDateTime;
 @Data
 public class BoardDto {
     private  int bno;
-    private  int c_id;
+    private  int cId;
     private  String title;
     private  String content;
     private  String writer;
-    private  int view_cnt;
-    private  int comment_cnt;
+    private  int viewCnt;
+    private  int commentCnt;
     private int deleted;
-    private LocalDateTime reg_dt;
-    private LocalDateTime up_dt;
+    private LocalDateTime regDt;
+    private LocalDateTime upDt;
 
 //    생성자에 대한 이해가 더 필요
 //    굳이 여러개 생성자가 필요 없다? 기본 생성자로 해결 가능한 부분은 기본 생성자로 해결해보기
     public BoardDto(){}
 
-    public BoardDto(int bno, String title, String content, int c_id, int view_cnt, LocalDateTime reg_dt) {
-        this.bno = bno;
+
+    public BoardDto(Integer cId, String title, String content, String writer, Integer deleted) {
+        this.cId = cId;
         this.title = title;
         this.content = content;
-        this.c_id = c_id;
-        this.view_cnt = view_cnt;
-        this.reg_dt = reg_dt;
+        this.writer = writer;
+        this.deleted = deleted;
     }
 }

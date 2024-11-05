@@ -2,7 +2,6 @@ package com.example.greenspringboot.board.controller;
 
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.service.BoardService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,12 +17,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 @Controller
-//오토와이드 대신에 사용 가능
-//@RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
-
-//    private final BoardService boardService;
 
     @Autowired
     private BoardService boardService;
@@ -38,8 +33,9 @@ public class BoardController {
             // PageRequest를 이용하여 0-based 인덱스를 설정합니다.
             PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 
+            int deleted = 0;
             // 검색 키워드를 적용하여 페이징된 결과를 가져옵니다.
-            Page<BoardDto> boardPage = boardService.getSearchResultPage(keyword, pageRequest);
+            Page<BoardDto> boardPage = boardService.getSearchResultPage(keyword, deleted, pageRequest);
             m.addAttribute("list", boardPage.getContent());
             m.addAttribute("totalCnt", boardPage.getTotalElements());
             m.addAttribute("currentPage", boardPage.getNumber() + 1);  // 1-based page number

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 제목 또는 내용을 키워드로 검색하는 메서드
-    Page<Board> findByTitleContainingOrContentContaining(String title, String content, Pageable pageable);
+    Page<Board> findByTitleContainingOrContentContaining(String title, String content, int deleted, Pageable pageable);
 
     // 검색 조건에 맞는 게시물의 개수를 세는 메서드
     int countByTitleContainingOrContentContaining(String title, String content);
