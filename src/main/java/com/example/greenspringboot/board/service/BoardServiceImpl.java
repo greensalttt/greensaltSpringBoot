@@ -77,10 +77,19 @@ public class BoardServiceImpl implements BoardService{
 //    }
 
 
-    @Override
-    public Page<BoardDto> getSearchResultPage(String title, String content, int deleted, Pageable pageable) {
-        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(
-                title, content, deleted, pageable);
+//    @Override
+//    public Page<BoardDto> getSearchResultPage(String title, String content, int deleted, Pageable pageable) {
+//        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(
+//                title, content, deleted, pageable);
+//        return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(),
+//                board.getWriter(), board.getViewCnt()));
+//    }
+
+    public Page<BoardDto> getSearchResultPage(String title, String content, Pageable pageable) {
+        // JPA에서 Pageable을 사용하여 페이징 처리된 결과를 조회
+        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
+
+        // Board 엔티티를 BoardDto로 변환하여 반환
         return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(),
                 board.getWriter(), board.getViewCnt()));
     }

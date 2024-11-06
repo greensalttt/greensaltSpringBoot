@@ -23,7 +23,7 @@ public interface BoardService {
 
     int modify(Board board);
 
-    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, int deleted, Pageable pageable);
+    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, Pageable pageable);
 
 
     int getSearchResultCnt(String keyword);
