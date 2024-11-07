@@ -32,13 +32,16 @@ public class Board {
     @Column(name="writer", nullable = false)
     private String writer;
 
+    @Builder.Default
     @Column(name="view_cnt", nullable = false)
-    private Integer viewCnt;
+    private Integer viewCnt = 0;
 
+    @Builder.Default
     @Column(name="comment_cnt", nullable = false)
-    private Integer commentCnt;
+    private Integer commentCnt = 0;
 
-//    기본값 설정
+
+    //    기본값 설정
     @Builder.Default
     @Column(name="deleted", nullable = false)
     private Integer deleted = 0;
