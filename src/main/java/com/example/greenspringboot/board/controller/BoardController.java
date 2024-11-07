@@ -28,14 +28,14 @@ public class BoardController {
                        @RequestParam(value = "keyword", defaultValue = "") String keyword,
                        @RequestParam(value = "page", defaultValue = "1") int page,
                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                       HttpSession session, String title, String content, int deleted) {
+                       HttpSession session, String title, String content) {
         try {
             // PageRequest를 이용하여 0-based 인덱스를 설정합니다.
             PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
 
-//            int deleted = 0;
+            int deleted = 0;
             // 검색 키워드를 적용하여 페이징된 결과를 가져옵니다.
-            Page<BoardDto> boardPage = boardService.getSearchResultPage(title, content, deleted, pageRequest);
+            Page<BoardDto> boardPage = boardService.getSearchResultPage(title, content, pageRequest);
             m.addAttribute("list", boardPage.getContent());
             m.addAttribute("totalCnt", boardPage.getTotalElements());
             m.addAttribute("currentPage", boardPage.getNumber() + 1);  // 1-based page number

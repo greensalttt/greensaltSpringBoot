@@ -34,9 +34,17 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int write(Board board) {
+    public void write(BoardDto boardDto) {
+        Board board = Board.builder()
+                .cId(boardDto.getCId())
+                .title(boardDto.getTitle())
+                .content(boardDto.getContent())
+                .writer(boardDto.getWriter())
+                .deleted(boardDto.getDeleted())
+                .build();
+
+        // Board 엔티티 저장
         boardRepository.save(board);
-        return 1;
     }
 
     @Override
@@ -66,24 +74,6 @@ public class BoardServiceImpl implements BoardService{
         }
         return 0;
     }
-
-//    @Override
-//    public Page<BoardDto> getSearchResultPage(String keyword, int deleted, Pageable pageable) {
-//        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, deleted, pageable);
-//
-//        // Board -> BoardDto 변환
-////        이거 엔티티였음
-//        return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(), board.getWriter(), board.getViewCnt()));
-//    }
-
-
-//    @Override
-//    public Page<BoardDto> getSearchResultPage(String title, String content, int deleted, Pageable pageable) {
-//        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(
-//                title, content, deleted, pageable);
-//        return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(),
-//                board.getWriter(), board.getViewCnt()));
-//    }
 
     public Page<BoardDto> getSearchResultPage(String title, String content, Pageable pageable) {
         // JPA에서 Pageable을 사용하여 페이징 처리된 결과를 조회

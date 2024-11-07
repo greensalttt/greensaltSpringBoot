@@ -191,15 +191,15 @@
                 <td class="writer" th:text="${boardDto.writer}"></td>
 
                 <td class="regdate">
-                    <th:block th:if="${boardDto.reg_date.time >= startOfToday}">
-                        <span th:text="${#dates.format(boardDto.reg_date, 'HH:mm')}"></span>
+                    <th:block th:if="${boardDto.regDt.time >= startOfToday}">
+                        <span th:text="${#dates.format(boardDto.regDt, 'HH:mm')}"></span>
                     </th:block>
-                    <th:block th:unless="${boardDto.reg_date.time >= startOfToday}">
-                        <span th:text="${#dates.format(boardDto.reg_date, 'yyyy-MM-dd')}"></span>
+                    <th:block th:unless="${boardDto.regDt.time >= startOfToday}">
+                        <span th:text="${#dates.format(boardDto.regDt, 'yyyy-MM-dd')}"></span>
                     </th:block>
                 </td>
 
-                <td class="viewcnt" th:text="${boardDto.view_cnt}"></td>
+                <td class="viewcnt" th:text="${boardDto.viewCnt}"></td>
             </tr>
         </th:block>
         </table>

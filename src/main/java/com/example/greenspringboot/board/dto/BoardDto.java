@@ -2,9 +2,10 @@ package com.example.greenspringboot.board.dto;
 
 import lombok.Data;
 import java.time.LocalDateTime;
-
+import lombok.Builder;
 
 @Data
+@Builder
 public class BoardDto {
     private  int bno;
     private  int cId;
@@ -22,11 +23,11 @@ public class BoardDto {
     public BoardDto(){}
 
 
-    public BoardDto(Integer cId, String title, String content, String writer, Integer deleted) {
-        this.cId = cId;
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.deleted = deleted;
-    }
+//    public BoardDto(Integer cId, String title, String content, String writer, Integer deleted) {
+//        this.cId = cId;
+//        this.title = title;
+//        this.content = content;
+//        this.writer = writer;
+//        this.deleted = deleted;
+//    }
 }

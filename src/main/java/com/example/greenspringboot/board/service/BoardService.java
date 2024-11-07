@@ -13,7 +13,7 @@ public interface BoardService {
 
     int remove(Integer bno, Integer cId);
 
-    int write(Board board);
+    void write(BoardDto boardDto);
 
     List<Board> getList();
 
