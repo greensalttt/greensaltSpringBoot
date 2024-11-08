@@ -23,9 +23,9 @@ public class BoardRepositoryTest {
 
                 BoardDto boardDto = BoardDto.builder()
                 .cId(1)
-                .title("안녕")
-                .content("하세요")
-                .writer("쿠쿠")
+                .title("게시판")
+                .content("성공")
+                .writer("합니다")
                 .deleted(1)
                 .build();
         boardService.write(boardDto);

@@ -6,6 +6,7 @@ import lombok.Builder;
 
 @Data
 @Builder
+//빌더 어노테이션 사용하면 생성자 필요없다?
 public class BoardDto {
     private  int bno;
     private  int cId;
@@ -20,7 +21,7 @@ public class BoardDto {
 
 //    생성자에 대한 이해가 더 필요
 //    굳이 여러개 생성자가 필요 없다? 기본 생성자로 해결 가능한 부분은 기본 생성자로 해결해보기
-    public BoardDto(){}
+//    public BoardDto(){}
 
 
 //    public BoardDto(Integer cId, String title, String content, String writer, Integer deleted) {
