@@ -6,18 +6,19 @@ import lombok.Builder;
 
 @Data
 @Builder
-//빌더 어노테이션 사용하면 생성자 필요없다?
+//빌더 어노테이션 사용하면 생성자 필요없다
 public class BoardDto {
-    private  int bno;
-    private  int cId;
-    private  String title;
-    private  String content;
-    private  String writer;
-    private  int viewCnt;
-    private  int commentCnt;
-    private int deleted;
+    private Integer bno;
+    private Integer cId;
+    private String title;
+    private String content;
+    private String writer;
+    private Integer viewCnt;
+    private Integer commentCnt;
+    private Integer deleted;
     private LocalDateTime regDt;
     private LocalDateTime upDt;
+}
 
 //    생성자에 대한 이해가 더 필요
 //    굳이 여러개 생성자가 필요 없다? 기본 생성자로 해결 가능한 부분은 기본 생성자로 해결해보기
@@ -31,4 +32,4 @@ public class BoardDto {
 //        this.writer = writer;
 //        this.deleted = deleted;
 //    }
-}
+//}

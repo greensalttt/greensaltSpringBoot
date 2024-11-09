@@ -31,7 +31,6 @@ public class SearchCondition {
                 .build().toString();
     }
 
-
     public Integer getPage() {
         return page;
     }
