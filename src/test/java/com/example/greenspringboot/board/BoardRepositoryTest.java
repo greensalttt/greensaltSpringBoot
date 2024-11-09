@@ -18,25 +18,13 @@ public class BoardRepositoryTest {
 
     @Test
     public void insertTest() throws Exception {
-
-//        BoardDto boardDto = new BoardDto(12341234, "title", "no content",  "닉네임", 0);
-
                 BoardDto boardDto = BoardDto.builder()
                 .cId(1)
-                .title("게시판")
+                .title("드디어")
                 .content("성공")
-                .writer("합니다")
+                .writer("띄웠다")
                 .deleted(1)
                 .build();
         boardService.write(boardDto);
     }
 }
-
-
-//        Board board = Board.builder()
-//                .cId(1)
-//                .title("안녕")
-//                .content("하세요")
-//                .writer("쿠쿠")
-//                .deleted(1)
-//                .build();

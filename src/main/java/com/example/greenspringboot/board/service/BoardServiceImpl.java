@@ -1,6 +1,7 @@
 package com.example.greenspringboot.board.service;
 
 import com.example.greenspringboot.board.entity.Board;
+import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService{
+
     @Autowired
     private BoardRepository boardRepository;
 
@@ -42,8 +43,7 @@ public class BoardServiceImpl implements BoardService{
                 .writer(boardDto.getWriter())
                 .deleted(boardDto.getDeleted())
                 .build();
-
-        // Board 엔티티 저장
+        // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         boardRepository.save(board);
     }
 
@@ -74,20 +74,23 @@ public class BoardServiceImpl implements BoardService{
         }
         return 0;
     }
-//
-//    public Page<BoardDto> getSearchResultPage(String title, String content, Pageable pageable) {
-//        // JPA에서 Pageable을 사용하여 페이징 처리된 결과를 조회
-//        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
-//
-//        // Board 엔티티를 BoardDto로 변환하여 반환
-//        return boardPage.map(board -> new BoardDto(board.getCId(), board.getTitle(), board.getContent(),
-//                board.getWriter(), board.getViewCnt()));
-//    }
 
+    @Override
+    public Page<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable) {
+        // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
+        String keyword = sc.getKeyword();
+        String option = sc.getOption();
 
-    public Page<BoardDto> getSearchResultPage(String title, String content, Pageable pageable) {
-        // JPA에서 Pageable을 사용하여 페이징 처리된 결과를 조회
-        Page<Board> boardPage = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
+        // option에 따라 title 또는 content 검색
+        Page<Board> boardPage;
+        if ("title".equals(option)) {
+            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, "", pageable);
+        } else if ("content".equals(option)) {
+            boardPage = boardRepository.findByTitleContainingOrContentContaining("", keyword, pageable);
+        } else {
+            // title과 content 모두 검색하는 경우
+            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+        }
 
         // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
         return boardPage.map(board ->
@@ -97,13 +100,25 @@ public class BoardServiceImpl implements BoardService{
                         .content(board.getContent())
                         .writer(board.getWriter())
                         .viewCnt(board.getViewCnt())
-                        .build()  // 빌더를 이용해 객체 생성
+                        .build()
         );
     }
 
     @Override
-    public int getSearchResultCnt(String keyword) {
-        return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
+    public int getSearchResultCnt(SearchCondition sc) {
+        // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
+        String keyword = sc.getKeyword();
+        String option = sc.getOption();
+
+        // option에 따라 title 또는 content 검색
+        if ("title".equals(option)) {
+            return boardRepository.countByTitleContainingOrContentContaining(keyword, "");
+        } else if ("content".equals(option)) {
+            return boardRepository.countByTitleContainingOrContentContaining("", keyword);
+        } else {
+            // title과 content 모두 검색하는 경우
+            return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
+        }
     }
 
 }

@@ -156,7 +156,6 @@
 <div class="board-container">
     <div class="search-container">
         <form action="/board/list" class="search-form" method="get">
-
             <select class="search-option" name="option">
                 <option value="A" th:selected="${ph != null and ph.sc != null and (ph.sc.option == 'A' or ph.sc.option == '')}">제목+내용</option>
                 <option value="T" th:selected="${ph != null and ph.sc != null and ph.sc.option == 'T'}">제목만</option>
@@ -181,20 +180,21 @@
             <th class="regdate">등록일</th>
             <th class="viewcnt">조회수</th>
         </tr>
-        <th:block th:each="boardDto : ${list}">
+        <th:block th:each="boardDto : ${page}">
             <tr>
                 <td class="no" th:text="${boardDto.bno}"></td>
                 <td class="title">
-                    <a th:href="@{/board/read(ph.sc.queryString=${ph.sc.queryString}, bno=${boardDto.bno})}"
-                       th:text="${boardDto.title}"></a>
+<!--                    <a th:href="@{/board/read(ph.sc.queryString=${ph.sc.queryString}, bno=${boardDto.bno})}"-->
+<!--                       th:text="${boardDto.title}"></a>-->
+            <a th:text="${boardDto.title}"></a>
                 </td>
                 <td class="writer" th:text="${boardDto.writer}"></td>
 
                 <td class="regdate">
-                    <th:block th:if="${boardDto.regDt.time >= startOfToday}">
+                    <th:block th:if="${boardDto.regDt != null and boardDto.regDt.time >= startOfToday}">
                         <span th:text="${#dates.format(boardDto.regDt, 'HH:mm')}"></span>
                     </th:block>
-                    <th:block th:unless="${boardDto.regDt.time >= startOfToday}">
+                    <th:block th:unless="${boardDto.regDt != null and boardDto.regDt.time >= startOfToday}">
                         <span th:text="${#dates.format(boardDto.regDt, 'yyyy-MM-dd')}"></span>
                     </th:block>
                 </td>
@@ -205,30 +205,38 @@
         </table>
         <br>
 
-        <div class="paging-container">
-            <div class="paging">
-                <th:block th:if="${totalCnt == null || totalCnt == 0}">
-                    <div> 게시물이 없습니다. </div>
-                </th:block>
+<!--    <div class="paging-container">-->
+<!--        <div class="paging">-->
+<!--            <th:block th:if="${totalCnt == null || totalCnt == 0}">-->
+<!--                <div> 게시물이 없습니다. </div>-->
+<!--            </th:block>-->
 
-                <th:block th:if="${totalCnt != null && totalCnt != 0}">
-                    <th:block th:if="${ph.showPrev}">
-                        <a class="page" th:href="@{/board/list(ph.sc.getQueryString=${ph.sc.getQueryString(ph.beginPage - 1)})}">&lt;</a>
-                    </th:block>
+<!--            <th:block th:if="${totalCnt != null && totalCnt != 0}">-->
+<!--                &lt;!&ndash; ph가 null이 아니고 showPrev가 true일 경우 &ndash;&gt;-->
+<!--                <th:block th:if="${ph != null and ph.showPrev}">-->
 
-                    <th:block th:each="i : ${#numbers.sequence(ph.beginPage, ph.endPage)}">
-                        <a th:classappend="${i == ph.sc.page ? 'paging-active' : ''}"
-                           class="page"
-                           th:href="@{/board/list(ph.sc.getQueryString=${ph.sc.getQueryString(i)})}"
-                           th:text="${i}"></a>
-                    </th:block>
+<!--                    <a class="page" th:href="@{/board/list(${ph.sc != null ? ph.sc.getQueryString(ph.beginPage - 1) : ''})}">&lt;</a>-->
 
-                    <th:block th:if="${ph.showNext}">
-                        <a class="page" th:href="@{/board/list(ph.sc.getQueryString=${ph.sc.getQueryString(ph.endPage + 1)})}">&gt;</a>
-                    </th:block>
-                </th:block>
-            </div>
-        </div>
+<!--                </th:block>-->
+
+<!--                &lt;!&ndash; 페이지 번호 표시 &ndash;&gt;-->
+<!--                <th:block th:each="i : ${#numbers.sequence(ph.beginPage, ph.endPage)}">-->
+<!--                    <a th:classappend="${i == ph.sc.page ? 'paging-active' : ''}"-->
+<!--                       class="page"-->
+<!--                       th:href="@{/board/list(ph.sc.getQueryString=${ph.sc.getQueryString(i)})}"-->
+<!--                       th:text="${i}"></a>-->
+<!--                </th:block>-->
+
+<!--                &lt;!&ndash; ph가 null이 아니고 showNext가 true일 경우 &ndash;&gt;-->
+<!--                <th:block th:if="${ph != null and ph.showNext}">-->
+
+<!--                    <a class="page" th:href="@{/board/list(${ph.sc != null ? ph.sc.getQueryString(ph.endPage + 1) : ''})}">&gt;</a>-->
+
+<!--                </th:block>-->
+<!--            </th:block>-->
+<!--        </div>-->
+<!--    </div>-->
+
 </div>
         <footer th:replace="fragments/footer :: footerFragment"></footer>
 <script>

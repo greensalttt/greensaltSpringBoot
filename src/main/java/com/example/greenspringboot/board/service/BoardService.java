@@ -2,6 +2,7 @@ package com.example.greenspringboot.board.service;
 
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
+import com.example.greenspringboot.board.paging.SearchCondition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +24,9 @@ public interface BoardService {
 
     int modify(Board board);
 
-    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, Pageable pageable);
+//    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, Pageable pageable);
+    Page<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable);
 
 
-    int getSearchResultCnt(String keyword);
+    int getSearchResultCnt(SearchCondition sc);
 }
