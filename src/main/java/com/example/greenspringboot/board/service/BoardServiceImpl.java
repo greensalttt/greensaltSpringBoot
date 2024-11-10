@@ -37,10 +37,12 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void write(BoardDto boardDto) {
         Board board = Board.builder()
+                .bno(boardDto.getBno())
                 .cId(boardDto.getCId())
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
                 .writer(boardDto.getWriter())
+//                .regDt(boardDto.getRegDt())
                 .deleted(boardDto.getDeleted())
                 .build();
         // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
@@ -93,12 +95,15 @@ public class BoardServiceImpl implements BoardService{
         }
 
         // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
+        // 화면에 보이기
         return boardPage.map(board ->
                 BoardDto.builder()
+                        .bno(board.getBno())
                         .cId(board.getCId())
                         .title(board.getTitle())
                         .content(board.getContent())
                         .writer(board.getWriter())
+                        .regDt(board.getRegDt())
                         .viewCnt(board.getViewCnt())
                         .build()
         );
