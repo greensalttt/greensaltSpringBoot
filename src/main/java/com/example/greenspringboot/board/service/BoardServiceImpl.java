@@ -25,16 +25,6 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int remove(Integer bno, Integer cId) {
-        Optional<Board> board = boardRepository.findById(bno);
-        if (board.isPresent() && board.get().getCId().equals(cId)) {
-            boardRepository.deleteById(bno);
-            return 1;
-        }
-        return 0;
-    }
-
-    @Override
     public void write(BoardDto boardDto) {
         Board board = Board.builder()
                 .bno(boardDto.getBno())
@@ -49,11 +39,6 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(board);
     }
 
-    @Override
-    public List<Board> getList() {
-        return boardRepository.findAll();
-    }
-
     @Transactional
     @Override
     public Board read(Integer bno) {
@@ -63,9 +48,13 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Board> getPage(int page, int size) {
-        // 페이지 처리를 Pageable 사용이 필요합니다.
-        return boardRepository.findAll(PageRequest.of(page, size)).getContent();
+    public int remove(Integer bno, Integer cId) {
+        Optional<Board> board = boardRepository.findById(bno);
+        if (board.isPresent() && board.get().getCId().equals(cId)) {
+            boardRepository.deleteById(bno);
+            return 1;
+        }
+        return 0;
     }
 
     @Override
@@ -76,6 +65,17 @@ public class BoardServiceImpl implements BoardService{
         }
         return 0;
     }
+
+//    @Override
+//    public List<Board> getList() {
+//        return boardRepository.findAll();
+//    }
+//
+//    @Override
+//    public List<Board> getPage(int page, int size) {
+//        // 페이지 처리를 Pageable 사용이 필요합니다.
+//        return boardRepository.findAll(PageRequest.of(page, size)).getContent();
+//    }
 
     @Override
     public Page<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable) {

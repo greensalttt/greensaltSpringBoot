@@ -189,8 +189,26 @@
             <a th:text="${boardDto.title}"></a>
                 </td>
                 <td class="writer" th:text="${boardDto.writer}"></td>
-                <td class="regdate" th:text="${boardDto.regDt}">
+<!--                <td class="regdate" th:text="${boardDto.regDt}">-->
+<!--                </td>-->
+
+
+<!--                <td class="regdate" th:if="${boardDto.regDt.atZone('system').toInstant().toEpochMilli() >= startOfToday}">-->
+<!--                    <span th:text="${#dates.format(boardDto.regDt, 'HH:mm')}"></span>-->
+<!--                </td>-->
+<!--                <td class="regdate" th:unless="${boardDto.regDt.atZone('system').toInstant().toEpochMilli() >= startOfToday}">-->
+<!--                    <span th:text="${#dates.format(boardDto.regDt, 'yyyy-MM-dd')}"></span>-->
+<!--                </td>-->
+
+                <td class="regdate" th:switch="${boardDto.regDt}">
+                    <span th:case="${boardDto.regDt.time >= startOfToday}">
+                    <span th:text="${#dates.format(boardDto.regDt, 'HH:mm')}"></span>
+                    </span>
+                    <span th:case="*">
+                    <span th:text="${#dates.format(boardDto.regDt, 'yyyy-MM-dd')}"></span>
+                    </span>
                 </td>
+
                 <td class="viewcnt" th:text="${boardDto.viewCnt}"></td>
             </tr>
         </th:block>

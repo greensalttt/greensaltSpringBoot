@@ -14,7 +14,7 @@ public class BoardRepositoryTest {
     public void insertTest() throws Exception {
                 BoardDto boardDto = BoardDto.builder()
                 .cId(1)
-                .title("테스트")
+                .title("후발주자")
                 .content("ㅇㅇ")
                 .writer("test")
                 .deleted(1)

@@ -16,11 +16,11 @@ public interface BoardService {
 
     void write(BoardDto boardDto);
 
-    List<Board> getList();
+//    List<Board> getList();
 
     Board read(Integer bno);
 
-    List<Board> getPage(int page, int size);
+//    List<Board> getPage(int page, int size);
 
     int modify(Board board);
 

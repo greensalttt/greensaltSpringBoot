@@ -2,6 +2,8 @@ package com.example.greenspringboot.board.dto;
 
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Builder;
 
 @Data
@@ -16,8 +18,8 @@ public class BoardDto {
     private Integer viewCnt;
     private Integer commentCnt;
     private Integer deleted;
-    private LocalDateTime regDt;
-    private LocalDateTime upDt;
+    private Date regDt;
+    private Date upDt;
 }
 
 //    생성자에 대한 이해가 더 필요

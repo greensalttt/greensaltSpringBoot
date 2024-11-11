@@ -2,7 +2,9 @@ package com.example.greenspringboot.board.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "board")
@@ -48,9 +50,12 @@ public class Board {
 
     @Builder.Default
     @Column(name= "reg_dt", nullable = false)
-    private LocalDateTime regDt = LocalDateTime.now();
+    private Date regDt = new Date();
+
 
     @Builder.Default
     @Column(name= "up_dt", nullable = false)
-    private LocalDateTime upDt = LocalDateTime.now();
+//    private LocalDateTime upDt = LocalDateTime.now();
+    private Date upDt = new Date();
+
 }
