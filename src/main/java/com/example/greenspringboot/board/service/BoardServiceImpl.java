@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -94,9 +95,15 @@ public class BoardServiceImpl implements BoardService{
             boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
         }
 
+        // Pageable에 Sort 추가 (bno 내림차순)
+        Pageable descPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("bno")));
+
+        // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
+        Page<Board> descBoardPage = boardRepository.findAll(descPageable);
+
         // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
         // 화면에 보이기
-        return boardPage.map(board ->
+        return descBoardPage.map(board ->
                 BoardDto.builder()
                         .bno(board.getBno())
                         .cId(board.getCId())
