@@ -39,4 +39,10 @@ public class BoardController {
         }
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
+
+    @GetMapping("/write")
+    public String write(){
+        return "board";
+    }
+
 }
