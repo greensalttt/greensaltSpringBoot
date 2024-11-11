@@ -67,16 +67,6 @@ public class BoardServiceImpl implements BoardService{
         return 0;
     }
 
-//    @Override
-//    public List<Board> getList() {
-//        return boardRepository.findAll();
-//    }
-//
-//    @Override
-//    public List<Board> getPage(int page, int size) {
-//        // 페이지 처리를 Pageable 사용이 필요합니다.
-//        return boardRepository.findAll(PageRequest.of(page, size)).getContent();
-//    }
 
     @Override
     public Page<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable) {
@@ -84,26 +74,27 @@ public class BoardServiceImpl implements BoardService{
         String keyword = sc.getKeyword();
         String option = sc.getOption();
 
+        // 내림차순 정렬을 위한 변수 설정
+        Sort.Order sortOrder = Sort.Order.desc("bno");
+
+        // 페이지 요청에 내림차순 정렬을 추가한 Pageable 객체 생성
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(sortOrder));
+
         // option에 따라 title 또는 content 검색
         Page<Board> boardPage;
         if ("title".equals(option)) {
-            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, "", pageable);
+            // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sortedPageable);
         } else if ("content".equals(option)) {
-            boardPage = boardRepository.findByTitleContainingOrContentContaining("", keyword, pageable);
+            // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+            boardPage = boardRepository.findByTitleContainingOrContentContaining("", keyword, sortedPageable);
         } else {
-            // title과 content 모두 검색하는 경우
-            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+            // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sortedPageable);
         }
 
-        // Pageable에 Sort 추가 (bno 내림차순)
-        Pageable descPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("bno")));
-
         // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
-        Page<Board> descBoardPage = boardRepository.findAll(descPageable);
-
-        // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
-        // 화면에 보이기
-        return descBoardPage.map(board ->
+        return boardPage.map(board ->
                 BoardDto.builder()
                         .bno(board.getBno())
                         .cId(board.getCId())
