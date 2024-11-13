@@ -41,7 +41,8 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(){
+    public String write(Model m){
+        m.addAttribute("mode","new");
         return "board";
     }
 
