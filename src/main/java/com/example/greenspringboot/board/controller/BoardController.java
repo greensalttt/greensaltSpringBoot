@@ -8,7 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -46,4 +50,12 @@ public class BoardController {
         return "board";
     }
 
+    @PostMapping("/writePost")
+    public String writePost(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr){
+
+        boardDto.setCId((Integer) session.getAttribute("c_id"));
+        boardDto.setWriter((String) session.getAttribute("c_nm"));
+
+        return "board";
+    }
 }

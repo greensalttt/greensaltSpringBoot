@@ -167,7 +167,7 @@
 
 <div class="container">
     <h2 class="writing-header">게시판 <span th:text="${mode == 'new' ? '글쓰기' : '읽기'}"></span></h2>
-    <form id="form" class="frm" action="" method="post">
+    <form id="form" class="frm" action="/writePost" method="post">
         <input class="boardTitle" type="hidden" name="bno" th:value="${boardDto?.bno}">
 
         <input class="boardTitle" name="title" type="text"
