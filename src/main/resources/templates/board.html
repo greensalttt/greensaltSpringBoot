@@ -189,11 +189,11 @@
 
         <!-- 수정/삭제 버튼 (게시물 작성자가 동일한 경우에만 보임) -->
         <button type="button" id="modifyBtn" class="btn btn-modify"
-                th:if="${boardDto?.cId == cId}">
+                th:if="${boardDto?.cId == cId and mode != 'new'}">
             <i class="fa fa-edit"></i> 수정
         </button>
         <button type="button" id="removeBtn" class="btn btn-remove"
-                th:if="${boardDto?.cId == cId}">
+                th:if="${boardDto?.cId == cId and mode != 'new'}">
             <i class="fa fa-trash"></i> 삭제
         </button>
 
@@ -247,8 +247,8 @@
 
         $("#writeBtn").on("click", function(){
             let form = $("#form");
-            form.attr("action", "<c:url value='/board/write'/>");
-            form.attr("method", "post");
+            form.attr("action", "<c:url value='/board/writePost'/>");
+            // form.attr("method", "post");
 
             if(formCheck())
                 form.submit();
