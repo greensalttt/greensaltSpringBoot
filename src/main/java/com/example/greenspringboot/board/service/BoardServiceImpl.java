@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService{
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
                 .writer(boardDto.getWriter())
-                .deleted(boardDto.getDeleted())
+//                .deleted(boardDto.getDeleted())
                 .build();
         // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         boardRepository.save(board);
