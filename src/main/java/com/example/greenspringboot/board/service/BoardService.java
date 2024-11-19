@@ -5,16 +5,13 @@ import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public interface BoardService {
     int getCount();
 
     int remove(Integer bno, Integer cId);
 
-    void write(BoardDto boardDto);
+    int write(BoardDto boardDto);
 
 //    List<Board> getList();
 

@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
+
 import java.util.Optional;
 
 @Service
@@ -26,18 +26,18 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void write(BoardDto boardDto) {
+    public int write(BoardDto boardDto) {
         Board board = Board.builder()
                 .bno(boardDto.getBno())
                 .cId(boardDto.getCId())
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
                 .writer(boardDto.getWriter())
-//                .regDt(boardDto.getRegDt())
                 .deleted(boardDto.getDeleted())
                 .build();
         // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         boardRepository.save(board);
+        return 1;
     }
 
     @Transactional

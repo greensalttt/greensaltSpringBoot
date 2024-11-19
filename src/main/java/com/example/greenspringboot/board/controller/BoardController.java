@@ -50,12 +50,25 @@ public class BoardController {
         return "board";
     }
 
-    @PostMapping("/writePost")
-    public String writePost(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr){
+    @PostMapping("/write")
+    public String write(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr) {
 
-        boardDto.setCId((Integer) session.getAttribute("c_id"));
-        boardDto.setWriter((String) session.getAttribute("c_nm"));
+        boardDto.setCId((Integer) session.getAttribute("cId"));
+        boardDto.setWriter((String) session.getAttribute("cNick"));
 
-        return "board";
-    }
-}
+        try {
+            int rowCnt = boardService.write(boardDto);
+            if(rowCnt !=1)
+                throw new Exception("Write failed");
+
+            rattr.addFlashAttribute("msg", "WRT_OK");
+
+            return "redirect:/board/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute(boardDto);
+            m.addAttribute("msg", "WRT_ERR");
+
+            return "board";
+        }
+    }}

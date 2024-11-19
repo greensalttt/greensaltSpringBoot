@@ -17,7 +17,7 @@ public class BoardDto {
     private String writer;
     private Integer viewCnt;
     private Integer commentCnt;
-    private Integer deleted;
+    private Boolean deleted;
     private Date regDt;
     private Date upDt;
 }

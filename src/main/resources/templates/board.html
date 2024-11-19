@@ -167,7 +167,7 @@
 
 <div class="container">
     <h2 class="writing-header">게시판 <span th:text="${mode == 'new' ? '글쓰기' : '읽기'}"></span></h2>
-    <form id="form" class="frm" action="/writePost" method="post">
+    <form id="form" class="frm" action="/board/write" method="post">
         <input class="boardTitle" type="hidden" name="bno" th:value="${boardDto?.bno}">
 
         <input class="boardTitle" name="title" type="text"
@@ -177,28 +177,27 @@
                   th:readonly="${mode != 'new'}" th:text="${boardDto?.content}"></textarea><br>
 
         <!-- 글쓰기/등록 버튼 -->
-        <button type="button" id="writeBtn" class="btn btn-write"
+        <button type="submit" id="writeBtn" class="btn btn-write"
                 th:if="${mode == 'new'}">
             <i class="fa fa-pencil"></i> 등록
         </button>
 
-        <button type="button" id="writeNewBtn" class="btn btn-write"
-                th:if="${mode != 'new'}">
-            <i class="fa fa-pencil"></i> 글쓰기
-        </button>
+<!--        <button type="button" id="writeNewBtn" class="btn btn-write"-->
+<!--                th:if="${mode != 'new'}">-->
+<!--            <i class="fa fa-pencil"></i> 글쓰기-->
+<!--        </button>-->
 
         <!-- 수정/삭제 버튼 (게시물 작성자가 동일한 경우에만 보임) -->
-        <button type="button" id="modifyBtn" class="btn btn-modify"
-                th:if="${boardDto?.cId == cId and mode != 'new'}">
-            <i class="fa fa-edit"></i> 수정
-        </button>
-        <button type="button" id="removeBtn" class="btn btn-remove"
-                th:if="${boardDto?.cId == cId and mode != 'new'}">
-            <i class="fa fa-trash"></i> 삭제
-        </button>
 
         <button type="button" id="listBtn" class="btn btn-list">
             <i class="fa fa-bars"></i> 목록
+        </button><button type="button" id="modifyBtn" class="btn btn-modify"
+                         th:if="${boardDto?.cId == cId and mode != 'new'}">
+        <i class="fa fa-edit"></i> 수정
+    </button>
+        <button type="button" id="removeBtn" class="btn btn-remove"
+                th:if="${boardDto?.cId == cId and mode != 'new'}">
+            <i class="fa fa-trash"></i> 삭제
         </button>
     </form>
 
@@ -241,18 +240,18 @@
             return true;
         }
 
-        $("#writeNewBtn").on("click", function(){
-            location.href="<c:url value='/board/write'/>";
-        });
+        // $("#writeNewBtn").on("click", function(){
+        //     location.href="<c:url value='/board/write'/>";
+        // });
 
-        $("#writeBtn").on("click", function(){
-            let form = $("#form");
-            form.attr("action", "<c:url value='/board/writePost'/>");
-            // form.attr("method", "post");
-
-            if(formCheck())
-                form.submit();
-        });
+        // $("#writeBtn").on("click", function(){
+        //     let form = $("#form");
+        //     form.attr("action", "<c:url value='/board/write'/>");
+        //     form.attr("method", "post");
+        //
+        //     if(formCheck())
+        //         form.submit();
+        // });
 
         $("#modifyBtn").on("click", function(){
             $("#commentSection").hide();
@@ -293,7 +292,7 @@
 <script>
     $(document).ready(function(){
         if ("${mode}" !== "new") {
-            let bno = [[${boardDto.bno}]];
+            let bno = [[${boardDto?.bno}]];
             let showList = function (bno){
 
                  // 제이쿼리 방식으로 Ajax를 활용한 콜백 함수로 비동기통신 처리 방식

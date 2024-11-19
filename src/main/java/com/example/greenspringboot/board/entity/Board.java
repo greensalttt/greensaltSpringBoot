@@ -42,11 +42,12 @@ public class Board {
     @Column(name="comment_cnt", nullable = false)
     private Integer commentCnt = 0;
 
-
     //    기본값 설정
     @Builder.Default
-    @Column(name="deleted", nullable = false)
-    private Integer deleted = 0;
+//    @Column(name="deleted", nullable = false)
+//    private Integer deleted = 0;
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted = false; // 기본값 false
 
     @Builder.Default
     @Column(name= "reg_dt", nullable = false)
