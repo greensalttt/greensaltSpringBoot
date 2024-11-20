@@ -22,7 +22,6 @@ public class SearchCondition {
     }
 
     public String getQueryString(Integer page) {
-        // ?page=10&pageSize=10&option=A&keyword=title
         return UriComponentsBuilder.newInstance()
                 .queryParam("page",     page)
                 .queryParam("pageSize", pageSize)
@@ -67,15 +66,4 @@ public class SearchCondition {
         this.option = option;
     }
 
-
-    @Override
-    public String toString() {
-        return "SearchCondition{" +
-                "page=" + page +
-                ", pageSize=" + pageSize +
-                ", offset=" + getOffset() +
-                ", keyword='" + keyword + '\'' +
-                ", option='" + option + '\'' +
-                '}';
-    }
 }
