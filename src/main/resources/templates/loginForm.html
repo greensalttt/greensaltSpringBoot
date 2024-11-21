@@ -1,285 +1,285 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Green Salt</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" th:href="@{https://cdn-icons-png.flaticon.com/128/15439/15439306.png}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Green Salt</title>-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">-->
+<!--    <link rel="icon" type="image/x-icon" th:href="@{https://cdn-icons-png.flaticon.com/128/15439/15439306.png}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">-->
 
-    <style>
-        #loginform {
-            max-width: 500px;
-            max-height: 500px;
-            text-align: center;
-            border: 3px solid #f1f1f1;
-            border-radius: 50px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            padding-top: 2%;
-            padding-bottom: 2%;
-            margin: 250px auto 0;
-        }
+<!--    <style>-->
+<!--        #loginform {-->
+<!--            max-width: 500px;-->
+<!--            max-height: 500px;-->
+<!--            text-align: center;-->
+<!--            border: 3px solid #f1f1f1;-->
+<!--            border-radius: 50px;-->
+<!--            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);-->
+<!--            padding-top: 2%;-->
+<!--            padding-bottom: 2%;-->
+<!--            margin: 250px auto 0;-->
+<!--        }-->
 
-        .container {
-            width: 400px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-
-        .special-class {
-            width: 100%;
-            height: 50px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+<!--        .container {-->
+<!--            width: 400px;-->
+<!--            margin: 0 auto;-->
+<!--            text-align: left;-->
+<!--        }-->
 
 
-        .subBtn {
-            width: 49%;
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 15px;
-            font-weight: bold;
-            color: gray;
-            font-size: 13px;
-        }
-
-        #check {
-            margin-bottom: 15px;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #emailRemember {
-            display: flex;
-            justify-content: center;
-            font-size: 12px;
-            float: right;
-            margin-top: -15px;
-        }
-
-        .buttonContainer {
-            display: flex;
-            justify-content: space-between;
-            max-width: 400px;
-            margin: auto;
-        }
-
-        .subBtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-            border: none;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-
-        #forgot{
-            cursor: pointer;
-        }
-
-        #regi{
-            cursor: pointer;
-            text-decoration: none;
-            color: #000;
-        }
-
-        #loginDiv {
-            position: relative;
-        }
-
-        #loginImg {
-            position: absolute;
-            left: 8px;
-            top: 40%;
-            transform: translateY(-50%);
-            height: 22px;
-            width: 22px;
-            pointer-events: none;
-        }
+<!--        .special-class {-->
+<!--            width: 100%;-->
+<!--            height: 50px;-->
+<!--            padding: 10px;-->
+<!--            margin-bottom: 10px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
 
 
-        #pwdDiv {
-            position: relative;
-        }
+<!--        .subBtn {-->
+<!--            width: 49%;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
 
-        #pwdImg {
-            position: absolute;
-            left: 8px;
-            top: 35%;
-            transform: translateY(-50%);
-            height: 23px;
-            width: 23px;
-            pointer-events: none;
-        }
+<!--        label {-->
+<!--            display: block;-->
+<!--            margin-bottom: 15px;-->
+<!--            font-weight: bold;-->
+<!--            color: gray;-->
+<!--            font-size: 13px;-->
+<!--        }-->
 
-        #cEmail, #cPwd {
-            padding-left: 45px;
-        }
+<!--        #check {-->
+<!--            margin-bottom: 15px;-->
+<!--            font-size: 13px;-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            align-items: center;-->
+<!--        }-->
 
-        #login {
-            position: relative;
-            width: 100%;
-            height: 50px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: darkgreen;
-            color: whitesmoke;
-            border: none;
-            font-size: 15px;
-            text-align: center;
-            -webkit-transition-duration: 0.2s;
-            transition-duration: 0.2s;
-            text-decoration: none;
-            overflow: hidden;
-            cursor: pointer;
+<!--        #emailRemember {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            font-size: 12px;-->
+<!--            float: right;-->
+<!--            margin-top: -15px;-->
+<!--        }-->
 
-        }
+<!--        .buttonContainer {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            max-width: 400px;-->
+<!--            margin: auto;-->
+<!--        }-->
 
-        #login:hover {
-            background-color: seagreen;
-        }
+<!--        .subBtn {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            color: black;-->
+<!--            border: none;-->
+<!--            cursor: pointer;-->
+<!--            padding: 5px 10px;-->
+<!--        }-->
 
-        #login:after {
-            content: "";
-            background: darkgreen;
-            display: block;
-            position: absolute;
-            padding-top: 300%;
-            padding-left: 350%;
-            margin-left: -20px !important;
-            margin-top: -120%;
-            opacity: 0;
-            transition: all 1.5s
-        }
+<!--        #forgot{-->
+<!--            cursor: pointer;-->
+<!--        }-->
 
-        #login:active:after {
-            padding: 0;
-            margin: 0;
-            opacity: 1;
-            transition: 0s
-        }
+<!--        #regi{-->
+<!--            cursor: pointer;-->
+<!--            text-decoration: none;-->
+<!--            color: #000;-->
+<!--        }-->
 
-        #logo{
-            margin-top: 30px;
-        }
+<!--        #loginDiv {-->
+<!--            position: relative;-->
+<!--        }-->
 
-        #emailLabel {
-            margin-top: 15px;
-            font-weight: 500;
-            color: black;
-        }
-
-        /*#error{*/
-        /*    color: red;*/
-        /*    height: 20px;*/
-        /*}*/
-
-        /*#error {*/
-        /*    font-size: 12px;*/
-        /*    color: red;*/
-        /*    height: 20px;*/
-        /*    line-height: 20px; !* 텍스트 높이와 동일하게 설정 *!*/
-        /*    display: block;*/
-        /*    visibility: hidden; !* 처음에는 공간을 차지하지만 보이지 않음 *!*/
-        /*}*/
-
-        #error {
-            font-size: 12px;
-            color: red;
-            height: 20px;
-            line-height: 20px; /* 텍스트 높이와 동일하게 설정 */
-            display: block;
-        }
+<!--        #loginImg {-->
+<!--            position: absolute;-->
+<!--            left: 8px;-->
+<!--            top: 40%;-->
+<!--            transform: translateY(-50%);-->
+<!--            height: 22px;-->
+<!--            width: 22px;-->
+<!--            pointer-events: none;-->
+<!--        }-->
 
 
-    </style>
-</head>
+<!--        #pwdDiv {-->
+<!--            position: relative;-->
+<!--        }-->
 
-<body>
+<!--        #pwdImg {-->
+<!--            position: absolute;-->
+<!--            left: 8px;-->
+<!--            top: 35%;-->
+<!--            transform: translateY(-50%);-->
+<!--            height: 23px;-->
+<!--            width: 23px;-->
+<!--            pointer-events: none;-->
+<!--        }-->
 
-<header th:insert="fragments/header :: headerFragment"></header>
+<!--        #cEmail, #cPwd {-->
+<!--            padding-left: 45px;-->
+<!--        }-->
+
+<!--        #login {-->
+<!--            position: relative;-->
+<!--            width: 100%;-->
+<!--            height: 50px;-->
+<!--            padding: 10px;-->
+<!--            margin-bottom: 10px;-->
+<!--            border: none;-->
+<!--            cursor: pointer;-->
+<!--            border-radius: 5px;-->
+<!--            background-color: darkgreen;-->
+<!--            color: whitesmoke;-->
+<!--            border: none;-->
+<!--            font-size: 15px;-->
+<!--            text-align: center;-->
+<!--            -webkit-transition-duration: 0.2s;-->
+<!--            transition-duration: 0.2s;-->
+<!--            text-decoration: none;-->
+<!--            overflow: hidden;-->
+<!--            cursor: pointer;-->
+
+<!--        }-->
+
+<!--        #login:hover {-->
+<!--            background-color: seagreen;-->
+<!--        }-->
+
+<!--        #login:after {-->
+<!--            content: "";-->
+<!--            background: darkgreen;-->
+<!--            display: block;-->
+<!--            position: absolute;-->
+<!--            padding-top: 300%;-->
+<!--            padding-left: 350%;-->
+<!--            margin-left: -20px !important;-->
+<!--            margin-top: -120%;-->
+<!--            opacity: 0;-->
+<!--            transition: all 1.5s-->
+<!--        }-->
+
+<!--        #login:active:after {-->
+<!--            padding: 0;-->
+<!--            margin: 0;-->
+<!--            opacity: 1;-->
+<!--            transition: 0s-->
+<!--        }-->
+
+<!--        #logo{-->
+<!--            margin-top: 30px;-->
+<!--        }-->
+
+<!--        #emailLabel {-->
+<!--            margin-top: 15px;-->
+<!--            font-weight: 500;-->
+<!--            color: black;-->
+<!--        }-->
+
+<!--        /*#error{*/-->
+<!--        /*    color: red;*/-->
+<!--        /*    height: 20px;*/-->
+<!--        /*}*/-->
+
+<!--        /*#error {*/-->
+<!--        /*    font-size: 12px;*/-->
+<!--        /*    color: red;*/-->
+<!--        /*    height: 20px;*/-->
+<!--        /*    line-height: 20px; !* 텍스트 높이와 동일하게 설정 *!*/-->
+<!--        /*    display: block;*/-->
+<!--        /*    visibility: hidden; !* 처음에는 공간을 차지하지만 보이지 않음 *!*/-->
+<!--        /*}*/-->
+
+<!--        #error {-->
+<!--            font-size: 12px;-->
+<!--            color: red;-->
+<!--            height: 20px;-->
+<!--            line-height: 20px; /* 텍스트 높이와 동일하게 설정 */-->
+<!--            display: block;-->
+<!--        }-->
+
+
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<header th:insert="fragments/header :: headerFragment"></header>-->
 
 
 
-<div id="loginform">
-   <form action="/loginPost" method="post" onsubmit="return">
+<!--<div id="loginform">-->
+<!--   <form action="/loginPost" method="post" onsubmit="return">-->
 
-        <h1 id="logo">Green Salt</h1><br>
-       <div id="error" th:text="${errorMessage != null} ? ${errorMessage} : ''"></div>
-
-
-       <div class="container">
-            <div id="loginDiv">
-                <input th:value="${cEmailCookie}"  id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30" placeholder="green@salt.com" required>
-                <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
-            </div>
-
-            <div id="pwdDiv">
-                <input id="cPwd" class="special-class" type="password" name="cPwd" maxlength="15" placeholder="비밀번호" required>
-                <img id="pwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">
-            </div>
-
-            <div id="emailRemember">
-                <input type="checkbox" id="remember" name="rememberEmail"
-                       th:checked="${cEmailCookie != ''}">
-                <label for="remember" id="emailLabel">이메일 저장</label></div><br>
-
-            <button type="submit" id="login">로그인</button>
-
-            <div id="check">
-                <a id="forgot" onclick="test()" >비밀번호 찾기</a> <a id="regi" href="/register">회원가입 </a>
-            </div><br>
-
-            <div class="buttonContainer">
-                <div class="subBtn" id="googleBtn" onclick="test()"> <img id="google" src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="40" height="40"></div>
-                <div class="subBtn" id="kakaoBtn" onclick="test()"> <img id="kakao" src="https://cdn-icons-png.flaticon.com/128/3669/3669973.png" width="40" height="40"></div>
-                <div class="subBtn" id="appleBtn" onclick="test()"> <img id="apple" src="https://cdn-icons-png.flaticon.com/128/0/747.png" width="40" height="40"></div>
-            </div>
-
-        </div>
-
-    </form>
-</div><br><br><br><br>
-
-<footer th:replace="fragments/footer :: footerFragment"></footer>
+<!--        <h1 id="logo">Green Salt</h1><br>-->
+<!--       <div id="error" th:text="${errorMessage != null} ? ${errorMessage} : ''"></div>-->
 
 
-<script>
-    let signUpClear = "${signUpClear}"
-    if(signUpClear==="msg") {
-        alert("회원가입이 되셨습니다.");
-    }
+<!--       <div class="container">-->
+<!--            <div id="loginDiv">-->
+<!--                <input th:value="${cEmailCookie}"  id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30" placeholder="green@salt.com" required>-->
+<!--                <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">-->
+<!--            </div>-->
 
-    let loginFail = "${loginFail}"
-    if(loginFail==="msg") {
-        alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-    }
+<!--            <div id="pwdDiv">-->
+<!--                <input id="cPwd" class="special-class" type="password" name="cPwd" maxlength="15" placeholder="비밀번호" required>-->
+<!--                <img id="pwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">-->
+<!--            </div>-->
 
-    let pwdClear = "${pwdClear}"
-    if(pwdClear==="pwdMsg2") {
-        alert("비밀번호 변경이 완료됐습니다. 변경된 비밀번호로 다시 로그인해주세요.")
-    }
+<!--            <div id="emailRemember">-->
+<!--                <input type="checkbox" id="remember" name="rememberEmail"-->
+<!--                       th:checked="${cEmailCookie != ''}">-->
+<!--                <label for="remember" id="emailLabel">이메일 저장</label></div><br>-->
 
-    function test(){
-        alert("테스트중입니다!")
-    }
-</script>
+<!--            <button type="submit" id="login">로그인</button>-->
 
-</body>
+<!--            <div id="check">-->
+<!--                <a id="forgot" onclick="test()" >비밀번호 찾기</a> <a id="regi" href="/register">회원가입 </a>-->
+<!--            </div><br>-->
+
+<!--            <div class="buttonContainer">-->
+<!--                <div class="subBtn" id="googleBtn" onclick="test()"> <img id="google" src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="40" height="40"></div>-->
+<!--                <div class="subBtn" id="kakaoBtn" onclick="test()"> <img id="kakao" src="https://cdn-icons-png.flaticon.com/128/3669/3669973.png" width="40" height="40"></div>-->
+<!--                <div class="subBtn" id="appleBtn" onclick="test()"> <img id="apple" src="https://cdn-icons-png.flaticon.com/128/0/747.png" width="40" height="40"></div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--    </form>-->
+<!--</div><br><br><br><br>-->
+
+<!--<footer th:replace="fragments/footer :: footerFragment"></footer>-->
+
+
+<!--<script>-->
+<!--    let signUpClear = "${signUpClear}"-->
+<!--    if(signUpClear==="msg") {-->
+<!--        alert("회원가입이 되셨습니다.");-->
+<!--    }-->
+
+<!--    let loginFail = "${loginFail}"-->
+<!--    if(loginFail==="msg") {-->
+<!--        alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");-->
+<!--    }-->
+
+<!--    let pwdClear = "${pwdClear}"-->
+<!--    if(pwdClear==="pwdMsg2") {-->
+<!--        alert("비밀번호 변경이 완료됐습니다. 변경된 비밀번호로 다시 로그인해주세요.")-->
+<!--    }-->
+
+<!--    function test(){-->
+<!--        alert("테스트중입니다!")-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
 

@@ -1,58 +1,58 @@
-#myPage {
-    margin: auto;
-}
+/*#myPage {*/
+/*    margin: auto;*/
+/*}*/
 
-.none {
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-    color: dimgray;
-    font-weight: bold;
-}
-.sp {
-    font-size: 16px;
-    margin: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+/*.none {*/
+/*    text-decoration: none;*/
+/*    cursor: pointer;*/
+/*    font-size: 14px;*/
+/*    text-align: center;*/
+/*    color: dimgray;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.sp {*/
+/*    font-size: 16px;*/
+/*    margin: 40px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
 
-.one1 {
-    margin-top: -15px;
-    display: flex;
-    justify-content: center;
-}
+/*.one1 {*/
+/*    margin-top: -15px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
 
-.one2 {
-    display: flex;
-    justify-content: center;
-    margin-top: -15px
-}
+/*.one2 {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: -15px*/
+/*}*/
 
-.ma {
-    margin-bottom: 10px;
-}
+/*.ma {*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
-.ma2 {
-    font-size: 11px;
-}
+/*.ma2 {*/
+/*    font-size: 11px;*/
+/*}*/
 
-.date {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: gray;
-}
+/*.date {*/
+/*    font-size: 14px;*/
+/*    margin-bottom: 10px;*/
+/*    color: gray;*/
+/*}*/
 
 
-#title1 {
-    text-align: center;
-    font-weight: bold;
-}
+/*#title1 {*/
+/*    text-align: center;*/
+/*    font-weight: bold;*/
+/*}*/
 
-#title2{
-    cursor: pointer;
-    text-decoration: none;
-    color: dimgray;
-    font-size: 14px;
-}
+/*#title2{*/
+/*    cursor: pointer;*/
+/*    text-decoration: none;*/
+/*    color: dimgray;*/
+/*    font-size: 14px;*/
+/*}*/

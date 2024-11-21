@@ -1,60 +1,60 @@
 
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<th:block th:if="${session.cId == null}" th:attr="data-loginOutLink='/login'"></th:block>
-<th:block th:if="${session.cId != null}" th:attr="data-loginOutLink='/logout'"></th:block>
-<head>
-  <meta charset="UTF-8">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-</head>
-<body>
-<div id="header">
-<div th:fragment="headerFragment">
-  <div id="headerTitle">
-    <h1><a th:href="@{/}">Green Salt !</a></h1>
-    <h2 id="greenClover"><img src="https://cdn-icons-png.flaticon.com/128/15439/15439306.png" alt="Green Clover"></h2>
-  </div>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<th:block th:if="${session.cId == null}" th:attr="data-loginOutLink='/login'"></th:block>-->
+<!--<th:block th:if="${session.cId != null}" th:attr="data-loginOutLink='/logout'"></th:block>-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="header">-->
+<!--<div th:fragment="headerFragment">-->
+<!--  <div id="headerTitle">-->
+<!--    <h1><a th:href="@{/}">Green Salt !</a></h1>-->
+<!--    <h2 id="greenClover"><img src="https://cdn-icons-png.flaticon.com/128/15439/15439306.png" alt="Green Clover"></h2>-->
+<!--  </div>-->
 
-  <div id="custIcon">
-    <img id="custIconImg" src="https://cdn-icons-png.flaticon.com/128/3462/3462172.png" alt="User Icon">
-    <div id="links">
-      <a th:href="${session.cId == null ? '/login' : '/logout'}"
-         th:text="${session.cId == null ? 'Login' : 'Logout'}"></a>
-      <a th:href="@{/mypage/list}">My Page</a>
-    </div>
-  </div>
+<!--  <div id="custIcon">-->
+<!--    <img id="custIconImg" src="https://cdn-icons-png.flaticon.com/128/3462/3462172.png" alt="User Icon">-->
+<!--    <div id="links">-->
+<!--      <a th:href="${session.cId == null ? '/login' : '/logout'}"-->
+<!--         th:text="${session.cId == null ? 'Login' : 'Logout'}"></a>-->
+<!--      <a th:href="@{/mypage/list}">My Page</a>-->
+<!--    </div>-->
+<!--  </div>-->
 
-  <input id="search" type="text" placeholder="Search.." onkeydown="handleKeyPress(event)">
+<!--  <input id="search" type="text" placeholder="Search.." onkeydown="handleKeyPress(event)">-->
 
-  <nav id="headerNav">
-    <ul>
-      <li><a href="#">Store</a></li>
-      <li><a href="#">Video</a></li>
-      <li><a href="#">Interview</a></li>
-      <li><a href="#">Performance</a></li>
-      <li><a th:href="@{/board/list}">Community</a></li>
-      <li><a href="#">Help</a></li>
-    </ul>
-  </nav>
+<!--  <nav id="headerNav">-->
+<!--    <ul>-->
+<!--      <li><a href="#">Store</a></li>-->
+<!--      <li><a href="#">Video</a></li>-->
+<!--      <li><a href="#">Interview</a></li>-->
+<!--      <li><a href="#">Performance</a></li>-->
+<!--      <li><a th:href="@{/board/list}">Community</a></li>-->
+<!--      <li><a href="#">Help</a></li>-->
+<!--    </ul>-->
+<!--  </nav>-->
 
-  <script>
+<!--  <script>-->
 
-    document.getElementById('custIconImg').addEventListener('click', function (event) {
-      var links = document.getElementById('links');
-      links.classList.toggle('show');
-      event.stopPropagation(); // 이벤트 전파 중지
-    });
+<!--    document.getElementById('custIconImg').addEventListener('click', function (event) {-->
+<!--      var links = document.getElementById('links');-->
+<!--      links.classList.toggle('show');-->
+<!--      event.stopPropagation(); // 이벤트 전파 중지-->
+<!--    });-->
 
-    document.addEventListener('click', function (event) {
-      var links = document.getElementById('links');
-      var isClickInside = document.getElementById('custIcon').contains(event.target);
+<!--    document.addEventListener('click', function (event) {-->
+<!--      var links = document.getElementById('links');-->
+<!--      var isClickInside = document.getElementById('custIcon').contains(event.target);-->
 
-      if (!isClickInside) {
-        links.classList.remove('show');
-      }
-    });
-  </script>
-</div>
-</div>
-</body>
-</html>
+<!--      if (!isClickInside) {-->
+<!--        links.classList.remove('show');-->
+<!--      }-->
+<!--    });-->
+<!--  </script>-->
+<!--</div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

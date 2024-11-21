@@ -1,388 +1,388 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>My Page Info</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="icon" type="image/x-icon" th:href="@{https://cdn-icons-png.flaticon.com/128/15439/15439306.png}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/myPageHeader.css}">
-
-<style>
-    .container {
-        width: 550px;
-        margin: auto;
-        text-align: left;
-        position: relative;
-        left: -130px;
-    }
-
-    .special-class {
-        width: 400px;
-        padding: 10px;
-        margin-bottom: 7px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-
-    #edit {
-        margin-top: -1px;
-        border: none;
-        cursor: pointer;
-        outline: none;
-        font-size: 13px;
-        margin-right: 310px;
-        font-weight: bold;
-    }
-
-    .infoLabel {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        font-size: 13px;
-        color: gray;
-    }
-
-    #loginTitle {
-        font-size: 20px;
-        margin-bottom: 40px;
-        margin-top: 40px;
-    }
-
-    span {
-        color: gray;
-    }
-
-    #roadAddress,
-    #jibunAddress,
-    #detailAddress {
-        width: 400px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-
-    #zip {
-        width: 75px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-
-    #zipBtn {
-        float: right;
-        margin-right: 150px;
-    }
-
-    #c_birth {
-        padding: 9px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 1em;
-        width: 400px;
-        box-sizing: border-box;
-    }
-
-
-    #ad {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    #check {
-        margin-bottom: 20px;
-        font-size: 13px;
-        margin-left: 395px;
-        width: 500px;
-        display: inline-block;
-        font-weight: bold;
-    }
-
-    #delete {
-        cursor: pointer;
-    }
-
-    #choice{
-        font-size: 11px;
-    }
-
-    .choiceLabel {
-        cursor: pointer;
-    }
-
-    .oneLine{
-        display: flex;
-        justify-content: space-between;
-    }
-
-    #det, #phn, #road, #jibun{
-        font-size: 12px;
-        margin-top: 15px;
-    }
-
-    #phn{
-        margin-right: 37px;
-    }
-
-    #road{
-        margin-right: 25px;
-    }
-
-    #jibun{
-        margin-right: 30px;
-    }
-
-
-
-    .modal {
-        display: none; /* 기본적으로 숨김 */
-        position: fixed; /* 위치 고정 */
-        z-index: 1; /* 다른 요소 위에 표시 */
-        left: 0;
-        top: 0;
-        width: 100%; /* 화면 전체 너비 */
-        height: 100%; /* 화면 전체 높이 */
-        overflow: auto; /* 스크롤 가능하도록 */
-        background-color: rgba(0, 0, 0, 0.4); /* 배경색과 투명도 설정 */
-        font-size: 13px;
-    }
-
-    /* 모달 내용 스타일 */
-    .modal-content {
-        background-color: #fefefe; /* 모달 내용 배경색 */
-        margin: 15% auto; /* 중앙 정렬 */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 500px; /* 모달 내용 너비 */
-        height: 340px;
-    }
-
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    #dropTitle {
-        font-size: 18px;
-        margin-top: 13px;
-    }
-
-    #dropPwd {
-        width: 250px;
-        height: 30px;
-        display: block;
-        margin-bottom: 30px;
-        font-size: 12px;
-    }
-
-    #dropBtn {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        background-color: gray;
-        color: whitesmoke;
-    }
-
-    #dropOk {
-        margin-top: 7px;
-        font-size: 12px;
-    }
-
-
-    #dropDiv {
-        display: flex;
-        justify-content: center;
-        font-size: 13px;
-        float: left;
-        margin-top: 5px;
-    }
-
-    #nowPwd {
-        margin-top: 40px;
-        margin-bottom: 5px;
-    }
-
-    #pp {
-        margin-bottom: 3px;
-    }
-
-    #pp, #pp2{
-        font-size: 11px;
-    }
-
-
-</style>
-</head>
-<body>
-<header th:insert="fragments/header :: headerFragment" style="margin-bottom: 200px;"></header>
-<header th:insert="fragments/myPageHeader :: myPageHeaderFragment"></header>
-
-<div id="infoForm">
-    <form action="/mypage/infoPost" method="POST" onsubmit="return formCheck()">
-        <div class="container">
-            <h1 id="loginTitle">개인정보 수정</h1>
-            <p id="check-result"></p>
-            <label class="infoLabel">이메일*</label>
-            <input class="special-class" type="text" id="c_email" name="cEmail" th:value="${session.cEmail}" disabled>
-            <label class="infoLabel">이름*</label>
-            <input class="special-class" type="text" name="cName"  th:value="${session.cName}" disabled>
-            <label class="infoLabel">닉네임*</label>
-            <input class="special-class" type="text" id="c_nick" name="cNick" th:value="${session.cNick}" maxlength="10" disabled>
-            <label class="infoLabel">주소</label>
-            <div id="ad">
-                <input type="text" id="zip" name="cZip" th:value="${session.cZip}">
-                <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>
-            <div class="oneLine"><input type="text" id="roadAddress" name="cRoadA" th:value="${session.cRoadA}"><p id="road">도로명 주소</p></div>
-                <div class="oneLine"><input type="text" id="jibunAddress" name="cJibunA" maxlength="30" th:value="${session.cJibunA}"><p id="jibun">지번 주소</p></div>
-            <span id="guide" style="color:#999;display:none"></span>
-            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" th:value="${session.cDetA}"><p id="det">건물명 + 상세주소</p></div><br>
-            <label class="infoLabel">휴대폰</label>
-            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" th:value="${session.cPhn}"><p id="phn">-제외</p></div>
-            <label class="infoLabel">성별*</label>
-            <input class="special-class" type="text" name="cGnd" th:value="${session.cGnd}" disabled>
-            <label class="infoLabel" id="aa">생년월일</label>
-            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" th:value="${session.cBirth}"><br><br>
-            <div id="choice">
-
-                <a class="infoLabel">SMS 수신</a>
-                <input type="radio" id="sms_agr" name="smsAgr" value="Y"
-                       th:checked="${session.smsAgr == 'Y'}">
-                <label for="sms_agr" class="choiceLabel">수신함</label>
-
-                <input type="radio" id="sms_no" name="smsAgr" value="N"
-                       th:checked="${session.smsAgr == 'N'}">
-                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>
-
-
-                <a class="infoLabel">이메일 수신</a>
-                <input type="radio" id="email_agr" name="emailAgr" value="Y"
-                       th:checked="${session.emailAgr == 'Y'}">
-                <label for="email_agr" class="choiceLabel">수신함</label>
-
-                <input type="radio" id="email_no" name="emailAgr" value="N"
-                       th:checked="${session.emailAgr == 'N'}">
-                <label for="email_no" class="choiceLabel">수신 안함</label>
-            </div><br><br><br><br><br>
-
-            <div id="check">
-                <button id="edit">수정</button>
-                <a id="delete" onclick="openModal()">회원탈퇴</a>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div id="myModal" class="modal">
-
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-
-        <h4 id="dropTitle">회원 탈퇴</h4><br>
-
-        <p id="nowPwd">비밀번호</p>
-        <input id="dropPwd" type="password" placeholder="현재 사용중인 비밀번호를 적어주세요" maxlength="15">
-
-        <p id="pp">회원 탈퇴시 계정 복구가 불가능하며 회원님의 개인 정보는 탈퇴 시점으로</p>
-        <p id="pp2">3개월 동안 보관됩니다. 보관된 데이터는 3개월 뒤 자동으로 삭제됩니다.</p>
-
-
-        <div id="dropDiv">
-            <input type="checkbox" id="one">
-            <label for="one" id="dropOk">동의</label><br><br>
-        </div>
-        <button id="dropBtn">탈퇴</button>
-    </div>
-
-</div>
-
-
-<footer th:replace="fragments/footer :: footerFragment"></footer>
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function (data) {
-
-                var roadAddr = data.roadAddress;
-                var extraRoadAddr = '';
-
-                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                    extraRoadAddr += data.bname;
-                }
-
-                if (data.buildingName !== '' && data.apartment === 'Y') {
-                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-
-                document.getElementById('zip').value = data.zonecode;
-                document.getElementById("roadAddress").value = roadAddr;
-                document.getElementById("jibunAddress").value = data.jibunAddress;
-            }
-        }).open();
-    }
-
-    function formCheck() {
-        var isNick = newNickCheck();
-        if (!isNick) {
-            return false;
-        }
-
-        var isPhn = newPhnCheck();
-        if (!isPhn) {
-            return false;
-        }
-        return confirm("변경사항을 마무리하시고 적용하시겠습니까?")
-    }
-
-    function newNickCheck() {
-        var newNick = document.getElementById("c_nick").value;
-
-        if (newNick.length < 2 || newNick.length > 10){
-            alert("닉네임은 2자 이상 10자 이하로 가능합니다")
-            return false;
-        }
-        return true;
-    }
-
-    function newPhnCheck() {
-        var newPhn = document.getElementById("c_phn").value;
-
-        var newPhnPattern = /^[0-9]{11,12}$/;
-
-        if (!newPhnPattern.test(newPhn)) {
-            alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.")
-            return false;
-        }
-        return true;
-    }
-
-
-    function test(){
-        alert("테스트중입니다!")
-    }
-
-    function openModal() {
-        document.getElementById("myModal").style.display = "block";
-    }
-
-    // 모달 닫기 함수
-    function closeModal() {
-        document.getElementById("myModal").style.display = "none";
-    }
-
-</script>
-</body>
-</html>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>My Page Info</title>-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">-->
+<!--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
+<!--    <link rel="icon" type="image/x-icon" th:href="@{https://cdn-icons-png.flaticon.com/128/15439/15439306.png}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/myPageHeader.css}">-->
+
+<!--<style>-->
+<!--    .container {-->
+<!--        width: 550px;-->
+<!--        margin: auto;-->
+<!--        text-align: left;-->
+<!--        position: relative;-->
+<!--        left: -130px;-->
+<!--    }-->
+
+<!--    .special-class {-->
+<!--        width: 400px;-->
+<!--        padding: 10px;-->
+<!--        margin-bottom: 7px;-->
+<!--        border: 1px solid #ccc;-->
+<!--        border-radius: 5px;-->
+<!--        box-sizing: border-box;-->
+<!--    }-->
+
+<!--    #edit {-->
+<!--        margin-top: -1px;-->
+<!--        border: none;-->
+<!--        cursor: pointer;-->
+<!--        outline: none;-->
+<!--        font-size: 13px;-->
+<!--        margin-right: 310px;-->
+<!--        font-weight: bold;-->
+<!--    }-->
+
+<!--    .infoLabel {-->
+<!--        display: block;-->
+<!--        margin-bottom: 5px;-->
+<!--        font-weight: bold;-->
+<!--        font-size: 13px;-->
+<!--        color: gray;-->
+<!--    }-->
+
+<!--    #loginTitle {-->
+<!--        font-size: 20px;-->
+<!--        margin-bottom: 40px;-->
+<!--        margin-top: 40px;-->
+<!--    }-->
+
+<!--    span {-->
+<!--        color: gray;-->
+<!--    }-->
+
+<!--    #roadAddress,-->
+<!--    #jibunAddress,-->
+<!--    #detailAddress {-->
+<!--        width: 400px;-->
+<!--        padding: 10px;-->
+<!--        border: 1px solid #ccc;-->
+<!--        border-radius: 5px;-->
+<!--        box-sizing: border-box;-->
+<!--    }-->
+
+<!--    #zip {-->
+<!--        width: 75px;-->
+<!--        padding: 10px;-->
+<!--        border: 1px solid #ccc;-->
+<!--        border-radius: 5px;-->
+<!--        box-sizing: border-box;-->
+<!--    }-->
+
+<!--    #zipBtn {-->
+<!--        float: right;-->
+<!--        margin-right: 150px;-->
+<!--    }-->
+
+<!--    #c_birth {-->
+<!--        padding: 9px;-->
+<!--        border: 1px solid #ccc;-->
+<!--        border-radius: 5px;-->
+<!--        font-size: 1em;-->
+<!--        width: 400px;-->
+<!--        box-sizing: border-box;-->
+<!--    }-->
+
+
+<!--    #ad {-->
+<!--        display: flex;-->
+<!--        justify-content: space-between;-->
+<!--    }-->
+
+<!--    #check {-->
+<!--        margin-bottom: 20px;-->
+<!--        font-size: 13px;-->
+<!--        margin-left: 395px;-->
+<!--        width: 500px;-->
+<!--        display: inline-block;-->
+<!--        font-weight: bold;-->
+<!--    }-->
+
+<!--    #delete {-->
+<!--        cursor: pointer;-->
+<!--    }-->
+
+<!--    #choice{-->
+<!--        font-size: 11px;-->
+<!--    }-->
+
+<!--    .choiceLabel {-->
+<!--        cursor: pointer;-->
+<!--    }-->
+
+<!--    .oneLine{-->
+<!--        display: flex;-->
+<!--        justify-content: space-between;-->
+<!--    }-->
+
+<!--    #det, #phn, #road, #jibun{-->
+<!--        font-size: 12px;-->
+<!--        margin-top: 15px;-->
+<!--    }-->
+
+<!--    #phn{-->
+<!--        margin-right: 37px;-->
+<!--    }-->
+
+<!--    #road{-->
+<!--        margin-right: 25px;-->
+<!--    }-->
+
+<!--    #jibun{-->
+<!--        margin-right: 30px;-->
+<!--    }-->
+
+
+
+<!--    .modal {-->
+<!--        display: none; /* 기본적으로 숨김 */-->
+<!--        position: fixed; /* 위치 고정 */-->
+<!--        z-index: 1; /* 다른 요소 위에 표시 */-->
+<!--        left: 0;-->
+<!--        top: 0;-->
+<!--        width: 100%; /* 화면 전체 너비 */-->
+<!--        height: 100%; /* 화면 전체 높이 */-->
+<!--        overflow: auto; /* 스크롤 가능하도록 */-->
+<!--        background-color: rgba(0, 0, 0, 0.4); /* 배경색과 투명도 설정 */-->
+<!--        font-size: 13px;-->
+<!--    }-->
+
+<!--    /* 모달 내용 스타일 */-->
+<!--    .modal-content {-->
+<!--        background-color: #fefefe; /* 모달 내용 배경색 */-->
+<!--        margin: 15% auto; /* 중앙 정렬 */-->
+<!--        padding: 20px;-->
+<!--        border: 1px solid #888;-->
+<!--        width: 500px; /* 모달 내용 너비 */-->
+<!--        height: 340px;-->
+<!--    }-->
+
+
+<!--    .close {-->
+<!--        color: #aaa;-->
+<!--        float: right;-->
+<!--        font-size: 28px;-->
+<!--        font-weight: bold;-->
+<!--        cursor: pointer;-->
+<!--    }-->
+
+<!--    #dropTitle {-->
+<!--        font-size: 18px;-->
+<!--        margin-top: 13px;-->
+<!--    }-->
+
+<!--    #dropPwd {-->
+<!--        width: 250px;-->
+<!--        height: 30px;-->
+<!--        display: block;-->
+<!--        margin-bottom: 30px;-->
+<!--        font-size: 12px;-->
+<!--    }-->
+
+<!--    #dropBtn {-->
+<!--        width: 100%;-->
+<!--        padding: 10px;-->
+<!--        margin-top: 10px;-->
+<!--        border: none;-->
+<!--        cursor: pointer;-->
+<!--        border-radius: 5px;-->
+<!--        background-color: gray;-->
+<!--        color: whitesmoke;-->
+<!--    }-->
+
+<!--    #dropOk {-->
+<!--        margin-top: 7px;-->
+<!--        font-size: 12px;-->
+<!--    }-->
+
+
+<!--    #dropDiv {-->
+<!--        display: flex;-->
+<!--        justify-content: center;-->
+<!--        font-size: 13px;-->
+<!--        float: left;-->
+<!--        margin-top: 5px;-->
+<!--    }-->
+
+<!--    #nowPwd {-->
+<!--        margin-top: 40px;-->
+<!--        margin-bottom: 5px;-->
+<!--    }-->
+
+<!--    #pp {-->
+<!--        margin-bottom: 3px;-->
+<!--    }-->
+
+<!--    #pp, #pp2{-->
+<!--        font-size: 11px;-->
+<!--    }-->
+
+
+<!--</style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header th:insert="fragments/header :: headerFragment" style="margin-bottom: 200px;"></header>-->
+<!--<header th:insert="fragments/myPageHeader :: myPageHeaderFragment"></header>-->
+
+<!--<div id="infoForm">-->
+<!--    <form action="/mypage/infoPost" method="POST" onsubmit="return formCheck()">-->
+<!--        <div class="container">-->
+<!--            <h1 id="loginTitle">개인정보 수정</h1>-->
+<!--            <p id="check-result"></p>-->
+<!--            <label class="infoLabel">이메일*</label>-->
+<!--            <input class="special-class" type="text" id="c_email" name="cEmail" th:value="${session.cEmail}" disabled>-->
+<!--            <label class="infoLabel">이름*</label>-->
+<!--            <input class="special-class" type="text" name="cName"  th:value="${session.cName}" disabled>-->
+<!--            <label class="infoLabel">닉네임*</label>-->
+<!--            <input class="special-class" type="text" id="c_nick" name="cNick" th:value="${session.cNick}" maxlength="10" disabled>-->
+<!--            <label class="infoLabel">주소</label>-->
+<!--            <div id="ad">-->
+<!--                <input type="text" id="zip" name="cZip" th:value="${session.cZip}">-->
+<!--                <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>-->
+<!--            <div class="oneLine"><input type="text" id="roadAddress" name="cRoadA" th:value="${session.cRoadA}"><p id="road">도로명 주소</p></div>-->
+<!--                <div class="oneLine"><input type="text" id="jibunAddress" name="cJibunA" maxlength="30" th:value="${session.cJibunA}"><p id="jibun">지번 주소</p></div>-->
+<!--            <span id="guide" style="color:#999;display:none"></span>-->
+<!--            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" th:value="${session.cDetA}"><p id="det">건물명 + 상세주소</p></div><br>-->
+<!--            <label class="infoLabel">휴대폰</label>-->
+<!--            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" th:value="${session.cPhn}"><p id="phn">-제외</p></div>-->
+<!--            <label class="infoLabel">성별*</label>-->
+<!--            <input class="special-class" type="text" name="cGnd" th:value="${session.cGnd}" disabled>-->
+<!--            <label class="infoLabel" id="aa">생년월일</label>-->
+<!--            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" th:value="${session.cBirth}"><br><br>-->
+<!--            <div id="choice">-->
+
+<!--                <a class="infoLabel">SMS 수신</a>-->
+<!--                <input type="radio" id="sms_agr" name="smsAgr" value="Y"-->
+<!--                       th:checked="${session.smsAgr == 'Y'}">-->
+<!--                <label for="sms_agr" class="choiceLabel">수신함</label>-->
+
+<!--                <input type="radio" id="sms_no" name="smsAgr" value="N"-->
+<!--                       th:checked="${session.smsAgr == 'N'}">-->
+<!--                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>-->
+
+
+<!--                <a class="infoLabel">이메일 수신</a>-->
+<!--                <input type="radio" id="email_agr" name="emailAgr" value="Y"-->
+<!--                       th:checked="${session.emailAgr == 'Y'}">-->
+<!--                <label for="email_agr" class="choiceLabel">수신함</label>-->
+
+<!--                <input type="radio" id="email_no" name="emailAgr" value="N"-->
+<!--                       th:checked="${session.emailAgr == 'N'}">-->
+<!--                <label for="email_no" class="choiceLabel">수신 안함</label>-->
+<!--            </div><br><br><br><br><br>-->
+
+<!--            <div id="check">-->
+<!--                <button id="edit">수정</button>-->
+<!--                <a id="delete" onclick="openModal()">회원탈퇴</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--<div id="myModal" class="modal">-->
+
+<!--    <div class="modal-content">-->
+<!--        <span class="close" onclick="closeModal()">&times;</span>-->
+
+<!--        <h4 id="dropTitle">회원 탈퇴</h4><br>-->
+
+<!--        <p id="nowPwd">비밀번호</p>-->
+<!--        <input id="dropPwd" type="password" placeholder="현재 사용중인 비밀번호를 적어주세요" maxlength="15">-->
+
+<!--        <p id="pp">회원 탈퇴시 계정 복구가 불가능하며 회원님의 개인 정보는 탈퇴 시점으로</p>-->
+<!--        <p id="pp2">3개월 동안 보관됩니다. 보관된 데이터는 3개월 뒤 자동으로 삭제됩니다.</p>-->
+
+
+<!--        <div id="dropDiv">-->
+<!--            <input type="checkbox" id="one">-->
+<!--            <label for="one" id="dropOk">동의</label><br><br>-->
+<!--        </div>-->
+<!--        <button id="dropBtn">탈퇴</button>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+
+<!--<footer th:replace="fragments/footer :: footerFragment"></footer>-->
+
+<!--<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>-->
+<!--<script>-->
+<!--    function sample4_execDaumPostcode() {-->
+<!--        new daum.Postcode({-->
+<!--            oncomplete: function (data) {-->
+
+<!--                var roadAddr = data.roadAddress;-->
+<!--                var extraRoadAddr = '';-->
+
+<!--                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {-->
+<!--                    extraRoadAddr += data.bname;-->
+<!--                }-->
+
+<!--                if (data.buildingName !== '' && data.apartment === 'Y') {-->
+<!--                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);-->
+<!--                }-->
+
+<!--                document.getElementById('zip').value = data.zonecode;-->
+<!--                document.getElementById("roadAddress").value = roadAddr;-->
+<!--                document.getElementById("jibunAddress").value = data.jibunAddress;-->
+<!--            }-->
+<!--        }).open();-->
+<!--    }-->
+
+<!--    function formCheck() {-->
+<!--        var isNick = newNickCheck();-->
+<!--        if (!isNick) {-->
+<!--            return false;-->
+<!--        }-->
+
+<!--        var isPhn = newPhnCheck();-->
+<!--        if (!isPhn) {-->
+<!--            return false;-->
+<!--        }-->
+<!--        return confirm("변경사항을 마무리하시고 적용하시겠습니까?")-->
+<!--    }-->
+
+<!--    function newNickCheck() {-->
+<!--        var newNick = document.getElementById("c_nick").value;-->
+
+<!--        if (newNick.length < 2 || newNick.length > 10){-->
+<!--            alert("닉네임은 2자 이상 10자 이하로 가능합니다")-->
+<!--            return false;-->
+<!--        }-->
+<!--        return true;-->
+<!--    }-->
+
+<!--    function newPhnCheck() {-->
+<!--        var newPhn = document.getElementById("c_phn").value;-->
+
+<!--        var newPhnPattern = /^[0-9]{11,12}$/;-->
+
+<!--        if (!newPhnPattern.test(newPhn)) {-->
+<!--            alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.")-->
+<!--            return false;-->
+<!--        }-->
+<!--        return true;-->
+<!--    }-->
+
+
+<!--    function test(){-->
+<!--        alert("테스트중입니다!")-->
+<!--    }-->
+
+<!--    function openModal() {-->
+<!--        document.getElementById("myModal").style.display = "block";-->
+<!--    }-->
+
+<!--    // 모달 닫기 함수-->
+<!--    function closeModal() {-->
+<!--        document.getElementById("myModal").style.display = "none";-->
+<!--    }-->
+
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

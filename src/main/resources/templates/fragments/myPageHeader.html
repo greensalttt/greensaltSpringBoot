@@ -1,70 +1,70 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-</head>
-<body>
-<div th:fragment="myPageHeaderFragment">
-    <div id="myPage">
-     <p id="title1">
-            <a id="title2"   th:href="@{/mypage/list}" th:text="${session.cName} + '님의 MY PAGE'"></a>
-        </p>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">-->
+<!--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:fragment="myPageHeaderFragment">-->
+<!--    <div id="myPage">-->
+<!--     <p id="title1">-->
+<!--            <a id="title2"   th:href="@{/mypage/list}" th:text="${session.cName} + '님의 MY PAGE'"></a>-->
+<!--        </p>-->
 
-        <div class="one1">
-        <div class="sp">
-            <span class="date">닉네임</span>
-            <span class="ma2" th:text="${session.cNick}"></span>
+<!--        <div class="one1">-->
+<!--        <div class="sp">-->
+<!--            <span class="date">닉네임</span>-->
+<!--            <span class="ma2" th:text="${session.cNick}"></span>-->
 
-        </div>
-        <div class="sp">
-            <span class="date">등급</span>
-            <span class="ma2">
-                    Bronze
-                </span>
-        </div>
-        <div class="sp">
-            <span class="date">포인트</span>
-            <span class="ma2">
-                    0p
-                </span>
-        </div>
-        <div class="sp">
-            <span class="date">방문</span>
-            <span class="ma2">0회</span>
-        </div>
-        <div class="sp">
-            <span class="date">가입일</span>
-            <span class="ma2" th:text="${session.regDt}"></span>
-        </div>
-    </div>
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span class="date">등급</span>-->
+<!--            <span class="ma2">-->
+<!--                    Bronze-->
+<!--                </span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span class="date">포인트</span>-->
+<!--            <span class="ma2">-->
+<!--                    0p-->
+<!--                </span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span class="date">방문</span>-->
+<!--            <span class="ma2">0회</span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span class="date">가입일</span>-->
+<!--            <span class="ma2" th:text="${session.regDt}"></span>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <div class="one2">
-        <div class="sp">
-            <span><a class="none" onclick="test()">작성글</a></span>
-        </div>
-        <div class="sp">
-            <span><a class="none" onclick="test()">작성 댓글</a></span>
-        </div>
-        <div class="sp">
-            <span><a class="none" onclick="test()">좋아요</a></span>
-        </div>
-        <div class="sp">
-            <span><a class="none" href="/mypage/info">개인정보 수정</a></span>
-        </div>
-        <div class="sp">
-            <span><a class="none" href="/mypage/pwdEdit">비밀번호 수정</a></span>
-        </div>
-    </div>
-</div>
-</div>
-<script>
-    function test(){
-        alert("테스트중입니다!")
-    }
-</script>
+<!--    <div class="one2">-->
+<!--        <div class="sp">-->
+<!--            <span><a class="none" onclick="test()">작성글</a></span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span><a class="none" onclick="test()">작성 댓글</a></span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span><a class="none" onclick="test()">좋아요</a></span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span><a class="none" href="/mypage/info">개인정보 수정</a></span>-->
+<!--        </div>-->
+<!--        <div class="sp">-->
+<!--            <span><a class="none" href="/mypage/pwdEdit">비밀번호 수정</a></span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<script>-->
+<!--    function test(){-->
+<!--        alert("테스트중입니다!")-->
+<!--    }-->
+<!--</script>-->
 
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
