@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -95,17 +96,46 @@ public class CustServiceImpl implements CustService {
         }
     }
     @Override
-    public CustDto login(String email, String rawPassword) {
+    public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
 //        값이 있을수도 없을수도 있을때 옵셔널로 처리
-        Optional<Cust> custOptional = custRepository.findBycEmail(email);
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        Optional<Cust> custOptional = custRepository.findBycEmail(email);
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//
+//        if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
+//            Cust cust = custOptional.get();
+////            return toDto(cust); // 엔티티를 DTO로 변환하여 반환
+//                return true;
+//        }
+//        return false;
+//    }
 
-        if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
-            Cust cust = custOptional.get();
-            return toDto(cust); // 엔티티를 DTO로 변환하여 반환
+        try {
+            /*db에 있는 이메일을 Dto에 대입*/
+            Cust cust = custRepository.findBycEmail(cEmail);
+            /*dto가 가져온 비밀번호와 내가 입력한 비밀번호와 같지 않다면 로그인 실패*/
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(cPwd, cust.getCPwd())) {
+                return false;
+            }
+
+            /*새로운 세션 생성*/
+            HttpSession session = request.getSession();
+            /*session 변수에 DB에 있는 c_id(custDto.getC_id())를 c_id 이름으로 저장*/
+            session.setAttribute("cId", cust.getCId());
+            session.setAttribute("cName", cust.getCName());
+            toDto(cust); // 엔티티를 DTO로 변환하여 반환
+            System.out.println(session.getAttribute("cName")+"님의 로그인 성공");
+
+            /*예외 발생시 로그인 실패*/
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return null;
+        /*예외 없으면 로그인 성공*/
+        return true;
     }
+
 
     @Transactional
     @Override

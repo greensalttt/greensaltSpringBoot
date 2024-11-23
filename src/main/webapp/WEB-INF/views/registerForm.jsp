@@ -7,8 +7,11 @@
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/15439/15439306.png">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<c:url value="/resources/css/index.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>">
+
+
+    <link rel="stylesheet" href="<c:url value='/css/index.css'/>">
+    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
 
 
 
@@ -167,20 +170,20 @@
                 width: 100px;
             }
 
-            #nickName, #nmCheck{
+            #nickName, #nickCheck{
                 display: inline;
             }
-            #nmCheck{
+            #nickCheck{
                 float: right;
                 margin-bottom: 5px;
                 width: 115px;
             }
 
-            #sms_agr, #smsLabel{
+            #smsAgr, #smsLabel{
                 display: inline;
             }
 
-            #email_agr, #emailLabel{
+            #emailAgr, #emailLabel{
                 display: inline;
             }
 
@@ -231,41 +234,41 @@
                 <p id="check-result"></p>
                 <label id="email">이메일</label>
                 <input id="verify" type="button" value="인증번호 받기" disabled>
-                <input class="special-class" type="text" id="c_email" name="c_email" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
+                <input class="special-class" type="text" id="cEmail" name="cEmail" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
                 <p id="mail-check-warn"></p>
                 <label>인증번호</label>
-                <input class="special-class" type="text" id="c_email2" name="c_email2" maxlength="10" disabled>
+                <input class="special-class" type="text" id="cEmail2" name="cEmail2" maxlength="10" disabled>
                 <label>비밀번호</label>
-                <input class="special-class" type="password" id="c_pwd" name="c_pwd" placeholder="영문/숫자 조합 (4자 이상 15자 이하)" maxlength="15" oninput="pwd2Check(this.form)" disabled>
+                <input class="special-class" type="password" id="cPwd" name="cPwd" placeholder="영문/숫자 조합 (4자 이상 15자 이하)" maxlength="15" oninput="pwd2Check(this.form)" disabled>
                 <p id="check-pwd"></p>
                 <label id="pwdCheck">비밀번호 확인</label>
-                <input class="special-class" type="password" id="c_pwd2" name="c_pwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
+                <input class="special-class" type="password" id="cPwd2" name="cPwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
                 <label>이름</label>
-                <input class="special-class" type="text" id="c_name" name="c_name" maxlength="15" disabled>
+                <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>
                 <label id="nickName">닉네임</label>
-                <input id="nmCheck" type="button" value="닉네임 중복 확인" disabled>
-                <input class="special-class" type="text" id="c_nm" name="c_nm" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
+                <input id="nickCheck" type="button" value="닉네임 중복 확인" disabled>
+                <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
                 <label>주소</label>
                 <div id="ad">
-                    <input type="text" id="zip" name="c_zip" placeholder="우편번호" disabled>
+                    <input type="text" id="zip" name="cZip" placeholder="우편번호" disabled>
                     <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" readonly disabled></div>
-                <input type="text" id="roadAddress" name="c_road_a" placeholder="도로명주소" disabled>
-                <input type="text" id="jibunAddress" name="c_jibun_a" maxlength="30" placeholder="지번주소는 선택사항입니다." disabled>
+                <input type="text" id="roadAddress" name="cRoadA" placeholder="도로명주소" disabled>
+                <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" placeholder="지번주소는 선택사항입니다." disabled>
                 <span id="guide" style="color:#999;display:none"></span>
-                <input type="text" id="detailAddress" name="c_det_a" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>
+                <input type="text" id="detailAddress" name="cDetA" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>
                 <label>휴대폰</label>
-                <input class="special-class" type="text" id="c_phn" name="c_phn" placeholder="&nbsp;-제외" maxlength="12" disabled>
+                <input class="special-class" type="text" id="cPhn" name="cPhn" placeholder="&nbsp;-제외" maxlength="12" disabled>
                 <label>성별</label>
                 <div id="gndLine">
-                    <input type="radio" id="female" name="c_gnd" value="여" disabled>
+                    <input type="radio" id="female" name="cGnd" value="여" disabled>
                     <label for="female" id="femaleLabel">여성</label> &nbsp;&nbsp;
 
-                    <input type="radio" id="male" name="c_gnd" value="남" disabled>
+                    <input type="radio" id="male" name="cGnd" value="남" disabled>
                     <label for="male" id="maleLabel">남성</label><br>
                 </div>
 
                 <label>생년월일</label>
-                <input type="date" id="birth" name="c_birth" min="1900-01-01" max="2023-12-31" disabled><br><br>
+                <input type="date" id="birth" name="cBirth" min="1900-01-01" max="2023-12-31" disabled><br><br>
 
                 <input type="checkbox" id="touBox" onclick="openModal()" name="touBox" value="Y" disabled>
 
@@ -276,11 +279,11 @@
 
                 <label for="piiBox" id="piiLabel">[필수] 개인정보 및 이용</label><br>
 
-                <input type="checkbox" id="sms_agr" name="sms_agr" value="Y" disabled>
-                <label for="sms_agr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>
+                <input type="checkbox" id="smsAgr" name="smsAgr" value="Y" disabled>
+                <label for="smsAgr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>
 
-                <input type="checkbox" id="email_agr" name="email_agr" value="Y" disabled>
-                <label for="email_agr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>
+                <input type="checkbox" id="emailAgr" name="emailAgr" value="Y" disabled>
+                <label for="emailAgr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>
 
                 <button id="rBtn" disabled>가입하기</button>
             </div>
@@ -506,17 +509,17 @@
     </footer>
 
     <script>
-        $('#c_email').on('input', function() {
+        $('#cEmail').on('input', function() {
             emailCheck();
         });
 
-        $('#c_email2').on('input', function() {
+        $('#cEmail2').on('input', function() {
             verifyNumber();
         });
         /*이메일 중복체크*/
 
         function emailCheck() {
-            const email = document.getElementById("c_email").value;
+            const email = document.getElementById("cEmail").value;
             const checkResult = document.getElementById("check-result");
             const verifyButton = $('#verify');
 
@@ -540,7 +543,7 @@
                 type: "post",
                 url: "/register/email-check",
                 data: {
-                    "c_email": email
+                    "cEmail": email
                 },
                 success: function (emailGood) {
                     console.log("요청성공", emailGood);
@@ -562,24 +565,24 @@
         }
 
         function verifyEmail() {
-            document.getElementById('c_email2').disabled = false;
-            document.getElementById('c_pwd').disabled = false;
-            document.getElementById('c_pwd2').disabled = false;
-            document.getElementById('c_name').disabled = false;
-            document.getElementById('nmCheck').disabled = false;
-            document.getElementById('c_nm').disabled = false;
+            document.getElementById('cEmail2').disabled = false;
+            document.getElementById('cPwd').disabled = false;
+            document.getElementById('cPwd2').disabled = false;
+            document.getElementById('cName').disabled = false;
+            document.getElementById('nickCheck').disabled = false;
+            document.getElementById('cNick').disabled = false;
             document.getElementById('zip').disabled = false;
             document.querySelector('[onclick="sample4_execDaumPostcode()"]').disabled = false;
             document.getElementById('roadAddress').disabled = false;
             document.getElementById('jibunAddress').disabled = false;
             document.getElementById('detailAddress').disabled = false;
-            document.getElementById('c_phn').disabled = false;
-            document.querySelectorAll('input[name="c_gnd"]').forEach(el => el.disabled = false);
+            document.getElementById('cPhn').disabled = false;
+            document.querySelectorAll('input[name="cGnd"]').forEach(el => el.disabled = false);
             document.getElementById('birth').disabled = false;
             document.getElementById('touBox').disabled = false;
             document.getElementById('piiBox').disabled = false;
-            document.getElementById('sms_agr').disabled = false;
-            document.getElementById('email_agr').disabled = false;
+            document.getElementById('smsAgr').disabled = false;
+            document.getElementById('emailAgr').disabled = false;
             document.getElementById('rBtn').disabled = false;
         }
 
@@ -590,9 +593,9 @@
 
             alert('인증번호가 전송되었습니다.'); // 인증번호 전송 알림
 
-            const email = $('#c_email').val(); // 이메일 주소값 얻어오기
+            const email = $('#cEmail').val(); // 이메일 주소값 얻어오기
             console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
-            const checkInput = $('#c_email2') // 인증번호 입력하는곳
+            const checkInput = $('#cEmail2') // 인증번호 입력하는곳
             const url = '/register/mailCheck?email=' + email; // URL 생성
             $.ajax({
                 type: 'GET',  // 클라이언트에서 서버로 인증번호 요청
@@ -610,16 +613,16 @@
         });
 
         function verifyNumber() {
-            const inputCode = $('#c_email2').val();
+            const inputCode = $('#cEmail2').val();
             const $resultMsg = $('#mail-check-warn');
 
             if (inputCode === code) {
                 $resultMsg.html('인증번호가 일치합니다.');
                 $resultMsg.css('color', 'green');
                 $('#verify').attr('disabled', true);
-                $('#c_email').attr('readonly', true);
-                $('#c_email').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-                $('#c_email').attr('onChange', 'this.selectedIndex = this.initialSelect');
+                $('#cEmail').attr('readonly', true);
+                $('#cEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+                $('#cEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
                 return true;
             } else {
                 $resultMsg.html('인증번호를 다시 확인해주세요');
@@ -635,22 +638,22 @@
             var isPwd = pwdCheck(frm);
             var isPwd2 = pwd2Check(frm);
             var isName = nameCheck(frm);
-            var isNm = nmCheck(frm);
+            var isNm = nickCheck(frm);
             var isPhn = phnCheck(frm);
             var isGen = genCheck(frm);
             var isTou = touCheck(frm)
             var isPii = piiCheck(frm)
             var isCodeVerified = vNum(frm);
 
-            var pwd = frm.c_pwd.value;
-            var pwd2 = frm.c_pwd2.value;
-            var name = frm.c_name.value;
-            var nm = frm.c_nm.value;
-            var zip = frm.c_zip.value;
-            var road = frm.c_road_a.value;
-            var det = frm.c_det_a.value;
-            var phn = frm.c_phn.value;
-            var birth = frm.c_birth.value;
+            var pwd = frm.cPwd.value;
+            var pwd2 = frm.cPwd2.value;
+            var name = frm.cName.value;
+            var nm = frm.cNick.value;
+            var zip = frm.cZip.value;
+            var road = frm.cRoadA.value;
+            var det = frm.cDetA.value;
+            var phn = frm.cPhn.value;
+            var birth = frm.cBirth.value;
 
             if (!isEmailFormat) {
                 return false;
@@ -721,7 +724,7 @@
         /*3-1 이메일 형식 유효성 검사*/
 
         function emailFormatCheck(frm) {
-            var email = frm.c_email.value.trim(); // 공백 제거한 이메일
+            var email = frm.cEmail.value.trim(); // 공백 제거한 이메일
             var emailPattern = /^((?![가-힣]).)*([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
             if (!email) {
@@ -735,7 +738,7 @@
         }
 
         function vNum(frm){
-            var vNum = frm.c_email2.value.trim();
+            var vNum = frm.cEmail2.value.trim();
             if(!vNum){
                 alert("이메일 인증을 진행해주세요.")
                 return false;
@@ -750,7 +753,7 @@
         /*3-2 비밀번호 유효성 검사*/
 
         function pwdCheck(frm) {
-            var pwd = frm.c_pwd.value;
+            var pwd = frm.cPwd.value;
             var pwdPattern = /^(?=.*\d)(?=.*[a-z])[a-z0-9]{4,15}$/;
             if (!pwdPattern.test(pwd)) {
                 return false;
@@ -760,8 +763,8 @@
 
         /* 비밀번호 확인 유효성 검사 */
         function pwd2Check(frm) {
-            var pwd = frm.c_pwd.value;
-            var pwd2 = frm.c_pwd2.value;
+            var pwd = frm.cPwd.value;
+            var pwd2 = frm.cPwd2.value;
             var pwdResult = document.getElementById("check-pwd")
 
             if(!pwd){
@@ -784,15 +787,15 @@
 
         /*  이름 유효성 검사*/
         function nameCheck(frm) {
-            var name = frm.c_name.value;
+            var name = frm.cName.value;
             if (name.length >= 15) {
                 return false;
             }
             return true;
         }
 
-        function nmCheck(frm) {
-            var nm = frm.c_nm.value;
+        function nickCheck(frm) {
+            var nm = frm.cNick.value;
             if (nm.length < 2 || nm.length > 10) {
                 return false;
             }
@@ -801,7 +804,7 @@
 
         /*   휴대폰 유효성 검사*/
         function phnCheck(frm) {
-            var phn = frm.c_phn.value;
+            var phn = frm.cPhn.value;
             var phnPattern = /^[0-9]{11,12}$/;
             if (!phnPattern.test(phn)) {
                 return false;
@@ -811,8 +814,8 @@
 
         /*  성별 유효성 검사*/
         function genCheck(frm) {
-            var female = frm.querySelector('input[name="c_gnd"][value="여"]').checked;
-            var male = frm.querySelector('input[name="c_gnd"][value="남"]').checked;
+            var female = frm.querySelector('input[name="cGnd"][value="여"]').checked;
+            var male = frm.querySelector('input[name="cGnd"][value="남"]').checked;
             if (female || male) {
                 return true;
             } else {
@@ -911,18 +914,6 @@
             document.body.style.overflowX = "";
         }
 
-
-        // document.addEventListener("keydown", function(event) {
-        //     if (event.key === "Escape") {
-        //         closeModal();
-        //     }
-        // });
-
-        // document.addEventListener("keydown", function(event) {
-        //     if (event.key === "Escape") {
-        //         closeModal2();
-        //     }
-        // });
 
         /*페이지 로드시 이벤트 리스너 등록*/
         document.addEventListener('DOMContentLoaded', function () {

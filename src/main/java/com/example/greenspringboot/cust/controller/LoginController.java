@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +25,6 @@ public class LoginController {
 
     @Autowired
     private CustService custService;
-//    private final CustService custService;
     @GetMapping("/login")
     public String login(@CookieValue(value = "cEmailCookie", defaultValue = "")String cEmail, Model model) {
         model.addAttribute("cEmailCookie", cEmail);
@@ -35,64 +37,40 @@ public class LoginController {
         return "redirect:/";
     }
 
+    @PostMapping("/login")
+    public String login(String cEmail, String cPwd, String rememberEmail, HttpServletRequest request, HttpServletResponse response, RedirectAttributes msg) throws Exception {
+        if (!custService.login(cEmail, cPwd, request)) {
+            /*RedirectAttributes의 속성 addFlashAttribute를 통해 로그인 실패시 출력할 수 있는 변수와 공간을 저장*/
+            msg.addFlashAttribute("loginFail", "msg");
+            return "redirect:/login";
+        }
 
-    @PostMapping("/loginPost")
-    public String loginPost(@RequestParam String cEmail, @RequestParam String cPwd, @RequestParam(required = false) String rememberEmail, HttpServletResponse response, HttpSession session, Model model) {
+        /*성공한 경우 세션에서 이전 URL을 가져옴*/
+        HttpSession session = request.getSession();
+        String toURL = (String) session.getAttribute("toURL");
 
-        CustDto custDto = custService.login(cEmail, cPwd);
-        if (custDto != null) {
-            /* session 변수에 고객 번호랑 닉네임 저장 */
-            session.setAttribute("cId", custDto.getCId());
-            session.setAttribute("cEmail", custDto.getCEmail());
-            session.setAttribute("cName", custDto.getCName());
-            session.setAttribute("cNick", custDto.getCNick());
-            session.setAttribute("cBirth", custDto.getCBirth());
-            session.setAttribute("cGnd", custDto.getCGnd());
-            session.setAttribute("cPhn", custDto.getCPhn());
-            session.setAttribute("cZip", custDto.getCZip());
-            session.setAttribute("cRoadA", custDto.getCRoadA());
-            session.setAttribute("cJibunA", custDto.getCJibunA());
-            session.setAttribute("cDetA", custDto.getCDetA());
-            session.setAttribute("smsAgr", custDto.getSmsAgr());
-            session.setAttribute("emailAgr", custDto.getEmailAgr());
+        /*이전 URL이 있으면 해당 페이지로 리다이렉트, 없으면 인덱스*/
+        toURL = (toURL != null && !toURL.isEmpty()) ? toURL : "/";
 
+        /*로그인 후에는 이전 URL을 세션에서 삭제합니다.*/
+        session.removeAttribute("toURL");
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String formattedDate = custDto.getRegDt().format(formatter);
-            session.setAttribute("regDt", formattedDate); // 포맷된 문자열을 세션에 저장
+        /*로그인 세션 유효시간 1시간*/
+        session.setMaxInactiveInterval(7200);
 
-            String toURL = (String) session.getAttribute("toURL");
+        if (rememberEmail != null) {
+            /*리멤버이메일 체크박스를 클릭시 c_email 쿠기 생성*/
+            Cookie idcookie = new Cookie("cEmail", cEmail);
+            /*7일 = 604800초*/
+            idcookie.setMaxAge(7 * 24 * 3600);
+            response.addCookie(idcookie);
+        } else {
+            Cookie idcookie = new Cookie("cEmail", "");
+            idcookie.setMaxAge(0);
+            response.addCookie(idcookie);
+        }
 
-            /*이전 URL이 있으면 해당 페이지로 리다이렉트, 없으면 인덱스*/
-            toURL = (toURL != null && !toURL.isEmpty()) ? toURL : "/";
-
-            /*로그인 후에는 이전 URL을 세션에서 삭제합니다.*/
-            session.removeAttribute("toURL");
-
-             /*이메일 기억하기 처리*/
-            if (rememberEmail != null) {
-                Cookie idcookie = new Cookie("cEmailCookie", cEmail);
-                idcookie.setMaxAge(7 * 24 * 3600); // 7일
-                response.addCookie(idcookie);
-            } else {
-                Cookie idcookie = new Cookie("cEmailCookie", "");
-                idcookie.setMaxAge(0); // 쿠키 삭제
-                response.addCookie(idcookie);
-            }
-
-            System.out.println("로그인 컨트롤러 Session cId: " + session.getAttribute("cId"));
-            System.out.println("로그인 컨트롤러 Session cName: " + session.getAttribute("cName"));
-            System.out.println("로그인 컨트롤러 Session cNick: " + session.getAttribute("cNick"));
-            System.out.println("로그인 컨트롤러 Session regDt: " + session.getAttribute("regDt"));
-
-            return "redirect:" + toURL;
-    } else {
-        // 비밀번호가 틀렸을 경우 모델에 에러 메시지 추가
-            model.addAttribute("cEmailCookie", cEmail);
-        model.addAttribute("errorMessage", "이메일 또는 비밀번호가 잘못되었습니다.");
-            System.out.println("이메일과 비밀번호가 맞지 않습니다.");
-        return "loginForm"; // 로그인 페이지로 포워딩
-    }
+        return "redirect:" + toURL;
     }
 }
 

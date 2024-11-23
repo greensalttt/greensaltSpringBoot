@@ -1,23 +1,23 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="loginOutLink" value="${sessionScope.c_id==null ? '/login' : '/logout'}"/>
-<c:set var="loginOut" value="${sessionScope.c_id==null ? 'Sign In' : 'Sign Out'}"/>
+<c:set var="loginLogoutLink" value="${sessionScope.cId==null ? '/login' : '/logout'}"/>
+<c:set var="loginLogout" value="${sessionScope.cId==null ? 'Sign In' : 'Sign Out'}"/>
 
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
 
+
 <script>
     window.onload = function () {
-        if ("${sessionScope.c_id}" !== "") {
-            document.getElementById('logoutLink').addEventListener('click', function (event) {
-                event.preventDefault();
+        if ("${sessionScope.cId}" !== "") {
+            document.getElementById('loginLogoutLink').onclick = function () {
                 if (confirm('정말로 로그아웃을 하시겠습니까?')) {
                     alert('로그아웃이 되어 메인페이지로 이동합니다.');
-                    window.location.href = event.target.href;
                 }
-            });
+            };
         }
     };
 </script>
+
 
     <div id="headerTitle">
         <h1><a href="<c:url value='/'/>">Green Salt !</a></h1>
@@ -27,7 +27,7 @@
 <div id="custIcon">
     <img id="custIconImg" src="https://cdn-icons-png.flaticon.com/128/3462/3462172.png" alt="User Icon">
     <div id="links">
-        <a id="logoutLink" href="<c:url value='${loginOutLink}'/>">${loginOut}</a>
+        <a id="loginLogoutLink" href="<c:url value='${loginLogoutLink}'/>">${loginLogout}</a>
         <a href="/mypage/list">My Page</a>
     </div>
 </div>

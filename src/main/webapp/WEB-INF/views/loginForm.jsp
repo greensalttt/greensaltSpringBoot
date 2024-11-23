@@ -26,7 +26,7 @@
             padding-top: 2%;
             padding-bottom: 2%;
             margin: 0 auto;
-            margin-top: 200px;
+            margin-top: 250px;
         }
 
         .container {
@@ -132,7 +132,7 @@
             pointer-events: none;
         }
 
-        #c_email, #c_pwd {
+        #cEmail, #cPwd {
             padding-left: 45px;
         }
 
@@ -207,20 +207,20 @@
         <div class="container">
 
             <div id="loginDiv">
-                <input value="${cookie.c_email.value}" id="c_email" name="c_email" class="special-class" type="text" maxlength="30"
+                <input value="${cookie.cEmail.value}" id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30"
                        placeholder="green@salt.com" required>
                 <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
             </div>
 
             <div id="pwdDiv">
-                <input id="c_pwd" class="special-class" type="password" name="c_pwd" maxlength="15" placeholder="비밀번호" required>
+                <input id="cPwd" class="special-class" type="password" name="cPwd" maxlength="15" placeholder="비밀번호" required>
                 <img id="pwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">
             </div>
 
             <input type="hidden" name="toURL" value="${param.toURL}">
 
             <div id="emailRemember">
-                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.c_email.value ? "":"checked"}>
+                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.cEmail.value ? "":"checked"}>
                 <label for="remember" id="emailLabel">이메일 저장</label></div><br>
 
             <button type="submit" id="login">로그인</button>

@@ -3,6 +3,7 @@ package com.example.greenspringboot.cust.service;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.dto.CustDto;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public interface CustService {
@@ -16,7 +17,7 @@ public interface CustService {
 
     void validatePassword(String cPwd);
 
-    CustDto login(String email, String rawPassword);
+    Boolean login(String email, String rawPassword, HttpServletRequest request);
 
     void custHist(CustDto custDto, CustDto oldData);
 
