@@ -1,6 +1,6 @@
 ## 개발환경
 
-> Java 11 + Spring Boot 2.8.7 + Thymeleaf + JPA
+> Java 11 + Spring Boot 2.8.7 + JSP + JPA
 
 ```yaml
 DBMS: MySQL 8.x
