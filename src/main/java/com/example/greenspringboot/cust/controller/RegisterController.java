@@ -13,19 +13,20 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/register")
 public class RegisterController {
 
     private final CustService custService;
 
     private final CustRepository custRepository;
 
-    @GetMapping("/register")
+    @GetMapping("/add")
     public String register() {
         return "registerForm";
     }
 
 //    중복 이메일 체크
-    @PostMapping("/emailCheckPost")
+    @PostMapping("/emailCheck")
     public @ResponseBody String emailCheckPost(@RequestParam("cEmail") String cEmail) {
         try {
             String checkResult = custService.emailCheck(cEmail);
@@ -57,7 +58,7 @@ public class RegisterController {
 
 
     //    중복 넥네임 체크
-    @PostMapping("/nickCheckPost")
+    @PostMapping("/nickCheck")
     public @ResponseBody String nickCheckPost(@RequestParam("cNick") String cNick) {
         try {
             String nickCheckResult = custService.nickCheck(cNick);
@@ -69,7 +70,7 @@ public class RegisterController {
     }
 
 
-    @PostMapping("/registerPost")
+    @PostMapping("/add")
     public String registerPost(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
 
         HttpSession session = request.getSession();

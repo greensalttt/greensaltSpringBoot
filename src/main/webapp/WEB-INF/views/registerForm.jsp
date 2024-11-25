@@ -72,7 +72,7 @@
                 padding-top: 1%;
                 padding-bottom: 1%;
                 margin: 0 auto;
-                margin-top: 50px;
+                margin-top: 200px;
                 margin-bottom: 50px;
             }
 
@@ -541,7 +541,7 @@
             console.log("입력한 이메일", email);
             $.ajax({
                 type: "post",
-                url: "/register/email-check",
+                url: "/register/emailCheck",
                 data: {
                     "cEmail": email
                 },
@@ -596,7 +596,7 @@
             const email = $('#cEmail').val(); // 이메일 주소값 얻어오기
             console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
             const checkInput = $('#cEmail2') // 인증번호 입력하는곳
-            const url = '/register/mailCheck?email=' + email; // URL 생성
+            const url = '/register/verifyEmail?email=' + email; // URL 생성
             $.ajax({
                 type: 'GET',  // 클라이언트에서 서버로 인증번호 요청
                 url: url, // 생성한 URL 사용
