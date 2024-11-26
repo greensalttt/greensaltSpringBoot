@@ -245,9 +245,10 @@
                 <input class="special-class" type="password" id="cPwd2" name="cPwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
                 <label>이름</label>
                 <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>
-                <label id="nickName">닉네임</label>
-                <input id="nickCheck" type="button" value="닉네임 중복 확인" disabled>
-                <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 10자 이하" maxlength="10" disabled>
+                <p id="nickCheck-result"></p>
+                <label id="nickName">닉네임 확인</label>
+<%--                <input id="nickCheck" type="button" value="닉네임 중복 확인" disabled>--%>
+                <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 6자 이하" maxlength="10" onblur="nickCheck()" disabled>
                 <label>주소</label>
                 <div id="ad">
                     <input type="text" id="zip" name="cZip" placeholder="우편번호" disabled>
@@ -516,6 +517,10 @@
         $('#cEmail2').on('input', function() {
             verifyNumber();
         });
+
+        $('#cNick').on('input', function() {
+            nickCheck();
+        });
         /*이메일 중복체크*/
 
         function emailCheck() {
@@ -569,7 +574,7 @@
             document.getElementById('cPwd').disabled = false;
             document.getElementById('cPwd2').disabled = false;
             document.getElementById('cName').disabled = false;
-            document.getElementById('nickCheck').disabled = false;
+            // document.getElementById('nickCheck').disabled = false;
             document.getElementById('cNick').disabled = false;
             document.getElementById('zip').disabled = false;
             document.querySelector('[onclick="sample4_execDaumPostcode()"]').disabled = false;
@@ -638,7 +643,7 @@
             var isPwd = pwdCheck(frm);
             var isPwd2 = pwd2Check(frm);
             var isName = nameCheck(frm);
-            var isNm = nickCheck(frm);
+            // var isNm = nickCheck();
             var isPhn = phnCheck(frm);
             var isGen = genCheck(frm);
             var isTou = touCheck(frm)
@@ -785,6 +790,57 @@
             return true;
         }
 
+
+        // mmmmmmm
+
+        /*닉네임 중복체크*/
+
+        function nickCheck() {
+            const nick = document.getElementById("cNick").value;
+            const nickCheckResult = document.getElementById("nickCheck-result");
+
+
+            if (!nick.trim()) {
+                nickCheckResult.style.color = "red";
+                nickCheckResult.innerHTML = "닉네임을 입력해주세요.";
+                // verifyButton.prop('disabled', true); // 버튼 비활성화
+                return;
+            }
+
+            if (nick.length <= 2 || nick.length >= 6) {
+                nickCheckResult.style.color = "red";
+                nickCheckResult.innerHTML = "닉네임은 2~6글자 사이로 설정해주세요.";
+                // verifyButton.prop('disabled', true); // 버튼 비활성화
+                return;
+            }
+
+            console.log("입력한 닉네임", nick);
+            $.ajax({
+                type: "post",
+                url: "/register/nickCheck",
+                data: {
+                    "cNick": nick
+                },
+                success: function (nickGood) {
+                    console.log("요청성공", nickGood);
+                    if (nickGood == "ok") {
+                        nickCheckResult.style.color = "green";
+                        nickCheckResult.innerHTML = "사용 가능한 이메일입니다.";
+                        // verifyButton.prop('disabled', false); // 버튼 활성화
+                    } else {
+                        // console.log("이미 사용중인 이메일");
+                        nickCheckResult.style.color = "red";
+                        nickCheckResult.innerHTML = "이미 사용중인 닉네임입니다.";
+                        // verifyButton.prop('disabled', true); // 버튼 비활성화
+                    }
+                },
+                error: function (err) {
+                    console.log("에러발생", err);
+                }
+            });
+        }
+// mmm
+
         /*  이름 유효성 검사*/
         function nameCheck(frm) {
             var name = frm.cName.value;
@@ -794,13 +850,13 @@
             return true;
         }
 
-        function nickCheck(frm) {
-            var nm = frm.cNick.value;
-            if (nm.length < 2 || nm.length > 10) {
-                return false;
-            }
-            return true;
-        }
+        // function nickCheck(frm) {
+        //     var nm = frm.cNick.value;
+        //     if (nm.length < 2 || nm.length > 10) {
+        //         return false;
+        //     }
+        //     return true;
+        // }
 
         /*   휴대폰 유효성 검사*/
         function phnCheck(frm) {
