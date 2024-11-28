@@ -5,7 +5,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "cust")
@@ -91,7 +93,7 @@ public class Cust {
 
     @Builder.Default
     @Column(name= "reg_dt", nullable = false)
-    private LocalDateTime regDt = LocalDateTime.now();
+    private Date regDt = new Date();
 
     @Builder.Default
     private LocalDateTime login_dt = LocalDateTime.now();

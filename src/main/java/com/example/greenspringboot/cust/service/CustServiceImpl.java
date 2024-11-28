@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -97,19 +99,6 @@ public class CustServiceImpl implements CustService {
     }
     @Override
     public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
-//        값이 있을수도 없을수도 있을때 옵셔널로 처리
-//        Optional<Cust> custOptional = custRepository.findBycEmail(email);
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//
-//        if (custOptional.isPresent() && passwordEncoder.matches(rawPassword, custOptional.get().getCPwd())) {
-//            Cust cust = custOptional.get();
-////            return toDto(cust); // 엔티티를 DTO로 변환하여 반환
-//                return true;
-//        }
-//        return false;
-//    }
-
-        try {
             /*db에 있는 이메일을 Dto에 대입*/
             Cust cust = custRepository.findBycEmail(cEmail);
             /*dto가 가져온 비밀번호와 내가 입력한 비밀번호와 같지 않다면 로그인 실패*/
@@ -117,65 +106,70 @@ public class CustServiceImpl implements CustService {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             if (!encoder.matches(cPwd, cust.getCPwd())) {
                 return false;
-            }
-
-            /*새로운 세션 생성*/
-            HttpSession session = request.getSession();
-            /*session 변수에 DB에 있는 c_id(custDto.getC_id())를 c_id 이름으로 저장*/
-            session.setAttribute("cId", cust.getCId());
-            session.setAttribute("cName", cust.getCName());
-            toDto(cust); // 엔티티를 DTO로 변환하여 반환
-            System.out.println(session.getAttribute("cName")+"님의 로그인 성공");
-
-            /*예외 발생시 로그인 실패*/
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
         /*예외 없으면 로그인 성공*/
+            HttpSession session = request.getSession();
+            session.setAttribute("cId", cust.getCId());
+            toDto(cust); // 엔티티를 DTO로 변환하여 반환
         return true;
     }
 
-
-    @Transactional
     @Override
-    public void custHist(CustDto custDto, CustDto oldData) {
-        // 기존 회원 정보 조회
-        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+    public void myPage(int cId, HttpServletRequest request){
+        Cust cust = custRepository.findBycId(cId);
+        CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
 
-        System.out.println("개인정보 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-        //        isPresent() = 값이 있는지 없는지 확인
-        if (optionalCust.isPresent()) {
-            // 있으면 get() 으로 가져온다
-            Cust cust = optionalCust.get();
-            toEntity(cust, custDto);
+        HttpSession session = request.getSession();
+        session.setAttribute("cName", custDto.getCName());
+        session.setAttribute("cNick", custDto.getCNick());
 
-            custRepository.save(cust);
-        }
+        Date regDate = custDto.getRegDt();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String regDateStr = dateFormat.format(regDate);
 
-        List<CustHistDto> custHistList = new ArrayList<>();
-
-        addCustHist(custHistList, custDto, oldData, "ZIP", oldData.getCZip(), custDto.getCZip());
-        addCustHist(custHistList, custDto, oldData, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
-        addCustHist(custHistList, custDto, oldData, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
-        addCustHist(custHistList, custDto, oldData, "DET", oldData.getCDetA(), custDto.getCDetA());
-        addCustHist(custHistList, custDto, oldData, "PHN", oldData.getCPhn(), custDto.getCPhn());
-        addCustHist(custHistList, custDto, oldData, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
-        addCustHist(custHistList, custDto, oldData, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
-        addCustHist(custHistList, custDto, oldData, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
-
-        for (CustHistDto custHistDto : custHistList) {
-            // CustHistDto를 CustHist 엔티티로 변환
-            CustHist custHist = new CustHist();
-            custHist.setCId(custHistDto.getCId());
-            custHist.setCCngCd(custHistDto.getCCngCd());
-            custHist.setCBf(custHistDto.getCBf());
-            custHist.setCAf(custHistDto.getCAf());
-
-            // 이력 저장
-            custHistRepository.save(custHist);
-        }
+        session.setAttribute("regDt", regDateStr);
     }
+
+
+//    @Transactional
+//    @Override
+//    public void custHist(CustDto custDto, CustDto oldData) {
+//        // 기존 회원 정보 조회
+//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+//
+//        System.out.println("개인정보 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+//        //        isPresent() = 값이 있는지 없는지 확인
+//        if (optionalCust.isPresent()) {
+//            // 있으면 get() 으로 가져온다
+//            Cust cust = optionalCust.get();
+//            toEntity(cust, custDto);
+//
+//            custRepository.save(cust);
+//        }
+//
+//        List<CustHistDto> custHistList = new ArrayList<>();
+//
+//        addCustHist(custHistList, custDto, oldData, "ZIP", oldData.getCZip(), custDto.getCZip());
+//        addCustHist(custHistList, custDto, oldData, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
+//        addCustHist(custHistList, custDto, oldData, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
+//        addCustHist(custHistList, custDto, oldData, "DET", oldData.getCDetA(), custDto.getCDetA());
+//        addCustHist(custHistList, custDto, oldData, "PHN", oldData.getCPhn(), custDto.getCPhn());
+//        addCustHist(custHistList, custDto, oldData, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
+//        addCustHist(custHistList, custDto, oldData, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
+//        addCustHist(custHistList, custDto, oldData, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
+//
+//        for (CustHistDto custHistDto : custHistList) {
+//            // CustHistDto를 CustHist 엔티티로 변환
+//            CustHist custHist = new CustHist();
+//            custHist.setCId(custHistDto.getCId());
+//            custHist.setCCngCd(custHistDto.getCCngCd());
+//            custHist.setCBf(custHistDto.getCBf());
+//            custHist.setCAf(custHistDto.getCAf());
+//
+//            // 이력 저장
+//            custHistRepository.save(custHist);
+//        }
+//    }
 
     private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
                              String changeCode, String oldValue, String newValue) {
@@ -190,28 +184,28 @@ public class CustServiceImpl implements CustService {
     }
 
 
-    @Transactional
-    @Override
-    public void pwdChange(int cId, String cPwd, CustDto oldPwd) {
-        CustDto custDto = new CustDto(cId, cPwd);
-        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-
-        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-        ////        isPresent() = 값이 있는지 없는지 확인
-        if (optionalCust.isPresent()) {
-            // 있으면 get() 으로 가져온다
-            Cust cust = optionalCust.get();
-            toPwdEntity(cust, custDto);
-            custRepository.save(cust);
-        }
-        CustHist custHist = new CustHist();
-        custHist.setCId(custDto.getCId());
-        custHist.setCCngCd("PWD");
-        custHist.setCBf(oldPwd.getCPwd());
-        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-
-        custHistRepository.save(custHist);
-    }
+//    @Transactional
+//    @Override
+//    public void pwdChange(int cId, String cPwd, CustDto oldPwd) {
+//        CustDto custDto = new CustDto(cId, cPwd);
+//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
+//
+//        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
+//        ////        isPresent() = 값이 있는지 없는지 확인
+//        if (optionalCust.isPresent()) {
+//            // 있으면 get() 으로 가져온다
+//            Cust cust = optionalCust.get();
+//            toPwdEntity(cust, custDto);
+//            custRepository.save(cust);
+//        }
+//        CustHist custHist = new CustHist();
+//        custHist.setCId(custDto.getCId());
+//        custHist.setCCngCd("PWD");
+//        custHist.setCBf(oldPwd.getCPwd());
+//        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+//
+//        custHistRepository.save(custHist);
+//    }
 
     @Override
     public void updateSession(HttpSession session, CustDto custDto) {
@@ -293,11 +287,6 @@ public class CustServiceImpl implements CustService {
         return custDto;
     }
 
-//    public Cust toPwdEntity(CustDto custDto) {
-//        Cust cust = new Cust();
-//        cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
-//        return cust;
-//    }
 @Override
     public Cust toPwdEntity(Cust cust, CustDto custDto) {
     cust.setCPwd(pwdEncrypt(custDto.getCPwd())); // custDto의 비밀번호를 암호화하여 cust 객체에 설정

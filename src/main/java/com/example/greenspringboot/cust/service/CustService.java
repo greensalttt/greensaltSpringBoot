@@ -19,22 +19,21 @@ public interface CustService {
 
     Boolean login(String email, String rawPassword, HttpServletRequest request);
 
-    void custHist(CustDto custDto, CustDto oldData);
+//    void custHist(CustDto custDto, CustDto oldData);
+//
+//    void pwdChange(int cId, String cPwd, CustDto oldPwd);
 
-//    CustDto convertToDto(Cust cust);
-            ;
     void updateSession(HttpSession session, CustDto custDto);
 
     CustDto toDto(Cust cust);
 
     void toEntity(Cust cust, CustDto custDto);
 
-    void pwdChange(int cId, String cPwd, CustDto oldPwd);
-
     CustDto toPwdDto(Cust cust);
 
-
     Cust toPwdEntity(Cust cust, CustDto custDto);
+
+    void myPage(int cId, HttpServletRequest request);
 
 
 }

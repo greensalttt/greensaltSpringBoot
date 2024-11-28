@@ -3,10 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <head>
-
-    <link rel="stylesheet" href="<c:url value="/resources/css/index.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/myPageHeader.css"/>">
+
+
 
     <title>My Page</title>
 
@@ -42,6 +44,10 @@
 
         .ma2 {
             font-size: 11px;
+        }
+
+        #top {
+            margin-bottom: 150px;
         }
 
     </style>

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -25,7 +26,7 @@ public class CustDto {
     private String cDetA;
     private String smsAgr;
     private String emailAgr;
-    private LocalDateTime regDt;
+    private Date regDt;
     private Date login_dt;
     private int visit_cnt;
     private String tot_amt;
@@ -44,7 +45,7 @@ public class CustDto {
     }
 
 //    회원가입 Dto 이거 기본 생성자로 대체 가능한거 아닌가??
-    public CustDto(int cId, String cEmail, String cName, String cNick, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, LocalDateTime regDt){
+    public CustDto(int cId, String cEmail, String cName, String cNick, String cBirth, String cGnd, String cPhn, String cZip, String cRoadA, String cJibunA, String cDetA, String smsAgr, String emailAgr, Date regDt){
         this.cId = cId;
         this.cEmail = cEmail;
         this.cName = cName;
@@ -62,7 +63,7 @@ public class CustDto {
     }
 
 //    정보 변경
-    public CustDto(int cId, String cZip, String cRoadA, String cJibunA, String cDetA, String cBirth, String cPhn, String smsAgr, String emailAgr, LocalDateTime regDt){
+    public CustDto(int cId, String cZip, String cRoadA, String cJibunA, String cDetA, String cBirth, String cPhn, String smsAgr, String emailAgr, Date regDt){
         this.cId = cId;
         this.cZip = cZip;
         this.cRoadA = cRoadA;

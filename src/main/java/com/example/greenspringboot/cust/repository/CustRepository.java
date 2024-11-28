@@ -16,7 +16,10 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
 //    메서드에서 Id는 기본키
 
 
-    Optional<Cust> findBycId(int cId);
+//    Optional<Cust> findBycId(int cId);
+
+    Cust findBycId(int cId);
+
 
 //  이메일 중복
     boolean existsBycEmail(String cEmail);

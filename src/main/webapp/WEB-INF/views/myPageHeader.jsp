@@ -70,33 +70,38 @@
 
 <body>
 <div id="myPage">
-    <p id="title1"><a id="title2" href="/mypage/list"><%=session.getAttribute("c_name")%>님의 MY PAGE</a></p>
+    <p id="title1"><a id="title2" href="/mypage/list"><%=session.getAttribute("cName")%>님의 MY PAGE</a></p>
     <div class="one1">
         <div class="sp">
             <span class="date">닉네임</span>
             <span class="ma2">
-                    <%=session.getAttribute("c_nm")%>
+                    <%=session.getAttribute("cNick")%>
                 </span>
         </div>
         <div class="sp">
             <span class="date">등급</span>
             <span class="ma2">
-                    <%=session.getAttribute("grd_name")%>
+<%--                    <%=session.getAttribute("grdName")%>--%>
+                Bronze
                 </span>
         </div>
         <div class="sp">
             <span class="date">포인트</span>
             <span class="ma2">
-                    <%=session.getAttribute("tot_amt")%>p
+<%--                    <%=session.getAttribute("tot_amt")%>p--%>
+                0원
                 </span>
         </div>
         <div class="sp">
             <span class="date">방문</span>
-            <span class="ma2"><%=session.getAttribute("visit_cnt")%>회</span>
+            <span class="ma2">
+<%--                <%=session.getAttribute("visit_cnt")%>회--%>
+                0회
+            </span>
         </div>
         <div class="sp">
             <span class="date">가입일</span>
-            <span class="ma2"><%=session.getAttribute("reg_dt")%></span>
+            <span class="ma2"><%=session.getAttribute("regDt")%></span>
         </div>
     </div>
 
