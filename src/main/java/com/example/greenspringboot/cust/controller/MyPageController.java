@@ -34,18 +34,6 @@ public class MyPageController {
     @Autowired
     private CustService custService;
 
-
-//    @GetMapping("/list")
-////    view 이름을 반환해야하니 메서드의 타입을 String
-//    public String myPage(Cust cust, HttpSession session) {
-////        session.setAttribute("cId", cust.getCId());
-//        session.setAttribute("cName", cust.getCName());
-//        session.setAttribute("cNick", cust.getCNick());
-//        session.setAttribute("regDt", cust.getRegDt());
-//
-//        return "myPage";
-//    }
-
     @GetMapping("/list")
     /*세션 속성에 저장되어있는 c_id를 가져와서 c_id 변수로 지정함*/
     public String myPage(HttpSession session, HttpServletRequest request) {

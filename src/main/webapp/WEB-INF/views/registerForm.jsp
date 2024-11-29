@@ -244,9 +244,9 @@
                 <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 6자 이하" maxlength="10" onblur="nickCheck()" disabled>
                 <label>주소</label>
                 <div id="ad">
-                    <input type="text" id="zip" name="cZip" placeholder="우편번호" disabled>
+                    <input type="text" id="zip" name="cZip" placeholder="우편번호"  readonly disabled>
                     <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" readonly disabled></div>
-                <input type="text" id="roadAddress" name="cRoadA" placeholder="도로명주소" disabled>
+                <input type="text" id="roadAddress" name="cRoadA" placeholder="도로명주소" readonly disabled>
                 <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" placeholder="지번주소는 선택사항입니다." disabled>
                 <span id="guide" style="color:#999;display:none"></span>
                 <input type="text" id="detailAddress" name="cDetA" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>

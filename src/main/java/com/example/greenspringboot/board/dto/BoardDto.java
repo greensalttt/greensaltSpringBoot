@@ -1,9 +1,7 @@
 package com.example.greenspringboot.board.dto;
 
 import lombok.Data;
-import java.time.LocalDateTime;
 import java.util.Date;
-
 import lombok.Builder;
 
 @Data

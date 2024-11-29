@@ -219,26 +219,26 @@ public class CustServiceImpl implements CustService {
         session.setAttribute("emailAgr", custDto.getEmailAgr());
     }
 
-    // Cust 엔티티를 CustDto로 변환
     @Override
     public CustDto toDto(Cust cust) {
-        CustDto custDto = new CustDto();
-        custDto.setCId(cust.getCId());
-        custDto.setCEmail(cust.getCEmail());
-        custDto.setCName(cust.getCName());
-        custDto.setCNick(cust.getCNick());
-        custDto.setCBirth(cust.getCBirth());
-        custDto.setCGnd(cust.getCGnd());
-        custDto.setCPhn(cust.getCPhn());
-        custDto.setCZip(cust.getCZip());
-        custDto.setCRoadA(cust.getCRoadA());
-        custDto.setCJibunA(cust.getCJibunA());
-        custDto.setCDetA(cust.getCDetA());
-        custDto.setSmsAgr(cust.getSmsAgr());
-        custDto.setEmailAgr(cust.getEmailAgr());
-        custDto.setRegDt(cust.getRegDt());
-        return custDto;
+        return CustDto.builder()
+                .cId(cust.getCId())
+                .cEmail(cust.getCEmail())
+                .cName(cust.getCName())
+                .cNick(cust.getCNick())
+                .cBirth(cust.getCBirth())
+                .cGnd(cust.getCGnd())
+                .cPhn(cust.getCPhn())
+                .cZip(cust.getCZip())
+                .cRoadA(cust.getCRoadA())
+                .cJibunA(cust.getCJibunA())
+                .cDetA(cust.getCDetA())
+                .smsAgr(cust.getSmsAgr())
+                .emailAgr(cust.getEmailAgr())
+                .regDt(cust.getRegDt())
+                .build(); // 빌더를 사용해 객체 생성
     }
+
 
     // 객체를 매개변수로 넣으면 개인정보 수정에서 하나만 수정해도 전체 수정이 되기떄문에 변경이 있다는 것만 수정해줄 수 있도록 if문이 필요함
     // 객체를 새로 생성할 경우에는 하나만 수정해도 문제 없지만 객체를 새로 만드는만큼 성능에 부담을 줄 수가 있다.
@@ -279,15 +279,15 @@ public class CustServiceImpl implements CustService {
         }
     }
 
-    //    엔티티 비밀번호를 DTO로
     @Override
     public CustDto toPwdDto(Cust cust) {
-        CustDto custDto = new CustDto();
-        custDto.setCPwd(cust.getCPwd());
-        return custDto;
+        return CustDto.builder()
+        .cPwd(cust.getCPwd())
+        .build(); // 빌더를 사용해 객체 생성
     }
 
-@Override
+
+    @Override
     public Cust toPwdEntity(Cust cust, CustDto custDto) {
     cust.setCPwd(pwdEncrypt(custDto.getCPwd())); // custDto의 비밀번호를 암호화하여 cust 객체에 설정
     return cust;
