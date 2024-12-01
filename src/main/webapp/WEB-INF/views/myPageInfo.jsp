@@ -4,8 +4,9 @@
 
 <head>
 
-    <link rel="stylesheet" href="<c:url value="/resources/css/index.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/myPageHeader.css"/>">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -212,6 +213,10 @@
 
         #pp, #pp2{
             font-size: 11px;
+        }
+
+        #top{
+            margin-bottom: 150px;
         }
 
     </style>

@@ -115,19 +115,30 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
-    public void myPage(int cId, HttpServletRequest request){
+    public void myPage(int cId, HttpServletRequest request) {
         Cust cust = custRepository.findBycId(cId);
         CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
 
         HttpSession session = request.getSession();
+        session.setAttribute("cEmail", custDto.getCEmail());
         session.setAttribute("cName", custDto.getCName());
         session.setAttribute("cNick", custDto.getCNick());
+        session.setAttribute("cZip", custDto.getCZip());
+        session.setAttribute("cRoadA", custDto.getCRoadA());
+        session.setAttribute("cJibunA", custDto.getCJibunA());
+        session.setAttribute("cDetA", custDto.getCDetA());
+        session.setAttribute("cPhn", custDto.getCPhn());
+        session.setAttribute("cGnd", custDto.getCGnd());
+        session.setAttribute("cBirth", custDto.getCBirth());
+        session.setAttribute("smsAgr", custDto.getSmsAgr());
+        session.setAttribute("emailAgr", custDto.getEmailAgr());
 
         Date regDate = custDto.getRegDt();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         String regDateStr = dateFormat.format(regDate);
 
         session.setAttribute("regDt", regDateStr);
+
     }
 
 
@@ -171,17 +182,17 @@ public class CustServiceImpl implements CustService {
 //        }
 //    }
 
-    private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
-                             String changeCode, String oldValue, String newValue) {
-        if (!oldValue.equals(newValue)) {
-            CustHistDto custHistDto = new CustHistDto();
-            custHistDto.setCId(newData.getCId());
-            custHistDto.setCCngCd(changeCode);
-            custHistDto.setCBf(oldValue);
-            custHistDto.setCAf(newValue);
-            custHistList.add(custHistDto);
-        }
-    }
+//    private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
+//                             String changeCode, String oldValue, String newValue) {
+//        if (!oldValue.equals(newValue)) {
+//            CustHistDto custHistDto = new CustHistDto();
+//            custHistDto.setCId(newData.getCId());
+//            custHistDto.setCCngCd(changeCode);
+//            custHistDto.setCBf(oldValue);
+//            custHistDto.setCAf(newValue);
+//            custHistList.add(custHistDto);
+//        }
+//    }
 
 
 //    @Transactional
