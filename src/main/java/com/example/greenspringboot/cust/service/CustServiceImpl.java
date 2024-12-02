@@ -142,57 +142,50 @@ public class CustServiceImpl implements CustService {
     }
 
 
-//    @Transactional
-//    @Override
-//    public void custHist(CustDto custDto, CustDto oldData) {
-//        // 기존 회원 정보 조회
-//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-//
-//        System.out.println("개인정보 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-//        //        isPresent() = 값이 있는지 없는지 확인
-//        if (optionalCust.isPresent()) {
-//            // 있으면 get() 으로 가져온다
-//            Cust cust = optionalCust.get();
-//            toEntity(cust, custDto);
-//
-//            custRepository.save(cust);
-//        }
-//
-//        List<CustHistDto> custHistList = new ArrayList<>();
-//
-//        addCustHist(custHistList, custDto, oldData, "ZIP", oldData.getCZip(), custDto.getCZip());
-//        addCustHist(custHistList, custDto, oldData, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
-//        addCustHist(custHistList, custDto, oldData, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
-//        addCustHist(custHistList, custDto, oldData, "DET", oldData.getCDetA(), custDto.getCDetA());
-//        addCustHist(custHistList, custDto, oldData, "PHN", oldData.getCPhn(), custDto.getCPhn());
-//        addCustHist(custHistList, custDto, oldData, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
-//        addCustHist(custHistList, custDto, oldData, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
-//        addCustHist(custHistList, custDto, oldData, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
-//
-//        for (CustHistDto custHistDto : custHistList) {
-//            // CustHistDto를 CustHist 엔티티로 변환
-//            CustHist custHist = new CustHist();
-//            custHist.setCId(custHistDto.getCId());
-//            custHist.setCCngCd(custHistDto.getCCngCd());
-//            custHist.setCBf(custHistDto.getCBf());
-//            custHist.setCAf(custHistDto.getCAf());
-//
-//            // 이력 저장
-//            custHistRepository.save(custHist);
-//        }
-//    }
+    @Transactional
+    @Override
+    public void custHist(int cId, CustDto custDto, CustDto oldData) {
+        // 기존 회원 정보 조회
+        Cust cust = custRepository.findBycId(cId);
+        toEntity(cust, custDto);
+        custRepository.save(cust);
 
-//    private void addCustHist(List<CustHistDto> custHistList, CustDto newData, CustDto oldData,
-//                             String changeCode, String oldValue, String newValue) {
-//        if (!oldValue.equals(newValue)) {
-//            CustHistDto custHistDto = new CustHistDto();
-//            custHistDto.setCId(newData.getCId());
-//            custHistDto.setCCngCd(changeCode);
-//            custHistDto.setCBf(oldValue);
-//            custHistDto.setCAf(newValue);
-//            custHistList.add(custHistDto);
-//        }
-//    }
+        List<CustHistDto> custHistList = new ArrayList<>();
+
+        addCustHist(custHistList, custDto, "NICK", oldData.getCNick(), custDto.getCNick());
+        addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
+        addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
+        addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
+        addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
+        addCustHist(custHistList, custDto, "PHN", oldData.getCPhn(), custDto.getCPhn());
+        addCustHist(custHistList, custDto, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
+        addCustHist(custHistList, custDto, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
+        addCustHist(custHistList, custDto, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
+
+        for (CustHistDto custHistDto : custHistList) {
+            // CustHistDto를 CustHist 엔티티로 변환
+            CustHist custHist = new CustHist();
+            custHist.setCId(custHistDto.getCId());
+            custHist.setCCngCd(custHistDto.getCCngCd());
+            custHist.setCBf(custHistDto.getCBf());
+            custHist.setCAf(custHistDto.getCAf());
+
+            // 이력 저장
+            custHistRepository.save(custHist);
+        }
+    }
+
+    private void addCustHist(List<CustHistDto> custHistList, CustDto newData,
+                             String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            CustHistDto custHistDto = new CustHistDto();
+            custHistDto.setCId(newData.getCId());
+            custHistDto.setCCngCd(changeCode);
+            custHistDto.setCBf(oldValue);
+            custHistDto.setCAf(newValue);
+            custHistList.add(custHistDto);
+        }}
+
 
 
 //    @Transactional
@@ -220,6 +213,7 @@ public class CustServiceImpl implements CustService {
 
     @Override
     public void updateSession(HttpSession session, CustDto custDto) {
+        session.setAttribute("cNick", custDto.getCNick());
         session.setAttribute("cZip", custDto.getCZip());
         session.setAttribute("cRoadA", custDto.getCRoadA());
         session.setAttribute("cJibunA", custDto.getCJibunA());

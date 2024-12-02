@@ -63,7 +63,9 @@ public class MyPageController {
 ////        로그인할때 저장한 cId 세션을 변수로 저장
 //        int cId = (int) session.getAttribute("cId");
 //
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
+////        Optional<Cust> optionalCust = custRepository.findById(cId);
+//        Cust cust = custRepository.findBycId(cId);
+//
 //        if (optionalCust.isPresent()) {
 //            Cust oldCust = optionalCust.get();
 //            CustDto oldData = custService.toDto(oldCust);
@@ -84,6 +86,31 @@ public class MyPageController {
 //            return "errorPage";
 //        }
 //    }
+
+    @PostMapping("/info")
+    public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+
+//        로그인할때 저장한 cId 세션을 변수로 저장
+        int cId = (int) session.getAttribute("cId");
+
+         Cust oldCust = custRepository.findBycId(cId);
+         CustDto oldData = custService.toDto(oldCust);
+
+            // 현재 데이터 설정
+            custDto.setCId(cId);
+
+            // 서비스 호출하여 정보 업데이트 및 이력 기록
+            custService.custHist(cId, custDto, oldData);
+
+            custService.updateSession(session, custDto);
+            System.out.println("개인정보 변경 완료");
+
+
+            return "redirect:/mypage/list";
+    }
+
 
     @GetMapping("/pwdEdit")
     public String pwdEdit(){
