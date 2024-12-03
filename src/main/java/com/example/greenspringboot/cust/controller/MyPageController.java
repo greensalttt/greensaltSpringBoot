@@ -47,45 +47,12 @@ public class MyPageController {
         return "errorPageC";
     }
 
-
     //    엔티티는 DB 전송, DTO는 데이터 전송
     @GetMapping("/info")
     public String myPageInfo(HttpSession session) {
         System.out.println("개인정보변경 겟맵핑: " + session.getAttribute("cName"));
         return "myPageInfo";
     }
-
-//    @PostMapping("/infoPost")
-//    public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request) {
-//
-//        HttpSession session = request.getSession();
-//
-////        로그인할때 저장한 cId 세션을 변수로 저장
-//        int cId = (int) session.getAttribute("cId");
-//
-////        Optional<Cust> optionalCust = custRepository.findById(cId);
-//        Cust cust = custRepository.findBycId(cId);
-//
-//        if (optionalCust.isPresent()) {
-//            Cust oldCust = optionalCust.get();
-//            CustDto oldData = custService.toDto(oldCust);
-//
-//            // 현재 데이터 설정
-//            custDto.setCId(cId);
-//
-//            // 서비스 호출하여 정보 업데이트 및 이력 기록
-//            custService.custHist(custDto, oldData);
-//
-//            custService.updateSession(session, custDto);
-//            System.out.println("개인정보 변경 완료");
-//
-//
-//            return "redirect:/mypage/list";
-//        } else {
-//            // cId에 해당하는 고객 정보가 없을 경우 처리
-//            return "errorPage";
-//        }
-//    }
 
     @PostMapping("/info")
     public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request) {
@@ -113,7 +80,9 @@ public class MyPageController {
 
 
     @GetMapping("/pwdEdit")
-    public String pwdEdit(){
+
+    public String pwdEdit(HttpSession session){
+        System.out.println("비밀번호 변경: "+ session.getAttribute("cName"));
         return "pwdEdit";
     }
 
