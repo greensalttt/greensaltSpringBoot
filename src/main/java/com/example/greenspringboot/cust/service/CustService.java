@@ -21,7 +21,7 @@ public interface CustService {
 
     void custHist(int cId, CustDto custDto, CustDto oldData);
 //
-//    void pwdChange(int cId, String cPwd, CustDto oldPwd);
+    void pwdChange(int cId, CustDto custDto, CustDto oldPwd);
 
     void updateSession(HttpSession session, CustDto custDto);
 

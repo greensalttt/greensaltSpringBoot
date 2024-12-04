@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Data
 @Builder
-
 public class CustDto {
     private Integer cId;
     private String c_grd_cd;
@@ -32,4 +31,11 @@ public class CustDto {
     private String frst_reg_id;
     private Date last_mod_dt;
     private String last_mod_id;
+
+//    public CustDto(){}
+//
+//    public CustDto(String cPwd){
+//        this.cPwd = cPwd;
+//    }
+
 }

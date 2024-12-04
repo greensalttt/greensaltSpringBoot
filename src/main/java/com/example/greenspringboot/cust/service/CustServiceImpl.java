@@ -83,20 +83,20 @@ public class CustServiceImpl implements CustService {
         sendEmail(cEmail, subject, content);
         return Integer.toString(authNumber);
     }
-    @Override
-    public String pwdEncrypt(String cPwd) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.encode(cPwd);
-    }
-
-    //    비밀번호 서버 유효성 검사
-//    해쉬화 같은 복잡한 것들은 서비스로 빼서 엔티티로 받기 전에 미리 유효성 검사 진행
-    @Override
-    public void validatePassword(String cPwd) {
-        if (!cPwd.matches("^(?=.*\\d)(?=.*[a-z])[a-z0-9]{4,15}$")) {
-            throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
-        }
-    }
+//    @Override
+//    public String pwdEncrypt(String cPwd) {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        return encoder.encode(cPwd);
+//    }
+//
+//    //    비밀번호 서버 유효성 검사
+////    해쉬화 같은 복잡한 것들은 서비스로 빼서 엔티티로 받기 전에 미리 유효성 검사 진행
+//    @Override
+//    public void validatePassword(String cPwd) {
+//        if (!cPwd.matches("^(?=.*\\d)(?=.*[a-z])[a-z0-9]{4,15}$")) {
+//            throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
+//        }
+//    }
     @Override
     public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
             /*db에 있는 이메일을 Dto에 대입*/
@@ -186,30 +186,37 @@ public class CustServiceImpl implements CustService {
             custHistList.add(custHistDto);
         }}
 
+    @Override
+    public String pwdEncrypt(String cPwd) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.encode(cPwd);
+    }
 
+    //    비밀번호 서버 유효성 검사
+//    해쉬화 같은 복잡한 것들은 서비스로 빼서 엔티티로 받기 전에 미리 유효성 검사 진행
+    @Override
+    public void validatePassword(String cPwd) {
+        if (!cPwd.matches("^(?=.*\\d)(?=.*[a-z])[a-z0-9]{4,15}$")) {
+            throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
+        }
+    }
 
-//    @Transactional
-//    @Override
-//    public void pwdChange(int cId, String cPwd, CustDto oldPwd) {
-//        CustDto custDto = new CustDto(cId, cPwd);
-//        Optional<Cust> optionalCust = custRepository.findBycId(custDto.getCId());  // custDto에서 CId 값을 받아와야 함
-//
-//        System.out.println("비밀번호 변경 서비스에서 CId: " + custDto.getCId());  // CId 값 확인
-//        ////        isPresent() = 값이 있는지 없는지 확인
-//        if (optionalCust.isPresent()) {
-//            // 있으면 get() 으로 가져온다
-//            Cust cust = optionalCust.get();
-//            toPwdEntity(cust, custDto);
-//            custRepository.save(cust);
-//        }
-//        CustHist custHist = new CustHist();
-//        custHist.setCId(custDto.getCId());
-//        custHist.setCCngCd("PWD");
-//        custHist.setCBf(oldPwd.getCPwd());
-//        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-//
-//        custHistRepository.save(custHist);
-//    }
+    @Transactional
+    @Override
+    public void pwdChange(int cId, CustDto custDto, CustDto oldPwd) {
+
+        Cust cust = custRepository.findBycId(cId);
+        toPwdEntity(cust, custDto);
+        custRepository.save(cust);
+
+        CustHist custHist = new CustHist();
+        custHist.setCId(custDto.getCId());
+        custHist.setCCngCd("PWD");
+        custHist.setCBf(oldPwd.getCPwd());
+        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+
+        custHistRepository.save(custHist);
+    }
 
     @Override
     public void updateSession(HttpSession session, CustDto custDto) {

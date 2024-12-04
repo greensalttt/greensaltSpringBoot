@@ -86,41 +86,32 @@ public class MyPageController {
         return "pwdEdit";
     }
 
-//    전체 dto 안쓰고 만들 수 있을거 같음
-//    @PostMapping("/pwdEditPost")
-//    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, String cPwd, RedirectAttributes msg) {
-//        HttpSession session = request.getSession();
-//
-////        로그인할때 저장한 cId 세션을 변수로 저장
-//        int cId = (int) session.getAttribute("cId");
-//
-////        cust 엔티티를 들고오는 코드이므로 메서드 만들시 매개변수로 엔티티를 받아야됨
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
-//        if (optionalCust.isPresent()) {
-//            Cust oldCust = optionalCust.get();
-//            CustDto oldData = custService.toPwdDto(oldCust);
-//
-//            custDto.setCId(cId);
-//
-////            /* 입력한 현재 비밀번호와 실제 비밀번호가 일치하는지 확인*/
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            if (!encoder.matches(curPwd, oldData.getCPwd())) {
-//                msg.addFlashAttribute("pwdFail", "pwdMsg");
-//
-//
-//                return "redirect:/mypage/pwdEdit";
-//            }
-//
-//            custService.pwdChange(cId, cPwd, oldData);
-//            System.out.println("비밀번호 변경 완료");
-//            sessionLogout.invalidate();
-//            return "redirect:/";
-//        } else {
-//            // cId에 해당하는 고객 정보가 없을 경우 처리
-//            return "errorPage";
-//        }
-//    }
+    @PostMapping("/pwdEdit")
+    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
+        HttpSession session = request.getSession();
 
-}
+//        로그인할때 저장한 cId 세션을 변수로 저장
+        int cId = (int) session.getAttribute("cId");
+
+            Cust cust = custRepository.findBycId(cId);
+            CustDto oldPwd = custService.toPwdDto(cust);
+            custDto.setCId(cId);
+
+//            /* 입력한 현재 비밀번호와 실제 비밀번호가 일치하는지 확인*/
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
+                msg.addFlashAttribute("pwdFail", "pwdMsg");
+
+
+                return "redirect:/mypage/pwdEdit";
+            }
+
+            custService.pwdChange(cId, custDto, oldPwd);
+            System.out.println("비밀번호 변경 완료");
+            sessionLogout.invalidate();
+            return "redirect:/";
+        }
+    }
+
 
 
