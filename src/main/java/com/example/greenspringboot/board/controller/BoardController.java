@@ -26,6 +26,10 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model m, SearchCondition sc, Pageable pageable) {
+
+//        boardDto.setCId((Integer) session.getAttribute("cId"));
+//        boardDto.setWriter((String) session.getAttribute("cNick"));
+
         try {
             int totalCnt = boardService.getCount();
             m.addAttribute("totalCnt", totalCnt);

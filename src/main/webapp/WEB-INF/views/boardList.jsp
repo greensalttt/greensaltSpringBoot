@@ -201,14 +201,14 @@
 
 <%--                JSTL로 반복문,조건문,URL,날짜 형식화 등을 할 수 있다--%>
                     <c:choose>
-                        <c:when test="${boardDto.reg_date.time >= startOfToday}">
-                            <td class="regdate"><fmt:formatDate value="${boardDto.reg_date}" pattern="HH:mm" type="time"/></td>
+                        <c:when test="${boardDto.regDt.time >= startOfToday}">
+                            <td class="regdate"><fmt:formatDate value="${boardDto.regDt}" pattern="HH:mm" type="time"/></td>
                         </c:when>
                         <c:otherwise>
-                            <td class="regdate"><fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd" type="date"/></td>
+                            <td class="regdate"><fmt:formatDate value="${boardDto.regDt}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
-                    <td class="viewcnt">${boardDto.view_cnt}</td>
+                    <td class="viewcnt">${boardDto.viewCnt}</td>
                 </tr>
             </c:forEach>
         </table>
@@ -235,4 +235,9 @@
 <footer>
     <jsp:include page="footer.jsp"/>
 </footer>
+
+<script>
+
+
+</script>
 </body>

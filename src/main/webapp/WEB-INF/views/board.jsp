@@ -150,12 +150,14 @@
             background-color: brown;
         }
 
-
-
         .deleted {
             color: #999;
             text-decoration: line-through;
             background-color: #f0f0f0;
+        }
+
+        #top{
+            margin-bottom: 150px;
         }
     </style>
 </head>
@@ -187,7 +189,7 @@
             <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
         </c:if>
 
-        <c:if test="${boardDto.c_id == c_id}">
+        <c:if test="${boardDto.cId == cId}">
             <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
             <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
         </c:if>
@@ -310,33 +312,6 @@
     }
     });
     }
-
-    <%--Ajax가 아닌 Promise 기반으로 동작하는 Fetch 비동기통신 처리 방식--%>
-    <%--document.addEventListener('DOMContentLoaded', function() {--%>
-    <%--    if ("${mode}" !== "new") {--%>
-    <%--        let bno = ${boardDto.bno};--%>
-
-    <%--        function showList(bno) {--%>
-    <%--            fetch('/comments?bno=' + bno)--%>
-    <%--                .then(response => {--%>
-    <%--                    if (!response.ok) {--%>
-    <%--                        throw new Error('Network response was not ok');--%>
-    <%--                    }--%>
-    <%--                    return response.json();--%>
-    <%--                })--%>
-    <%--                .then(result => {--%>
-    <%--                    if (result.length === 0) {--%>
-    <%--                        document.getElementById('commentList').innerHTML = "<p>등록된 댓글이 없습니다</p>";--%>
-    <%--                    } else {--%>
-    <%--                        document.getElementById('commentList').innerHTML = toHtml(result);--%>
-    <%--                    }--%>
-    <%--                })--%>
-    <%--                .catch(error => {--%>
-    <%--                    alert("error");--%>
-    <%--                    console.error('There was a problem with the fetch operation:', error);--%>
-    <%--                });--%>
-    <%--        }--%>
-
 
         showList(bno);
 

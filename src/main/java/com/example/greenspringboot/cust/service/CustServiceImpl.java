@@ -83,20 +83,7 @@ public class CustServiceImpl implements CustService {
         sendEmail(cEmail, subject, content);
         return Integer.toString(authNumber);
     }
-//    @Override
-//    public String pwdEncrypt(String cPwd) {
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        return encoder.encode(cPwd);
-//    }
-//
-//    //    비밀번호 서버 유효성 검사
-////    해쉬화 같은 복잡한 것들은 서비스로 빼서 엔티티로 받기 전에 미리 유효성 검사 진행
-//    @Override
-//    public void validatePassword(String cPwd) {
-//        if (!cPwd.matches("^(?=.*\\d)(?=.*[a-z])[a-z0-9]{4,15}$")) {
-//            throw new IllegalArgumentException("비밀번호는 4~12자로 영어와 소문자 숫자를 포함해야 합니다.");
-//        }
-//    }
+
     @Override
     public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
             /*db에 있는 이메일을 Dto에 대입*/
@@ -110,6 +97,7 @@ public class CustServiceImpl implements CustService {
         /*예외 없으면 로그인 성공*/
             HttpSession session = request.getSession();
             session.setAttribute("cId", cust.getCId());
+//            session.setAttribute("cNick", cust.getCNick());
             toDto(cust); // 엔티티를 DTO로 변환하여 반환
         return true;
     }
