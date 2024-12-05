@@ -102,7 +102,6 @@ public class MyPageController {
             if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
                 msg.addFlashAttribute("pwdFail", "pwdMsg");
 
-
                 return "redirect:/mypage/pwdEdit";
             }
 
