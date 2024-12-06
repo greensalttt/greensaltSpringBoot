@@ -89,16 +89,16 @@ public class CustServiceImpl implements CustService {
             /*db에 있는 이메일을 Dto에 대입*/
             Cust cust = custRepository.findBycEmail(cEmail);
             /*dto가 가져온 비밀번호와 내가 입력한 비밀번호와 같지 않다면 로그인 실패*/
+            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(cPwd, cust.getCPwd())) {
+            if (!encoder.matches(cPwd, custDto.getCPwd())) {
                 return false;
         }
         /*예외 없으면 로그인 성공*/
             HttpSession session = request.getSession();
-            session.setAttribute("cId", cust.getCId());
-//            session.setAttribute("cNick", cust.getCNick());
-            toDto(cust); // 엔티티를 DTO로 변환하여 반환
+            session.setAttribute("cId", custDto.getCId());
+            session.setAttribute("cNick", custDto.getCNick());
         return true;
     }
 
@@ -110,7 +110,7 @@ public class CustServiceImpl implements CustService {
         HttpSession session = request.getSession();
         session.setAttribute("cEmail", custDto.getCEmail());
         session.setAttribute("cName", custDto.getCName());
-        session.setAttribute("cNick", custDto.getCNick());
+//        session.setAttribute("cNick", custDto.getCNick());
         session.setAttribute("cZip", custDto.getCZip());
         session.setAttribute("cRoadA", custDto.getCRoadA());
         session.setAttribute("cJibunA", custDto.getCJibunA());
@@ -126,7 +126,6 @@ public class CustServiceImpl implements CustService {
         String regDateStr = dateFormat.format(regDate);
 
         session.setAttribute("regDt", regDateStr);
-
     }
 
 
@@ -223,6 +222,7 @@ public class CustServiceImpl implements CustService {
     public CustDto toDto(Cust cust) {
         return CustDto.builder()
                 .cId(cust.getCId())
+                .cPwd(cust.getCPwd())
                 .cEmail(cust.getCEmail())
                 .cName(cust.getCName())
                 .cNick(cust.getCNick())

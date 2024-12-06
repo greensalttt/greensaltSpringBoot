@@ -38,7 +38,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(String cEmail, String cPwd, String rememberEmail, HttpServletRequest request, HttpServletResponse response, RedirectAttributes msg) throws Exception {
+    public String login(String cEmail, String cPwd, String rememberEmail, HttpServletRequest request, HttpServletResponse response, RedirectAttributes msg) {
         if (!custService.login(cEmail, cPwd, request)) {
             /*RedirectAttributes의 속성 addFlashAttribute를 통해 로그인 실패시 출력할 수 있는 변수와 공간을 저장*/
             msg.addFlashAttribute("loginFail", "msg");
