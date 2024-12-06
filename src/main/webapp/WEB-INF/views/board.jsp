@@ -166,7 +166,7 @@
 
 <header id="top">
     <jsp:include page="header.jsp"/>
-</header><br><br><br>
+</header><br><br>
 
 <script>
     let msg = "${msg}";

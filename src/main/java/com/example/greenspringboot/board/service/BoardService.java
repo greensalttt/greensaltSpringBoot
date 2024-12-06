@@ -6,6 +6,8 @@ import com.example.greenspringboot.board.paging.SearchCondition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BoardService {
     int getCount();
 
@@ -22,7 +24,12 @@ public interface BoardService {
     int modify(Board board);
 
 //    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, Pageable pageable);
-    Page<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable);
+//    List <BoardDto> getSearchResultPage(SearchCondition sc);
+
+    void getSearchResultPage(SearchCondition sc);
+
+
+    BoardDto toDto(Board board);
 
 
     int getSearchResultCnt(SearchCondition sc);

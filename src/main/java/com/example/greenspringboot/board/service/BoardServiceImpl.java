@@ -4,6 +4,8 @@ import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.entity.Cust;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,44 +71,80 @@ public class BoardServiceImpl implements BoardService{
     }
 
 
+//    @Override
+//    public List<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable) {
+//        // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
+//        String keyword = sc.getKeyword();
+//        String option = sc.getOption();
+//
+//        // 내림차순 정렬을 위한 변수 설정
+//        Sort.Order sortOrder = Sort.Order.desc("bno");
+//
+//        // 페이지 요청에 내림차순 정렬을 추가한 Pageable 객체 생성
+//        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(sortOrder));
+//
+//        // option에 따라 title 또는 content 검색
+//        List<Board> boardPage;
+//        if ("title".equals(option)) {
+//            // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+//            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sortedPageable);
+//        } else if ("content".equals(option)) {
+//            // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+//            boardPage = boardRepository.findByTitleContainingOrContentContaining("", keyword, sortedPageable);
+//        } else {
+//            // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+//            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sortedPageable);
+//        }
+//
+//        // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
+//        return boardPage.map(board ->
+//                BoardDto.builder()
+//                        .bno(board.getBno())
+//                        .cId(board.getCId())
+//                        .title(board.getTitle())
+//                        .content(board.getContent())
+//                        .writer(board.getWriter())
+//                        .regDt(board.getRegDt())
+//                        .viewCnt(board.getViewCnt())
+//                        .build()
+//        );
+//    }
+
     @Override
-    public Page<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable) {
+    public void getSearchResultPage(SearchCondition sc) {
         // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
         String keyword = sc.getKeyword();
         String option = sc.getOption();
 
-        // 내림차순 정렬을 위한 변수 설정
-        Sort.Order sortOrder = Sort.Order.desc("bno");
-
-        // 페이지 요청에 내림차순 정렬을 추가한 Pageable 객체 생성
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(sortOrder));
-
-        // option에 따라 title 또는 content 검색
-        Page<Board> boardPage;
+//        List<Board> boardList;
+        Board board;
+        //        // option에 따라 title 또는 content 검색
         if ("title".equals(option)) {
             // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sortedPageable);
+            board = boardRepository.findByTitleContainingOrContentContaining(keyword, "");
         } else if ("content".equals(option)) {
             // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardPage = boardRepository.findByTitleContainingOrContentContaining("", keyword, sortedPageable);
+            board = boardRepository.findByTitleContainingOrContentContaining("", keyword);
         } else {
             // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sortedPageable);
+            board = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword);
         }
-
-        // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
-        return boardPage.map(board ->
-                BoardDto.builder()
-                        .bno(board.getBno())
-                        .cId(board.getCId())
-                        .title(board.getTitle())
-                        .content(board.getContent())
-                        .writer(board.getWriter())
-                        .regDt(board.getRegDt())
-                        .viewCnt(board.getViewCnt())
-                        .build()
-        );
+        toDto(board);
     }
+
+    @Override
+    public BoardDto toDto(Board board) {
+        return BoardDto.builder()
+                .bno(board.getBno())
+                .cId(board.getCId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writer(board.getWriter())
+                .regDt(board.getRegDt())
+                .viewCnt(board.getViewCnt())
+                .build();
+    }
+
 
     @Override
     public int getSearchResultCnt(SearchCondition sc) {
