@@ -29,8 +29,6 @@ public interface BoardService {
     List<BoardDto> getSearchResultPage(SearchCondition sc);
 
 
-
-
 //    BoardDto toDto(Board board);
 
      List<BoardDto> toDto(List<Board> boardList);

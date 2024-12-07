@@ -117,18 +117,20 @@ public class BoardServiceImpl implements BoardService{
         String keyword = sc.getKeyword();
         String option = sc.getOption();
 
+        Sort sort = Sort.by(Sort.Order.desc("bno")); // 등록일 기준으로 내림차순 정렬
+
 //        List<Board> boardList;
         List<Board> boardList;
         //        // option에 따라 title 또는 content 검색
         if ("title".equals(option)) {
             // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, "");
+            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sort);
         } else if ("content".equals(option)) {
             // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardList = boardRepository.findByTitleContainingOrContentContaining("", keyword);
+            boardList = boardRepository.findByTitleContainingOrContentContaining("", keyword, sort);
         } else {
             // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword);
+            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);
         }
         return toDto(boardList);
     }
@@ -148,19 +150,6 @@ public class BoardServiceImpl implements BoardService{
                         .build())
                 .collect(Collectors.toList());
     }
-
-//    @Override
-//    public BoardDto toDto(Board board) {
-//        return BoardDto.builder()
-//                .bno(board.getBno())
-//                .cId(board.getCId())
-//                .title(board.getTitle())
-//                .content(board.getContent())
-//                .writer(board.getWriter())
-//                .regDt(board.getRegDt())
-//                .viewCnt(board.getViewCnt())
-//                .build();
-//    }
 
 
     @Override

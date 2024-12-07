@@ -54,9 +54,6 @@ public class BoardController {
             m.addAttribute("totalCnt", totalCnt);
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
-
-//            boardService.getSearchResultPage(sc);
-
             List<BoardDto> list = boardService.getSearchResultPage(sc);
 
             m.addAttribute("list", list);
