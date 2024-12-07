@@ -55,8 +55,11 @@ public class BoardController {
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            boardService.getSearchResultPage(sc);
-//            m.addAttribute("list", list);
+//            boardService.getSearchResultPage(sc);
+
+            List<BoardDto> list = boardService.getSearchResultPage(sc);
+
+            m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();

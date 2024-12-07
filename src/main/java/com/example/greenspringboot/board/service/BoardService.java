@@ -26,10 +26,15 @@ public interface BoardService {
 //    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, Pageable pageable);
 //    List <BoardDto> getSearchResultPage(SearchCondition sc);
 
-    void getSearchResultPage(SearchCondition sc);
+    List<BoardDto> getSearchResultPage(SearchCondition sc);
 
 
-    BoardDto toDto(Board board);
+
+
+//    BoardDto toDto(Board board);
+
+     List<BoardDto> toDto(List<Board> boardList);
+
 
 
     int getSearchResultCnt(SearchCondition sc);

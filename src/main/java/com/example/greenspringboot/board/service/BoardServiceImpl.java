@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -111,39 +112,55 @@ public class BoardServiceImpl implements BoardService{
 //    }
 
     @Override
-    public void getSearchResultPage(SearchCondition sc) {
+     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
         // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
         String keyword = sc.getKeyword();
         String option = sc.getOption();
 
 //        List<Board> boardList;
-        Board board;
+        List<Board> boardList;
         //        // option에 따라 title 또는 content 검색
         if ("title".equals(option)) {
             // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            board = boardRepository.findByTitleContainingOrContentContaining(keyword, "");
+            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, "");
         } else if ("content".equals(option)) {
             // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            board = boardRepository.findByTitleContainingOrContentContaining("", keyword);
+            boardList = boardRepository.findByTitleContainingOrContentContaining("", keyword);
         } else {
             // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            board = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword);
+            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword);
         }
-        toDto(board);
+        return toDto(boardList);
     }
 
     @Override
-    public BoardDto toDto(Board board) {
-        return BoardDto.builder()
-                .bno(board.getBno())
-                .cId(board.getCId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
-                .regDt(board.getRegDt())
-                .viewCnt(board.getViewCnt())
-                .build();
+    public List<BoardDto> toDto(List<Board> boardList) {
+        // Convert the list of Board entities to BoardDto list
+        return boardList.stream()
+                .map(board -> BoardDto.builder()
+                        .bno(board.getBno())
+                        .cId(board.getCId())
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .writer(board.getWriter())
+                        .regDt(board.getRegDt())
+                        .viewCnt(board.getViewCnt())
+                        .build())
+                .collect(Collectors.toList());
     }
+
+//    @Override
+//    public BoardDto toDto(Board board) {
+//        return BoardDto.builder()
+//                .bno(board.getBno())
+//                .cId(board.getCId())
+//                .title(board.getTitle())
+//                .content(board.getContent())
+//                .writer(board.getWriter())
+//                .regDt(board.getRegDt())
+//                .viewCnt(board.getViewCnt())
+//                .build();
+//    }
 
 
     @Override
