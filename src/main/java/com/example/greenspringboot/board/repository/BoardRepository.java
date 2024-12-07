@@ -1,9 +1,6 @@
 package com.example.greenspringboot.board.repository;
-import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
-import com.example.greenspringboot.board.paging.SearchCondition;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -16,7 +13,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // 제목 또는 내용을 키워드로 검색하는 메서드
 //    List<Board> findByTitleContainingOrContentContaining(String title, String content);
 
-    List<Board> findByTitleContainingOrContentContaining(String title, String content);
+    List<Board> findByTitleContainingOrContentContaining(String title, String content, Sort sort);
 
     // 검색 조건에 맞는 게시물의 개수를 세는 메서드
     int countByTitleContainingOrContentContaining(String title, String content);
