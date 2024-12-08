@@ -23,7 +23,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<Board> findByTitleContainingOrContentContaining(String title, String content, Sort sort);
 
     // 검색 조건에 맞는 게시물의 개수를 세는 메서드
-    int countByTitleContainingOrContentContaining(String title, String content);
+    int countByTitleContainingOrContentContainingOrWriterContaining(String title, String content, String writer);
+
+//    int countByWriterContaining(String writer);
 }
 
 ////      JPA 방식으로 사용할때 순서
