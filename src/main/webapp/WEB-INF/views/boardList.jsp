@@ -104,10 +104,24 @@
             color: rgb(53, 53, 53);
         }
 
-        .no      { width:150px;}
-        .title   { width:50%;  }
-        .regdate {
+        .no      {
+            width:150px;
+        }
+
+        .title   {
+            width:50%;
+        }
+
+        .regdt {
             width: 500px;
+        }
+
+        .writer {
+            width: 500px;
+        }
+
+        .viewcnt{
+            width: 250px;
         }
 
 
@@ -131,7 +145,6 @@
 
         .paging-container {
             width:100%;
-            /*height: 70px;*/
             display: flex;
             margin : auto;
         }
@@ -174,11 +187,11 @@
         <div class="search-container">
             <form action="<c:url value="/board/list"/>" class="search-form" method="get">
                 <select class="search-option" name="option">
-                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
-                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
-                    <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+                    <option value="title" ${ph.sc.option=='title' ? "selected" : ""}>제목만</option>
+                    <option value="content" ${ph.sc.option=='content' ? "selected" : ""}>내용만</option>
+                    <option value="writer" ${ph.sc.option=='writer' ? "selected" : ""}>작성자</option>
+                    <option value="both" ${ph.sc.option=='both' ? "selected" : ""}>제목+내용</option>
                 </select>
-
                 <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
                 <input type="submit" class="search-button" value="검색">
             </form>
@@ -190,7 +203,7 @@
                 <th class="no">번호</th>
                 <th class="title">제목</th>
                 <th class="writer">닉네임</th>
-                <th class="regdate">등록일</th>
+                <th class="regdt">등록일</th>
                 <th class="viewcnt">조회수</th>
             </tr>
             <c:forEach var="boardDto" items="${list}">
@@ -202,10 +215,10 @@
 <%--                JSTL로 반복문,조건문,URL,날짜 형식화 등을 할 수 있다--%>
                     <c:choose>
                         <c:when test="${boardDto.regDt.time >= startOfToday}">
-                            <td class="regdate"><fmt:formatDate value="${boardDto.regDt}" pattern="HH:mm" type="time"/></td>
+                            <td class="regdt"><fmt:formatDate value="${boardDto.regDt}" pattern="HH:mm" type="time"/></td>
                         </c:when>
                         <c:otherwise>
-                            <td class="regdate"><fmt:formatDate value="${boardDto.regDt}" pattern="yyyy-MM-dd" type="date"/></td>
+                            <td class="regdt"><fmt:formatDate value="${boardDto.regDt}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
                     <td class="viewcnt">${boardDto.viewCnt}</td>
