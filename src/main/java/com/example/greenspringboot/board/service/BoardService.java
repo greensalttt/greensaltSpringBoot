@@ -15,21 +15,14 @@ public interface BoardService {
 
     int write(BoardDto boardDto);
 
-//    List<Board> getList();
-
     Board read(Integer bno);
 
-//    List<Board> getPage(int page, int size);
 
     int modify(Board board);
 
-//    Page<BoardDto> getSearchResultPage(String titleKeyword, String contentKeyword, Pageable pageable);
-//    List <BoardDto> getSearchResultPage(SearchCondition sc);
 
     List<BoardDto> getSearchResultPage(SearchCondition sc);
 
-
-//    BoardDto toDto(Board board);
 
      List<BoardDto> toDto(List<Board> boardList);
 

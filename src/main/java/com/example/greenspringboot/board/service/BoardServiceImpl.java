@@ -71,69 +71,60 @@ public class BoardServiceImpl implements BoardService{
         return 0;
     }
 
-
 //    @Override
-//    public List<BoardDto> getSearchResultPage(SearchCondition sc, Pageable pageable) {
+//     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
 //        // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
 //        String keyword = sc.getKeyword();
 //        String option = sc.getOption();
 //
-//        // 내림차순 정렬을 위한 변수 설정
-//        Sort.Order sortOrder = Sort.Order.desc("bno");
-//
-//        // 페이지 요청에 내림차순 정렬을 추가한 Pageable 객체 생성
-//        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(sortOrder));
-//
-//        // option에 따라 title 또는 content 검색
-//        List<Board> boardPage;
+//        Sort sort = Sort.by(Sort.Order.desc("bno")); // 등록일 기준으로 내림차순 정렬
+//        List<Board> boardList;
+//        //        // option에 따라 title 또는 content 검색
 //        if ("title".equals(option)) {
 //            // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-//            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sortedPageable);
+//            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sort);
 //        } else if ("content".equals(option)) {
 //            // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-//            boardPage = boardRepository.findByTitleContainingOrContentContaining("", keyword, sortedPageable);
-//        } else {
-//            // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-//            boardPage = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sortedPageable);
+//            boardList = boardRepository.findByTitleContainingOrContentContaining("", keyword, sort);
 //        }
-//
-//        // Board 엔티티를 BoardDto로 변환하여 반환 (빌더 패턴 사용)
-//        return boardPage.map(board ->
-//                BoardDto.builder()
-//                        .bno(board.getBno())
-//                        .cId(board.getCId())
-//                        .title(board.getTitle())
-//                        .content(board.getContent())
-//                        .writer(board.getWriter())
-//                        .regDt(board.getRegDt())
-//                        .viewCnt(board.getViewCnt())
-//                        .build()
-//        );
+//        else if ("writer".equals(option)) {
+//            // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+//            boardList = boardRepository.findByWriter(keyword, sort);
+//        }
+//        else {
+//            // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+//            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);
+//        }
+//        return toDto(boardList);
 //    }
 
+
     @Override
-     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
-        // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
+    public List<BoardDto> getSearchResultPage(SearchCondition sc) {
         String keyword = sc.getKeyword();
-        String option = sc.getOption();
+        String option = sc.getOption(); // 'title', 'content', 'writer' 등이 올 수 있음
 
         Sort sort = Sort.by(Sort.Order.desc("bno")); // 등록일 기준으로 내림차순 정렬
-
-//        List<Board> boardList;
         List<Board> boardList;
-        //        // option에 따라 title 또는 content 검색
+
         if ("title".equals(option)) {
-            // Title에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, "", sort);
+            // 제목만 검색
+            boardList = boardRepository.findByTitleContaining(keyword, sort);  // 내용은 제외하고 제목만 검색
         } else if ("content".equals(option)) {
-            // Content에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
-            boardList = boardRepository.findByTitleContainingOrContentContaining("", keyword, sort);
+            // 내용만 검색
+            boardList = boardRepository.findByContentContaining(keyword, sort); // 제목은 제외하고 내용만 검색
+        } else if ("writer".equals(option)) {
+            // 작성자로 검색
+            boardList = boardRepository.findByWriterContaining(keyword, sort);
         } else {
-            // Title과 content 모두에서 검색하고 내림차순으로 정렬된 결과를 가져옵니다.
+            // 제목과 내용 모두 검색
             boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);
         }
+
         return toDto(boardList);
     }
+
+
 
     @Override
     public List<BoardDto> toDto(List<Board> boardList) {
@@ -151,7 +142,6 @@ public class BoardServiceImpl implements BoardService{
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public int getSearchResultCnt(SearchCondition sc) {
         // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
@@ -160,13 +150,15 @@ public class BoardServiceImpl implements BoardService{
 
         // option에 따라 title 또는 content 검색
         if ("title".equals(option)) {
-            return boardRepository.countByTitleContainingOrContentContaining(keyword, "");
+            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining(keyword, "", "");
         } else if ("content".equals(option)) {
-            return boardRepository.countByTitleContainingOrContentContaining("", keyword);
-        } else {
+            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining("", keyword, "");
+        }  else if ("writer".equals(option)) {
+            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining("","", keyword);
+        }
+        else {
             // title과 content 모두 검색하는 경우
-            return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
+            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining(keyword, keyword, keyword);
         }
     }
-
 }
