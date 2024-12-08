@@ -11,7 +11,14 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void deleteById(Integer id);
 
     // 제목 또는 내용을 키워드로 검색하는 메서드
-//    List<Board> findByTitleContainingOrContentContaining(String title, String content);
+
+    List<Board> findByTitleContaining(String title, Sort sort);
+
+    List<Board> findByContentContaining(String title, Sort sort);
+
+
+    // 작성자 이름으로 게시물을 찾는 메서드
+    List<Board> findByWriterContaining(String writer, Sort sort);
 
     List<Board> findByTitleContainingOrContentContaining(String title, String content, Sort sort);
 
