@@ -99,29 +99,59 @@ public class BoardServiceImpl implements BoardService{
 //    }
 
 
+//    @Override
+//    public List<BoardDto> getSearchResultPage(SearchCondition sc) {
+//        String keyword = sc.getKeyword();
+//        String option = sc.getOption(); // 'title', 'content', 'writer' 등이 올 수 있음
+//
+//        Sort sort = Sort.by(Sort.Order.desc("bno")); // 등록일 기준으로 내림차순 정렬
+//        List<Board> boardList;
+//
+//        if ("title".equals(option)) {
+//            // 제목만 검색
+//            boardList = boardRepository.findByTitleContaining(keyword, sort);  // 내용은 제외하고 제목만 검색
+//        } else if ("content".equals(option)) {
+//            // 내용만 검색
+//            boardList = boardRepository.findByContentContaining(keyword, sort); // 제목은 제외하고 내용만 검색
+//        } else if ("writer".equals(option)) {
+//            // 작성자로 검색
+//            boardList = boardRepository.findByWriterContaining(keyword, sort);
+//        } else {
+//            // 제목과 내용 모두 검색
+//            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);
+//        }
+//
+//        return toDto(boardList);
+//    }
+//
+
     @Override
     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
+        // 검색 조건에 맞는 게시글 조회
         String keyword = sc.getKeyword();
-        String option = sc.getOption(); // 'title', 'content', 'writer' 등이 올 수 있음
+        String option = sc.getOption();
 
         Sort sort = Sort.by(Sort.Order.desc("bno")); // 등록일 기준으로 내림차순 정렬
         List<Board> boardList;
 
         if ("title".equals(option)) {
-            // 제목만 검색
-            boardList = boardRepository.findByTitleContaining(keyword, sort);  // 내용은 제외하고 제목만 검색
+            boardList = boardRepository.findByTitleContaining(keyword, sort);  // 제목만 검색
         } else if ("content".equals(option)) {
-            // 내용만 검색
-            boardList = boardRepository.findByContentContaining(keyword, sort); // 제목은 제외하고 내용만 검색
+            boardList = boardRepository.findByContentContaining(keyword, sort);  // 내용만 검색
         } else if ("writer".equals(option)) {
-            // 작성자로 검색
-            boardList = boardRepository.findByWriterContaining(keyword, sort);
+            boardList = boardRepository.findByWriterContaining(keyword, sort);  // 작성자만 검색
         } else {
-            // 제목과 내용 모두 검색
-            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);
+            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);  // 제목 + 내용 검색
         }
 
-        return toDto(boardList);
+        // 검색된 게시글 리스트를 페이지에 맞게 잘라서 반환
+        int startIdx = (sc.getPage() - 1) * sc.getPageSize();
+        int endIdx = Math.min(startIdx + sc.getPageSize(), boardList.size());
+
+        List<Board> pagedBoardList = boardList.subList(startIdx, endIdx);
+
+        // DTO로 변환해서 반환
+        return toDto(pagedBoardList);
     }
 
 
