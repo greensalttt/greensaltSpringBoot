@@ -23,12 +23,14 @@ public class SearchCondition {
 
     public String getQueryString(Integer page) {
         return UriComponentsBuilder.newInstance()
-                .queryParam("page",     page)
+                .queryParam("page", page)
                 .queryParam("pageSize", pageSize)
-                .queryParam("option",   option)
-                .queryParam("keyword",  keyword)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
                 .build().toString();
     }
+
+
 
     public Integer getPage() {
         return page;

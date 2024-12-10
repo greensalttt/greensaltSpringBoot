@@ -104,17 +104,17 @@ public class PageHandler {
         System.out.println(showNext ? " [NEXT]" : "");
     }
 
-    @Override
-    public String toString() {
-        return "PageHandler{" +
-                "sc=" + sc +
-                ", totalCnt=" + totalCnt +
-                ", naviSize=" + naviSize +
-                ", totalPage=" + totalPage +
-                ", beginPage=" + beginPage +
-                ", endPage=" + endPage +
-                ", showPrev=" + showPrev +
-                ", showNext=" + showNext +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "PageHandler{" +
+//                "sc=" + sc +
+//                ", totalCnt=" + totalCnt +
+//                ", naviSize=" + naviSize +
+//                ", totalPage=" + totalPage +
+//                ", beginPage=" + beginPage +
+//                ", endPage=" + endPage +
+//                ", showPrev=" + showPrev +
+//                ", showNext=" + showNext +
+//                '}';
+//    }
 }

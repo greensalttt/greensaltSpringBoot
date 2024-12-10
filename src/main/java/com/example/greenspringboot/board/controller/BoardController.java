@@ -26,36 +26,14 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-//    @GetMapping("/list")
-//    public String list(Model m, SearchCondition sc, Pageable pageable) {
-//
-//        try {
-//            int totalCnt = boardService.getCount();
-//            m.addAttribute("totalCnt", totalCnt);
-//            System.out.println("게시글 총갯수: " + totalCnt);
-//
-//            Page<BoardDto> page = boardService.getSearchResultPage(sc, pageable);
-//            m.addAttribute("page", page);
-//
-//            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-//            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            m.addAttribute("msg", "LIST_ERR");
-//            m.addAttribute("totalCnt", 0);
-//        }
-//        return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
-//    }
-
     @GetMapping("/list")
     public String list(Model m, SearchCondition sc) {
         try {
             int totalCnt = boardService.getSearchResultCnt(sc);
-            m.addAttribute("totalCnt", totalCnt);
-
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
             List<BoardDto> list = boardService.getSearchResultPage(sc);
 
+            m.addAttribute("totalCnt", totalCnt);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
