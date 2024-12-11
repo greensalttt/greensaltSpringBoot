@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-    // 게시글 삭제
-    void deleteById(Integer id);
-
     // 제목 또는 내용을 키워드로 검색하는 메서드
 
     List<Board> findByTitleContaining(String title, Sort sort);
@@ -29,8 +26,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     int countByContentContaining(String content);
 
-
     int countByWriterContaining(String writer);
+
+    Board findByBno(Integer bno);
 
 }
 

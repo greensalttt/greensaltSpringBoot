@@ -1,5 +1,6 @@
 package com.example.greenspringboot.board.controller;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.PageHandler;
 import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.service.BoardService;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,7 +29,7 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping("/list")
-    public String list(Model m, SearchCondition sc) {
+    public String list(Model m, SearchCondition sc, BoardDto boardDto, HttpSession session) {
         try {
             int totalCnt = boardService.getSearchResultCnt(sc);
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
@@ -55,15 +57,12 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr) {
-
+    public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
         boardDto.setCId((Integer) session.getAttribute("cId"));
         boardDto.setWriter((String) session.getAttribute("cNick"));
 
         try {
-            int rowCnt = boardService.write(boardDto);
-            if(rowCnt !=1)
-                throw new Exception("Write failed");
+            boardService.write(boardDto);
             rattr.addFlashAttribute("msg", "WRT_OK");
             return "redirect:/board/list";
         } catch (Exception e) {
@@ -73,5 +72,21 @@ public class BoardController {
 
             return "board";
         }
+    }
+
+
+    @GetMapping("/read")
+    public String read(Integer bno, Integer page, Integer pageSize, Model m){
+
+        try {
+            BoardDto boardDto = boardService.read(bno);
+            m.addAttribute(boardDto);
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize", pageSize);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return "board";
     }
 }

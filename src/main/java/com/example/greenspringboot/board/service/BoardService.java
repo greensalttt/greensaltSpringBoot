@@ -3,8 +3,6 @@ package com.example.greenspringboot.board.service;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,9 +11,9 @@ public interface BoardService {
 
     int remove(Integer bno, Integer cId);
 
-    int write(BoardDto boardDto);
+    void write(BoardDto boardDto);
 
-    Board read(Integer bno);
+    BoardDto read(Integer bno);
 
 
     int modify(Board board);
@@ -26,7 +24,8 @@ public interface BoardService {
 
      List<BoardDto> toDto(List<Board> boardList);
 
-
+     BoardDto toDto2 (Board board);
 
     int getSearchResultCnt(SearchCondition sc);
+
 }

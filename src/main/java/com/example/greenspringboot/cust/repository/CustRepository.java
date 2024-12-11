@@ -21,9 +21,6 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
 //닉네임 중복
     boolean existsBycNick(String cNick);
 //    로그인 이메일 찾기
-//    Optional<Cust> findBycEmail(String cEmail);
-
-//    CustDto findBycEmail(String cEmail);
 
     Cust findBycEmail(String cEmail);
 

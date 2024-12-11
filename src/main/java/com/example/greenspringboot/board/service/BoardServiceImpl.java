@@ -4,17 +4,9 @@ import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
-import com.example.greenspringboot.cust.dto.CustDto;
-import com.example.greenspringboot.cust.entity.Cust;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +23,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int write(BoardDto boardDto) {
+    public void write(BoardDto boardDto) {
         Board board = Board.builder()
                 .bno(boardDto.getBno())
                 .cId(boardDto.getCId())
@@ -42,15 +34,6 @@ public class BoardServiceImpl implements BoardService{
                 .build();
         // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         boardRepository.save(board);
-        return 1;
-    }
-
-    @Transactional
-    @Override
-    public Board read(Integer bno) {
-        Optional<Board> board = boardRepository.findById(bno);
-        board.ifPresent(b -> b.setViewCnt(b.getViewCnt() + 1));
-        return board.orElse(null);
     }
 
     @Override
@@ -101,26 +84,6 @@ public class BoardServiceImpl implements BoardService{
         return toDto(pagedBoardList);
     }
 
-//    @Override
-//    public int getSearchResultCnt(SearchCondition sc) {
-//        // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
-//        String keyword = sc.getKeyword();
-//        String option = sc.getOption();
-//
-//        // option에 따라 title 또는 content 검색
-//        if ("title".equals(option)) {
-//            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining(keyword, "", "");
-//        } else if ("content".equals(option)) {
-//            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining("", keyword, "");
-//        }  else if ("writer".equals(option)) {
-//            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining("","", keyword);
-//        }
-//        else {
-//            // title과 content 모두 검색하는 경우
-//            return boardRepository.countByTitleContainingOrContentContainingOrWriterContaining(keyword, keyword, keyword);
-//        }
-//    }
-
     @Override
     public int getSearchResultCnt(SearchCondition sc) {
         // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
@@ -143,7 +106,6 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<BoardDto> toDto(List<Board> boardList) {
-        // Convert the list of Board entities to BoardDto list
         return boardList.stream()
                 .map(board -> BoardDto.builder()
                         .bno(board.getBno())
@@ -156,4 +118,25 @@ public class BoardServiceImpl implements BoardService{
                         .build())
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public BoardDto read(Integer bno){
+        Board board = boardRepository.findByBno(bno);
+        return toDto2(board);
+    }
+
+    @Override
+    public BoardDto toDto2 (Board board) {
+        return BoardDto.builder()
+                        .bno(board.getBno())
+                        .cId(board.getCId())
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .writer(board.getWriter())
+                        .regDt(board.getRegDt())
+                        .viewCnt(board.getViewCnt())
+                        .build();
+    }
+
 }
