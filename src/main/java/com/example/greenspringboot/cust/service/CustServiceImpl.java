@@ -5,7 +5,6 @@ import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.dto.CustHistDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -110,7 +109,6 @@ public class CustServiceImpl implements CustService {
         HttpSession session = request.getSession();
         session.setAttribute("cEmail", custDto.getCEmail());
         session.setAttribute("cName", custDto.getCName());
-//        session.setAttribute("cNick", custDto.getCNick());
         session.setAttribute("cZip", custDto.getCZip());
         session.setAttribute("cRoadA", custDto.getCRoadA());
         session.setAttribute("cJibunA", custDto.getCJibunA());
