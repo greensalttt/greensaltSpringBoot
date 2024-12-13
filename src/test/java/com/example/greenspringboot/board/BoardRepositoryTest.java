@@ -11,14 +11,16 @@ public class BoardRepositoryTest {
     private BoardService boardService;
 
     @Test
-    public void insertTest() throws Exception {
-                BoardDto boardDto = BoardDto.builder()
-                .cId(1)
-                .title("후발주자")
-                .content("ㅇㅇ")
-                .writer("test")
-                .deleted(1)
-                .build();
-        boardService.write(boardDto);
+    public void insertTest() {
+        for (int i = 1; i < 100; i++){
+            BoardDto boardDto = BoardDto.builder()
+                    .cId(1)
+                    .title("후발주자" + i)
+                    .content("ㅇㅇ")
+                    .writer("test")
+                    .deleted(true)
+                    .build();
+            boardService.write(boardDto);
+        }
     }
 }
