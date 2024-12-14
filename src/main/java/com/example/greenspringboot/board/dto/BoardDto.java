@@ -18,4 +18,22 @@ public class BoardDto {
     private Boolean deleted;
     private Date regDt;
     private Date upDt;
+
+
+//    public BoardDto() {
+//    }
+//
+//    public BoardDto(Integer bno, Integer cId, String title, String content, String writer, Integer viewCnt, Integer commentCnt, Boolean deleted, Date regDt, Date upDt) {
+//        this.bno = bno;
+//        this.cId = cId;
+//        this.title = title;
+//        this.content = content;
+//        this.writer = writer;
+//        this.viewCnt = viewCnt;
+//        this.commentCnt = commentCnt;
+//        this.deleted = deleted;
+//        this.regDt = regDt;
+//        this.upDt = upDt;
+//    }
+
 }

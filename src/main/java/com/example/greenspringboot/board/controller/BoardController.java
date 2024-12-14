@@ -9,10 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -29,7 +26,7 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping("/list")
-    public String list(Model m, SearchCondition sc, BoardDto boardDto, HttpSession session) {
+    public String list(Model m, SearchCondition sc, HttpSession session) {
         try {
             int totalCnt = boardService.getSearchResultCnt(sc);
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
@@ -47,12 +44,19 @@ public class BoardController {
             m.addAttribute("totalCnt", 0);
         }
 
+        System.out.println("게시판 겟맵핑: " + session.getAttribute("cId"));
+
+
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
 
     @GetMapping("/write")
-    public String write(Model m){
-        m.addAttribute("mode","new");
+    public String write(Model m, HttpSession session) {
+        m.addAttribute("mode", "new");
+        System.out.println("글쓰기 겟맵핑: " + session.getAttribute("cId"));
+        System.out.println("글쓰기 DTO겟맵핑: " + session.getAttribute("boardDto.cId"));
+
+
         return "board";
     }
 
@@ -76,17 +80,11 @@ public class BoardController {
 
 
     @GetMapping("/read")
-    public String read(Integer bno, Integer page, Integer pageSize, Model m){
-
-        try {
-            BoardDto boardDto = boardService.read(bno);
-            m.addAttribute(boardDto);
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+    public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+        BoardDto boardDto = boardService.read(bno);
+        m.addAttribute("boardDto", boardDto);
+        m.addAttribute("page", page);
+        m.addAttribute("pageSize", pageSize);
         return "board";
     }
 }

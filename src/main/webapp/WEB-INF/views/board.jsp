@@ -189,7 +189,9 @@
             <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
         </c:if>
 
-        <c:if test="${boardDto.cId == cId}">
+        <c:if test="${boardDto.CId == cId}">
+<%--            <c:if test="${board.cId == cId}">--%>
+
             <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
             <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
         </c:if>

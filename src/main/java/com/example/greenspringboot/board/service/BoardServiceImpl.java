@@ -18,11 +18,6 @@ public class BoardServiceImpl implements BoardService{
     private BoardRepository boardRepository;
 
     @Override
-    public int getCount() {
-        return (int) boardRepository.count();
-    }
-
-    @Override
     public void write(BoardDto boardDto) {
         Board board = Board.builder()
                 .bno(boardDto.getBno())
@@ -30,29 +25,9 @@ public class BoardServiceImpl implements BoardService{
                 .title(boardDto.getTitle())
                 .content(boardDto.getContent())
                 .writer(boardDto.getWriter())
-//                .deleted(boardDto.getDeleted())
                 .build();
         // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         boardRepository.save(board);
-    }
-
-    @Override
-    public int remove(Integer bno, Integer cId) {
-        Optional<Board> board = boardRepository.findById(bno);
-        if (board.isPresent() && board.get().getCId().equals(cId)) {
-            boardRepository.deleteById(bno);
-            return 1;
-        }
-        return 0;
-    }
-
-    @Override
-    public int modify(Board board) {
-        if (boardRepository.existsById(board.getBno())) {
-            boardRepository.save(board);
-            return 1;
-        }
-        return 0;
     }
 
     @Override
@@ -113,30 +88,53 @@ public class BoardServiceImpl implements BoardService{
                         .title(board.getTitle())
                         .content(board.getContent())
                         .writer(board.getWriter())
-                        .regDt(board.getRegDt())
                         .viewCnt(board.getViewCnt())
+                        .commentCnt(board.getCommentCnt())
+                        .deleted(board.getDeleted())
+                        .regDt(board.getRegDt())
+                        .upDt(board.getUpDt())
                         .build())
                 .collect(Collectors.toList());
     }
 
 
+//    @Override
+//    public BoardDto read(Integer bno){
+//        Board board = boardRepository.findByBno(bno);
+//        return toDto2(board);
+//    }
+//
+//    @Override
+//    public BoardDto toDto2 (Board board) {
+//        return BoardDto.builder()
+//                        .bno(board.getBno())
+//                        .cId(board.getCId())
+//                        .title(board.getTitle())
+//                        .content(board.getContent())
+//                        .writer(board.getWriter())
+//                        .viewCnt(board.getViewCnt())
+//                        .commentCnt(board.getCommentCnt())
+//                        .deleted(board.getDeleted())
+//                        .regDt(board.getRegDt())
+//                        .upDt(board.getUpDt())
+//                        .build();
+//    }
+
     @Override
-    public BoardDto read(Integer bno){
+    public BoardDto read(Integer bno) {
         Board board = boardRepository.findByBno(bno);
-        return toDto2(board);
-    }
-
-    @Override
-    public BoardDto toDto2 (Board board) {
+        // BoardDto로 변환할 때 cId 값이 제대로 매핑되는지 확인
         return BoardDto.builder()
-                        .bno(board.getBno())
-                        .cId(board.getCId())
-                        .title(board.getTitle())
-                        .content(board.getContent())
-                        .writer(board.getWriter())
-                        .regDt(board.getRegDt())
-                        .viewCnt(board.getViewCnt())
-                        .build();
+                .bno(board.getBno())
+                .cId(board.getCId())  // cId 값 설정
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writer(board.getWriter())
+                .viewCnt(board.getViewCnt())
+                .commentCnt(board.getCommentCnt())
+                .deleted(board.getDeleted())
+                .regDt(board.getRegDt())
+                .upDt(board.getUpDt())
+                .build();
     }
-
 }

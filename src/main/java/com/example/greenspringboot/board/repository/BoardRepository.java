@@ -1,4 +1,5 @@
 package com.example.greenspringboot.board.repository;
+import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +30,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     int countByWriterContaining(String writer);
 
     Board findByBno(Integer bno);
+
+//    BoardDto findByBno(Integer bno);
+
 
 }
 

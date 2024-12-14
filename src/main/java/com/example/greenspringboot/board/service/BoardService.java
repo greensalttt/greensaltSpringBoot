@@ -7,16 +7,11 @@ import com.example.greenspringboot.board.paging.SearchCondition;
 import java.util.List;
 
 public interface BoardService {
-    int getCount();
 
-    int remove(Integer bno, Integer cId);
 
     void write(BoardDto boardDto);
 
     BoardDto read(Integer bno);
-
-
-    int modify(Board board);
 
 
     List<BoardDto> getSearchResultPage(SearchCondition sc);
@@ -24,7 +19,7 @@ public interface BoardService {
 
      List<BoardDto> toDto(List<Board> boardList);
 
-     BoardDto toDto2 (Board board);
+//     BoardDto toDto2 (Board board);
 
     int getSearchResultCnt(SearchCondition sc);
 
