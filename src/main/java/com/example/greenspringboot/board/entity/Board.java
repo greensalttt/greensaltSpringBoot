@@ -8,10 +8,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "board")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
 
 public class Board {

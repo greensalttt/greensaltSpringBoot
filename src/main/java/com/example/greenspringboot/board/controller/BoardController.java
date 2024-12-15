@@ -79,9 +79,36 @@ public class BoardController {
     }
 
 
+//    @GetMapping("/read")
+//    public String read(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session) {
+//        BoardDto boardDto = boardService.read(bno);
+//
+//        // 세션에서 cId를 가져와 BoardDto에 설정
+//        Integer cId = (Integer) session.getAttribute("cId");
+//        boardDto.setCId(cId);
+//
+//        m.addAttribute("boardDto", boardDto);
+//        m.addAttribute("page", page);
+//        m.addAttribute("pageSize", pageSize);
+//        return "board";
+//    }
+
     @GetMapping("/read")
-    public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+    public String read(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session) {
         BoardDto boardDto = boardService.read(bno);
+
+        // 세션에서 cId를 가져와 BoardDto에 설정
+        Integer cId = (Integer) session.getAttribute("cId");
+
+        // cId가 null일 경우 디버깅
+        if (cId == null) {
+            System.out.println("세션에서 cId를 찾을 수 없습니다.");
+        }
+
+        boardDto.setCId(cId);
+        System.out.println("boardDto.cId: " + boardDto.getCId()); // 값 확인
+
+
         m.addAttribute("boardDto", boardDto);
         m.addAttribute("page", page);
         m.addAttribute("pageSize", pageSize);

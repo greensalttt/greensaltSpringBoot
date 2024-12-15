@@ -4,9 +4,13 @@ import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.cust.dto.CustDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -98,43 +102,25 @@ public class BoardServiceImpl implements BoardService{
     }
 
 
-//    @Override
-//    public BoardDto read(Integer bno){
-//        Board board = boardRepository.findByBno(bno);
-//        return toDto2(board);
-//    }
-//
-//    @Override
-//    public BoardDto toDto2 (Board board) {
-//        return BoardDto.builder()
-//                        .bno(board.getBno())
-//                        .cId(board.getCId())
-//                        .title(board.getTitle())
-//                        .content(board.getContent())
-//                        .writer(board.getWriter())
-//                        .viewCnt(board.getViewCnt())
-//                        .commentCnt(board.getCommentCnt())
-//                        .deleted(board.getDeleted())
-//                        .regDt(board.getRegDt())
-//                        .upDt(board.getUpDt())
-//                        .build();
-//    }
+    @Override
+    public BoardDto read(Integer bno){
+        Board board = boardRepository.findByBno(bno);
+        return toDto2(board);
+    }
 
     @Override
-    public BoardDto read(Integer bno) {
-        Board board = boardRepository.findByBno(bno);
-        // BoardDto로 변환할 때 cId 값이 제대로 매핑되는지 확인
+    public BoardDto toDto2 (Board board) {
         return BoardDto.builder()
-                .bno(board.getBno())
-                .cId(board.getCId())  // cId 값 설정
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
-                .viewCnt(board.getViewCnt())
-                .commentCnt(board.getCommentCnt())
-                .deleted(board.getDeleted())
-                .regDt(board.getRegDt())
-                .upDt(board.getUpDt())
-                .build();
+                        .bno(board.getBno())
+                        .cId(board.getCId())
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .writer(board.getWriter())
+                        .viewCnt(board.getViewCnt())
+                        .commentCnt(board.getCommentCnt())
+                        .deleted(board.getDeleted())
+                        .regDt(board.getRegDt())
+                        .upDt(board.getUpDt())
+                        .build();
     }
 }

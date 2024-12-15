@@ -13,13 +13,14 @@ public interface BoardService {
 
     BoardDto read(Integer bno);
 
+//    void read(Integer bno);
 
     List<BoardDto> getSearchResultPage(SearchCondition sc);
 
 
      List<BoardDto> toDto(List<Board> boardList);
 
-//     BoardDto toDto2 (Board board);
+     BoardDto toDto2 (Board board);
 
     int getSearchResultCnt(SearchCondition sc);
 

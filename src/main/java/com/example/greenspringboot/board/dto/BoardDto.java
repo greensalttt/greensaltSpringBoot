@@ -19,7 +19,6 @@ public class BoardDto {
     private Date regDt;
     private Date upDt;
 
-
 //    public BoardDto() {
 //    }
 //
