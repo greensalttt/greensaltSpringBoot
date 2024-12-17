@@ -78,21 +78,6 @@ public class BoardController {
         }
     }
 
-
-//    @GetMapping("/read")
-//    public String read(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session) {
-//        BoardDto boardDto = boardService.read(bno);
-//
-//        // 세션에서 cId를 가져와 BoardDto에 설정
-//        Integer cId = (Integer) session.getAttribute("cId");
-//        boardDto.setCId(cId);
-//
-//        m.addAttribute("boardDto", boardDto);
-//        m.addAttribute("page", page);
-//        m.addAttribute("pageSize", pageSize);
-//        return "board";
-//    }
-
     @GetMapping("/read")
     public String read(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session) {
         BoardDto boardDto = boardService.read(bno);
@@ -106,12 +91,18 @@ public class BoardController {
         }
 
         boardDto.setCId(cId);
-        System.out.println("boardDto.cId: " + boardDto.getCId()); // 값 확인
+        System.out.println("게시판 읽기 "+ "boardDto.cId: " + boardDto.getCId()); // 값 확인
+
 
 
         m.addAttribute("boardDto", boardDto);
         m.addAttribute("page", page);
         m.addAttribute("pageSize", pageSize);
         return "board";
+    }
+
+    @GetMapping("/modify")
+    public String modify(){
+        return "boardList";
     }
 }
