@@ -101,26 +101,24 @@ public class BoardServiceImpl implements BoardService{
                 .collect(Collectors.toList());
     }
 
-
     @Override
-    public BoardDto read(Integer bno){
+    public BoardDto read(Integer bno) {
         Board board = boardRepository.findByBno(bno);
-        return toDto2(board);
+
+        // 직접 DTO 변환
+        return BoardDto.builder()
+                .bno(board.getBno())
+                .cId(board.getCId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writer(board.getWriter())
+                .viewCnt(board.getViewCnt())
+                .commentCnt(board.getCommentCnt())
+                .deleted(board.getDeleted())
+                .regDt(board.getRegDt())
+                .upDt(board.getUpDt())
+                .build();
     }
 
-    @Override
-    public BoardDto toDto2 (Board board) {
-        return BoardDto.builder()
-                        .bno(board.getBno())
-                        .cId(board.getCId())
-                        .title(board.getTitle())
-                        .content(board.getContent())
-                        .writer(board.getWriter())
-                        .viewCnt(board.getViewCnt())
-                        .commentCnt(board.getCommentCnt())
-                        .deleted(board.getDeleted())
-                        .regDt(board.getRegDt())
-                        .upDt(board.getUpDt())
-                        .build();
-    }
+
 }
