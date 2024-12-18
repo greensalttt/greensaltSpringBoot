@@ -20,7 +20,7 @@ public interface BoardService {
 
      List<BoardDto> toDto(List<Board> boardList);
 
-     BoardDto toDto2 (Board board);
+//     BoardDto toDto2 (Board board);
 
     int getSearchResultCnt(SearchCondition sc);
 
