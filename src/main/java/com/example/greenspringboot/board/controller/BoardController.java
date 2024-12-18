@@ -85,24 +85,20 @@ public class BoardController {
         // 세션에서 cId를 가져와 BoardDto에 설정
         Integer cId = (Integer) session.getAttribute("cId");
 
-        // cId가 null일 경우 디버깅
-        if (cId == null) {
-            System.out.println("세션에서 cId를 찾을 수 없습니다.");
-        }
-
         boardDto.setCId(cId);
         System.out.println("게시판 읽기 "+ "boardDto.cId: " + boardDto.getCId()); // 값 확인
 
-
-
-        m.addAttribute("boardDto", boardDto);
+        m.addAttribute(boardDto);
         m.addAttribute("page", page);
         m.addAttribute("pageSize", pageSize);
         return "board";
     }
 
-    @GetMapping("/modify")
-    public String modify(){
+    @PostMapping("/modify")
+    public String modify(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr){
+        Integer cId = (Integer) session.getAttribute("c_id");
+        boardDto.setCId(cId);
+
         return "boardList";
     }
 }
