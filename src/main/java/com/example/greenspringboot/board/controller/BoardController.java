@@ -95,9 +95,11 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr){
-        Integer cId = (Integer) session.getAttribute("c_id");
+    public String modify(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr, Integer bno){
+        Integer cId = (Integer) session.getAttribute("cId");
         boardDto.setCId(cId);
+
+        boardService.modify(boardDto, cId, bno);
 
         return "boardList";
     }
