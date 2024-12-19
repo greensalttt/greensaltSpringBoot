@@ -35,6 +35,41 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public BoardDto read(Integer bno) {
+        Board board = boardRepository.findByBno(bno);
+
+        // 직접 DTO 변환
+        return BoardDto.builder()
+                .bno(board.getBno())
+                .cId(board.getCId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writer(board.getWriter())
+                .viewCnt(board.getViewCnt())
+                .commentCnt(board.getCommentCnt())
+                .deleted(board.getDeleted())
+                .regDt(board.getRegDt())
+                .upDt(board.getUpDt())
+                .build();
+    }
+
+    @Override
+    public void modify(BoardDto boardDto, Integer cId, Integer bno) {
+
+//        Board board = boardRepository.findBycId(cId);
+//
+//        Board findByBno(Integer bno);
+
+        Board board = boardRepository.findBycIdAndBno(cId, bno);
+
+
+        board.setTitle(boardDto.getTitle());  // 제목 수정
+        board.setContent(boardDto.getContent());  // 내용 수정
+
+        boardRepository.save(board);
+    }
+
+    @Override
     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
         // 검색 조건에 맞는 게시글 조회
         String keyword = sc.getKeyword();
@@ -100,25 +135,5 @@ public class BoardServiceImpl implements BoardService{
                         .build())
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public BoardDto read(Integer bno) {
-        Board board = boardRepository.findByBno(bno);
-
-        // 직접 DTO 변환
-        return BoardDto.builder()
-                .bno(board.getBno())
-                .cId(board.getCId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
-                .viewCnt(board.getViewCnt())
-                .commentCnt(board.getCommentCnt())
-                .deleted(board.getDeleted())
-                .regDt(board.getRegDt())
-                .upDt(board.getUpDt())
-                .build();
-    }
-
 
 }
