@@ -101,6 +101,11 @@ public class BoardController {
 
         boardService.modify(boardDto, cId, bno);
 
+        return "board";
+    }
+
+    @PostMapping("/delete")
+    public String delete(){
         return "boardList";
     }
 }
