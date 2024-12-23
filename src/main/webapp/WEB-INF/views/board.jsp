@@ -185,9 +185,9 @@
         <c:if test="${mode eq 'new'}">
             <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
         </c:if>
-        <c:if test="${mode ne 'new'}">
-            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
-        </c:if>
+<%--        <c:if test="${mode ne 'new'}">--%>
+<%--            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>--%>
+<%--        </c:if>--%>
 
 <%--        cId는 가져오지만 boardDto에서 cId를 못가져오는 상황, c를 대문자로 쓰면 해결 (대소문자 섞인 필드는 게터 메서드명을 따라서 가야됨)--%>
 
