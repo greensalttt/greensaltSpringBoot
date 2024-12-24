@@ -83,9 +83,9 @@ public class BoardController {
         BoardDto boardDto = boardService.read(bno);
 
         // 세션에서 cId를 가져와 BoardDto에 설정
-        Integer cId = (Integer) session.getAttribute("cId");
+//        Integer cId = (Integer) session.getAttribute("cId");
 
-        boardDto.setCId(cId);
+//        boardDto.setCId(cId);
         System.out.println("게시판 읽기 "+ "boardDto.cId: " + boardDto.getCId()); // 값 확인
 
         m.addAttribute(boardDto);
@@ -97,8 +97,6 @@ public class BoardController {
     @PostMapping("/modify")
     public String modify(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr, Integer bno){
         Integer cId = (Integer) session.getAttribute("cId");
-//        boardDto.setCId(cId);
-
         boardService.modify(boardDto, cId, bno);
 
         return "board";
