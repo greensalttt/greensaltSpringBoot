@@ -175,7 +175,7 @@
 </script>
 
 <div class="container">
-    <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기"}</h2>
+    <h2 class="writing-header">게시글 ${mode=="new" ? "글쓰기" : "읽기"}</h2>
     <form id="form" class="frm" action="" method="post">
         <input class="boardTitle" type="hidden" name="bno" value="${boardDto.bno}">
 
@@ -185,11 +185,10 @@
         <c:if test="${mode eq 'new'}">
             <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
         </c:if>
-<%--        <c:if test="${mode ne 'new'}">--%>
-<%--            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>--%>
-<%--        </c:if>--%>
 
 <%--        cId는 가져오지만 boardDto에서 cId를 못가져오는 상황, c를 대문자로 쓰면 해결 (대소문자 섞인 필드는 게터 메서드명을 따라서 가야됨)--%>
+
+<%--        로그인한 cId와 ==--%>
 
         <c:if test="${boardDto.CId == cId}">
             <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
@@ -243,9 +242,9 @@
             return true;
         }
 
-        $("#writeNewBtn").on("click", function(){
-            location.href="<c:url value='/board/write'/>";
-        });
+        <%--$("#writeNewBtn").on("click", function(){--%>
+        <%--    location.href="<c:url value='/board/write'/>";--%>
+        <%--});--%>
 
         $("#writeBtn").on("click", function(){
             let form = $("#form");
