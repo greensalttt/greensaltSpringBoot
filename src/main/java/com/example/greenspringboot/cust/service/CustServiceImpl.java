@@ -203,6 +203,7 @@ public class CustServiceImpl implements CustService {
         custHistRepository.save(custHist);
     }
 
+//    모델을 이용해 뷰를 가져올지 세션을 업데이트 하는게 맞는지 고민해보기
     @Override
     public void updateSession(HttpSession session, CustDto custDto) {
         session.setAttribute("cNick", custDto.getCNick());

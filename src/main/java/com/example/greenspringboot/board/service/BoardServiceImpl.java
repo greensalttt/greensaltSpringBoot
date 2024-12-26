@@ -1,10 +1,12 @@
 package com.example.greenspringboot.board.service;
 
+import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustHistDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -112,6 +114,18 @@ public class BoardServiceImpl implements BoardService{
             return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
         }
     }
+
+    private void addBoardHist(List<BoardHistDto> boardHistList, BoardDto newData,
+                              String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            BoardHistDto boardHistDto = new BoardHistDto();
+            boardHistDto.setCId(newData.getCId());
+            boardHistDto.setBCngCd(changeCode);
+            boardHistDto.setBBf(oldValue);
+            boardHistDto.setBAf(newValue);
+            boardHistList.add(boardHistDto);
+        }}
+
 
     @Override
     public List<BoardDto> toDto(List<Board> boardList) {

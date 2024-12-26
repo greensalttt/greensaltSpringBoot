@@ -79,7 +79,7 @@ public class BoardController {
     }
 
     @GetMapping("/read")
-    public String read(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session) {
+    public String read(Integer bno, Integer page, Integer pageSize, Model m) {
         BoardDto boardDto = boardService.read(bno);
 
         // 세션에서 cId를 가져와 BoardDto에 설정
