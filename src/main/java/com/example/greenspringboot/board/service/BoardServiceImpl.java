@@ -66,6 +66,18 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(board);
     }
 
+    private void addBoardHist(List<BoardHistDto> boardHistList, BoardDto newData,
+                              String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            BoardHistDto boardHistDto = new BoardHistDto();
+            boardHistDto.setCId(newData.getCId());
+            boardHistDto.setBCngCd(changeCode);
+            boardHistDto.setBBf(oldValue);
+            boardHistDto.setBAf(newValue);
+            boardHistList.add(boardHistDto);
+        }}
+
+
     @Override
     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
         // 검색 조건에 맞는 게시글 조회
@@ -114,18 +126,6 @@ public class BoardServiceImpl implements BoardService{
             return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
         }
     }
-
-    private void addBoardHist(List<BoardHistDto> boardHistList, BoardDto newData,
-                              String changeCode, String oldValue, String newValue) {
-        if (!oldValue.equals(newValue)) {
-            BoardHistDto boardHistDto = new BoardHistDto();
-            boardHistDto.setCId(newData.getCId());
-            boardHistDto.setBCngCd(changeCode);
-            boardHistDto.setBBf(oldValue);
-            boardHistDto.setBAf(newValue);
-            boardHistList.add(boardHistDto);
-        }}
-
 
     @Override
     public List<BoardDto> toDto(List<Board> boardList) {

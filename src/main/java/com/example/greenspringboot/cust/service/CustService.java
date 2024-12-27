@@ -19,7 +19,7 @@ public interface CustService {
 
     Boolean login(String email, String rawPassword, HttpServletRequest request);
 
-    void custHist(int cId, CustDto custDto, CustDto oldData);
+    void custModify(int cId, CustDto custDto, CustDto oldData);
 //
     void pwdChange(int cId, CustDto custDto, CustDto oldPwd);
 

@@ -129,7 +129,7 @@ public class CustServiceImpl implements CustService {
 
     @Transactional
     @Override
-    public void custHist(int cId, CustDto custDto, CustDto oldData) {
+    public void custModify(int cId, CustDto custDto, CustDto oldData) {
         // 기존 회원 정보 조회
         Cust cust = custRepository.findBycId(cId);
         toEntity(cust, custDto);

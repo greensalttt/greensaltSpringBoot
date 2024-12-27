@@ -55,7 +55,7 @@ public class MyPageController {
     }
 
     @PostMapping("/info")
-    public String myPageInfoPost(@ModelAttribute CustDto custDto, HttpServletRequest request) {
+    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
 
@@ -69,7 +69,7 @@ public class MyPageController {
             custDto.setCId(cId);
 
             // 서비스 호출하여 정보 업데이트 및 이력 기록
-            custService.custHist(cId, custDto, oldData);
+            custService.custModify(cId, custDto, oldData);
 
             custService.updateSession(session, custDto);
             System.out.println("개인정보 변경 완료");
@@ -80,14 +80,13 @@ public class MyPageController {
 
 
     @GetMapping("/pwdEdit")
-
     public String pwdEdit(HttpSession session){
         System.out.println("비밀번호 변경: "+ session.getAttribute("cName"));
         return "pwdEdit";
     }
 
     @PostMapping("/pwdEdit")
-    public String pwdEditPost(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
+    public String pwdEdit(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
         HttpSession session = request.getSession();
 
 //        로그인할때 저장한 cId 세션을 변수로 저장
