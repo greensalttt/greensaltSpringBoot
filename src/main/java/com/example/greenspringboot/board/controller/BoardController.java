@@ -3,7 +3,11 @@ import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.PageHandler;
 import com.example.greenspringboot.board.paging.SearchCondition;
+import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.service.BoardService;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.repository.CustRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +28,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private BoardRepository boardRepository;
 
     @GetMapping("/list")
     public String list(Model m, SearchCondition sc, HttpSession session) {
@@ -82,12 +89,6 @@ public class BoardController {
     public String read(Integer bno, Integer page, Integer pageSize, Model m) {
         BoardDto boardDto = boardService.read(bno);
 
-        // 세션에서 cId를 가져와 BoardDto에 설정
-//        Integer cId = (Integer) session.getAttribute("cId");
-
-//        boardDto.setCId(cId);
-        System.out.println("게시판 읽기 "+ "boardDto.cId: " + boardDto.getCId()); // 값 확인
-
         m.addAttribute(boardDto);
         m.addAttribute("page", page);
         m.addAttribute("pageSize", pageSize);
@@ -95,9 +96,15 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto, Model m, HttpSession session, RedirectAttributes rattr, Integer bno){
+    public String modify(BoardDto boardDto, HttpSession session, Integer bno){
         Integer cId = (Integer) session.getAttribute("cId");
-        boardService.boardModify(boardDto, cId, bno);
+
+        System.out.println("BoardDto bno: " + boardDto.getBno());
+
+        Board oldBoard = boardRepository.findBycIdAndBno(cId, bno);
+        BoardDto oldData = boardService.toDto(oldBoard);
+
+        boardService.boardModify(boardDto, cId, bno, oldData);
 
         return "board";
     }

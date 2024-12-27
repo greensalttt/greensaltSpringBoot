@@ -127,12 +127,15 @@ public class CustServiceImpl implements CustService {
     }
 
 
+//    모델로 받아 뷰로 보여주는 방식 고민해보기
     @Transactional
     @Override
     public void custModify(int cId, CustDto custDto, CustDto oldData) {
         // 기존 회원 정보 조회
         Cust cust = custRepository.findBycId(cId);
+        // 기존 dto를 엔티티로 변환
         toEntity(cust, custDto);
+        // 바뀐 개인정보 저장
         custRepository.save(cust);
 
         List<CustHistDto> custHistList = new ArrayList<>();

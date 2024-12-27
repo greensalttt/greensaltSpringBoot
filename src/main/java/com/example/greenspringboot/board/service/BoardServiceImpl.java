@@ -2,19 +2,18 @@ package com.example.greenspringboot.board.service;
 
 import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.Board;
+import com.example.greenspringboot.board.entity.BoardHist;
 import com.example.greenspringboot.board.paging.SearchCondition;
+import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
-import com.example.greenspringboot.cust.dto.CustDto;
-import com.example.greenspringboot.cust.dto.CustHistDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +21,9 @@ public class BoardServiceImpl implements BoardService{
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardHistRepository boardHistRepository;
 
     @Override
     public void write(BoardDto boardDto) {
@@ -41,29 +43,59 @@ public class BoardServiceImpl implements BoardService{
         Board board = boardRepository.findByBno(bno);
 
         // 직접 DTO 변환
-        return BoardDto.builder()
-                .bno(board.getBno())
-                .cId(board.getCId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
-                .viewCnt(board.getViewCnt())
-                .commentCnt(board.getCommentCnt())
-                .deleted(board.getDeleted())
-                .regDt(board.getRegDt())
-                .upDt(board.getUpDt())
-                .build();
+//        return BoardDto.builder()
+//                .bno(board.getBno())
+//                .cId(board.getCId())
+//                .title(board.getTitle())
+//                .content(board.getContent())
+//                .writer(board.getWriter())
+//                .viewCnt(board.getViewCnt())
+//                .commentCnt(board.getCommentCnt())
+//                .deleted(board.getDeleted())
+//                .regDt(board.getRegDt())
+//                .upDt(board.getUpDt())
+//                .build();
+        return toDto(board);
     }
 
+//    @Override
+//    public void boardModify(BoardDto boardDto, Integer cId, Integer bno) {
+//
+//        Board board = boardRepository.findBycIdAndBno(cId, bno);
+//
+//        board.setTitle(boardDto.getTitle());  // 제목 수정
+//        board.setContent(boardDto.getContent());  // 내용 수정
+//
+//        boardRepository.save(board);
+//    }
+
+    @Transactional
     @Override
-    public void boardModify(BoardDto boardDto, Integer cId, Integer bno) {
+    public void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData) {
 
         Board board = boardRepository.findBycIdAndBno(cId, bno);
 
-        board.setTitle(boardDto.getTitle());  // 제목 수정
-        board.setContent(boardDto.getContent());  // 내용 수정
-
+        // 기존 dto를 엔티티로 변환
+        toEntity(board, boardDto);
+        // 바뀐 개인정보 저장
         boardRepository.save(board);
+
+        List<BoardHistDto> boardHistList = new ArrayList<>();
+
+        addBoardHist(boardHistList, boardDto, "TITLE", oldData.getTitle(), boardDto.getTitle());
+        addBoardHist(boardHistList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
+
+        for (BoardHistDto boardHistDto : boardHistList) {
+            // CustHistDto를 CustHist 엔티티로 변환
+            BoardHist boardHist = new BoardHist();
+            boardHist.setCId(boardHistDto.getCId());
+            boardHist.setBCngCd(boardHistDto.getBCngCd());
+            boardHist.setBBf(boardHistDto.getBBf());
+            boardHist.setBAf(boardHistDto.getBAf());
+
+            // 이력 저장
+            boardHistRepository.save(boardHist);
+        }
     }
 
     private void addBoardHist(List<BoardHistDto> boardHistList, BoardDto newData,
@@ -75,6 +107,15 @@ public class BoardServiceImpl implements BoardService{
             boardHistDto.setBBf(oldValue);
             boardHistDto.setBAf(newValue);
             boardHistList.add(boardHistDto);
+        }}
+
+    @Override
+    public void toEntity(Board board, BoardDto boardDto) {
+        if (boardDto.getTitle() != null) {
+            board.setTitle(boardDto.getTitle());
+        }
+        if (boardDto.getContent() != null) {
+            board.setContent(boardDto.getContent());
         }}
 
 
@@ -127,6 +168,8 @@ public class BoardServiceImpl implements BoardService{
         }
     }
 
+
+    // 여러개 게시글 한번에
     @Override
     public List<BoardDto> toDto(List<Board> boardList) {
         return boardList.stream()
@@ -143,6 +186,24 @@ public class BoardServiceImpl implements BoardService{
                         .upDt(board.getUpDt())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+
+    // 단일 게시글
+    @Override
+    public BoardDto toDto(Board board) {
+        return BoardDto.builder()
+                .bno(board.getBno())
+                .cId(board.getCId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writer(board.getWriter())
+                .viewCnt(board.getViewCnt())
+                .commentCnt(board.getCommentCnt())
+                .deleted(board.getDeleted())
+                .regDt(board.getRegDt())
+                .upDt(board.getUpDt())
+                .build();
     }
 
 }

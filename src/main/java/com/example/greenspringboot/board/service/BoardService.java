@@ -13,15 +13,16 @@ public interface BoardService {
 
     BoardDto read(Integer bno);
 
-    void boardModify(BoardDto boardDto, Integer cId, Integer bno);
+    void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData);
 
     List<BoardDto> getSearchResultPage(SearchCondition sc);
 
+    void toEntity(Board board, BoardDto boardDto);
 
-     List<BoardDto> toDto(List<Board> boardList);
-
-//     BoardDto toDto2 (Board board);
+    List<BoardDto> toDto(List<Board> boardList);
 
     int getSearchResultCnt(SearchCondition sc);
+
+    BoardDto toDto(Board board);
 
 }

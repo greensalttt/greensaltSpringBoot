@@ -31,7 +31,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Board findByBno(Integer bno);
 
-    Board findBycId(Integer cId);
+//    Board findBycId(Integer cId);
 
     Board findBycIdAndBno(Integer cId, Integer bno);
 

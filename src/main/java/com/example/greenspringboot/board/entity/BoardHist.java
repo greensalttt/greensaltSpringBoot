@@ -30,7 +30,7 @@ public class BoardHist {
     private String bCngCd;
 
     @Column(name = "b_bf", nullable = false)
-    private String cBf;
+    private String bBf;
 
     @Column(name = "b_af", nullable = false)
     private String bAf;
