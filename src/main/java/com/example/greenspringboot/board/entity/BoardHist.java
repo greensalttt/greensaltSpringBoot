@@ -18,7 +18,7 @@ public class BoardHist {
 //    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "b_hist_num", nullable = false)
-    private Integer cHistNum;
+    private Integer bHistNum;
 
     @Column(name = "bno", nullable = false)
     private Integer bno;

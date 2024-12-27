@@ -41,33 +41,8 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardDto read(Integer bno) {
         Board board = boardRepository.findByBno(bno);
-
-        // 직접 DTO 변환
-//        return BoardDto.builder()
-//                .bno(board.getBno())
-//                .cId(board.getCId())
-//                .title(board.getTitle())
-//                .content(board.getContent())
-//                .writer(board.getWriter())
-//                .viewCnt(board.getViewCnt())
-//                .commentCnt(board.getCommentCnt())
-//                .deleted(board.getDeleted())
-//                .regDt(board.getRegDt())
-//                .upDt(board.getUpDt())
-//                .build();
         return toDto(board);
     }
-
-//    @Override
-//    public void boardModify(BoardDto boardDto, Integer cId, Integer bno) {
-//
-//        Board board = boardRepository.findBycIdAndBno(cId, bno);
-//
-//        board.setTitle(boardDto.getTitle());  // 제목 수정
-//        board.setContent(boardDto.getContent());  // 내용 수정
-//
-//        boardRepository.save(board);
-//    }
 
     @Transactional
     @Override
@@ -86,8 +61,9 @@ public class BoardServiceImpl implements BoardService{
         addBoardHist(boardHistList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
 
         for (BoardHistDto boardHistDto : boardHistList) {
-            // CustHistDto를 CustHist 엔티티로 변환
+
             BoardHist boardHist = new BoardHist();
+            boardHist.setBno(boardHistDto.getBno());
             boardHist.setCId(boardHistDto.getCId());
             boardHist.setBCngCd(boardHistDto.getBCngCd());
             boardHist.setBBf(boardHistDto.getBBf());
@@ -102,6 +78,7 @@ public class BoardServiceImpl implements BoardService{
                               String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
             BoardHistDto boardHistDto = new BoardHistDto();
+            boardHistDto.setBno(newData.getBno());
             boardHistDto.setCId(newData.getCId());
             boardHistDto.setBCngCd(changeCode);
             boardHistDto.setBBf(oldValue);
@@ -111,12 +88,37 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public void toEntity(Board board, BoardDto boardDto) {
+        if (boardDto.getBno() != null) {
+            board.setBno(boardDto.getBno());
+        }
+        if (boardDto.getCId() != null) {
+            board.setCId(boardDto.getCId());
+        }
         if (boardDto.getTitle() != null) {
             board.setTitle(boardDto.getTitle());
         }
         if (boardDto.getContent() != null) {
             board.setContent(boardDto.getContent());
-        }}
+        }
+        if (boardDto.getWriter() != null) {
+            board.setWriter(boardDto.getWriter());
+        }
+        if (boardDto.getViewCnt() != null) {
+            board.setViewCnt(boardDto.getViewCnt());
+        }
+        if (boardDto.getCommentCnt() != null) {
+            board.setCommentCnt(boardDto.getCommentCnt());
+        }
+        if (boardDto.getDeleted() != null) {
+            board.setDeleted(boardDto.getDeleted());
+        }
+        if (boardDto.getRegDt() != null) {
+            board.setRegDt(boardDto.getRegDt());
+        }
+        if (boardDto.getUpDt() != null) {
+            board.setUpDt(boardDto.getUpDt());
+        }
+    }
 
 
     @Override

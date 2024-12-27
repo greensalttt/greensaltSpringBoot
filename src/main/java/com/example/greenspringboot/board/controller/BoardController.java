@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -96,13 +97,16 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto, HttpSession session, Integer bno){
+    public String modify(BoardDto boardDto, HttpSession session, Board board, Integer bno){
         Integer cId = (Integer) session.getAttribute("cId");
 
         System.out.println("BoardDto bno: " + boardDto.getBno());
+        System.out.println("Board bno: " + board.getBno());
 
         Board oldBoard = boardRepository.findBycIdAndBno(cId, bno);
         BoardDto oldData = boardService.toDto(oldBoard);
+
+        boardDto.setCId(cId);
 
         boardService.boardModify(boardDto, cId, bno, oldData);
 
