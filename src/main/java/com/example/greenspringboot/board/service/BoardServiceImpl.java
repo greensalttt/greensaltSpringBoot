@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void modify(BoardDto boardDto, Integer cId, Integer bno) {
+    public void boardModify(BoardDto boardDto, Integer cId, Integer bno) {
 
         Board board = boardRepository.findBycIdAndBno(cId, bno);
 

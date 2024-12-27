@@ -13,7 +13,7 @@ public interface BoardService {
 
     BoardDto read(Integer bno);
 
-    void modify(BoardDto boardDto, Integer cId, Integer bno);
+    void boardModify(BoardDto boardDto, Integer cId, Integer bno);
 
     List<BoardDto> getSearchResultPage(SearchCondition sc);
 
