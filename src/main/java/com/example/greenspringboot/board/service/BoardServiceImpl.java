@@ -44,6 +44,13 @@ public class BoardServiceImpl implements BoardService{
         return toDto(board);
     }
 
+    @Override
+    public void delete(Integer cId, Integer bno){
+        Board board = boardRepository.findBycIdAndBno(cId, bno);
+        board.setDeleted(true);
+        boardRepository.save(board);
+    }
+
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData) {

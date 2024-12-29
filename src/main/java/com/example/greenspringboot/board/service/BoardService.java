@@ -25,4 +25,6 @@ public interface BoardService {
 
     BoardDto toDto(Board board);
 
+    void delete(Integer cId, Integer bno);
+
 }

@@ -43,8 +43,6 @@ public class Board {
 
     //    기본값 설정
     @Builder.Default
-//    @Column(name="deleted", nullable = false)
-//    private Integer deleted = 0;
     @Column(name = "deleted", nullable = false)
     private Boolean deleted = false; // 기본값 false
 
