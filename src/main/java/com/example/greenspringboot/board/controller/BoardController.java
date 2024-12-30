@@ -113,8 +113,11 @@ public class BoardController {
         return "board";
     }
 
-    @PostMapping("/delete")
-    public String delete(){
-        return "boardList";
+    @PostMapping("/remove")
+    public String delete(BoardDto boardDto, HttpSession session, Integer bno){
+        Integer cId = (Integer) session.getAttribute("cId");
+        boardDto.setCId(cId);
+        boardService.delete(cId, bno);
+        return "redirect:/board/list";
     }
 }

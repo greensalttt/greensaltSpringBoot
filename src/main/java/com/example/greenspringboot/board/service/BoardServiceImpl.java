@@ -51,6 +51,7 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(board);
     }
 
+
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData) {
@@ -62,12 +63,12 @@ public class BoardServiceImpl implements BoardService{
         // 바뀐 개인정보 저장
         boardRepository.save(board);
 
-        List<BoardHistDto> boardHistList = new ArrayList<>();
+        List<BoardHistDto> boardHistDtoList = new ArrayList<>();
 
-        addBoardHist(boardHistList, boardDto, "TITLE", oldData.getTitle(), boardDto.getTitle());
-        addBoardHist(boardHistList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
+        addBoardHist(boardHistDtoList, boardDto, "TITLE", oldData.getTitle(), boardDto.getTitle());
+        addBoardHist(boardHistDtoList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
 
-        for (BoardHistDto boardHistDto : boardHistList) {
+        for (BoardHistDto boardHistDto : boardHistDtoList) {
 
             BoardHist boardHist = new BoardHist();
             boardHist.setBno(boardHistDto.getBno());
@@ -81,7 +82,7 @@ public class BoardServiceImpl implements BoardService{
         }
     }
 
-    private void addBoardHist(List<BoardHistDto> boardHistList, BoardDto newData,
+    private void addBoardHist(List<BoardHistDto> boardHistDtoList, BoardDto newData,
                               String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
             BoardHistDto boardHistDto = new BoardHistDto();
@@ -90,7 +91,7 @@ public class BoardServiceImpl implements BoardService{
             boardHistDto.setBCngCd(changeCode);
             boardHistDto.setBBf(oldValue);
             boardHistDto.setBAf(newValue);
-            boardHistList.add(boardHistDto);
+            boardHistDtoList.add(boardHistDto);
         }}
 
     @Override
@@ -214,5 +215,6 @@ public class BoardServiceImpl implements BoardService{
                 .upDt(board.getUpDt())
                 .build();
     }
+    
 
 }
