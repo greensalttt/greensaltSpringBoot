@@ -44,6 +44,7 @@ public class BoardServiceImpl implements BoardService{
         return toDto(board);
     }
 
+//    뷰에 표시되는게 아닌 딜렉트 컬럼만 변경되는거라 dto로 이동 안해도 됨
     @Override
     public void delete(Integer cId, Integer bno){
         Board board = boardRepository.findBycIdAndBno(cId, bno);
@@ -139,13 +140,13 @@ public class BoardServiceImpl implements BoardService{
         List<Board> boardList;
 
         if ("title".equals(option)) {
-            boardList = boardRepository.findByTitleContaining(keyword, sort);  // 제목만 검색
+            boardList = boardRepository.findByTitleContainingAndDeletedFalse(keyword, sort);  // 제목만 검색
         } else if ("content".equals(option)) {
-            boardList = boardRepository.findByContentContaining(keyword, sort);  // 내용만 검색
+            boardList = boardRepository.findByContentContainingAndDeletedFalse(keyword, sort);  // 내용만 검색
         } else if ("writer".equals(option)) {
-            boardList = boardRepository.findByWriterContaining(keyword, sort);  // 작성자만 검색
+            boardList = boardRepository.findByWriterContainingAndDeletedFalse(keyword, sort);  // 작성자만 검색
         } else {
-            boardList = boardRepository.findByTitleContainingOrContentContaining(keyword, keyword, sort);  // 제목 + 내용 검색
+            boardList = boardRepository.findByTitleContainingOrContentContainingAndDeletedFalse(keyword, keyword, sort);  // 제목 + 내용 검색
         }
 
         // 검색된 게시글 리스트를 페이지에 맞게 잘라서 반환
