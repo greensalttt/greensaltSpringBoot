@@ -10,15 +10,14 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 제목 또는 내용을 키워드로 검색하는 메서드
 
-    List<Board> findByTitleContaining(String title, Sort sort);
+    List<Board> findByTitleContainingAndDeletedFalse(String title, Sort sort);
 
-    List<Board> findByContentContaining(String content, Sort sort);
-
+    List<Board> findByContentContainingAndDeletedFalse(String content, Sort sort);
 
     // 작성자 이름으로 게시물을 찾는 메서드
-    List<Board> findByWriterContaining(String writer, Sort sort);
+    List<Board> findByWriterContainingAndDeletedFalse(String writer, Sort sort);
 
-    List<Board> findByTitleContainingOrContentContaining(String title, String content, Sort sort);
+    List<Board> findByTitleContainingOrContentContainingAndDeletedFalse(String title, String content, Sort sort);
 
     // 검색 조건에 맞는 게시물의 개수를 세는 메서드
     int countByTitleContainingOrContentContaining(String title, String content);
@@ -30,8 +29,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     int countByWriterContaining(String writer);
 
     Board findByBno(Integer bno);
-
-//    Board findBycId(Integer cId);
 
     Board findBycIdAndBno(Integer cId, Integer bno);
 
