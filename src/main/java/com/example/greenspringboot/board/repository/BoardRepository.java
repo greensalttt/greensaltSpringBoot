@@ -20,22 +20,19 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<Board> findByTitleContainingOrContentContainingAndDeletedFalse(String title, String content, Sort sort);
 
     // 검색 조건에 맞는 게시물의 개수를 세는 메서드
-    int countByTitleContainingOrContentContaining(String title, String content);
+    int countByTitleContainingOrContentContainingAndDeletedFalse(String title, String content);
 
-    int countByTitleContaining(String title);
+    int countByTitleContainingAndDeletedFalse(String title);
 
-    int countByContentContaining(String content);
+    int countByContentContainingAndDeletedFalse(String content);
 
-    int countByWriterContaining(String writer);
+    int countByWriterContainingAndDeletedFalse(String writer);
 
     Board findByBno(Integer bno);
 
     Board findBycIdAndBno(Integer cId, Integer bno);
 
 }
-
-
-
 
 ////      JPA 방식으로 사용할때 순서
 //// DB 테이블 > 엔티티 만들기 > DTO 만들기 > 레포 만들기 > 나머지 로직/

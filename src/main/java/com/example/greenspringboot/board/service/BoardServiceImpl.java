@@ -167,15 +167,15 @@ public class BoardServiceImpl implements BoardService{
 
         // option에 따라 title 또는 content 검색
         if ("title".equals(option)) {
-            return boardRepository.countByTitleContaining(keyword);
+            return boardRepository.countByTitleContainingAndDeletedFalse(keyword);
         } else if ("content".equals(option)) {
-            return boardRepository.countByContentContaining(keyword);
+            return boardRepository.countByContentContainingAndDeletedFalse(keyword);
         }  else if ("writer".equals(option)) {
-            return boardRepository.countByWriterContaining(keyword);
+            return boardRepository.countByWriterContainingAndDeletedFalse(keyword);
         }
         else {
             // title과 content 모두 검색하는 경우
-            return boardRepository.countByTitleContainingOrContentContaining(keyword, keyword);
+            return boardRepository.countByTitleContainingOrContentContainingAndDeletedFalse(keyword, keyword);
         }
     }
 
