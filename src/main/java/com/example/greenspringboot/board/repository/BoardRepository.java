@@ -3,6 +3,7 @@ import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,7 +19,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 작성자 이름으로 게시물을 찾는 메서드
     List<Board> findByWriterContainingAndDeletedFalse(String writer, Sort sort);
-
 
 
 //    연산이 복잡할 경우 직접 쿼리를 생성해서 해야 오류가 안난다. SQL에서 or보다 and가 우선순위가 더 높기때문에 이 JPA는 의도와 다르게 작동했음
@@ -43,6 +43,11 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Board findByBno(Integer bno);
 
     Board findBycIdAndBno(Integer cId, Integer bno);
+
+    // 게시글 조회 시 조회수(view_cnt) 1 증가
+    @Modifying
+    @Query("UPDATE Board b SET b.viewCnt = b.viewCnt + 1 WHERE b.bno = :bno")
+    int incrementViewCnt(@Param("bno") Integer bno);
 
 }
 

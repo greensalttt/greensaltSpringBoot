@@ -117,7 +117,7 @@ public class BoardController {
     public String delete(BoardDto boardDto, HttpSession session, Integer bno){
         Integer cId = (Integer) session.getAttribute("cId");
         boardDto.setCId(cId);
-        boardService.delete(cId, bno, boardDto);
+        boardService.delete(cId, bno);
         return "redirect:/board/list";
     }
 }
