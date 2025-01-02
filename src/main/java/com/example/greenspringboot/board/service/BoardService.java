@@ -27,9 +27,7 @@ public interface BoardService {
 
 //    void delete(Integer cId, Integer bno);
 
-    void delete(Integer cId, Integer bno);
-
-//    BoardDto toDto2(Board board);
+    BoardDto delete(Integer cId, Integer bno, BoardDto boardDto);
 
 
 }

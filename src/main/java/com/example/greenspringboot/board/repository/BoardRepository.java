@@ -3,6 +3,8 @@ import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -17,10 +19,20 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // 작성자 이름으로 게시물을 찾는 메서드
     List<Board> findByWriterContainingAndDeletedFalse(String writer, Sort sort);
 
-    List<Board> findByTitleContainingOrContentContainingAndDeletedFalse(String title, String content, Sort sort);
+
+
+//    연산이 복잡할 경우 직접 쿼리를 생성해서 해야 오류가 안난다. SQL에서 or보다 and가 우선순위가 더 높기때문에 이 JPA는 의도와 다르게 작동했음
+//    List<Board> findByTitleContainingOrContentContainingAndDeletedFalse(String title, String content, Sort sort);
+    @Query("SELECT b FROM Board b WHERE (b.title LIKE %:keyword% OR b.content LIKE %:keyword%) AND b.deleted = false")
+    List<Board> findByTitleContainingOrContentContainingAndDeletedFalse(@Param("keyword") String keyword, Sort sort);
+
 
     // 검색 조건에 맞는 게시물의 개수를 세는 메서드
-    int countByTitleContainingOrContentContainingAndDeletedFalse(String title, String content);
+//    int countByTitleContainingOrContentContainingAndDeletedFalse(String title, String content);
+
+    @Query("SELECT COUNT(b) FROM Board b WHERE (b.title LIKE %:title% OR b.content LIKE %:content%) AND b.deleted = false")
+    int countByTitleContainingOrContentContainingAndDeletedFalse(@Param("title") String title, @Param("content") String content);
+
 
     int countByTitleContainingAndDeletedFalse(String title);
 

@@ -52,7 +52,7 @@ public class BoardController {
             m.addAttribute("totalCnt", 0);
         }
 
-        System.out.println("게시판 겟맵핑: " + session.getAttribute("cId"));
+        System.out.println("게시판 겟맵핑 cId: " + session.getAttribute("cId"));
 
 
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
@@ -117,7 +117,7 @@ public class BoardController {
     public String delete(BoardDto boardDto, HttpSession session, Integer bno){
         Integer cId = (Integer) session.getAttribute("cId");
         boardDto.setCId(cId);
-        boardService.delete(cId, bno);
+        boardService.delete(cId, bno, boardDto);
         return "redirect:/board/list";
     }
 }

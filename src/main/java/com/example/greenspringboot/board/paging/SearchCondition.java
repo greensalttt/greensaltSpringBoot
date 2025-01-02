@@ -7,7 +7,6 @@ public class SearchCondition {
     private Integer pageSize = 10;
     private String keyword = "";
     private String option = "";
-//    private Boolean deleted = false;
 
     public SearchCondition(){}
 
@@ -16,7 +15,6 @@ public class SearchCondition {
         this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
-//        this.deleted = deleted;
     }
 
     public String getQueryString() {
@@ -29,7 +27,6 @@ public class SearchCondition {
                 .queryParam("pageSize", pageSize)
                 .queryParam("option", option)
                 .queryParam("keyword", keyword)
-//                .queryParam("deleted", deleted)
                 .build().toString();
     }
 
@@ -70,12 +67,5 @@ public class SearchCondition {
     public void setOption(String option) {
         this.option = option;
     }
-
-//    public Boolean getDeleted() {
-//        return deleted;
-//    }
-//    public void setDeleted(Boolean deleted) {
-//        this.deleted = deleted;
-//    }
 
 }
