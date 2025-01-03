@@ -53,20 +53,6 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(board);
     }
 
-//    @Override
-//    public BoardDto delete(Integer cId, Integer bno, BoardDto boardDto) {
-//        // 게시글을 찾는다.
-//        Board board = boardRepository.findBycIdAndBno(cId, bno);
-//        toEntity(board, boardDto);
-//
-//            // 삭제 처리 (deleted=true)
-//            board.setDeleted(true);
-//            boardRepository.save(board);
-//            // BoardDto로 변환하여 반환
-//            return toDto(board);  // 단일 Board를 BoardDto로 변환
-//    }
-
-
 
     @Transactional
     @Override

@@ -97,7 +97,7 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto, HttpSession session, Board board, Integer bno){
+    public String modify(BoardDto boardDto, HttpSession session, Board board, Integer bno, RedirectAttributes rattr){
         Integer cId = (Integer) session.getAttribute("cId");
 
         System.out.println("BoardDto bno: " + boardDto.getBno());
@@ -109,15 +109,17 @@ public class BoardController {
         boardDto.setCId(cId);
 
         boardService.boardModify(boardDto, cId, bno, oldData);
+        rattr.addFlashAttribute("msg", "MOD_OK");
 
         return "board";
     }
 
     @PostMapping("/remove")
-    public String delete(BoardDto boardDto, HttpSession session, Integer bno){
+    public String delete(BoardDto boardDto, HttpSession session, Integer bno, RedirectAttributes rattr){
         Integer cId = (Integer) session.getAttribute("cId");
         boardDto.setCId(cId);
         boardService.delete(cId, bno);
+        rattr.addFlashAttribute("msg", "DEL_OK");
         return "redirect:/board/list";
     }
 }
