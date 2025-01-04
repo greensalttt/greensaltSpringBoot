@@ -25,7 +25,7 @@
         .board-container {
             width: 70%;
             text-align:center;
-            margin: 0 auto 100px;
+            margin: 0 auto;
         }
         .search-container {
             background-color: rgb(253, 253, 250);
@@ -69,7 +69,6 @@
         }
 
         .search-button {
-            /* 메뉴바의 검색 버튼 아이콘  */
             width: 20%;
             height: 100%;
             background-color: rgb(22, 22, 22);
@@ -131,23 +130,7 @@
             text-decoration: underline;
         }
 
-        .paging {
-            color: black;
-            width: 100%;
-            align-items: center;
-        }
 
-        .page {
-            color: black;
-            padding: 6px;
-            margin-right: 10px;
-        }
-
-        .paging-container {
-            width:100%;
-            display: flex;
-            margin : auto;
-        }
         .btn-write {
             background-color: rgb(236, 236, 236);
             border: none;
@@ -166,6 +149,31 @@
         #top{
             margin-bottom: 150px;
         }
+
+        .paging-container {
+            width:100%;
+            display: flex;
+            margin : auto;
+            color: black;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page {
+            color: black;
+            margin-right: 10px;
+        }
+
+
+        #noBoard{
+            margin-top: 150px;
+            margin-bottom: 120px;
+        }
+
+        #okBoard{
+            margin-top: 220px;
+        }
+
     </style>
 </head>
 <body>
@@ -175,10 +183,6 @@
 
 <script>
     let msg = "${msg}";
-    if(msg=="LIST_ERR")  alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
-    if(msg=="READ_ERR")  alert("삭제되었거나 없는 게시물입니다.");
-    if(msg=="DEL_ERR")   alert("삭제되었거나 없는 게시물입니다.");
-
     if(msg=="DEL_OK")    alert("성공적으로 삭제되었습니다.");
     if(msg=="WRT_OK")    alert("성공적으로 등록되었습니다.");
     if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
@@ -225,13 +229,13 @@
                 </tr>
             </c:forEach>
         </table>
-        <br>
+
         <div class="paging-container">
-            <div class="paging">
                 <c:if test="${totalCnt==null || totalCnt==0}">
-                    <div> 게시물이 없습니다. </div>
+                    <div id="noBoard"> 게시물이 없습니다. </div>
                 </c:if>
                 <c:if test="${totalCnt!=null && totalCnt!=0}">
+                    <div id="okBoard">
                     <c:if test="${ph.showPrev}">
                         <a class="page" href="<c:url value="/board/list${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
                     </c:if>
@@ -241,16 +245,13 @@
                     <c:if test="${ph.showNext}">
                         <a class="page" href="<c:url value="/board/list${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>
                     </c:if>
+                    </div>
                 </c:if>
-            </div>
         </div>
+
     </div>
+
 <footer>
     <jsp:include page="footer.jsp"/>
 </footer>
-
-<script>
-
-
-</script>
 </body>

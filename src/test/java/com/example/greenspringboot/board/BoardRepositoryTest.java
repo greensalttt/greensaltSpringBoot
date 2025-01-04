@@ -18,7 +18,7 @@ public class BoardRepositoryTest {
                     .title("후발주자" + i)
                     .content("ㅇㅇ")
                     .writer("test")
-                    .deleted(true)
+                    .deleted(false)
                     .build();
             boardService.write(boardDto);
         }

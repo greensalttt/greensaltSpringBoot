@@ -25,8 +25,7 @@
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             padding-top: 2%;
             padding-bottom: 2%;
-            margin: 0 auto;
-            margin-top: 250px;
+            margin: 200px auto 100px;
         }
 
         .container {
@@ -233,12 +232,12 @@
                 <div class="subBtn" id="googleBtn" onclick="test()"> <img id="google" src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="40" height="40"></div>
                 <div class="subBtn" id="kakaoBtn" onclick="test()"> <img id="kakao" src="https://cdn-icons-png.flaticon.com/128/3669/3669973.png" width="40" height="40"></div>
                 <div class="subBtn" id="appleBtn" onclick="test()"> <img id="apple" src="https://cdn-icons-png.flaticon.com/128/0/747.png" width="40" height="40"></div>
-            </div>
+            </div><br><br>
 
         </div>
 
     </form>
-</div><br><br><br>
+</div>
 
 <footer>
     <jsp:include page="footer.jsp"/>
