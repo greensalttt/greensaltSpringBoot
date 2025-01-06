@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class CommentController {
     @Autowired
-    CommentService service;
+    CommentService commentService;
 
 
     // 댓글을 등록하는 메서드
@@ -18,9 +18,10 @@ public class CommentController {
     public String write(@RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
         Integer cId = (Integer) session.getAttribute("cId");
         commentDto.setCId(cId);
-        commentDto.setCommenter((String) session.getAttribute("cNm"));
+        commentDto.setCommenter((String) session.getAttribute("cNick"));
         commentDto.setBno(bno);
         System.out.println("commentDto = " + commentDto);
+        commentService.write(commentDto);
 
         return "redirect:/board";
 }
