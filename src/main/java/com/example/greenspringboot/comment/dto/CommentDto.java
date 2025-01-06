@@ -13,8 +13,8 @@ public class CommentDto {
     private Integer pcno;
     private String  comment;
     private String  commenter;
-    private Date    regDate;
-    private Date    upDate;
+    private Date    regDt;
+    private Date    upDt;
     private Integer deleted;
 
 

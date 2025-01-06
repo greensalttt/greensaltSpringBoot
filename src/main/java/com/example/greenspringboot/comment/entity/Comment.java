@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,10 +25,10 @@ public class Comment {
     private Integer cId;
 
     @Column(name="bno", nullable = false)
-    private String bno;
+    private Integer bno;
 
     @Column(name="pcno", nullable = false)
-    private String pcno;
+    private Integer pcno;
 
     @Column(name="comment", nullable = false)
     private String comment;

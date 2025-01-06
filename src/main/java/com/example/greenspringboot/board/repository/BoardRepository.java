@@ -40,6 +40,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     int countByWriterContainingAndDeletedFalse(String writer);
 
+    Board save(Board board);
+
     Board findByBno(Integer bno);
 
     Board findBycIdAndBno(Integer cId, Integer bno);
