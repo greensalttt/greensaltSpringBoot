@@ -296,8 +296,6 @@
         if ("${mode}" !== "new") {
         let bno = ${boardDto.bno};
         let showList = function (bno){
-
-<%--    제이쿼리 방식으로 Ajax를 활용한 콜백 함수로 비동기통신 처리 방식--%>
         $.ajax({
         type:'GET',
         url: '/comments?bno=' + bno,
@@ -309,13 +307,8 @@
         $("#commentList").html(toHtml(result));
     }
     }
-    // ,
-    //     error: function(){
-    //     alert("error");
-    // }
     });
     }
-
         showList(bno);
 
         $("#sendBtn").click(function(){

@@ -5,11 +5,19 @@ import com.example.greenspringboot.comment.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private  CommentRepository commentRepository;
+
+
+    @Override
+    public List<Comment> list(Integer bno){
+        return commentRepository.findByBno(bno);
+    }
 
     @Override
     public void write(CommentDto commentDto) {
