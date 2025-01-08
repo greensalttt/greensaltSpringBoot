@@ -213,7 +213,7 @@
                 <input type="text" name="comment" placeholder="댓글을 남겨보세요.">
                 <div id="buttonContainer">
                     <button id="sendBtn" type="button">작성</button>
-                    <button id="modBtn" type="button" style="display: none;">수정</button>
+<%--                    <button id="modBtn" type="button" style="display: none;">수정</button>--%>
                 </div>
         </div>
     </c:if>
@@ -321,6 +321,7 @@
         data: JSON.stringify({bno: bno, comment: comment}),
         success: function(){
         alert("댓글이 등록되었습니다.");
+            $("input[name=comment]").val('');  // 댓글 입력란 초기화
         showList(bno);
     },
         error: function(){
