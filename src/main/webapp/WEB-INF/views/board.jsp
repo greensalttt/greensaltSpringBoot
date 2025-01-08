@@ -242,10 +242,6 @@
             return true;
         }
 
-        <%--$("#writeNewBtn").on("click", function(){--%>
-        <%--    location.href="<c:url value='/board/write'/>";--%>
-        <%--});--%>
-
         $("#writeBtn").on("click", function(){
             let form = $("#form");
             form.attr("action", "<c:url value='/board/write'/>");
@@ -434,8 +430,6 @@
                     tmp += '<li data-cno="' + comment.cno
                     tmp += '" data-pcno="' + comment.pcno
                     tmp += '" data-bno="' + comment.bno + '">'
-                    if(comment.cno != comment.pcno)
-                        tmp += 'ㄴ'
 
                     tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'
                     tmp += '<span class="comment">' + comment.comment + " " + '</span>'
