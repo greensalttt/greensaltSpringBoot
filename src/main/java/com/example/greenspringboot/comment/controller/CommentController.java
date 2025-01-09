@@ -3,6 +3,8 @@ import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -28,6 +30,15 @@ public class CommentController {
         System.out.println("commentDto = " + commentDto);
         commentService.write(commentDto);
 
+        return "redirect:/board";
+    }
+
+
+    @PatchMapping("/comments/{cno}")
+    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
+        commentDto.setCId((Integer) session.getAttribute("cId"));
+        commentDto.setCno(cno);
+        commentService.modify(commentDto, cno);
         return "redirect:/board";
     }
 }

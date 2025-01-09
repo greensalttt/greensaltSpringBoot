@@ -15,7 +15,7 @@ public class CommentDto {
     private String  commenter;
     private Date    regDt;
     private Date    upDt;
-    private Integer deleted;
+    private Boolean deleted;
 
 
 }

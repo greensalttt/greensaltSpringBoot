@@ -28,7 +28,47 @@ public class CommentServiceImpl implements CommentService{
                 .comment(commentDto.getComment())
                 .commenter(commentDto.getCommenter())
                 .build();
-        // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
+        // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         commentRepository.save(comment);
     }
+
+    @Override
+    public void modify(CommentDto commentDto, Integer cno) {
+        Comment comment = commentRepository.findByCno(cno);
+        toEntity(comment, commentDto);
+        commentRepository.save(comment);
+    }
+
+    @Override
+    public void toEntity(Comment comment, CommentDto commentDto) {
+        if (commentDto.getCno() != null) {
+            comment.setBno(commentDto.getBno());
+        }
+        if (commentDto.getCId() != null) {
+            comment.setCId(commentDto.getCId());
+        }
+        if (commentDto.getBno() != null) {
+            comment.setBno(commentDto.getBno());
+        }
+        if (commentDto.getPcno() != null) {
+            comment.setPcno(commentDto.getPcno());
+        }
+        if (commentDto.getComment() != null) {
+            comment.setComment(commentDto.getComment());
+        }
+        if (commentDto.getCommenter() != null) {
+            comment.setCommenter(commentDto.getCommenter());
+        }
+        if (commentDto.getRegDt() != null) {
+            comment.setRegDt(commentDto.getRegDt());
+        }
+        if (commentDto.getUpDt() != null) {
+            comment.setUpDt(commentDto.getUpDt());
+        }
+        if (commentDto.getDeleted() != null) {
+            comment.setDeleted(commentDto.getDeleted());
+        }
+    }
+
+
 }
