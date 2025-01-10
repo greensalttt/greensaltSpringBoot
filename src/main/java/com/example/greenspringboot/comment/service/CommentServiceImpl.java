@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void toEntity(Comment comment, CommentDto commentDto) {
         if (commentDto.getCno() != null) {
-            comment.setBno(commentDto.getBno());
+            comment.setCno(commentDto.getCno());
         }
         if (commentDto.getCId() != null) {
             comment.setCId(commentDto.getCId());

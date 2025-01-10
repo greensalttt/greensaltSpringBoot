@@ -35,9 +35,10 @@ public class CommentController {
 
 
     @PatchMapping("/comments/{cno}")
-    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
+    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
         commentDto.setCId((Integer) session.getAttribute("cId"));
         commentDto.setCno(cno);
+        commentDto.setBno(bno);
         commentService.modify(commentDto, cno);
         return "redirect:/board";
     }
