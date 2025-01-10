@@ -213,7 +213,7 @@
                 <input type="text" name="comment" placeholder="댓글을 남겨보세요.">
                 <div id="buttonContainer">
                     <button id="sendBtn" type="button">작성</button>
-<%--                    <button id="modBtn" type="button" style="display: none;">수정</button>--%>
+                    <button id="modBtn" type="button" style="display: none;">수정</button>
                 </div>
         </div>
     </c:if>
