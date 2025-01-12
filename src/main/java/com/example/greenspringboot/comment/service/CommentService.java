@@ -10,6 +10,8 @@ public interface CommentService{
     void write(CommentDto commentdto);
     void modify(CommentDto commentdto, Integer cno);
     void toEntity(Comment comment, CommentDto commentDto);
+    void remove(CommentDto commentDto, Integer cno);
+
 
     List<Comment> list(Integer bno);
 }

@@ -46,6 +46,8 @@ public class BoardServiceImpl implements BoardService{
         return toDto(board);
     }
 
+    //삭제
+
     @Override
     public void delete(Integer cId, Integer bno){
         Board board = boardRepository.findBycIdAndBno(cId, bno);

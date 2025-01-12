@@ -32,14 +32,19 @@ public class CommentController {
 
         return "redirect:/board";
     }
-
-
+    // 댓글 수정
     @PatchMapping("/comments/{cno}")
-    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
-        commentDto.setCId((Integer) session.getAttribute("cId"));
+    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto) {
         commentDto.setCno(cno);
-        commentDto.setBno(bno);
         commentService.modify(commentDto, cno);
+        return "redirect:/board";
+    }
+
+//    댓글 삭제
+    @DeleteMapping("/comments/{cno}")
+    public String remove(@PathVariable Integer cno, @RequestBody CommentDto commentDto) {
+        commentDto.setCno(cno);
+        commentService.remove(commentDto, cno);
         return "redirect:/board";
     }
 }

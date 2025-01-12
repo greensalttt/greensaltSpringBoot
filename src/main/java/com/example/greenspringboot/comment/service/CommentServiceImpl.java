@@ -1,4 +1,5 @@
 package com.example.greenspringboot.comment.service;
+import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.repository.CommentRepository;
@@ -35,6 +36,14 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void modify(CommentDto commentDto, Integer cno) {
         Comment comment = commentRepository.findByCno(cno);
+        toEntity(comment, commentDto);
+        commentRepository.save(comment);
+    }
+
+    @Override
+    public void remove(CommentDto commentDto, Integer cno) {
+        Comment comment = commentRepository.findByCno(cno);
+        comment.setDeleted(true);
         toEntity(comment, commentDto);
         commentRepository.save(comment);
     }
