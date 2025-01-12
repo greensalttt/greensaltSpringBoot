@@ -41,10 +41,9 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void remove(CommentDto commentDto, Integer cno) {
+    public void remove(Integer cno) {
         Comment comment = commentRepository.findByCno(cno);
         comment.setDeleted(true);
-        toEntity(comment, commentDto);
         commentRepository.save(comment);
     }
 

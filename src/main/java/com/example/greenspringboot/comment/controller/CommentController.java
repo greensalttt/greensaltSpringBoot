@@ -42,9 +42,9 @@ public class CommentController {
 
 //    댓글 삭제
     @DeleteMapping("/comments/{cno}")
-    public String remove(@PathVariable Integer cno, @RequestBody CommentDto commentDto) {
-        commentDto.setCno(cno);
-        commentService.remove(commentDto, cno);
+    public String remove(@PathVariable Integer cno) {
+//        commentDto.setCno(cno);
+        commentService.remove(cno);
         return "redirect:/board";
     }
 }
