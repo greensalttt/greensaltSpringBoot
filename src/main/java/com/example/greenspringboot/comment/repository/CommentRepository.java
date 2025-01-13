@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
-    List<Comment> findByBno(Integer bno);
+    List<Comment> findByBnoAndDeletedFalse(Integer bno);
 
     Comment findByCno(Integer cno);
 

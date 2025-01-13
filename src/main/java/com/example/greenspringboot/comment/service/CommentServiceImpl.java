@@ -17,7 +17,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<Comment> list(Integer bno){
-        return commentRepository.findByBno(bno);
+        return commentRepository.findByBnoAndDeletedFalse(bno);
     }
 
     @Override
