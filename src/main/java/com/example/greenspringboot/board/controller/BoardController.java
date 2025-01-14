@@ -115,10 +115,10 @@ public class BoardController {
     }
 
     @PostMapping("/remove")
-    public String delete(BoardDto boardDto, HttpSession session, Integer bno, RedirectAttributes rattr){
+    public String remove(BoardDto boardDto, HttpSession session, Integer bno, RedirectAttributes rattr){
         Integer cId = (Integer) session.getAttribute("cId");
         boardDto.setCId(cId);
-        boardService.delete(cId, bno);
+        boardService.remove(cId, bno);
         rattr.addFlashAttribute("msg", "DEL_OK");
         return "redirect:/board/list";
     }

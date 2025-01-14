@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService{
     //삭제
 
     @Override
-    public void delete(Integer cId, Integer bno){
+    public void remove(Integer cId, Integer bno){
         Board board = boardRepository.findBycIdAndBno(cId, bno);
         board.setDeleted(true);
         boardRepository.save(board);
