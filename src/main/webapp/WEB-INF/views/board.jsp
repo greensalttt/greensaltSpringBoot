@@ -333,14 +333,19 @@
         $("#commentList").on("click", ".modBtn", function () {
         let cno = $(this).parent().attr("data-cno");
             let comment = $("span.comment", $(this).parent()).text();
+            // let bno = $(this).attr("data-bno");  // 댓글의 bno
         $("input[name=comment]").val(comment);
             $("#modBtn").show();
             $("#modBtn").attr("data-cno", cno);
+            // $("#modBtn").attr("data-bno", bno);  // 수정 버튼에 bno 설정
     });
+
 
         $("#modBtn").click(function(){
         let cno = $(this).attr("data-cno");
         let comment = $("input[name=comment]").val();
+            // let bno = $(this).attr("data-bno");  // 수정 버튼에 설정된 bno 값 가져오기
+
 
         if(comment.trim() == ''){
         alert("댓글을 입력해주세요.");
@@ -351,9 +356,11 @@
         type: 'PATCH',
         url: '/comments/' + cno,
         headers: {"content-type": "application/json"},
-        data: JSON.stringify({cno: cno, comment: comment}),
+        // data: JSON.stringify({cno: cno, comment: comment, bno: bno }),
+            data: JSON.stringify({cno: cno, comment: comment}),
         success: function(){
         alert("댓글이 수정됐습니다.");
+            $("input[name=comment]").val('');  // 댓글 입력란 초기화
         showList(bno);
     },
         error: function(){

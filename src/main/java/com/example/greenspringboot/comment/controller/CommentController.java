@@ -1,6 +1,8 @@
 package com.example.greenspringboot.comment.controller;
 import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.comment.dto.CommentHistDto;
 import com.example.greenspringboot.comment.entity.Comment;
+import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +29,6 @@ public class CommentController {
         commentDto.setCId((Integer) session.getAttribute("cId"));
         commentDto.setCommenter((String) session.getAttribute("cNick"));
         commentDto.setBno(bno);
-        System.out.println("commentDto = " + commentDto);
         commentService.write(commentDto);
 
         return "redirect:/board";
@@ -35,7 +36,10 @@ public class CommentController {
     // 댓글 수정
     @PatchMapping("/comments/{cno}")
     public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto) {
+//        System.out.println("bno번호입니다: " + commentDto.getBno());
         commentDto.setCno(cno);
+//        commentDto.setBno(bno);
+//        System.out.println("bno번호입니다2: " + commentDto.getBno());
         commentService.modify(commentDto, cno);
         return "redirect:/board";
     }
@@ -43,7 +47,6 @@ public class CommentController {
 //    댓글 삭제
     @DeleteMapping("/comments/{cno}")
     public String remove(@PathVariable Integer cno) {
-//        commentDto.setCno(cno);
         commentService.remove(cno);
         return "redirect:/board";
     }
