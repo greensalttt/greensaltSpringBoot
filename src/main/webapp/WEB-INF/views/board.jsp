@@ -356,8 +356,8 @@
         type: 'PATCH',
         url: '/comments/' + cno,
         headers: {"content-type": "application/json"},
-        // data: JSON.stringify({cno: cno, comment: comment, bno: bno }),
-            data: JSON.stringify({cno: cno, comment: comment}),
+        data: JSON.stringify({cno: cno, comment: comment, bno: bno }),
+        //     data: JSON.stringify({cno: cno, comment: comment}),
         success: function(){
         alert("댓글이 수정됐습니다.");
             $("input[name=comment]").val('');  // 댓글 입력란 초기화

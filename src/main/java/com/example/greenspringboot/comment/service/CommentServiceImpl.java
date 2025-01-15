@@ -74,10 +74,12 @@ public class CommentServiceImpl implements CommentService{
     private void addCommentHist(CommentDto commentDto, String oldValue, String newValue, Comment comment) {
         if (!oldValue.equals(newValue)) {
 
+            System.out.println(commentDto);
+
             CommentHistDto commentHistDto = CommentHistDto.builder()
                     .cno(commentDto.getCno())
-                    .cId(comment.getCId())
-                    .bno(comment.getBno())
+                    .cId(commentDto.getCId())
+                    .bno(commentDto.getBno())
                     .coBf(oldValue)
                     .coAf(newValue)
                     .build();

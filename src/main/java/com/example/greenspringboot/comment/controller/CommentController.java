@@ -35,11 +35,10 @@ public class CommentController {
     }
     // 댓글 수정
     @PatchMapping("/comments/{cno}")
-    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto) {
-//        System.out.println("bno번호입니다: " + commentDto.getBno());
+    public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
+        commentDto.setCId((Integer) session.getAttribute("cId"));
         commentDto.setCno(cno);
 //        commentDto.setBno(bno);
-//        System.out.println("bno번호입니다2: " + commentDto.getBno());
         commentService.modify(commentDto, cno);
         return "redirect:/board";
     }
