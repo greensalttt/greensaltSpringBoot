@@ -1,9 +1,7 @@
 package com.example.greenspringboot.comment.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Builder
+@ToString
 public class Comment {
     //    pk값 설정
     @Id
@@ -27,7 +26,7 @@ public class Comment {
     @Column(name="bno", nullable = false)
     private Integer bno;
 
-    @Column(name="pcno", nullable = false)
+    @Column(name="pcno")
     private Integer pcno;
 
     @Column(name="comment", nullable = false)
@@ -39,7 +38,6 @@ public class Comment {
     @Builder.Default
     @Column(name= "reg_dt", nullable = false)
     private Date regDt = new Date();
-
 
     @Builder.Default
     @Column(name= "up_dt", nullable = false)

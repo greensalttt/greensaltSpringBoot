@@ -25,26 +25,22 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.findByBnoAndDeletedFalse(bno);
     }
 
-//    @Override
-//    public List<CommentDto> list(Integer bno) {
-//        // Comment 엔티티 리스트를 가져온 후, 이를 CommentDto로 변환
-//        return commentRepository.findByBnoAndDeletedFalse(bno).stream()
-//                .map(this::toDto)  // Comment를 CommentDto로 변환
-//                .collect(Collectors.toList());  // 리스트로 수집
-//    }
-
 
     @Override
     public void write(CommentDto commentDto) {
         Comment comment = Comment.builder()
-                .cno(commentDto.getCno())
                 .cId(commentDto.getCId())
                 .bno(commentDto.getBno())
+                .pcno(commentDto.getPcno())
                 .comment(commentDto.getComment())
                 .commenter(commentDto.getCommenter())
                 .build();
+
         // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         commentRepository.save(comment);
+        commentRepository.flush();
+
+        System.out.println("comment:" + comment);
     }
 
     @Override
