@@ -41,7 +41,6 @@ public class Comment {
 
     @Builder.Default
     @Column(name= "up_dt", nullable = false)
-//    private LocalDateTime upDt = LocalDateTime.now();
     private Date upDt = new Date();
 
     //    기본값 설정

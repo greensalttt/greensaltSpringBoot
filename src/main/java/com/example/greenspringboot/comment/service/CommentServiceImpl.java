@@ -21,8 +21,12 @@ public class CommentServiceImpl implements CommentService{
 
 
     @Override
-    public List<Comment> list(Integer bno){
-        return commentRepository.findByBnoAndDeletedFalse(bno);
+//    public List<Comment> list(Integer bno){
+//        return commentRepository.findByBnoAndDeletedFalse(bno);
+//    }
+
+        public List<Comment> list(Integer bno){
+        return commentRepository.findAllCommentsWithPcnoOrCno(bno);
     }
 
 
