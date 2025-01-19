@@ -434,7 +434,8 @@
                     tmp += '<li data-cno="' + comment.cno
                     tmp += '" data-pcno="' + comment.pcno
                     tmp += '" data-bno="' + comment.bno + '">'
-                    if(comment.cno != comment.pcno)
+                    // if(comment.cno != comment.pcno)
+                    if(comment.pcno != null)
                         tmp += 'ㄴ'
 
                     tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'
