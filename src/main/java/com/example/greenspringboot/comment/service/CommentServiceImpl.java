@@ -21,13 +21,13 @@ public class CommentServiceImpl implements CommentService{
 
 
     @Override
-//    public List<Comment> list(Integer bno){
-//        return commentRepository.findByBnoAndDeletedFalse(bno);
-//    }
-
-        public List<Comment> list(Integer bno){
-        return commentRepository.findAllCommentsWithPcnoOrCno(bno);
+    public List<Comment> list(Integer bno){
+        return commentRepository.findByBnoAndDeletedFalse(bno);
     }
+
+//        public List<Comment> list(Integer bno){
+//        return commentRepository.findAllCommentsWithPcnoOrCno(bno);
+//    }
 
 
     @Override
@@ -42,7 +42,6 @@ public class CommentServiceImpl implements CommentService{
 
         // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         commentRepository.save(comment);
-        commentRepository.flush();
 
         System.out.println("comment:" + comment);
     }

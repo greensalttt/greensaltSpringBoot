@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
-//    List<Comment> findByBnoAndDeletedFalse(Integer bno);
+    List<Comment> findByBnoAndDeletedFalse(Integer bno);
 
-    @Query("SELECT c FROM Comment c WHERE c.bno = :bno AND c.deleted = false ORDER BY COALESCE(c.pcno, c.cno) ASC")
-    List<Comment> findAllCommentsWithPcnoOrCno(Integer bno);
+//    @Query("SELECT c FROM Comment c WHERE c.bno = :bno AND c.deleted = false ORDER BY COALESCE(c.pcno, c.cno) ASC")
+//    List<Comment> findAllCommentsWithPcnoOrCno(Integer bno);
 
     Comment findByCno(Integer cno);
 
