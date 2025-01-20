@@ -365,8 +365,8 @@
 
         $("#wrtRepBtn").click(function(){
         let comment = $("input[name=replyComment]").val();
-        // let pcno = $("#replyForm").parent().attr("data-pcno");
-        let pcno = $("#replyForm").parent().attr("data-cno");
+        let pcno = $("#replyForm").parent().attr("data-pcno");
+        // let pcno = $("#replyForm").parent().attr("data-cno");
 
             console.log(pcno);
 
@@ -435,7 +435,8 @@
                     tmp += '" data-pcno="' + comment.pcno
                     tmp += '" data-bno="' + comment.bno + '">'
                     // if(comment.cno != comment.pcno)
-                    if(comment.pcno != null)
+                    if (comment.cno != comment.pcno && comment.pcno !== null)
+                    // if(comment.pcno != null)
                         tmp += 'ㄴ'
 
                     tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'

@@ -26,7 +26,7 @@ public class CommentServiceImpl implements CommentService{
 //    }
 
         public List<Comment> list(Integer bno){
-        return commentRepository.findAllCommentsWithReplies(bno);
+        return commentRepository.findByBnoAndDeletedFalse(bno);
     }
 
 
