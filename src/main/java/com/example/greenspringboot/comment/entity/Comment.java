@@ -12,6 +12,12 @@ import java.util.Date;
 @Data
 @Builder
 @ToString
+
+/*MyBatis는 SQL로 쿼리를 작성하여 실행하는 방식
+JPA는 객체 관계 매핑 중심으로 쿼리를 자동 생성
+따라서 동일한 쿼리도 MyBatis와 JPA에서 작성되는 SQL은 다르다.
+특히 부모 자식 관계에서*/
+
 public class Comment {
     //    pk값 설정
     @Id
@@ -47,5 +53,4 @@ public class Comment {
     @Builder.Default
     @Column(name = "deleted", nullable = false)
     private Boolean deleted = false; // 기본값 false
-
 }

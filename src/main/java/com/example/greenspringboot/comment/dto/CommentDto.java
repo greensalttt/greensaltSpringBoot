@@ -18,6 +18,4 @@ public class CommentDto {
     private Date    regDt;
     private Date    upDt;
     private Boolean deleted;
-
-
 }

@@ -26,12 +26,14 @@ public class CommentServiceImpl implements CommentService{
 //    }
 
         public List<Comment> list(Integer bno){
-        return commentRepository.findByBnoAndDeletedFalse(bno);
+        return commentRepository.findAllCommentsWithReplies(bno);
     }
 
 
     @Override
     public void write(CommentDto commentDto) {
+
+
         Comment comment = Comment.builder()
                 .cId(commentDto.getCId())
                 .bno(commentDto.getBno())
@@ -44,7 +46,10 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.save(comment);
 
         System.out.println("comment:" + comment);
+        System.out.println("commentDto:" + commentDto);
+
     }
+
 
     @Override
     public void modify(CommentDto commentDto, Integer cno) {
@@ -103,50 +108,50 @@ public class CommentServiceImpl implements CommentService{
     }
 
 
-    @Override
-    public void toEntity(Comment comment, CommentDto commentDto) {
-        if (commentDto.getCno() != null) {
-            comment.setCno(commentDto.getCno());
-        }
-        if (commentDto.getCId() != null) {
-            comment.setCId(commentDto.getCId());
-        }
-        if (commentDto.getBno() != null) {
-            comment.setBno(commentDto.getBno());
-        }
-        if (commentDto.getPcno() != null) {
-            comment.setPcno(commentDto.getPcno());
-        }
-        if (commentDto.getComment() != null) {
-            comment.setComment(commentDto.getComment());
-        }
-        if (commentDto.getCommenter() != null) {
-            comment.setCommenter(commentDto.getCommenter());
-        }
-        if (commentDto.getRegDt() != null) {
-            comment.setRegDt(commentDto.getRegDt());
-        }
-        if (commentDto.getUpDt() != null) {
-            comment.setUpDt(commentDto.getUpDt());
-        }
-        if (commentDto.getDeleted() != null) {
-            comment.setDeleted(commentDto.getDeleted());
-        }
-    }
+//    @Override
+//    public void toEntity(Comment comment, CommentDto commentDto) {
+//        if (commentDto.getCno() != null) {
+//            comment.setCno(commentDto.getCno());
+//        }
+//        if (commentDto.getCId() != null) {
+//            comment.setCId(commentDto.getCId());
+//        }
+//        if (commentDto.getBno() != null) {
+//            comment.setBno(commentDto.getBno());
+//        }
+//        if (commentDto.getPcno() != null) {
+//            comment.setPcno(commentDto.getPcno());
+//        }
+//        if (commentDto.getComment() != null) {
+//            comment.setComment(commentDto.getComment());
+//        }
+//        if (commentDto.getCommenter() != null) {
+//            comment.setCommenter(commentDto.getCommenter());
+//        }
+//        if (commentDto.getRegDt() != null) {
+//            comment.setRegDt(commentDto.getRegDt());
+//        }
+//        if (commentDto.getUpDt() != null) {
+//            comment.setUpDt(commentDto.getUpDt());
+//        }
+//        if (commentDto.getDeleted() != null) {
+//            comment.setDeleted(commentDto.getDeleted());
+//        }
+//    }
 
-    @Override
-    public CommentDto toDto(Comment comment) {
-        return CommentDto.builder()
-                .cno(comment.getCno())
-                .cId(comment.getCId())
-                .bno(comment.getBno())
-                .pcno(comment.getPcno())
-                .comment(comment.getComment())
-                .commenter(comment.getCommenter())
-                .regDt(comment.getRegDt())
-                .upDt(comment.getUpDt())
-                .deleted(comment.getDeleted())
-                .build();
-    }
+//    @Override
+//    public CommentDto toDto(Comment comment) {
+//        return CommentDto.builder()
+//                .cno(comment.getCno())
+//                .cId(comment.getCId())
+//                .bno(comment.getBno())
+//                .pcno(comment.getPcno())
+//                .comment(comment.getComment())
+//                .commenter(comment.getCommenter())
+//                .regDt(comment.getRegDt())
+//                .upDt(comment.getUpDt())
+//                .deleted(comment.getDeleted())
+//                .build();
+//    }
 
 }
