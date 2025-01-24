@@ -23,34 +23,29 @@ public class Comment {
     @Id
 //    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cno", nullable = false)
     private Integer cno;
 
-    @Column(name="c_id", nullable = false)
+    @Column(name="c_id")
     private Integer cId;
 
-    @Column(name="bno", nullable = false)
     private Integer bno;
 
-    @Column(name="pcno")
     private Integer pcno;
 
-    @Column(name="comment", nullable = false)
     private String comment;
 
-    @Column(name="commenter", nullable = false)
     private String commenter;
 
     @Builder.Default
-    @Column(name= "reg_dt", nullable = false)
+    @Column(name= "reg_dt")
     private Date regDt = new Date();
 
     @Builder.Default
-    @Column(name= "up_dt", nullable = false)
+    @Column(name= "up_dt")
     private Date upDt = new Date();
 
     //    기본값 설정
     @Builder.Default
-    @Column(name = "deleted", nullable = false)
+    @Column(name = "deleted")
     private Boolean deleted = false; // 기본값 false
 }
