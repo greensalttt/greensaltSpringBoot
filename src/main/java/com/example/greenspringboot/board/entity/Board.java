@@ -48,6 +48,6 @@ public class Board {
 
     @Builder.Default
     @Column(name= "up_dt", nullable = false)
- private Date upDt = new Date();
+    private Date upDt = new Date();
 
 }

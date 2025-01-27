@@ -96,7 +96,7 @@ public class Cust {
     private Date regDt = new Date();
 
     @Builder.Default
-    private LocalDateTime login_dt = LocalDateTime.now();
+    private Date login_dt = new Date();
 
     @Builder.Default
     private int visit_cnt = 0;
@@ -105,13 +105,13 @@ public class Cust {
     private int tot_amt = 0;
 
     @Builder.Default
-    private LocalDateTime frst_reg_dt = LocalDateTime.now();
+    private Date frst_reg_dt = new Date();
 
     @Builder.Default
     private String frst_reg_id = "minwook";
 
     @Builder.Default
-    private LocalDateTime last_mod_dt = LocalDateTime.now();
+    private Date last_mod_dt = new Date();
 
     @Builder.Default
     private String last_mod_id = "minwook";

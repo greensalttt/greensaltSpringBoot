@@ -47,5 +47,4 @@ public class BoardHist {
 
     @Builder.Default
     private String last_mod_id = "minwook";
-
 }
