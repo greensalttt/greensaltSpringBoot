@@ -3,7 +3,9 @@ package com.example.greenspringboot.board.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "board_hist")
@@ -20,7 +22,6 @@ public class BoardHist {
     @Column(name = "b_hist_num", nullable = false)
     private Integer bHistNum;
 
-    @Column(name = "bno", nullable = false)
     private Integer bno;
 
     @Column(name = "c_id", nullable = false)
@@ -36,13 +37,13 @@ public class BoardHist {
     private String bAf;
 
     @Builder.Default
-    private LocalDateTime frst_reg_dt = LocalDateTime.now();
+    private Date frst_reg_dt = new Date();
 
     @Builder.Default
     private String frst_reg_id = "minwook";
 
     @Builder.Default
-    private LocalDateTime last_mod_dt = LocalDateTime.now();
+    private Date last_mod_dt = new Date();
 
     @Builder.Default
     private String last_mod_id = "minwook";

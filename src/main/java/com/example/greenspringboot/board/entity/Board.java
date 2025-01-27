@@ -18,19 +18,15 @@ public class Board {
     @Id
 //    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bno", nullable = false)
     private Integer bno;
 
     @Column(name="c_id", nullable = false)
     private Integer cId;
 
-    @Column(name="title", nullable = false)
     private String title;
 
-    @Column(name="content", nullable = false)
     private String content;
 
-    @Column(name="writer", nullable = false)
     private String writer;
 
     @Builder.Default
@@ -43,7 +39,6 @@ public class Board {
 
     //    기본값 설정
     @Builder.Default
-    @Column(name = "deleted", nullable = false)
     private Boolean deleted = false; // 기본값 false
 
     @Builder.Default
@@ -53,7 +48,6 @@ public class Board {
 
     @Builder.Default
     @Column(name= "up_dt", nullable = false)
-//    private LocalDateTime upDt = LocalDateTime.now();
-    private Date upDt = new Date();
+ private Date upDt = new Date();
 
 }
