@@ -83,6 +83,7 @@ public class CustServiceImpl implements CustService {
         return Integer.toString(authNumber);
     }
 
+    @Transactional
     @Override
     public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
             /*db에 있는 이메일을 Dto에 대입*/
@@ -98,6 +99,7 @@ public class CustServiceImpl implements CustService {
             HttpSession session = request.getSession();
             session.setAttribute("cId", custDto.getCId());
             session.setAttribute("cNick", custDto.getCNick());
+            custRepository.incrementViSitCnt(cEmail);
         return true;
     }
 
@@ -118,6 +120,7 @@ public class CustServiceImpl implements CustService {
         session.setAttribute("cBirth", custDto.getCBirth());
         session.setAttribute("smsAgr", custDto.getSmsAgr());
         session.setAttribute("emailAgr", custDto.getEmailAgr());
+        session.setAttribute("visitCnt", custDto.getVisitCnt());
 
         Date regDate = custDto.getRegDt();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -237,6 +240,7 @@ public class CustServiceImpl implements CustService {
                 .cDetA(cust.getCDetA())
                 .smsAgr(cust.getSmsAgr())
                 .emailAgr(cust.getEmailAgr())
+                .visitCnt(cust.getVisitCnt())
                 .regDt(cust.getRegDt())
                 .build(); // 빌더를 사용해 객체 생성
     }

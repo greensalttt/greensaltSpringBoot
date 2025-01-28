@@ -3,6 +3,9 @@ package com.example.greenspringboot.cust.repository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -15,7 +18,6 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
 //    메서드에서 Id는 기본키
     Cust findBycId(int cId);
 
-
 //  이메일 중복
     boolean existsBycEmail(String cEmail);
 //닉네임 중복
@@ -23,6 +25,11 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
 //    로그인 이메일 찾기
 
     Cust findBycEmail(String cEmail);
+
+    @Modifying
+    @Query("UPDATE Cust SET visitCnt = visitCnt + 1 WHERE cEmail = :cEmail")
+    int incrementViSitCnt(@Param("cEmail") String cEmail);
+
 
 
 }

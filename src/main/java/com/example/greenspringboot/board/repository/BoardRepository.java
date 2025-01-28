@@ -48,7 +48,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 게시글 조회 시 조회수(view_cnt) 1 증가
     @Modifying
-    @Query("UPDATE Board b SET b.viewCnt = b.viewCnt + 1 WHERE b.bno = :bno")
+//    @Query("UPDATE Board b SET b.viewCnt = b.viewCnt + 1 WHERE b.bno = :bno")
+    @Query("UPDATE Board SET viewCnt = viewCnt + 1 WHERE bno = :bno")
     int incrementViewCnt(@Param("bno") Integer bno);
 
 }

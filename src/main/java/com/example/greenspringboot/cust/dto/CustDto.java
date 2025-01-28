@@ -25,7 +25,7 @@ public class CustDto {
     private String emailAgr;
     private Date regDt;
     private Date login_dt;
-    private Integer visit_cnt;
+    private Integer visitCnt;
     private String tot_amt;
     private Date frst_reg_dt;
     private String frst_reg_id;

@@ -95,8 +95,8 @@
         <div class="sp">
             <span class="date">방문</span>
             <span class="ma2">
-<%--                <%=session.getAttribute("visit_cnt")%>회--%>
-                0회
+                <%=session.getAttribute("visitCnt")%>회
+<%--                0회--%>
             </span>
         </div>
         <div class="sp">

@@ -92,14 +92,15 @@ public class Cust {
     private String emailAgr = "N";
 
     @Builder.Default
-    @Column(name= "reg_dt", nullable = false)
+    @Column(name= "reg_dt")
     private Date regDt = new Date();
 
     @Builder.Default
     private Date login_dt = new Date();
 
     @Builder.Default
-    private int visit_cnt = 0;
+    @Column(name= "visit_cnt")
+    private int visitCnt = 0;
 
     @Builder.Default
     private int tot_amt = 0;
@@ -115,7 +116,6 @@ public class Cust {
 
     @Builder.Default
     private String last_mod_id = "minwook";
-
 }
 
 
