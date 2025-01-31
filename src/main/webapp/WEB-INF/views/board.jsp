@@ -255,6 +255,7 @@
 
             $("#modifyBtn").on("click", function(){
                 $("#commentSection").hide();
+                $("#removeBtn").hide();
                 let form = $("#form");
                 let isReadonly = $("input[name=title]").attr('readonly');
 
