@@ -34,10 +34,16 @@ public class CommentServiceImpl implements CommentService{
     public void write(CommentDto commentDto) {
 
 
+        Comment parentComment = null;
+        if (commentDto.getPcno() != null) {
+            parentComment = commentRepository.findById(commentDto.getPcno()).orElse(null);
+        }
+
+        // comment 엔티티 빌드
         Comment comment = Comment.builder()
                 .cId(commentDto.getCId())
                 .bno(commentDto.getBno())
-                .pcno(commentDto.getPcno())
+                .parentComment(parentComment)  // parentComment가 null일 수도 있음
                 .comment(commentDto.getComment())
                 .commenter(commentDto.getCommenter())
                 .build();

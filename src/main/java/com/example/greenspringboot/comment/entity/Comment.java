@@ -30,7 +30,12 @@ public class Comment {
 
     private Integer bno;
 
-    private Integer pcno;
+//    private Integer pcno;
+
+    // 부모 댓글을 참조하는 필드 (자기 참조 관계)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pcno")  // 자기 테이블 내의 pcno 컬럼을 외래 키로 사용
+    private Comment parentComment;
 
     private String comment;
 
@@ -44,8 +49,6 @@ public class Comment {
     @Column(name= "up_dt")
     private Date upDt = new Date();
 
-    //    기본값 설정
     @Builder.Default
-    @Column(name = "deleted")
-    private Boolean deleted = false; // 기본값 false
+    private Boolean deleted = false;
 }
