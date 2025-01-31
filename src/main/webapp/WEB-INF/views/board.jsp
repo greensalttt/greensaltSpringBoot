@@ -186,9 +186,7 @@
         <c:if test="${mode eq 'new'}">
             <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
         </c:if>
-        <c:if test="${mode ne 'new'}">
-            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
-        </c:if>
+
 
         <c:if test="${boardDto.CId == cId}">
             <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
