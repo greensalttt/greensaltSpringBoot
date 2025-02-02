@@ -176,7 +176,7 @@
 </script>
 
 <div class="container">
-    <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기"}</h2>
+    <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : ""}</h2>
     <form id="form" class="frm" action="" method="post">
         <input class="boardTitle" type="hidden" name="bno" value="${boardDto.bno}">
 
@@ -299,13 +299,12 @@
 
             comments.forEach(function(comment){
                 tmp += '<li data-cno="' + comment.cno
-                tmp += '" data-pcno="' + comment.pcno
+                tmp += '" data-parentComment="' + (comment.parentComment ? comment.parentComment.cno : '') + '"'
                 tmp += '" data-bno="' + comment.bno
                 tmp += '" data-comment="' + comment.comment
                 tmp += '" data-commenter="' + comment.commenter + '">'
 
-                if(comment.pcno != null)
-                  tmp += 'ㄴ'
+                if(comment.parentComment != null) tmp += 'ㄴ'
 
                 tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'
                 tmp += '<span class="comment">' + comment.comment + " " + '</span>'
@@ -327,14 +326,11 @@
                     $("#replyForm").css("display", "block");
 
                     let parentLi = $(this).parent();
-                    let parentLi2 = parentLi.data();
 
                     // 데이터 속성에서 댓글자(commenter)와 댓글 내용(comment) 가져오기
                     let commenter = parentLi.attr("data-commenter"); // 예: "John Doe"
                     // 댓글자 값을 #commenterText에 표시
                     $("#commenterText").text(commenter + "님에게 답글");
-
-                    console.log("parentLi2:", parentLi2); // pcno 값 확인
 
                 });
 
@@ -342,7 +338,13 @@
 
                 $("#wrtRepBtn").click(function(){
                     let comment = $("input[name=replyComment]").val();
-                    let pcno = $("#replyForm").parent().attr("data-cno");
+                    let parentComment = $("#replyForm").parent().attr("data-parentConmment.cno");
+
+                    // let parentComment = $("#replyForm").parent().attr("data-cno");
+
+                    // console.log("parentComment:", parentComment);
+                    console.log("parentComment:", parentComment);
+
 
 
                     if(comment.trim() == ''){
@@ -354,7 +356,7 @@
                         type: 'POST',
                         url: '/comments?bno=' + bno,
                         headers: {"content-type": "application/json"},
-                        data: JSON.stringify({bno: bno, comment: comment, pcno: pcno}),
+                        data: JSON.stringify({bno: bno, comment: comment, pcno: parentComment}),
                         success: function(){
                             alert("답글이 등록되었습니다");
                             showList(bno);

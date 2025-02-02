@@ -20,11 +20,7 @@ public class CommentServiceImpl implements CommentService{
     private CommentHistRepository commentHistRepository;
 
 
-//    @Override
-//    public List<Comment> list(Integer bno){
-//        return commentRepository.findByBnoAndDeletedFalse(bno);
-//    }
-
+    @Override
         public List<Comment> list(Integer bno){
         return commentRepository.findAllCommentsWithReplies(bno);
     }
@@ -50,10 +46,6 @@ public class CommentServiceImpl implements CommentService{
 
         // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         commentRepository.save(comment);
-
-        System.out.println("comment:" + comment);
-        System.out.println("commentDto:" + commentDto);
-
     }
 
 
