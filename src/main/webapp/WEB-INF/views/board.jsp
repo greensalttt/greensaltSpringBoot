@@ -298,13 +298,22 @@
             let tmp = "<ul>";
 
             comments.forEach(function(comment){
-                tmp += '<li data-cno="' + comment.cno
-                tmp += '" data-parentComment="' + (comment.parentComment ? comment.parentComment.cno : '') + '"'
-                tmp += '" data-bno="' + comment.bno
-                tmp += '" data-comment="' + comment.comment
-                tmp += '" data-commenter="' + comment.commenter + '">'
+                console.log("Parent Comment:", comment.parentComment);
 
-                if(comment.parentComment != null) tmp += 'ㄴ'
+                // 부모 댓글을 타고 올라가면서 최상위 부모를 찾는 로직
+                let topParentComment = comment;
+                while (topParentComment.parentComment !== null) {
+                    topParentComment = topParentComment.parentComment;
+                }
+
+
+                tmp += '<li data-cno="' + comment.cno;
+                tmp += '" data-parentComment="' + topParentComment.cno + '"'; // 최상위 부모의 cno를 사용
+                tmp += '" data-bno="' + comment.bno;
+                tmp += '" data-comment="' + comment.comment;
+                tmp += '" data-commenter="' + comment.commenter + '">';
+
+                if(comment.parentComment != null) tmp += 'ㄴ';
 
                 tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'
                 tmp += '<span class="comment">' + comment.comment + " " + '</span>'
@@ -324,8 +333,9 @@
                 $("#commentList").on("click", ".replyBtn", function () {
                     $("#replyForm").appendTo($(this).parent());
                     $("#replyForm").css("display", "block");
-
                     let parentLi = $(this).parent();
+                    console.log("parentLi:", parentLi.attr("data-parentComment"));
+
 
                     // 데이터 속성에서 댓글자(commenter)와 댓글 내용(comment) 가져오기
                     let commenter = parentLi.attr("data-commenter"); // 예: "John Doe"
@@ -338,11 +348,9 @@
 
                 $("#wrtRepBtn").click(function(){
                     let comment = $("input[name=replyComment]").val();
-                    let parentComment = $("#replyForm").parent().attr("data-parentConmment.cno");
-
+                    let parentComment = $("#replyForm").parent().attr("data-parentComment");
                     // let parentComment = $("#replyForm").parent().attr("data-cno");
 
-                    // console.log("parentComment:", parentComment);
                     console.log("parentComment:", parentComment);
 
 

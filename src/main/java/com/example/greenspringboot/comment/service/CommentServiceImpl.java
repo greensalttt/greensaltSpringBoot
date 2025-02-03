@@ -31,6 +31,8 @@ public class CommentServiceImpl implements CommentService{
 
 
         Comment parentComment = null;
+        System.out.println("pcno: " + commentDto.getPcno());
+
         if (commentDto.getPcno() != null) {
             parentComment = commentRepository.findById(commentDto.getPcno()).orElse(null);
         }
@@ -46,6 +48,8 @@ public class CommentServiceImpl implements CommentService{
 
         // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
         commentRepository.save(comment);
+
+        System.out.println("comment: " + comment);
     }
 
 
