@@ -32,10 +32,4 @@ public class CustDto {
     private Date last_mod_dt;
     private String last_mod_id;
 
-//    public CustDto(){}
-//
-//    public CustDto(String cPwd){
-//        this.cPwd = cPwd;
-//    }
-
 }

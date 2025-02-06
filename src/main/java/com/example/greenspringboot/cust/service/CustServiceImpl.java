@@ -89,14 +89,21 @@ public class CustServiceImpl implements CustService {
             /*db에 있는 이메일을 Dto에 대입*/
             Cust cust = custRepository.findBycEmail(cEmail);
             /*dto가 가져온 비밀번호와 내가 입력한 비밀번호와 같지 않다면 로그인 실패*/
-            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
+//            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(cPwd, custDto.getCPwd())) {
+//            if (!encoder.matches(cPwd, custDto.getCPwd())) {
+                if (!encoder.matches(cPwd, cust.getCPwd())) {
+
                 return false;
         }
-        /*예외 없으면 로그인 성공*/
-            HttpSession session = request.getSession();
+
+        CustDto custDto = CustDto.builder()  // 빌더 패턴을 사용하여 객체 생성
+                .cId(cust.getCId())
+                .cNick(cust.getCNick())
+                .build();  // 필요한 데이터만 DTO로 추출
+
+        HttpSession session = request.getSession();
             session.setAttribute("cId", custDto.getCId());
             session.setAttribute("cNick", custDto.getCNick());
             custRepository.incrementViSitCnt(cEmail);

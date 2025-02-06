@@ -306,7 +306,6 @@
                     topParentComment = topParentComment.parentComment;
                 }
 
-
                 tmp += '<li data-cno="' + comment.cno;
                 tmp += '" data-parentComment="' + topParentComment.cno + '"'; // 최상위 부모의 cno를 사용
                 tmp += '" data-bno="' + comment.bno;
