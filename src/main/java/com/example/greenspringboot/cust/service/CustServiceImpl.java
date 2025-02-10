@@ -4,7 +4,7 @@ import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
-import com.example.greenspringboot.cust.dto.CustHistDto;
+//import com.example.greenspringboot.cust.dto.CustHistDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -138,41 +138,6 @@ public class CustServiceImpl implements CustService {
 
 
 //    모델로 받아 뷰로 보여주는 방식 고민해보기
-//    @Transactional
-//    @Override
-//    public void custModify(int cId, CustDto custDto, CustDto oldData) {
-//        // 기존 회원 정보 조회
-//        Cust cust = custRepository.findBycId(cId);
-//        // 기존 dto를 엔티티로 변환
-//        toEntity(cust, custDto);
-//        // 바뀐 개인정보 저장
-//        custRepository.save(cust);
-//
-//        List<CustHistDto> custHistList = new ArrayList<>();
-//
-//        addCustHist(custHistList, custDto, "NICK", oldData.getCNick(), custDto.getCNick());
-//        addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
-//        addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
-//        addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
-//        addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
-//        addCustHist(custHistList, custDto, "PHN", oldData.getCPhn(), custDto.getCPhn());
-//        addCustHist(custHistList, custDto, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
-//        addCustHist(custHistList, custDto, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
-//        addCustHist(custHistList, custDto, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
-//
-//        for (CustHistDto custHistDto : custHistList) {
-//            // CustHistDto를 CustHist 엔티티로 변환
-//            CustHist custHist = new CustHist();
-//            custHist.setCId(custHistDto.getCId());
-//            custHist.setCCngCd(custHistDto.getCCngCd());
-//            custHist.setCBf(custHistDto.getCBf());
-//            custHist.setCAf(custHistDto.getCAf());
-//
-//            // 이력 저장
-//            custHistRepository.save(custHist);
-//        }
-//    }
-
     @Transactional
     @Override
     public void custModify(int cId, CustDto custDto, CustDto oldData) {
