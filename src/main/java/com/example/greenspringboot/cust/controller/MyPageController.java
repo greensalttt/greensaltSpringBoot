@@ -70,8 +70,8 @@ public class MyPageController {
 
             // 서비스 호출하여 정보 업데이트 및 이력 기록
             custService.custModify(cId, custDto, oldData);
-
             custService.updateSession(session, custDto);
+
             System.out.println("개인정보 변경 완료");
 
 

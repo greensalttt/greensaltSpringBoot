@@ -138,6 +138,41 @@ public class CustServiceImpl implements CustService {
 
 
 //    모델로 받아 뷰로 보여주는 방식 고민해보기
+//    @Transactional
+//    @Override
+//    public void custModify(int cId, CustDto custDto, CustDto oldData) {
+//        // 기존 회원 정보 조회
+//        Cust cust = custRepository.findBycId(cId);
+//        // 기존 dto를 엔티티로 변환
+//        toEntity(cust, custDto);
+//        // 바뀐 개인정보 저장
+//        custRepository.save(cust);
+//
+//        List<CustHistDto> custHistList = new ArrayList<>();
+//
+//        addCustHist(custHistList, custDto, "NICK", oldData.getCNick(), custDto.getCNick());
+//        addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
+//        addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
+//        addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
+//        addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
+//        addCustHist(custHistList, custDto, "PHN", oldData.getCPhn(), custDto.getCPhn());
+//        addCustHist(custHistList, custDto, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
+//        addCustHist(custHistList, custDto, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
+//        addCustHist(custHistList, custDto, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
+//
+//        for (CustHistDto custHistDto : custHistList) {
+//            // CustHistDto를 CustHist 엔티티로 변환
+//            CustHist custHist = new CustHist();
+//            custHist.setCId(custHistDto.getCId());
+//            custHist.setCCngCd(custHistDto.getCCngCd());
+//            custHist.setCBf(custHistDto.getCBf());
+//            custHist.setCAf(custHistDto.getCAf());
+//
+//            // 이력 저장
+//            custHistRepository.save(custHist);
+//        }
+//    }
+
     @Transactional
     @Override
     public void custModify(int cId, CustDto custDto, CustDto oldData) {
@@ -148,7 +183,7 @@ public class CustServiceImpl implements CustService {
         // 바뀐 개인정보 저장
         custRepository.save(cust);
 
-        List<CustHistDto> custHistList = new ArrayList<>();
+        List<CustHist> custHistList = new ArrayList<>();
 
         addCustHist(custHistList, custDto, "NICK", oldData.getCNick(), custDto.getCNick());
         addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
@@ -160,29 +195,24 @@ public class CustServiceImpl implements CustService {
         addCustHist(custHistList, custDto, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
         addCustHist(custHistList, custDto, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
 
-        for (CustHistDto custHistDto : custHistList) {
-            // CustHistDto를 CustHist 엔티티로 변환
-            CustHist custHist = new CustHist();
-            custHist.setCId(custHistDto.getCId());
-            custHist.setCCngCd(custHistDto.getCCngCd());
-            custHist.setCBf(custHistDto.getCBf());
-            custHist.setCAf(custHistDto.getCAf());
 
+        for (CustHist custHist : custHistList) {
             // 이력 저장
             custHistRepository.save(custHist);
         }
     }
 
-    private void addCustHist(List<CustHistDto> custHistList, CustDto newData,
+    private void addCustHist(List<CustHist> custHistList, CustDto newData,
                              String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
-            CustHistDto custHistDto = new CustHistDto();
-            custHistDto.setCId(newData.getCId());
-            custHistDto.setCCngCd(changeCode);
-            custHistDto.setCBf(oldValue);
-            custHistDto.setCAf(newValue);
-            custHistList.add(custHistDto);
-        }}
+            CustHist custHist = new CustHist();
+            custHist.setCId(newData.getCId());
+            custHist.setCCngCd(changeCode);
+            custHist.setCBf(oldValue);
+            custHist.setCAf(newValue);
+            custHistList.add(custHist);
+        }
+    }
 
     @Override
     public String pwdEncrypt(String cPwd) {
