@@ -55,7 +55,7 @@ public class MyPageController {
     }
 
     @PostMapping("/info")
-    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request) {
+    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
 
         HttpSession session = request.getSession();
 
@@ -72,9 +72,8 @@ public class MyPageController {
             custService.custModify(cId, custDto, oldData);
             custService.updateSession(session, custDto);
 
-            System.out.println("개인정보 변경 완료");
 
-
+            rattr.addFlashAttribute("msg", "CMOD_OK");
             return "redirect:/mypage/list";
     }
 

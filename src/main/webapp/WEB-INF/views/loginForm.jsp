@@ -10,7 +10,7 @@
 <%--    <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>">--%>
 
 
-    <link rel="stylesheet" href="<c:url value='/css/index.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/index.css'/>">--%>
     <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
 
@@ -200,7 +200,9 @@
 </header>
 
 <div id="loginform">
-    <form action="<c:url value='/login'/>" method="post" onsubmit="return">
+<%--    <form action="<c:url value='/login'/>" method="post" onsubmit="return">--%>
+    <form action="/login" method="post" onsubmit="return">
+
         <h1 id="logo">Green Salt</h1><br><br><br>
 
         <div class="container">
@@ -225,7 +227,7 @@
             <button type="submit" id="login">로그인</button>
 
             <div id="check">
-                <a id="forgot" onclick="test()" >비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>
+                <a id="forgot" href="/forgotPwd">비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>
             </div><br>
 
             <div class="buttonContainer">

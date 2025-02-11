@@ -81,7 +81,11 @@
 <footer>
 <jsp:include page="footer.jsp" flush="false" />
 </footer>
+
 <script>
+    let msg = "${msg}";
+    if(msg=="CMOD_OK")    alert("개인정보가 수정되었습니다.");
+
     function test(){
         alert("테스트중입니다")
     }

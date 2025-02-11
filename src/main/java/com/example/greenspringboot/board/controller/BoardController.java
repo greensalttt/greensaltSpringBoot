@@ -78,8 +78,6 @@ public class BoardController {
             rattr.addFlashAttribute("msg", "WRT_OK");
             return "redirect:/board/list";
         } catch (Exception e) {
-            e.printStackTrace();
-            m.addAttribute(boardDto);
             m.addAttribute("msg", "WRT_ERR");
 
             return "board";
