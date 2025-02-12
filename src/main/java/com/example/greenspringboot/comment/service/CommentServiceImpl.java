@@ -1,6 +1,6 @@
 package com.example.greenspringboot.comment.service;
 import com.example.greenspringboot.comment.dto.CommentDto;
-import com.example.greenspringboot.comment.dto.CommentHistDto;
+//import com.example.greenspringboot.comment.dto.CommentHistDto;
 import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.repository.CommentHistRepository;
@@ -82,21 +82,30 @@ public class CommentServiceImpl implements CommentService{
 
             System.out.println(commentDto);
 
-            CommentHistDto commentHistDto = CommentHistDto.builder()
-                    .cno(commentDto.getCno())
-                    .cId(commentDto.getCId())
-                    .bno(commentDto.getBno())
-                    .coBf(oldValue)
-                    .coAf(newValue)
-                    .build();
+//            CommentHistDto commentHistDto = CommentHistDto.builder()
+//                    .cno(commentDto.getCno())
+//                    .cId(commentDto.getCId())
+//                    .bno(commentDto.getBno())
+//                    .coBf(oldValue)
+//                    .coAf(newValue)
+//                    .build();
+//
+//            CommentHist commentHist = CommentHist.builder()
+//                    .cno(commentHistDto.getCno())
+//                    .cId(commentHistDto.getCId())
+//                    .bno(commentHistDto.getBno())
+//                    .coBf(commentHistDto.getCoBf())
+//                    .coAf(commentHistDto.getCoAf())
+//                    .build();
 
             CommentHist commentHist = CommentHist.builder()
-                    .cno(commentHistDto.getCno())
-                    .cId(commentHistDto.getCId())
-                    .bno(commentHistDto.getBno())
-                    .coBf(commentHistDto.getCoBf())
-                    .coAf(commentHistDto.getCoAf())
+                    .cno(commentDto.getCno())   // commentDto에서 cno 값 사용
+                    .cId(commentDto.getCId())   // commentDto에서 cId 값 사용
+                    .bno(commentDto.getBno())   // commentDto에서 bno 값 사용
+                    .coBf(oldValue)             // 이전 값
+                    .coAf(newValue)             // 새로운 값
                     .build();
+
 
             // 이력 저장
             commentHistRepository.save(commentHist);

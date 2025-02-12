@@ -1,6 +1,6 @@
 package com.example.greenspringboot.comment.controller;
 import com.example.greenspringboot.comment.dto.CommentDto;
-import com.example.greenspringboot.comment.dto.CommentHistDto;
+//import com.example.greenspringboot.comment.dto.CommentHistDto;
 import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.service.CommentService;

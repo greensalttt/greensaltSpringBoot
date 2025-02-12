@@ -71,7 +71,8 @@
     #title {
         text-align: center;
         font-size: 20px;
-        margin-bottom: 40px;
+        margin-top: 50px;
+        margin-bottom: 60px;
     }
     #email, #verify{
         display: inline;
@@ -92,7 +93,7 @@
 
 <div id="forgotPwdForm">
     <form action="forgotPwd" method="post" onsubmit="return">
-        <h1 id="title">비밀 번호 찾기</h1><br><br>
+        <h1 id="title">비밀 번호 찾기</h1>
 
         <div id="container">
         <p id="check-result"></p>
