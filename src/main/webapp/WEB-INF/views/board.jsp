@@ -315,7 +315,7 @@
                 if(comment.parentComment != null) tmp += 'ㄴ';
 
                 tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'
-                tmp += '<span class="comment">' + comment.comment + " " + '</span>'
+                tmp += '<span class="comment">' + comment.comment + '</span>'
                 tmp += '<button class="replyBtn">답글</button>'
                 tmp += '<button class="modBtn">수정</button>'
                 tmp += '<button class="delBtn">삭제</button>'
@@ -429,6 +429,8 @@
                     });
                 });
 
+                // 댓글 수정
+
                 $("#commentList").on("click", ".modBtn", function () {
                     let cno = $(this).parent().attr("data-cno");
                     let comment = $("span.comment", $(this).parent()).text();
@@ -440,6 +442,11 @@
                 $("#modBtn").click(function(){
                     let cno = $(this).attr("data-cno");
                     let comment = $("input[name=comment]").val();
+                    // let bno = $(this).attr("data-bno");
+
+                    console.log("bno:", bno);  // bno 값 확인
+
+
 
                     if(comment.trim() == ''){
                         alert("댓글을 입력해주세요.");
@@ -450,7 +457,7 @@
                         type: 'PATCH',
                         url: '/comments/' + cno,
                         headers: {"content-type": "application/json"},
-                        data: JSON.stringify({cno: cno, comment: comment}),
+                        data: JSON.stringify({cno: cno, comment: comment, bno: bno}),
                         success: function(){
                             alert("댓글이 수정됐습니다.");
                             showList(bno);

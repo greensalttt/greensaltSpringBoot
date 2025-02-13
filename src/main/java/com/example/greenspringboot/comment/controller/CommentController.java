@@ -1,12 +1,9 @@
 package com.example.greenspringboot.comment.controller;
 import com.example.greenspringboot.comment.dto.CommentDto;
-//import com.example.greenspringboot.comment.dto.CommentHistDto;
 import com.example.greenspringboot.comment.entity.Comment;
-import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
