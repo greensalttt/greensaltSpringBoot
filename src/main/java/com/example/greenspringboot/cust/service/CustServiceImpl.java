@@ -112,8 +112,16 @@ public class CustServiceImpl implements CustService {
 
     @Override
     public void myPage(int cId, HttpServletRequest request) {
-        Cust cust = custRepository.findBycId(cId);
-        CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
+////        Cust cust = custRepository.findBycId(cId);
+//        Cust cust = custRepository.findById(cId).orElse(null);;
+//
+//        CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
+
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
 
         HttpSession session = request.getSession();
         session.setAttribute("cEmail", custDto.getCEmail());
@@ -134,15 +142,48 @@ public class CustServiceImpl implements CustService {
         String regDateStr = dateFormat.format(regDate);
 
         session.setAttribute("regDt", regDateStr);
+        } else {
+            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
+            System.out.println("고객 정보를 찾을 수 없습니다.");
+        }
     }
 
+
+    // ㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    // 정보 업데이트 및 이력 기록, 세션 업데이트
+    public boolean updateCustInfo(int cId, CustDto custDto, HttpSession session) {
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+        if (optionalCust.isPresent()) {
+            Cust oldCust = optionalCust.get();
+            CustDto oldData = toDto(oldCust);
+
+            // 데이터 설정
+            custDto.setCId(cId);
+
+            // 정보 업데이트 및 이력 기록
+            custModify(cId, custDto, oldData);
+            updateSession(session, custDto);
+
+            return true;
+        } else {
+            return false;  // 고객이 없을 경우
+        }
+    }
 
 //    모델로 받아 뷰로 보여주는 방식 고민해보기
     @Transactional
     @Override
     public void custModify(int cId, CustDto custDto, CustDto oldData) {
         // 기존 회원 정보 조회
-        Cust cust = custRepository.findBycId(cId);
+//        Cust cust = custRepository.findBycId(cId);
+//        Optional<Cust> cust = custRepository.findById(cId);
+
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+
         // 기존 dto를 엔티티로 변환
         toEntity(cust, custDto);
         // 바뀐 개인정보 저장
@@ -164,6 +205,10 @@ public class CustServiceImpl implements CustService {
         for (CustHist custHist : custHistList) {
             // 이력 저장
             custHistRepository.save(custHist);
+        }
+        } else {
+            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
+            System.out.println("고객 정보를 찾을 수 없습니다.");
         }
     }
 
@@ -194,24 +239,68 @@ public class CustServiceImpl implements CustService {
         }
     }
 
+//    @Transactional
+//    @Override
+//    public void pwdChange(int cId, CustDto custDto, CustDto oldPwd) {
+//
+//        Optional<Cust> optionalCust = custRepository.findById(cId);
+//
+//        if (optionalCust.isPresent()) {
+//            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+//
+//            toPwdEntity(cust, custDto);
+//            custRepository.save(cust);
+//
+//            CustHist custHist = new CustHist();
+//            custHist.setCId(custDto.getCId());
+//            custHist.setCCngCd("PWD");
+//            custHist.setCBf(oldPwd.getCPwd());
+//            custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+//
+//            custHistRepository.save(custHist);
+//        }else{
+//            System.out.println("고객 정보를 찾을 수 없습니다");
+//        }
+//    }
+
     @Transactional
     @Override
-    public void pwdChange(int cId, CustDto custDto, CustDto oldPwd) {
+    public boolean pwdChange(int cId, CustDto custDto, String curPwd) {
+        // 고객 정보 조회
+        Optional<Cust> optionalCust = custRepository.findById(cId);
 
-        Cust cust = custRepository.findBycId(cId);
-        toPwdEntity(cust, custDto);
-        custRepository.save(cust);
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
+            CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
 
-        CustHist custHist = new CustHist();
-        custHist.setCId(custDto.getCId());
-        custHist.setCCngCd("PWD");
-        custHist.setCBf(oldPwd.getCPwd());
-        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+            // 현재 비밀번호와 입력한 비밀번호 비교
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
+                return false; // 비밀번호 불일치
+            }
 
-        custHistRepository.save(custHist);
+            // 비밀번호 변경
+            custDto.setCId(cId);
+            toPwdEntity(cust, custDto);
+            custRepository.save(cust); // 비밀번호 업데이트
+
+            // 이력 기록
+            CustHist custHist = new CustHist();
+            custHist.setCId(custDto.getCId());
+            custHist.setCCngCd("PWD");
+            custHist.setCBf(oldPwd.getCPwd());
+            custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+
+            custHistRepository.save(custHist); // 이력 저장
+
+            return true; // 성공적으로 비밀번호 변경
+        } else {
+            System.out.println("고객 정보를 찾을 수 없습니다");
+            return false; // 고객을 찾을 수 없으면 실패
+        }
     }
 
-//    모델을 이용해 뷰를 가져올지 세션을 업데이트 하는게 맞는지 고민해보기
+
     @Override
     public void updateSession(HttpSession session, CustDto custDto) {
         session.setAttribute("cNick", custDto.getCNick());

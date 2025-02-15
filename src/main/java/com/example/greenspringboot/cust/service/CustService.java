@@ -21,9 +21,12 @@ public interface CustService {
 
     void custModify(int cId, CustDto custDto, CustDto oldData);
 //
-    void pwdChange(int cId, CustDto custDto, CustDto oldPwd);
+    boolean pwdChange(int cId, CustDto custDto, String curPwd);
 
     void updateSession(HttpSession session, CustDto custDto);
+
+    boolean updateCustInfo(int cId, CustDto custDto, HttpSession session);
+
 
     CustDto toDto(Cust cust);
 

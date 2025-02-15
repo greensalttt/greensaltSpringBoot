@@ -54,27 +54,45 @@ public class MyPageController {
         return "myPageInfo";
     }
 
+//    @PostMapping("/info")
+//    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
+//
+//        HttpSession session = request.getSession();
+//
+////        로그인할때 저장한 cId 세션을 변수로 저장
+//        int cId = (int) session.getAttribute("cId");
+//
+//         Cust oldCust = custRepository.findById(cId);
+//         CustDto oldData = custService.toDto(oldCust);
+//
+//            // 현재 데이터 설정
+//            custDto.setCId(cId);
+//
+//            // 서비스 호출하여 정보 업데이트 및 이력 기록
+//            custService.custModify(cId, custDto, oldData);
+//            custService.updateSession(session, custDto);
+//
+//
+//            rattr.addFlashAttribute("msg", "CMOD_OK");
+//            return "redirect:/mypage/list";
+//    }
+
     @PostMapping("/info")
     public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
-
         HttpSession session = request.getSession();
 
-//        로그인할때 저장한 cId 세션을 변수로 저장
+        // 로그인할때 저장한 cId 세션을 변수로 저장
         int cId = (int) session.getAttribute("cId");
 
-         Cust oldCust = custRepository.findBycId(cId);
-         CustDto oldData = custService.toDto(oldCust);
+        // 서비스 호출하여 정보 업데이트 및 이력 기록
+        boolean updateResult = custService.updateCustInfo(cId, custDto, session);
 
-            // 현재 데이터 설정
-            custDto.setCId(cId);
-
-            // 서비스 호출하여 정보 업데이트 및 이력 기록
-            custService.custModify(cId, custDto, oldData);
-            custService.updateSession(session, custDto);
-
-
+        if (updateResult) {
             rattr.addFlashAttribute("msg", "CMOD_OK");
-            return "redirect:/mypage/list";
+        } else {
+            rattr.addFlashAttribute("msg", "CUSTOMER_NOT_FOUND");
+        }
+        return "redirect:/mypage/list";
     }
 
 
@@ -84,31 +102,52 @@ public class MyPageController {
         return "pwdEdit";
     }
 
+//    @PostMapping("/pwdEdit")
+//    public String pwdEdit(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
+//        HttpSession session = request.getSession();
+//
+////        로그인할때 저장한 cId 세션을 변수로 저장
+//        int cId = (int) session.getAttribute("cId");
+//
+//            Cust cust = custRepository.findBycId(cId);
+//            CustDto oldPwd = custService.toPwdDto(cust);
+//            custDto.setCId(cId);
+//
+////            /* 입력한 현재 비밀번호와 실제 비밀번호가 일치하는지 확인*/
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//            if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
+//                msg.addFlashAttribute("pwdFail", "pwdMsg");
+//
+//                return "redirect:/mypage/pwdEdit";
+//            }
+//
+//            custService.pwdChange(cId, custDto, oldPwd);
+//            System.out.println("비밀번호 변경 완료");
+//            sessionLogout.invalidate();
+//            return "redirect:/";
+//        }
+
     @PostMapping("/pwdEdit")
     public String pwdEdit(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
         HttpSession session = request.getSession();
 
-//        로그인할때 저장한 cId 세션을 변수로 저장
+        // 로그인할때 저장한 cId 세션을 변수로 저장
         int cId = (int) session.getAttribute("cId");
 
-            Cust cust = custRepository.findBycId(cId);
-            CustDto oldPwd = custService.toPwdDto(cust);
-            custDto.setCId(cId);
+        // 비밀번호 변경을 위한 서비스 호출
+        boolean passwordChanged = custService.pwdChange(cId, custDto, curPwd);
 
-//            /* 입력한 현재 비밀번호와 실제 비밀번호가 일치하는지 확인*/
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
-                msg.addFlashAttribute("pwdFail", "pwdMsg");
-
-                return "redirect:/mypage/pwdEdit";
-            }
-
-            custService.pwdChange(cId, custDto, oldPwd);
-            System.out.println("비밀번호 변경 완료");
-            sessionLogout.invalidate();
-            return "redirect:/";
+        if (!passwordChanged) {
+            msg.addFlashAttribute("pwdFail", "pwdMsg");
+            return "redirect:/mypage/pwdEdit"; // 실패 시, 비밀번호 수정 페이지로 리다이렉트
         }
+
+        // 비밀번호 변경 후, 로그아웃 처리
+        sessionLogout.invalidate();
+        return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
+
+}
 
 
 
