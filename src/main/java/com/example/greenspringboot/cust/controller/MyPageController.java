@@ -85,7 +85,7 @@ public class MyPageController {
         int cId = (int) session.getAttribute("cId");
 
         // 서비스 호출하여 정보 업데이트 및 이력 기록
-        boolean updateResult = custService.updateCustInfo(cId, custDto, session);
+        boolean updateResult = custService.custModify(cId, custDto, session);
 
         if (updateResult) {
             rattr.addFlashAttribute("msg", "CMOD_OK");

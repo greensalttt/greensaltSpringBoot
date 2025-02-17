@@ -19,13 +19,11 @@ public interface CustService {
 
     Boolean login(String email, String rawPassword, HttpServletRequest request);
 
-    void custModify(int cId, CustDto custDto, CustDto oldData);
-//
     boolean pwdChange(int cId, CustDto custDto, String curPwd);
 
     void updateSession(HttpSession session, CustDto custDto);
 
-    boolean updateCustInfo(int cId, CustDto custDto, HttpSession session);
+    boolean custModify(int cId, CustDto custDto, HttpSession session);
 
 
     CustDto toDto(Cust cust);
