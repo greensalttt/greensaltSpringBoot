@@ -72,11 +72,6 @@ public class LoginController {
 
         return "redirect:" + toURL;
     }
-
-    @GetMapping("/forgotPwd")
-    public String forgotPwd() {
-        return "forgotPwd";
-    }
 }
 
 
