@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
-    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
+<%--    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">--%>
+<%--    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">--%>
 
 
 <style>
@@ -68,11 +68,19 @@
         color: gray;
     }
 
+    #home{
+        text-align: center;
+        margin-top: 40px;
+        font-size: 30px;
+        cursor: pointer;
+
+    }
+
     #title {
         text-align: center;
-        font-size: 20px;
-        margin-top: 50px;
-        margin-bottom: 60px;
+        font-size: 12px;
+        /*margin-top: 50px;*/
+        margin-bottom: 50px;
     }
     #email, #verify{
         display: inline;
@@ -83,17 +91,25 @@
         width: 100px;
     }
 
+    #next{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
 </style>
 </head>
 
 <body>
-<header id="top">
-    <jsp:include page="header.jsp"/>
-</header>
+<%--<header id="top">--%>
+<%--    <jsp:include page="header.jsp"/>--%>
+<%--</header>--%>
 
 <div id="forgotPwdForm">
-    <form action="forgotPwd" method="post" onsubmit="return">
-        <h1 id="title">비밀 번호 찾기</h1>
+    <form action="forgotPwd">
+<%--        <h1 id="home"><a href="<c:url value='/'/>">Green Salt</a></h1>--%>
+    <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
+
+    <h2 id="title">비밀번호를 찾고자 하는 이메일을 적어주세요</h2>
 
         <div id="container">
         <p id="check-result"></p>
@@ -106,14 +122,16 @@
         <label>이름</label>
         <input class="special-class"  id="name" maxlength="10">
 
-        <button id="forgotBtn" disabled>인증확인</button>
+<%--        <button type="button" id="next" onclick="window.location.href='/forgotPwd2'" disabled>다음</button>--%>
+            <button type="button" id="next" onclick="window.location.href='/forgotPwd2'">다음</button>
+
         </div>
     </form>
 </div>
 
-<footer>
-    <jsp:include page="footer.jsp"/>
-</footer>
+<%--<footer>--%>
+<%--    <jsp:include page="footer.jsp"/>--%>
+<%--</footer>--%>
 
 </body>
 

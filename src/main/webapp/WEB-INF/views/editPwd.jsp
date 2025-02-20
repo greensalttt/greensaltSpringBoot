@@ -94,7 +94,7 @@
 <jsp:include page="myPageHeader.jsp"/>
 
 <div id="pwdForm">
-    <form action="/mypage/pwdEdit" method="POST" onsubmit="return pwdEditCheck()">
+    <form action="/mypage/editPwd" method="POST" onsubmit="return editPwdCheck()">
     <div class="container">
       <h1 id="pwdTitle">비밀번호 변경</h1><br><br>
 
@@ -124,7 +124,7 @@
         alert("현재 비밀번호가 일치하지 않습니다.")
     }
 
-  function pwdEditCheck(){
+  function editPwdCheck(){
     var curPwd = document.getElementById("curPwd").value;
     var newPwd = document.getElementById("newPwd").value;
     var newPwd2 = document.getElementById("newPwd2").value;

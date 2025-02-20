@@ -96,39 +96,14 @@ public class MyPageController {
     }
 
 
-    @GetMapping("/pwdEdit")
-    public String pwdEdit(HttpSession session){
+    @GetMapping("/editPwd")
+    public String editPwd(HttpSession session){
         System.out.println("비밀번호 변경: "+ session.getAttribute("cName"));
-        return "pwdEdit";
+        return "editPwd";
     }
 
-//    @PostMapping("/pwdEdit")
-//    public String pwdEdit(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
-//        HttpSession session = request.getSession();
-//
-////        로그인할때 저장한 cId 세션을 변수로 저장
-//        int cId = (int) session.getAttribute("cId");
-//
-//            Cust cust = custRepository.findBycId(cId);
-//            CustDto oldPwd = custService.toPwdDto(cust);
-//            custDto.setCId(cId);
-//
-////            /* 입력한 현재 비밀번호와 실제 비밀번호가 일치하는지 확인*/
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
-//                msg.addFlashAttribute("pwdFail", "pwdMsg");
-//
-//                return "redirect:/mypage/pwdEdit";
-//            }
-//
-//            custService.pwdChange(cId, custDto, oldPwd);
-//            System.out.println("비밀번호 변경 완료");
-//            sessionLogout.invalidate();
-//            return "redirect:/";
-//        }
-
-    @PostMapping("/pwdEdit")
-    public String pwdEdit(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
+    @PostMapping("/editPwd")
+    public String editPwd(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
         HttpSession session = request.getSession();
 
         // 로그인할때 저장한 cId 세션을 변수로 저장
@@ -139,7 +114,7 @@ public class MyPageController {
 
         if (!passwordChanged) {
             msg.addFlashAttribute("pwdFail", "pwdMsg");
-            return "redirect:/mypage/pwdEdit"; // 실패 시, 비밀번호 수정 페이지로 리다이렉트
+            return "redirect:/mypage/editPwd"; // 실패 시, 비밀번호 수정 페이지로 리다이렉트
         }
 
         // 비밀번호 변경 후, 로그아웃 처리

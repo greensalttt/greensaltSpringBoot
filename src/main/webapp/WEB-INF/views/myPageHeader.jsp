@@ -122,7 +122,7 @@
             <span><a class="none" href="/mypage/info">개인정보 수정</a></span>
         </div>
         <div class="sp">
-            <span><a class="none" href="/mypage/pwdEdit">비밀번호 수정</a></span>
+            <span><a class="none" href="/mypage/editPwd">비밀번호 수정</a></span>
         </div>
     </div>
 </div>
