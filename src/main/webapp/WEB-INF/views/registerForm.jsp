@@ -458,7 +458,6 @@
                         checkResult.innerHTML = "인증번호를 받기를 진행해주세요.";
                         verifyButton.prop('disabled', false); // 버튼 활성화
                     } else {
-                        // console.log("이미 사용중인 이메일");
                         checkResult.style.color = "red";
                         checkResult.innerHTML = "이미 사용중인 이메일입니다.";
                         verifyButton.prop('disabled', true); // 버튼 비활성화
@@ -526,8 +525,6 @@
                 $resultMsg.css('color', 'green');
                 $('#verify').attr('disabled', true);
                 $('#cEmail').attr('readonly', true);
-                // $('#cEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-                // $('#cEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
                 return true;
             } else {
                 $resultMsg.html('인증번호를 다시 확인해주세요');
