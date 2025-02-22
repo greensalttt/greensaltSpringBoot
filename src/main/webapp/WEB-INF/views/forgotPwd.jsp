@@ -120,5 +120,62 @@
         </div>
     </form>
 </div>
+
+<script>
+    $('#cEmail').on('input', function() {
+        emailCheck();
+    });
+
+    $('#emailCode').on('input', function() {
+        verifyNumber();
+    });
+
+    /*이메일 중복체크*/
+
+    function emailCheck() {
+        const email = document.getElementById("cEmail").value;
+        const checkResult = document.getElementById("check-result");
+        const verifyButton = $('#verify');
+
+        if (!email.trim()) {
+            checkResult.style.color = "red";
+            checkResult.innerHTML = "이메일을 입력해주세요.";
+            verifyButton.prop('disabled', true); // 버튼 비활성화
+            return;
+        }
+
+        var emailPattern = /^((?![가-힣]).)*([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if (!emailPattern.test(email)) {
+            checkResult.style.color = "red";
+            checkResult.innerHTML = "이메일 형식을 다시 확인해주세요.";
+            verifyButton.prop('disabled', true); // 버튼 비활성화
+            return;
+        }
+
+        console.log("입력한 이메일", email);
+        $.ajax({
+            type: "post",
+            url: "/register/emailCheck",
+            data: {
+                "cEmail": email
+            },
+            success: function (emailGood) {
+                console.log("요청성공", emailGood);
+                if (emailGood == "ok") {
+                    checkResult.style.color = "red";
+                    checkResult.innerHTML = "가입되어있지 않은 이메일입니다.";
+                    verifyButton.prop('disabled', true);
+                } else {
+                    checkResult.style.color = "green";
+                    checkResult.innerHTML = "가입된 이메일입니다.";
+                    verifyButton.prop('disabled', false);
+                }
+            },
+            error: function (err) {
+                console.log("에러발생", err);
+            }
+        });
+    }
+</script>
 </body>
 
