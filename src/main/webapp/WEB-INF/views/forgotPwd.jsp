@@ -9,10 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
 
 
-<%--    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">--%>
-<%--    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">--%>
-
-
 <style>
 
     body {
@@ -70,7 +66,7 @@
 
     #home{
         text-align: center;
-        margin-top: 40px;
+        margin-top: 20px;
         font-size: 30px;
         cursor: pointer;
 
@@ -118,20 +114,11 @@
         <input class="special-class" type="text" id="cEmail" name="cEmail" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
         <p id="mail-check-warn"></p>
         <label>인증번호</label>
-        <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10">
-        <label>이름</label>
-        <input class="special-class"  id="name" maxlength="10">
-
-<%--        <button type="button" id="next" onclick="window.location.href='/forgotPwd2'" disabled>다음</button>--%>
-            <button type="button" id="next" onclick="window.location.href='/forgotPwd2'">다음</button>
+        <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
+      <button type="button" id="next" onclick="window.location.href='/forgotPwd2'">다음</button>
 
         </div>
     </form>
 </div>
-
-<%--<footer>--%>
-<%--    <jsp:include page="footer.jsp"/>--%>
-<%--</footer>--%>
-
 </body>
 

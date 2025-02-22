@@ -12,9 +12,9 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
 //    JPA에서 제공해주는 CRUD 기본 메서드를 제외하고 커스텀을 할려면 여기서 메서드를 따로 생성해야됨
 //    기본 메서드 4개: sava(저장, 업데이트), findById(조회),deleteById(삭제), findAll(모든 엔티티 조회)
 
-    boolean existsBycEmailAndcName(String cEmail, String cName);
+//    boolean existsBycEmailAndcName(String cEmail, String cName);
 
-//  이메일 중복
+    //  이메일 중복
     boolean existsBycEmail(String cEmail);
 //닉네임 중복
     boolean existsBycNick(String cNick);
