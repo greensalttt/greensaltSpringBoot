@@ -64,6 +64,7 @@ public class CustServiceImpl implements CustService {
     }
 
 
+
     private void sendEmail(String toMail, String subject, String content) throws Exception {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
@@ -73,11 +74,23 @@ public class CustServiceImpl implements CustService {
         helper.setText(content, true); // HTML 형식으로 설정
         mailSender.send(message);
     }
+
+    // 회원가입 이메일
     @Override
     public String joinEmail(String cEmail) throws Exception {
         makeRandomNumber();
         String subject = "WELCOME GREEN :)";
         String content = "고객님이 요청하신 인증번호는 " + authNumber + "입니다.";
+        sendEmail(cEmail, subject, content);
+        return Integer.toString(authNumber);
+    }
+
+    // 비밀번호 찾기 이메일
+    @Override
+    public String joinEmail2(String cEmail) throws Exception {
+        makeRandomNumber();
+        String subject = "비밀번호 찾기 인증 메일입니다.";
+        String content = "화면 인증번호 " + authNumber + "를 적어주세요.";
         sendEmail(cEmail, subject, content);
         return Integer.toString(authNumber);
     }

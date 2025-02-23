@@ -176,6 +176,50 @@
             }
         });
     }
+
+
+    $('#verify').click(function() {
+        const $this = $(this); // 클릭된 버튼을 jQuery 객체로 저장
+        $this.prop('disabled', true); // 버튼을 비활성화
+
+        alert('인증번호가 전송되었습니다.'); // 인증번호 전송 알림
+
+        const email = $('#cEmail').val(); // 이메일 주소값 얻어오기
+        console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+        const checkInput = $('#emailCode') // 인증번호 입력하는곳
+        const url = '/verifyEmail?email=' + email; // URL 생성
+        $.ajax({
+            type: 'GET',  // 클라이언트에서 서버로 인증번호 요청
+            url: url, // 생성한 URL 사용
+            success: function(data) {
+                console.log("data : " + data);
+                checkInput.attr('disabled', false);
+                code = data;
+                verifyEmail();
+                setTimeout(function() {
+                    $this.prop('disabled', false);
+                }, 7000);
+            }
+        });
+    });
+
+    function verifyNumber() {
+        const inputCode = $('#emailCode').val();
+        const $resultMsg = $('#mail-check-warn');
+
+        if (inputCode === code) {
+            $resultMsg.html('인증번호가 일치합니다.');
+            $resultMsg.css('color', 'green');
+            $('#verify').attr('disabled', true);
+            $('#cEmail').attr('readonly', true);
+            return true;
+        } else {
+            $resultMsg.html('인증번호를 다시 확인해주세요');
+            $resultMsg.css('color', 'red');
+            return false;
+        }
+    }
+
 </script>
 </body>
 
