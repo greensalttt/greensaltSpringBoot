@@ -96,14 +96,9 @@
 </head>
 
 <body>
-<%--<header id="top">--%>
-<%--    <jsp:include page="header.jsp"/>--%>
-<%--</header>--%>
-
 <div id="forgotPwdForm">
     <form action="forgotPwd">
-<%--        <h1 id="home"><a href="<c:url value='/'/>">Green Salt</a></h1>--%>
-    <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
+ <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
 
     <h2 id="title">비밀번호를 찾고자 하는 이메일을 적어주세요</h2>
 
@@ -115,8 +110,7 @@
         <p id="mail-check-warn"></p>
         <label>인증번호</label>
         <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
-      <button type="button" id="next" onclick="window.location.href='/forgotPwd2'">다음</button>
-
+      <button type="button" id="next" onclick="window.location.href='/forgotPwd2'" disabled>다음</button>
         </div>
     </form>
 </div>
@@ -211,11 +205,13 @@
             $resultMsg.html('인증번호가 일치합니다.');
             $resultMsg.css('color', 'green');
             $('#verify').attr('disabled', true);
-            $('#cEmail').attr('readonly', true);
+            $('#cEmail').attr('disabled', true);
+            $('#next').attr('disabled', false);
             return true;
         } else {
             $resultMsg.html('인증번호를 다시 확인해주세요');
             $resultMsg.css('color', 'red');
+            $('#next').attr('disabled', true);
             return false;
         }
     }
