@@ -54,29 +54,6 @@ public class MyPageController {
         return "myPageInfo";
     }
 
-//    @PostMapping("/info")
-//    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
-//
-//        HttpSession session = request.getSession();
-//
-////        로그인할때 저장한 cId 세션을 변수로 저장
-//        int cId = (int) session.getAttribute("cId");
-//
-//         Cust oldCust = custRepository.findById(cId);
-//         CustDto oldData = custService.toDto(oldCust);
-//
-//            // 현재 데이터 설정
-//            custDto.setCId(cId);
-//
-//            // 서비스 호출하여 정보 업데이트 및 이력 기록
-//            custService.custModify(cId, custDto, oldData);
-//            custService.updateSession(session, custDto);
-//
-//
-//            rattr.addFlashAttribute("msg", "CMOD_OK");
-//            return "redirect:/mypage/list";
-//    }
-
     @PostMapping("/info")
     public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
         HttpSession session = request.getSession();

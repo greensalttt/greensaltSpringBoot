@@ -63,7 +63,9 @@ public class ForgotPwdController {
 
 
     @GetMapping("/forgotPwd2")
-    public String forgotPwd2() {
+    public String forgotPwd2(String cEmail, HttpServletRequest request) {
+        custService.forgotPwdCId(cEmail, request);
+
         return "forgotPwd2";
     }
 }

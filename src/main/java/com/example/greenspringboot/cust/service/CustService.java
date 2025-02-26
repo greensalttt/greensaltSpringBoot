@@ -16,6 +16,8 @@ public interface CustService {
     String joinEmail(String cEmail) throws Exception;
     String joinEmail2(String cEmail) throws Exception;
 
+    Boolean forgotPwdCId(String cEmail, HttpServletRequest request);
+
     String pwdEncrypt(String cPwd);
 
     void validatePassword(String cPwd);

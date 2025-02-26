@@ -118,9 +118,18 @@ public class CustServiceImpl implements CustService {
         return true;
     }
 
+//    로그인이 안된채로 이메일 인증만을 통해서 cId 세션에 저장시키기
+    public Boolean forgotPwdCId(String cEmail, HttpServletRequest request) {
+        Cust cust = custRepository.findBycEmail(cEmail);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("cId", cust.getCId());
+
+        return true;
+    }
+
     @Override
     public void myPage(int cId, HttpServletRequest request) {
-////        Cust cust = custRepository.findBycId(cId);
         Optional<Cust> optionalCust = custRepository.findById(cId);
 
         if (optionalCust.isPresent()) {
