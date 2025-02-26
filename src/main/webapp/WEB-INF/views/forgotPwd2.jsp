@@ -82,7 +82,7 @@
 <body>
 
 <div id="forgotPwdForm">
-    <form action="forgotPwd2" method="post" onsubmit="return">
+    <form action="forgotPwd2" method="post" onsubmit="return forgotPwdCheck()">
         <h1 id="title">비밀번호 변경</h1>
 
         <div id="container">
@@ -96,5 +96,50 @@
         </div>
     </form>
 </div>
+
+<script>
+    function forgotPwdCheck() {
+        var newPwd = document.getElementById("newPwd").value;
+        var newPwd2 = document.getElementById("newPwd2").value;
+        var newPwdPattern = /^(?=.*\d)(?=.*[a-z])[a-z0-9]{4,15}$/;
+
+
+        if (!newPwdPattern.test(newPwd)) {
+            alert("비밀번호는 소문자 영문/숫자 조합으로 4자 이상 15자 이하로 작성하셔야합니다.")
+            return false;
+        }
+
+        if (newPwd !== newPwd2) {
+            alert("신규 비밀번호와 신규 비밀번호 확인이 일치하지 않습니다.")
+            return false;
+        } else if (newPwd === newPwd2) {
+            return true;
+        }
+    }
+
+        function newPwdCheck() {
+            var newPwdResult = document.getElementById("check-newPwd");
+            var newPwd = document.getElementById("newPwd").value
+            var newPwd2 = document.getElementById("newPwd2").value
+
+            if (!newPwd) {
+                newPwdResult.style.color = "red";
+                newPwdResult.innerHTML = "비밀번호를 입력해주세요.";
+                return false;
+            } else if (!newPwd2) {
+                newPwdResult.style.color = "red";
+                newPwdResult.innerHTML = "비밀번호 확인을 입력해주세요.";
+                return false;
+            } else if ((newPwd !== newPwd2) || (newPwd2 !== newPwd)) {
+                newPwdResult.style.color = "red";
+                newPwdResult.innerHTML = "입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+                return false;
+            } else
+                newPwdResult.style.color = "green";
+            newPwdResult.innerHTML = "비밀번호가 동일합니다.";
+            return true;
+        }
+
+</script>
 
 </body>
