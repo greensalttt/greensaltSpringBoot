@@ -68,4 +68,6 @@ public class ForgotPwdController {
 
         return "forgotPwd2";
     }
+
+
 }
