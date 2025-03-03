@@ -97,7 +97,7 @@
 
 <body>
 <div id="forgotPwdForm">
-    <form action="forgotPwd">
+    <form action="forgotPwd" method="POST">
  <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
 
     <h2 id="title">비밀번호를 찾고자 하는 이메일을 적어주세요</h2>
@@ -110,7 +110,7 @@
         <p id="mail-check-warn"></p>
         <label>인증번호</label>
         <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
-      <button type="button" id="next" onclick="window.location.href='/forgotPwd2'" disabled>다음</button>
+      <button type="button" id="next" disabled>다음</button>
         </div>
     </form>
 </div>
