@@ -127,8 +127,12 @@ public class CustServiceImpl implements CustService {
             throw new IllegalArgumentException("이메일로 고객을 찾을 수 없습니다.");  // 이메일로 고객을 찾지 못한 경우 예외 처리
         }
 
+        CustDto custDto = CustDto.builder()  // 빌더 패턴을 사용하여 객체 생성
+                .cId(cust.getCId())
+                .build();  // 필요한 데이터만 DTO로 추출
+
         HttpSession session = request.getSession();
-        session.setAttribute("cId", cust.getCId());
+        session.setAttribute("cId", custDto.getCId());
 
         return true;
     }

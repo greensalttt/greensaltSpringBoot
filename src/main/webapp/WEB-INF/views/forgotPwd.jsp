@@ -97,20 +97,20 @@
 
 <body>
 <div id="forgotPwdForm">
-    <form action="/forgotPwd" method="POST">
+    <form action="/forgotPwd" method="POST" onsubmit="return">
  <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
 
     <h2 id="title">비밀번호를 찾고자 하는 이메일을 적어주세요</h2>
 
         <div id="container">
         <p id="check-result"></p>
-        <label id="email">이메일</label>
+        <label id="email" >이메일</label>
         <input id="verify" type="button" value="인증번호 받기" disabled>
         <input class="special-class" type="text" id="cEmail" name="cEmail" maxlength="30" onblur="emailCheck()" placeholder="green@salt.com">
         <p id="mail-check-warn"></p>
         <label>인증번호</label>
         <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
-      <button id="next" disabled>다음</button>
+      <button type="submit" id="next" disabled>다음</button>
         </div>
     </form>
 </div>
