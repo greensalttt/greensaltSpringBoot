@@ -110,7 +110,7 @@
         <p id="mail-check-warn"></p>
         <label>인증번호</label>
         <input class="special-class" type="text" id="emailCode" name="emailCode" maxlength="10" disabled>
-      <button type="button" id="next" disabled>다음</button>
+      <button id="next" disabled>다음</button>
         </div>
     </form>
 </div>
@@ -189,7 +189,7 @@
                 console.log("data : " + data);
                 checkInput.attr('disabled', false);
                 code = data;
-                verifyEmail();
+                // verifyEmail();
                 setTimeout(function() {
                     $this.prop('disabled', false);
                 }, 7000);
