@@ -75,7 +75,6 @@
     #title {
         text-align: center;
         font-size: 12px;
-        /*margin-top: 50px;*/
         margin-bottom: 50px;
     }
     #email, #verify{
@@ -97,7 +96,7 @@
 
 <body>
 <div id="forgotPwdForm">
-    <form action="/forgotPwd" method="POST" onsubmit="return">
+    <form action="/forgotPwd" method="POST">
  <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
 
     <h2 id="title">비밀번호를 찾고자 하는 이메일을 적어주세요</h2>
@@ -146,10 +145,9 @@
             return;
         }
 
-        console.log("입력한 이메일", email);
         $.ajax({
             type: "post",
-            url: "/register/emailCheck",
+            url: "/emailCheck",
             data: {
                 "cEmail": email
             },
@@ -189,7 +187,6 @@
                 console.log("data : " + data);
                 checkInput.attr('disabled', false);
                 code = data;
-                // verifyEmail();
                 setTimeout(function() {
                     $this.prop('disabled', false);
                 }, 7000);

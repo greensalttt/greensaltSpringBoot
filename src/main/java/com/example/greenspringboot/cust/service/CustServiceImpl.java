@@ -121,8 +121,15 @@ public class CustServiceImpl implements CustService {
 //    로그인이 안된채로 이메일 인증만을 통해서 cId 세션에 저장시키기
     @Override
     public Boolean forgotPwdCId(String cEmail, HttpServletRequest request) {
+
+        System.out.println("이메일 값: " + cEmail); // 이메일 값 찍어보기
+
+
         Cust cust = custRepository.findBycEmail(cEmail);
 
+        System.out.println("찾으려는 객체: " + cust); // 로그로 객체 찍어보기
+
+        // cust가 계속 null이 뜨는 이유가 뭘까
         if (cust == null) {
             throw new IllegalArgumentException("이메일로 고객을 찾을 수 없습니다.");  // 이메일로 고객을 찾지 못한 경우 예외 처리
         }
