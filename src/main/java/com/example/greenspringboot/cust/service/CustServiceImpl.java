@@ -98,7 +98,12 @@ public class CustServiceImpl implements CustService {
     @Transactional
     @Override
     public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
+
+        System.out.println("로그인 이메일 값: " + cEmail); // 이메일 값 찍어보기
+
             Cust cust = custRepository.findBycEmail(cEmail);
+
+
             /*dto가 가져온 비밀번호와 내가 입력한 비밀번호와 같지 않다면 로그인 실패*/
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
