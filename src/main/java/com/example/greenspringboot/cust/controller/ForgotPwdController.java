@@ -55,10 +55,8 @@ public class ForgotPwdController {
     }
 
 
-    // 2가 아니라 1에서 세션을 미리 저장해야할듯
-
     @PostMapping("/forgotPwd")
-    public String forgotPwd2(@RequestParam("cEmail") String cEmail, HttpServletRequest request) {
+    public String forgotPwd2(String cEmail, HttpServletRequest request) {
         custService.forgotPwdCId(cEmail, request);
         return "forgotPwd2";
     }
