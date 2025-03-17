@@ -207,7 +207,7 @@
             $resultMsg.html('인증번호가 일치합니다.');
             $resultMsg.css('color', 'green');
             $('#verify').attr('disabled', true);
-            // $('#cEmail').attr('disabled', true);
+            $('#cEmail').attr('readonly', true);
             $('#next').attr('disabled', false);
             return true;
         } else {
