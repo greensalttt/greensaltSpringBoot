@@ -26,6 +26,9 @@ public interface CustService {
 
     boolean pwdChange(int cId, CustDto custDto, String curPwd);
 
+    boolean forgotPwdChange(int cId, CustDto custDto);
+
+
     void updateSession(HttpSession session, CustDto custDto);
 
     boolean custModify(int cId, CustDto custDto, HttpSession session);
