@@ -62,7 +62,7 @@
         text-align: center;
         font-size: 20px;
         margin-top: 50px;
-        margin-bottom: 60px;
+        margin-bottom: 10px;
     }
     #pwdLabel, #newPwd{
         display: inline;
@@ -77,13 +77,18 @@
         margin-bottom: 30px;
     }
 
+    #title2{
+        margin-bottom: 50px;
+    }
+
 </style>
 
 <body>
 
 <div id="forgotPwdForm">
-    <form action="forgotPwd2" method="post" onsubmit="return forgotPwdCheck()">
+    <form action="forgotPwdClear" method="post" onsubmit="return forgotPwdCheck()">
         <h1 id="title">비밀번호 변경</h1>
+        <p id="title2">개인정보 보호를 위해 새로운 비밀번호로 변경한 다음 로그인 해주세요.</p>
 
         <div id="container">
             <label id="pwdLabel">신규 비밀번호</label>
@@ -98,6 +103,12 @@
 </div>
 
 <script>
+
+    let pwdFail = "${pwdFail}"
+    if(pwdFail==="pwdMsg") {
+        alert("현재 비밀번호가 일치하지 않습니다.")
+    }
+
     function forgotPwdCheck() {
         var newPwd = document.getElementById("newPwd").value;
         var newPwd2 = document.getElementById("newPwd2").value;

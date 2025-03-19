@@ -501,6 +501,12 @@
 </footer>
 
 <script>
+
+    let pwdClear = "${pwdFail}"
+    if(pwdClear==="pwdMsg") {
+        alert("변경하신 비밀번호로 로그인해주세요.")
+    }
+
     // 히스토리
     const albumAll = document.getElementsByClassName("albumAll");
     const boxMore = document.getElementsByClassName("new");

@@ -96,6 +96,8 @@ public class MyPageController {
 
         // 비밀번호 변경 후, 로그아웃 처리
         sessionLogout.invalidate();
+        msg.addFlashAttribute("pwdClear", "pwdMsg");
+
         return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
 
