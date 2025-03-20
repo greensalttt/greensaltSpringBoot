@@ -43,7 +43,7 @@ public class ForgotPwdController {
         try{
             System.out.println("이메일 인증 이메일 : " + email);
             // 서비스로 인증번호 받아오기
-            String verificationCode = custService.joinEmail2(email);
+            String verificationCode = custService.sendResetEmail(email);
             System.out.println("컨트롤러에서 받아온 인증번호:  " + verificationCode);
 
             HttpSession session = request.getSession();

@@ -87,7 +87,7 @@ public class CustServiceImpl implements CustService {
 
     // 비밀번호 찾기 이메일
     @Override
-    public String joinEmail2(String cEmail) throws Exception {
+    public String sendResetEmail(String cEmail) throws Exception {
         makeRandomNumber();
         String subject = "비밀번호 찾기 인증 메일입니다.";
         String content = "화면 인증번호 " + authNumber + "를 적어주세요.";

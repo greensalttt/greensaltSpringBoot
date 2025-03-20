@@ -14,7 +14,7 @@ public interface CustService {
     String nickCheck(String cNick);
 
     String joinEmail(String cEmail) throws Exception;
-    String joinEmail2(String cEmail) throws Exception;
+    String sendResetEmail(String cEmail) throws Exception;
 
     Boolean forgotPwdCId(String cEmail, HttpServletRequest request);
 
