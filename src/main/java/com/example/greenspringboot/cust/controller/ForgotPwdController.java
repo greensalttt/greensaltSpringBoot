@@ -43,7 +43,7 @@ public class ForgotPwdController {
         try{
             System.out.println("이메일 인증 이메일 : " + email);
             // 서비스로 인증번호 받아오기
-            String verificationCode = custService.sendResetEmail(email);
+            String verificationCode = custService.ResetEmail(email);
             System.out.println("컨트롤러에서 받아온 인증번호:  " + verificationCode);
 
             HttpSession session = request.getSession();
@@ -56,6 +56,11 @@ public class ForgotPwdController {
         }
     }
 
+//    리다이렉트를 위한 겟맵핑
+    @GetMapping("/forgotPwd2")
+    public String forgotPwd2Page() {
+        return "forgotPwd2"; // GET 요청에 대해서는 단순히 페이지를 반환
+    }
 
     @PostMapping("/forgotPwd2")
     public String forgotPwd2(String cEmail, HttpServletRequest request) {
@@ -81,6 +86,7 @@ public class ForgotPwdController {
         // 비밀번호 변경 후, 세션 제거
         sessionLogout.invalidate();
         msg.addFlashAttribute("pwdClear", "pwdMsg");
+//        sessionLogout.invalidate();
         return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
 

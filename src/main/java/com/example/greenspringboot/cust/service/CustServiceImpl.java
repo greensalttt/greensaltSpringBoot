@@ -87,7 +87,7 @@ public class CustServiceImpl implements CustService {
 
     // 비밀번호 찾기 이메일
     @Override
-    public String sendResetEmail(String cEmail) throws Exception {
+    public String ResetEmail(String cEmail) throws Exception {
         makeRandomNumber();
         String subject = "비밀번호 찾기 인증 메일입니다.";
         String content = "화면 인증번호 " + authNumber + "를 적어주세요.";
@@ -253,30 +253,6 @@ public class CustServiceImpl implements CustService {
         }
     }
 
-//    @Transactional
-//    @Override
-//    public void pwdChange(int cId, CustDto custDto, CustDto oldPwd) {
-//
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
-//
-//        if (optionalCust.isPresent()) {
-//            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
-//
-//            toPwdEntity(cust, custDto);
-//            custRepository.save(cust);
-//
-//            CustHist custHist = new CustHist();
-//            custHist.setCId(custDto.getCId());
-//            custHist.setCCngCd("PWD");
-//            custHist.setCBf(oldPwd.getCPwd());
-//            custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-//
-//            custHistRepository.save(custHist);
-//        }else{
-//            System.out.println("고객 정보를 찾을 수 없습니다");
-//        }
-//    }
-
     @Transactional
     @Override
     public boolean pwdChange(int cId, CustDto custDto, String curPwd) {
@@ -314,20 +290,58 @@ public class CustServiceImpl implements CustService {
         }
     }
 
-    @Transactional
-    @Override
-    public boolean forgotPwdChange(int cId, CustDto custDto) {
-        // 고객 정보 조회
-        Optional<Cust> optionalCust = custRepository.findById(cId);
+//    @Transactional
+//    @Override
+//    public boolean forgotPwdChange(int cId, CustDto custDto) {
+//        // 고객 정보 조회
+//        Optional<Cust> optionalCust = custRepository.findById(cId);
+//
+//        if (optionalCust.isPresent()) {
+//            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
+//            CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
+//
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+////            matches() 메서드는 첫 번째 인자인 평문 비밀번호를 암호화하여 두 번째 인자인 암호화된 비밀번호와 비교
+//            if (encoder.matches(custDto.getCPwd(), oldPwd.getCPwd())) {
+//                System.out.println("새 비밀번호가 기존 비밀번호와 같습니다.");
+//                return false; // 실패
+//            }
+//
+//            // 비밀번호 업데이트
+//            custDto.setCId(cId);
+//            toPwdEntity(cust, custDto);
+//            custRepository.save(cust);
+//
+//            // 이력 기록
+//            CustHist custHist = new CustHist();
+//            custHist.setCId(custDto.getCId());
+//            custHist.setCCngCd("PWD");
+//            custHist.setCBf(oldPwd.getCPwd());
+//            custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+//
+//            custHistRepository.save(custHist); // 이력 저장
+//
+//            return true; // 성공적으로 비밀번호 변경
+//        } else {
+//            System.out.println("새 비밀번호가 기존 비밀번호와 같습니다");
+//            return false; // 고객을 찾을 수 없으면 실패
+//        }
+//    }
+@Transactional
+@Override
+public boolean forgotPwdChange(int cId, CustDto custDto) {
+    // 고객 정보 조회
+    Optional<Cust> optionalCust = custRepository.findById(cId);
 
-        if (optionalCust.isPresent()) {
-            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
-            CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
+    if (optionalCust.isPresent()) {
+        Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
+        CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
 
-            // 현재 비밀번호와 중복 체크 개발 예정
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-
-            // 비밀번호 업데이트
+        // 새 비밀번호가 기존 비밀번호와 같으면 실패
+        if (!encoder.matches(custDto.getCPwd(), oldPwd.getCPwd())) {
+            // 새 비밀번호와 기존 비밀번호가 다르면 비밀번호 업데이트
             custDto.setCId(cId);
             toPwdEntity(cust, custDto);
             custRepository.save(cust);
@@ -343,10 +357,15 @@ public class CustServiceImpl implements CustService {
 
             return true; // 성공적으로 비밀번호 변경
         } else {
-            System.out.println("고객 정보를 찾을 수 없습니다");
-            return false; // 고객을 찾을 수 없으면 실패
+            System.out.println("새 비밀번호가 기존 비밀번호와 같습니다.");
+            return false; // 실패: 새 비밀번호가 기존 비밀번호와 같으면 변경하지 않음
         }
+    } else {
+        System.out.println("고객 정보를 찾을 수 없습니다");
+        return false; // 고객을 찾을 수 없으면 실패
     }
+}
+
 
 
     @Override

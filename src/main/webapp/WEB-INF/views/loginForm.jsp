@@ -6,11 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-<%--    <link rel="stylesheet" href="<c:url value="/resources/css/index.css"/>">--%>
-<%--    <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>">--%>
 
-
-<%--    <link rel="stylesheet" href="<c:url value='/css/index.css'/>">--%>
     <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
 
@@ -255,11 +251,6 @@
     let loginFail = "${loginFail}"
     if(loginFail==="msg") {
         alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-    }
-
-    let pwdClear = "${pwdClear}"
-    if(pwdClear==="pwdMsg2") {
-        alert("비밀번호 변경이 완료됐습니다. 변경된 비밀번호로 다시 로그인해주세요.")
     }
 
     function test(){

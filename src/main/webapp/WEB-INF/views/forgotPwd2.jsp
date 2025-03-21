@@ -106,7 +106,7 @@
 
     let pwdFail = "${pwdFail}"
     if(pwdFail==="pwdMsg") {
-        alert("현재 비밀번호가 일치하지 않습니다.")
+        alert("기존 비밀번호와 같습니다.")
     }
 
     function forgotPwdCheck() {

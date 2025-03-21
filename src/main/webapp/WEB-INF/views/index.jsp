@@ -502,7 +502,7 @@
 
 <script>
 
-    let pwdClear = "${pwdFail}"
+    let pwdClear = "${pwdClear}"
     if(pwdClear==="pwdMsg") {
         alert("변경하신 비밀번호로 로그인해주세요.")
     }
