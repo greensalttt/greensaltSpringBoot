@@ -197,8 +197,7 @@
 </header>
 
 <div id="loginform">
-<%--    <form action="<c:url value='/login'/>" method="post" onsubmit="return">--%>
-    <form action="/login" method="post" onsubmit="return">
+ <form action="/login" method="post" onsubmit="return">
 
         <h1 id="logo">Green Salt</h1><br><br><br>
 
@@ -227,11 +226,11 @@
                 <a id="forgot" href="/forgotPwd">비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>
             </div><br>
 
-            <div class="buttonContainer">
-                <div class="subBtn" id="googleBtn" onclick="test()"> <img id="google" src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="40" height="40"></div>
-                <div class="subBtn" id="kakaoBtn" onclick="test()"> <img id="kakao" src="https://cdn-icons-png.flaticon.com/128/3669/3669973.png" width="40" height="40"></div>
-                <div class="subBtn" id="appleBtn" onclick="test()"> <img id="apple" src="https://cdn-icons-png.flaticon.com/128/0/747.png" width="40" height="40"></div>
-            </div>
+<%--            <div class="buttonContainer">--%>
+<%--                <div class="subBtn" id="googleBtn" onclick="test()"> <img id="google" src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="40" height="40"></div>--%>
+<%--                <div class="subBtn" id="kakaoBtn" onclick="test()"> <img id="kakao" src="https://cdn-icons-png.flaticon.com/128/3669/3669973.png" width="40" height="40"></div>--%>
+<%--                <div class="subBtn" id="appleBtn" onclick="test()"> <img id="apple" src="https://cdn-icons-png.flaticon.com/128/0/747.png" width="40" height="40"></div>--%>
+<%--            </div>--%>
 
         </div>
 
@@ -253,9 +252,9 @@
         alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
     }
 
-    function test(){
-        alert("테스트중입니다!")
-    }
+    // function test(){
+    //     alert("테스트중입니다!")
+    // }
 </script>
 
 </body>
