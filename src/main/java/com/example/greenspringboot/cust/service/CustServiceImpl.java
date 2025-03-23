@@ -4,7 +4,6 @@ import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
-//import com.example.greenspringboot.cust.dto.CustHistDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -290,43 +289,6 @@ public class CustServiceImpl implements CustService {
         }
     }
 
-//    @Transactional
-//    @Override
-//    public boolean forgotPwdChange(int cId, CustDto custDto) {
-//        // 고객 정보 조회
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
-//
-//        if (optionalCust.isPresent()) {
-//            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
-//            CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
-//
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-////            matches() 메서드는 첫 번째 인자인 평문 비밀번호를 암호화하여 두 번째 인자인 암호화된 비밀번호와 비교
-//            if (encoder.matches(custDto.getCPwd(), oldPwd.getCPwd())) {
-//                System.out.println("새 비밀번호가 기존 비밀번호와 같습니다.");
-//                return false; // 실패
-//            }
-//
-//            // 비밀번호 업데이트
-//            custDto.setCId(cId);
-//            toPwdEntity(cust, custDto);
-//            custRepository.save(cust);
-//
-//            // 이력 기록
-//            CustHist custHist = new CustHist();
-//            custHist.setCId(custDto.getCId());
-//            custHist.setCCngCd("PWD");
-//            custHist.setCBf(oldPwd.getCPwd());
-//            custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-//
-//            custHistRepository.save(custHist); // 이력 저장
-//
-//            return true; // 성공적으로 비밀번호 변경
-//        } else {
-//            System.out.println("새 비밀번호가 기존 비밀번호와 같습니다");
-//            return false; // 고객을 찾을 수 없으면 실패
-//        }
-//    }
 @Transactional
 @Override
 public boolean forgotPwdChange(int cId, CustDto custDto) {

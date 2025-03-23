@@ -1,7 +1,5 @@
 package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.service.CustService;
-import com.example.greenspringboot.cust.dto.CustDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +58,8 @@ public class LoginController {
             Cookie idcookie = new Cookie("cEmail", cEmail);
             /*7일 = 604800초*/
             idcookie.setMaxAge(7 * 24 * 3600);
+            idcookie.setSecure(true); // HTTPS 연결에서만 전송
+            idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
             response.addCookie(idcookie);
         } else {
             Cookie idcookie = new Cookie("cEmail", "");
@@ -69,6 +69,7 @@ public class LoginController {
 
         return "redirect:" + toURL;
     }
+
 }
 
 
