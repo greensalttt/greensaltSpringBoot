@@ -102,10 +102,8 @@ public class CustServiceImpl implements CustService {
 
             Cust cust = custRepository.findBycEmail(cEmail);
 
-
-            /*dto가 가져온 비밀번호와 내가 입력한 비밀번호와 같지 않다면 로그인 실패*/
-
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//            평문화와 암호화 비밀번호를 비교할 수 있는 메서드
                 if (!encoder.matches(cPwd, cust.getCPwd())) {
                 return false;
         }

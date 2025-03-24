@@ -1,4 +1,5 @@
 package com.example.greenspringboot.cust.controller;
+import com.example.greenspringboot.cust.securityutils.EncryptionUtil;
 import com.example.greenspringboot.cust.service.CustService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,14 +21,15 @@ public class LoginController {
 
     @Autowired
     private CustService custService;
+
     @GetMapping("/login")
-    public String login(@CookieValue(value = "cEmailCookie", defaultValue = "")String cEmail, Model model) {
+    public String login(@CookieValue(value = "cEmailCookie", defaultValue = "") String cEmail, Model model) {
         model.addAttribute("cEmailCookie", cEmail);
         return "loginForm";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
@@ -54,23 +56,26 @@ public class LoginController {
         session.setMaxInactiveInterval(7200);
 
         if (rememberEmail != null) {
-            /*리멤버이메일 체크박스를 클릭시 c_email 쿠기 생성*/
-            Cookie idcookie = new Cookie("cEmail", cEmail);
-            /*7일 = 604800초*/
-            idcookie.setMaxAge(7 * 24 * 3600);
-            idcookie.setSecure(true); // HTTPS 연결에서만 전송
-            idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
-            response.addCookie(idcookie);
+            try {
+                // 이메일 암호화
+                String encryptedEmail = EncryptionUtil.encrypt(cEmail);
+
+                // 암호화된 이메일을 쿠키에 저장
+                Cookie idcookie = new Cookie("cEmail", encryptedEmail);
+                idcookie.setMaxAge(7 * 24 * 3600); // 7일 동안 유효
+                idcookie.setSecure(true); // HTTPS에서만 전송
+                idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
+                response.addCookie(idcookie);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             Cookie idcookie = new Cookie("cEmail", "");
-            idcookie.setMaxAge(0);
+            idcookie.setMaxAge(0); // 쿠키 만료
             response.addCookie(idcookie);
         }
 
+
         return "redirect:" + toURL;
     }
-
 }
-
-
-
