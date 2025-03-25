@@ -196,17 +196,46 @@
     <jsp:include page="header.jsp"/>
 </header>
 
+<%--<div id="loginform">--%>
+<%-- <form action="/login" method="post" onsubmit="return">--%>
+<%--        <h1 id="logo">Green Salt</h1><br><br><br>--%>
+<%--        <div class="container">--%>
+<%--            <div id="loginDiv">--%>
+<%--                <input value="${cookie.cEmail.value}" id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30"--%>
+<%--                       placeholder="green@salt.com" required>--%>
+<%--                <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">--%>
+<%--            </div>--%>
+
+<%--            <div id="pwdDiv">--%>
+<%--                <input id="cPwd" class="special-class" type="password" name="cPwd" maxlength="15" placeholder="비밀번호" required>--%>
+<%--                <img id="pwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">--%>
+<%--            </div>--%>
+
+<%--            <input type="hidden" name="toURL" value="${param.toURL}">--%>
+
+<%--            <div id="emailRemember">--%>
+<%--                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.cEmail.value ? "":"checked"}>--%>
+<%--                <label for="remember" id="emailLabel">이메일 저장</label></div><br>--%>
+
+<%--            <button type="submit" id="login">로그인</button>--%>
+
+<%--            <div id="check">--%>
+<%--                <a id="forgot" href="/forgotPwd">비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>--%>
+<%--            </div><br>--%>
+<%--        </div>--%>
+<%--    </form>--%>
+<%--</div>--%>
+
+
 <div id="loginform">
- <form action="/login" method="post" onsubmit="return">
-
+    <form action="/login" method="post" onsubmit="return">
         <h1 id="logo">Green Salt</h1><br><br><br>
-
         <div class="container">
-
             <div id="loginDiv">
-                <input value="${cookie.cEmail.value}" id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30"
+                <input value="${decryptedEmail}" id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30"
                        placeholder="green@salt.com" required>
-                <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
+
+    <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
             </div>
 
             <div id="pwdDiv">
@@ -217,15 +246,15 @@
             <input type="hidden" name="toURL" value="${param.toURL}">
 
             <div id="emailRemember">
-                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.cEmail.value ? "":"checked"}>
-                <label for="remember" id="emailLabel">이메일 저장</label></div><br>
+<%--                <input type="checkbox" id="remember" name="rememberEmail"  ${empty decryptedEmail ? "":"checked"}>--%>
+                    <input type="checkbox" id="remember" name="rememberEmail" ${decryptedEmail != null ? "checked" : ""}>
+    <label for="remember" id="emailLabel">이메일 저장</label></div><br>
 
             <button type="submit" id="login">로그인</button>
 
             <div id="check">
                 <a id="forgot" href="/forgotPwd">비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>
             </div><br>
-
         </div>
     </form>
 </div>
@@ -245,9 +274,6 @@
         alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
     }
 
-    // function test(){
-    //     alert("테스트중입니다!")
-    // }
 </script>
 
 </body>

@@ -22,11 +22,27 @@ public class LoginController {
     @Autowired
     private CustService custService;
 
+//    @GetMapping("/login")
+//    public String login(@CookieValue(value = "cEmailCookie", defaultValue = "") String cEmail, Model model) {
+//        model.addAttribute("cEmailCookie", cEmail);
+//        return "loginForm";
+//    }
+
     @GetMapping("/login")
-    public String login(@CookieValue(value = "cEmailCookie", defaultValue = "") String cEmail, Model model) {
-        model.addAttribute("cEmailCookie", cEmail);
-        return "loginForm";
+    public String login(@CookieValue(value = "cEmail", defaultValue = "") String encryptedEmail, Model model) {
+        String decryptedEmail = "";
+        try {
+            if (!encryptedEmail.isEmpty()) {
+                decryptedEmail = EncryptionUtil.decrypt(encryptedEmail); // 이메일 복호화
+                System.out.println("복호화된 이메일: " + decryptedEmail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("decryptedEmail", decryptedEmail); // 복호화된 이메일을 모델에 추가
+        return "loginForm"; // 로그인 폼 JSP 페이지로 반환
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
@@ -35,7 +51,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(String cEmail, String cPwd, String rememberEmail, HttpServletRequest request, HttpServletResponse response, RedirectAttributes msg) {
+    public String login(String cEmail, String cPwd, String rememberEmail, HttpServletRequest request, HttpServletResponse response, RedirectAttributes msg, Model model) {
         if (!custService.login(cEmail, cPwd, request)) {
             /*RedirectAttributes의 속성 addFlashAttribute를 통해 로그인 실패시 출력할 수 있는 변수와 공간을 저장*/
             msg.addFlashAttribute("loginFail", "msg");
@@ -55,10 +71,15 @@ public class LoginController {
         /*로그인 세션 유효시간 1시간*/
         session.setMaxInactiveInterval(7200);
 
+
         if (rememberEmail != null) {
             try {
+                System.out.println("암호화전 이메일: " + cEmail);
+
                 // 이메일 암호화
                 String encryptedEmail = EncryptionUtil.encrypt(cEmail);
+
+                System.out.println("암호화 이메일: " + encryptedEmail);
 
                 // 암호화된 이메일을 쿠키에 저장
                 Cookie idcookie = new Cookie("cEmail", encryptedEmail);
@@ -66,6 +87,11 @@ public class LoginController {
                 idcookie.setSecure(true); // HTTPS에서만 전송
                 idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
                 response.addCookie(idcookie);
+
+//                String decryptedEmail = EncryptionUtil.decrypt(encryptedEmail);
+//                System.out.println("복호화된 이메일: " + decryptedEmail);
+//                 model.addAttribute("decryptedEmail", decryptedEmail);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -74,8 +100,6 @@ public class LoginController {
             idcookie.setMaxAge(0); // 쿠키 만료
             response.addCookie(idcookie);
         }
-
-
         return "redirect:" + toURL;
     }
 }
