@@ -10,10 +10,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -92,6 +94,25 @@ public class CustServiceImpl implements CustService {
         String content = "화면 인증번호 " + authNumber + "를 적어주세요.";
         sendEmail(cEmail, subject, content);
         return Integer.toString(authNumber);
+    }
+
+    @Override
+    public Boolean save(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
+
+        HttpSession session = request.getSession();
+        String savedVerificationCode = (String) session.getAttribute("verificationCode");
+
+        System.out.println("인증번호: " + savedVerificationCode);
+        System.out.println("내가 입력한 값: " + userInputCode);
+
+        if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
+            validatePassword(custDto.getCPwd());
+            cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
+            custRepository.save(cust);
+            return true;
+        }
+        System.out.println("인증번호 잘못 입력하셨습니다.");
+        return false;
     }
 
     @Transactional

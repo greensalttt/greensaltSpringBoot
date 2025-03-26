@@ -3,6 +3,7 @@ package com.example.greenspringboot.cust.service;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.dto.CustDto;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ public interface CustService {
     String emailCheck(String cEmail);
 
     String nickCheck(String cNick);
+
+    Boolean save(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode);
 
     String joinEmail(String cEmail) throws Exception;
     String ResetEmail(String cEmail) throws Exception;
