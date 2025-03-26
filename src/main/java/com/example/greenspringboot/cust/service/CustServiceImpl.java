@@ -97,7 +97,7 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
-    public Boolean save(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
+    public Boolean save(@Valid Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
 
         HttpSession session = request.getSession();
         String savedVerificationCode = (String) session.getAttribute("verificationCode");

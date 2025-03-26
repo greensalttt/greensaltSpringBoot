@@ -71,16 +71,16 @@ public class Cust {
 
     @Column(name="c_road_a", nullable = false)
     @NotBlank(message = "도로명 주소는 필수입니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "도로명 주소는 특수문자(공백, -, /) 포함 30자 이하여야 합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "도로명 주소는 특수문자(공백, -, /)만 포함 가능하며 30자 이하여야 합니다.")
     private String cRoadA;
 
     @Column(name="c_jibun_a")
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "지번 주소는 특수문자(공백, -, /) 포함 30자 이하여야 합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "지번 주소는 특수문자(공백, -, /)만 포함 가능하며 30자 이하여야 합니다.")
     private String cJibunA;
 
     @Column(name="c_det_a", nullable = false)
     @NotBlank(message = "상세 주소는 필수입니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "상세 주소는 특수문자(공백, -, /) 포함 30자 이하여야 합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "상세 주소는 특수문자(공백, -, /)만 포함 가능하며 30자 이하여야 합니다.")
     private String cDetA;
 
     @Column(name="sms_agr")
