@@ -4,7 +4,7 @@
 ![메인 히스토리](https://github.com/user-attachments/assets/aa58e739-4fcc-48f7-97db-e867d57d9b82)
 ![로그인](https://github.com/user-attachments/assets/ce7eb3de-3e0a-4fd9-b08a-17da5f6009ec)
 ![회원가입](https://github.com/user-attachments/assets/2cfd2468-e035-4756-a89a-414e4c3005f7)
-![Image](https://github.com/user-attachments/assets/3a1a97d7-71cd-4475-bfa3-a0d6fc595c65)
+![Image](https://github.com/user-attachments/assets/00546d23-2433-4f5e-a4fb-e3de2ff56ed8)
 ![Image](https://github.com/user-attachments/assets/f494ac28-4864-49c8-b9db-35125769f56e)
 ![마이페이지](https://github.com/user-attachments/assets/579f217b-b834-4996-ae9f-a467df35e780)
 ![개인정보 수정](https://github.com/user-attachments/assets/cbe2c221-86a4-4181-b301-2e5d0b9ae516)
