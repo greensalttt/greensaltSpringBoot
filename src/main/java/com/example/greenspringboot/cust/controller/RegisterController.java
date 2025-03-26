@@ -68,26 +68,11 @@ public class RegisterController {
         }
     }
 
-
     @PostMapping("/add")
     public String registerPost(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
-
-        HttpSession session = request.getSession();
-        String savedVerificationCode = (String) session.getAttribute("verificationCode");
-
-        System.out.println("인증번호: " + savedVerificationCode);
-        System.out.println("내가 입력한 값: " + userInputCode);
-
-        if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
-//            비밀번호 유효성 검사
-            custService.validatePassword(custDto.getCPwd());
-//            비밀번호 해시화
-            cust.setCPwd(custService.pwdEncrypt(custDto.getCPwd()));
-
-            custRepository.save(cust);
-            return "loginForm";
-        }
-        System.out.println("인증번호 잘못 입력하셨습니다.");
+        if(!custService.save(cust, custDto, request, userInputCode)){
         return "errorPage";
+        }
+        return "loginForm";
     }
 }
