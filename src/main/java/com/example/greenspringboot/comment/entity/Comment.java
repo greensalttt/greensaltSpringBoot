@@ -31,11 +31,9 @@ public class Comment {
     private Integer bno;
 
     // 부모 댓글을 참조하는 필드 (자기 참조 관계)
-//    @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pcno")  // 자기 테이블 내의 pcno 컬럼을 외래 키로 사용
     private Comment parentComment;
-
 
     private String comment;
 

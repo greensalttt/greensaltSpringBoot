@@ -87,7 +87,7 @@
 
 <div id="forgotPwdForm">
     <form action="forgotPwdClear" method="post" onsubmit="return forgotPwdCheck()">
-        <h1 id="title">비밀번호 변경</h1>
+        <h1 id="title">비밀번호 찾기</h1>
         <p id="title2">개인정보 보호를 위해 새로운 비밀번호로 변경한 다음 로그인 해주세요.</p>
 
         <div id="container">

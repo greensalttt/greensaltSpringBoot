@@ -348,11 +348,8 @@
                 $("#wrtRepBtn").click(function(){
                     let comment = $("input[name=replyComment]").val();
                     let parentComment = $("#replyForm").parent().attr("data-parentComment");
-                    // let parentComment = $("#replyForm").parent().attr("data-cno");
 
                     console.log("parentComment:", parentComment);
-
-
 
                     if(comment.trim() == ''){
                         alert("답글을 입력해 주세요.");

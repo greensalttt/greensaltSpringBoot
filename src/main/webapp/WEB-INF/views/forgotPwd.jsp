@@ -67,7 +67,7 @@
     #home{
         text-align: center;
         margin-top: 20px;
-        font-size: 30px;
+        font-size: 20px;
         cursor: pointer;
 
     }
@@ -97,7 +97,7 @@
 <body>
 <div id="forgotPwdForm">
     <form action="/forgotPwd2" method="POST">
- <h1 id="home" onclick="window.location.href='/'">Green Salt</h1>
+ <h1 id="home" onclick="window.location.href='/'">비밀번호 찾기</h1>
 
     <h2 id="title">비밀번호를 찾고자 하는 이메일을 적어주세요</h2>
 
