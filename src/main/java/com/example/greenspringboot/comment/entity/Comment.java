@@ -30,10 +30,10 @@ public class Comment {
 
     private Integer bno;
 
-    // 부모 댓글을 참조하는 필드 (자기 참조 관계)
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pcno")  // 자기 테이블 내의 pcno 컬럼을 외래 키로 사용
-    private Comment parentComment;
+    // 대댓글 중에서 최고 조상을 찾는 관계이므로 다대일(Many-to-One) 관계를 사용
+    @ManyToOne
+    @JoinColumn(name = "pcno")  // 자기 테이블 내의 "pcno" 컬럼을 외래 키로 사용
+    private Comment parentComment; // 각 댓글은 하나의 부모 댓글을 참조
 
     private String comment;
 
