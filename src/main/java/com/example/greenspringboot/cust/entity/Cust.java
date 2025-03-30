@@ -5,20 +5,19 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "cust")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 
 //엔티티에서 클라이언트 유효성 검사 대체 가능?
 public class Cust {
+
 //    pk값 설정
     @Id
 //    오토 인크리먼트 설정
