@@ -22,12 +22,7 @@ public class LoginController {
     @Autowired
     private CustService custService;
 
-//    @GetMapping("/login")
-//    public String login(@CookieValue(value = "cEmailCookie", defaultValue = "") String cEmail, Model model) {
-//        model.addAttribute("cEmailCookie", cEmail);
-//        return "loginForm";
-//    }
-
+//    쿠키에 있는 이메일이 암호화로 저장되기 때문에 다시 불러오기 위해 복호화 시켜 모델로 전달
     @GetMapping("/login")
     public String login(@CookieValue(value = "cEmail", defaultValue = "") String encryptedEmail, Model model) {
         String decryptedEmail = "";
@@ -88,9 +83,6 @@ public class LoginController {
                 idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
                 response.addCookie(idcookie);
 
-//                String decryptedEmail = EncryptionUtil.decrypt(encryptedEmail);
-//                System.out.println("복호화된 이메일: " + decryptedEmail);
-//                 model.addAttribute("decryptedEmail", decryptedEmail);
 
             } catch (Exception e) {
                 e.printStackTrace();
