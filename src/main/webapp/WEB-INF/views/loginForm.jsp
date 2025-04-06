@@ -21,7 +21,7 @@
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             padding-top: 2%;
             padding-bottom: 2%;
-            margin: 200px auto 100px;
+            margin: 200px auto 150px;
         }
 
         .container {
@@ -41,11 +41,6 @@
             box-sizing: border-box;
         }
 
-
-        .subBtn {
-            width: 49%;
-            margin-bottom: 10px;
-        }
 
         label {
             display: block;
@@ -71,24 +66,6 @@
             margin-top: -15px;
         }
 
-        .buttonContainer {
-            display: flex;
-            justify-content: space-between;
-            max-width: 400px;
-            margin: auto;
-            margin-bottom: 30px;
-        }
-
-        .subBtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-            border: none;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-
         #forgot{
             cursor: pointer;
         }
@@ -99,11 +76,11 @@
             color: #000;
         }
 
-        #loginDiv {
+        #loginDiv, #adminLoginDiv, #pwdDiv, #adminPwdDiv {
             position: relative;
         }
 
-        #loginImg {
+        #loginImg, #adminLoginImg {
             position: absolute;
             left: 8px;
             top: 40%;
@@ -114,11 +91,7 @@
         }
 
 
-        #pwdDiv {
-            position: relative;
-        }
-
-        #pwdImg {
+        #pwdImg, #adminPwdImg {
             position: absolute;
             left: 8px;
             top: 35%;
@@ -128,11 +101,11 @@
             pointer-events: none;
         }
 
-        #cEmail, #cPwd {
+        #cEmail, #cPwd, #adminId, #adminPwd {
             padding-left: 45px;
         }
 
-        #login {
+        #login, #adminLogin {
             position: relative;
             width: 100%;
             height: 50px;
@@ -178,14 +151,36 @@
             transition: 0s
         }
 
-        #logo{
+        #title, #adminTitle{
             margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         #emailLabel {
             margin-top: 15px;
             font-weight: 500;
             color: black;
+        }
+
+        #tabContainer{
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .tabButton {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid darkgreen;
+            background-color: white;
+            cursor: pointer;
+            font-weight: bold;
+            color: darkgreen;
+            transition: 0.3s;
+        }
+
+        .tabButton.active {
+            background-color: darkgreen;
+            color: white;
         }
     </style>
 </head>
@@ -196,40 +191,17 @@
     <jsp:include page="header.jsp"/>
 </header>
 
-<%--<div id="loginform">--%>
-<%-- <form action="/login" method="post" onsubmit="return">--%>
-<%--        <h1 id="logo">Green Salt</h1><br><br><br>--%>
-<%--        <div class="container">--%>
-<%--            <div id="loginDiv">--%>
-<%--                <input value="${cookie.cEmail.value}" id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30"--%>
-<%--                       placeholder="green@salt.com" required>--%>
-<%--                <img id="loginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">--%>
-<%--            </div>--%>
-
-<%--            <div id="pwdDiv">--%>
-<%--                <input id="cPwd" class="special-class" type="password" name="cPwd" maxlength="15" placeholder="비밀번호" required>--%>
-<%--                <img id="pwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">--%>
-<%--            </div>--%>
-
-<%--            <input type="hidden" name="toURL" value="${param.toURL}">--%>
-
-<%--            <div id="emailRemember">--%>
-<%--                <input type="checkbox" id="remember" name="rememberEmail"  ${empty cookie.cEmail.value ? "":"checked"}>--%>
-<%--                <label for="remember" id="emailLabel">이메일 저장</label></div><br>--%>
-
-<%--            <button type="submit" id="login">로그인</button>--%>
-
-<%--            <div id="check">--%>
-<%--                <a id="forgot" href="/forgotPwd">비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>--%>
-<%--            </div><br>--%>
-<%--        </div>--%>
-<%--    </form>--%>
-<%--</div>--%>
-
-
 <div id="loginform">
-    <form action="/login" method="post" onsubmit="return">
-        <h1 id="logo">Green Salt</h1><br><br><br>
+
+    <div id="tabContainer">
+        <button type="button" id="custTab" class="tabButton active" onclick="switchTab('cust')">회원 로그인</button>
+        <button type="button" id="adminTab" class="tabButton" onclick="switchTab('admin')">관리자 로그인</button>
+    </div>
+
+<%--    회원 로그인폼--%>
+    <form id="custLoginForm" action="/login" method="post" onsubmit="return">
+        <h1 id="title" >Green Salt</h1>
+
         <div class="container">
             <div id="loginDiv">
                 <input value="${decryptedEmail}" id="cEmail" name="cEmail" class="special-class" type="text" maxlength="30"
@@ -246,8 +218,7 @@
             <input type="hidden" name="toURL" value="${param.toURL}">
 
             <div id="emailRemember">
-<%--                <input type="checkbox" id="remember" name="rememberEmail"  ${empty decryptedEmail ? "":"checked"}>--%>
-                    <input type="checkbox" id="remember" name="rememberEmail" ${decryptedEmail != null ? "checked" : ""}>
+             <input type="checkbox" id="remember" name="rememberEmail" ${decryptedEmail != null ? "checked" : ""}>
     <label for="remember" id="emailLabel">이메일 저장</label></div><br>
 
             <button type="submit" id="login">로그인</button>
@@ -257,6 +228,26 @@
             </div><br>
         </div>
     </form>
+
+    <!-- 관리자 로그인 폼 -->
+    <form id="adminLoginForm" action="/adminLogin" method="post" style="display: none;">
+        <h1 id="adminTitle">관리자 로그인</h1>
+
+        <div class="container">
+            <div id="adminLoginDiv">
+                <input id="adminId" name="adminId" class="special-class" type="text" maxlength="30"
+                       placeholder="admin" required>
+                <img id="adminLoginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
+            </div>
+
+            <div id="adminPwdDiv">
+                <input id="adminPwd" class="special-class" type="password" name="adminPwd" maxlength="15" placeholder="비밀번호" required>
+                <img id="adminPwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">
+            </div><br>
+
+            <button type="submit" id="adminLogin">로그인</button><br>
+        </div>
+    </form>
 </div>
 
 <footer>
@@ -264,6 +255,26 @@
 </footer>
 
 <script>
+
+    function switchTab(tab) {
+        const custForm = document.getElementById("custLoginForm");
+        const adminForm = document.getElementById("adminLoginForm");
+        const custTab = document.getElementById("custTab");
+        const adminTab = document.getElementById("adminTab");
+
+        if (tab === "cust") {
+            custForm.style.display = "block";
+            adminForm.style.display = "none";
+            custTab.classList.add("active");
+            adminTab.classList.remove("active");
+        } else {
+            custForm.style.display = "none";
+            adminForm.style.display = "block";
+            custTab.classList.remove("active");
+            adminTab.classList.add("active");
+        }
+    }
+
     let signUpClear = "${signUpClear}"
     if(signUpClear==="msg") {
         alert("회원가입이 되셨습니다.");

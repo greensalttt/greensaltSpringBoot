@@ -274,7 +274,9 @@ public class CustServiceImpl implements CustService {
     @Transactional
     @Override
     public boolean pwdChange(int cId, CustDto custDto, String curPwd) {
+
         // 고객 정보 조회
+        // Optional을 사용하면 내부에서 null 체크 생략 가능 > 자동 null 체크
         Optional<Cust> optionalCust = custRepository.findById(cId);
 
         if (optionalCust.isPresent()) {
