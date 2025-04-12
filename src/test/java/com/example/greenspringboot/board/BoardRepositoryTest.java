@@ -25,11 +25,4 @@ public class BoardRepositoryTest {
         }
     }
 
-    @Test
-    public void pwd(){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPwd = "1234";
-        String encodedPwd = encoder.encode(rawPwd);
-        System.out.println(encodedPwd);
-    }
 }
