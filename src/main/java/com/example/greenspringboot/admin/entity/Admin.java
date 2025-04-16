@@ -17,6 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 
+//관리자의 정보를 화면에 띄울 일은 없어서 DTO는 필요 없을듯?
 public class Admin {
 
     @Id
