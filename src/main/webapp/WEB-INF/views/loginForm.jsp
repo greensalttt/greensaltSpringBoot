@@ -230,18 +230,18 @@
     </form>
 
     <!-- 관리자 로그인 폼 -->
-    <form id="adminLoginForm" action="/adminLogin" method="post" style="display: none;">
+    <form id="adminLoginForm" action="/adminlogin" method="post" style="display: none;">
         <h1 id="adminTitle">관리자 로그인</h1>
 
         <div class="container">
             <div id="adminLoginDiv">
-                <input id="adminId" name="adminId" class="special-class" type="text" maxlength="30"
+                <input id="adminId" name="aId" class="special-class" type="text" maxlength="30"
                        placeholder="admin" required>
                 <img id="adminLoginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
             </div>
 
             <div id="adminPwdDiv">
-                <input id="adminPwd" class="special-class" type="password" name="adminPwd" maxlength="15" placeholder="비밀번호" required>
+                <input id="adminPwd" class="special-class" type="password" name="aPwd" maxlength="15" placeholder="비밀번호" required>
                 <img id="adminPwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">
             </div><br>
 
@@ -284,6 +284,12 @@
     if(loginFail==="msg") {
         alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
     }
+
+    let adminLoginFail = "${adminLoginFail}"
+    if(adminLoginFail==="msg") {
+        alert("관리자 아이디 또는 비밀번호를 잘못 입력하셨습니다.");
+    }
+
 
 </script>
 
