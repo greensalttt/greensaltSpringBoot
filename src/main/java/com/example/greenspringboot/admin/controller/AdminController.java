@@ -26,4 +26,10 @@ public class AdminController {
         }
         return "dashborad";
     }
+
+    @PostMapping("/adminlogout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }
