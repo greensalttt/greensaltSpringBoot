@@ -9,11 +9,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "cust")
-@Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 
 //엔티티에서 클라이언트 유효성 검사 대체 가능?
 public class Cust {
@@ -24,9 +23,6 @@ public class Cust {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id", nullable = false)
     private Integer cId;
-
-    @Builder.Default
-    private String c_grd_cd = "Bronze";
 
     @Builder.Default
     private String c_stat_cd = "M";
@@ -99,10 +95,8 @@ public class Cust {
 
     @Builder.Default
     @Column(name= "visit_cnt")
-    private int visitCnt = 0;
+    private Integer visitCnt = 0;
 
-    @Builder.Default
-    private int tot_amt = 0;
 
     @Builder.Default
     private Date frst_reg_dt = new Date();
