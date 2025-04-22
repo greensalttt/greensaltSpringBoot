@@ -1,9 +1,13 @@
 package com.example.greenspringboot.admin.service;
 import com.example.greenspringboot.admin.entity.Admin;
 import com.example.greenspringboot.admin.repository.AdminRepository;
+import com.example.greenspringboot.board.repository.BoardRepository;
+import com.example.greenspringboot.comment.repository.CommentRepository;
+import com.example.greenspringboot.cust.repository.CustRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,29 +19,38 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private CustRepository custRepository;
+
+    @Autowired
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
     @Override
-    public Boolean adminLogin(String aId, String aPwd, HttpServletRequest request) {
+    public Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model) {
         System.out.println("관리자 로그인 아이디: " + aId);
 
         Optional<Admin> optionalAdmin = adminRepository.findById(aId);
 
         if (optionalAdmin.isPresent()) {
             Admin admin = optionalAdmin.get();
-
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-            // 비밀번호 불일치 시 false 반환
             if (!encoder.matches(aPwd, admin.getAPwd())) {
                 return false;
             }
-
-            // 비밀번호가 일치하면 세션 생성
             HttpSession session = request.getSession();
             session.setAttribute("aId", admin.getAId());
+            long custCount = custRepository.count();
+            long boardCount = boardRepository.count();
+            long commentCount = commentRepository.count();
+            model.addAttribute("custCount", custCount);
+            model.addAttribute("boardCount", boardCount);
+            model.addAttribute("commentCount", commentCount);
+
             return true;
         }
-
-        // 해당 ID가 없는 경우
         return false;
     }
 

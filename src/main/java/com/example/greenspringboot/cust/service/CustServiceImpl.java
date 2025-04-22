@@ -105,8 +105,6 @@ public class CustServiceImpl implements CustService {
         System.out.println("내가 입력한 값: " + userInputCode);
 
         if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
-//            validatePassword(custDto.getCPwd());
-//            cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
             validatePassword(cust.getCPwd());
             cust.setCPwd(pwdEncrypt(cust.getCPwd()));
             custRepository.save(cust);

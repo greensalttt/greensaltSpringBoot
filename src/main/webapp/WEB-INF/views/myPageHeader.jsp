@@ -61,7 +61,6 @@
         #title2{
             cursor: pointer;
             text-decoration: none;
-            /*color: black;*/
             color: dimgray;
             font-size: 14px;
         }
@@ -81,14 +80,12 @@
         <div class="sp">
             <span class="date">등급</span>
             <span class="ma2">
-<%--                    <%=session.getAttribute("grdName")%>--%>
                 Bronze
                 </span>
         </div>
         <div class="sp">
             <span class="date">포인트</span>
             <span class="ma2">
-<%--                    <%=session.getAttribute("tot_amt")%>p--%>
                 0원
                 </span>
         </div>
@@ -96,7 +93,6 @@
             <span class="date">방문</span>
             <span class="ma2">
                 <%=session.getAttribute("visitCnt")%>회
-<%--                0회--%>
             </span>
         </div>
         <div class="sp">
