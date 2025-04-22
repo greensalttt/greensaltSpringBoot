@@ -16,9 +16,6 @@ import javax.servlet.http.HttpSession;
 public class RegisterController {
 
     private final CustService custService;
-
-    private final CustRepository custRepository;
-
     @GetMapping("/add")
     public String register() {
         return "registerForm";
@@ -69,8 +66,8 @@ public class RegisterController {
     }
 
     @PostMapping("/add")
-    public String registerPost(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
-        if(!custService.save(cust, custDto, request, userInputCode)){
+    public String registerPost(Cust cust, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
+        if(!custService.save(cust, request, userInputCode)){
         return "errorPage";
         }
         return "loginForm";

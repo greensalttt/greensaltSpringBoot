@@ -8,7 +8,6 @@ import java.util.Date;
 @Builder
 public class CustDto {
     private Integer cId;
-    private String c_grd_cd;
     private String c_stat_cd;
     private String cEmail;
     private String cPwd;
@@ -26,10 +25,8 @@ public class CustDto {
     private Date regDt;
     private Date login_dt;
     private Integer visitCnt;
-    private String tot_amt;
     private Date frst_reg_dt;
     private String frst_reg_id;
     private Date last_mod_dt;
     private String last_mod_id;
-
 }

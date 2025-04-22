@@ -8,6 +8,10 @@
 <body>
 <p>관리자 사이트입니다</p>
 
+<p>현재 회원가입 수</p>
+<p>현재 게시글 수</p>
+<p>현재 댓글 수</p>
+
 <form action="<c:url value='/adminlogout'/>" method="POST">
     <button type="submit" id="adminlogoutLink">Logout</button>
 </form>

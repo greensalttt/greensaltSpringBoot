@@ -115,9 +115,6 @@
         <div class="sp">
             <span><a class="none" onclick="test()">좋아요</a></span>
         </div>
-<%--        <div class="sp">--%>
-<%--            <span><a class="none" onclick="test()">배송지 목록</a></span>--%>
-<%--        </div>--%>
         <div class="sp">
             <span><a class="none" href="/mypage/info">개인정보 수정</a></span>
         </div>

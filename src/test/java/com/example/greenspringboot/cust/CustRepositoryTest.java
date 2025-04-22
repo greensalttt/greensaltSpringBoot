@@ -27,7 +27,6 @@ public class CustRepositoryTest {
                 .cPwd("123456789q")
                 .build();
 
-
         custService.validatePassword(custDto.getCPwd());
 
         Cust cust = Cust.builder()

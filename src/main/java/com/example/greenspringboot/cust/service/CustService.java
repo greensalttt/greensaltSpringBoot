@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-//@Service
 public interface CustService {
     String emailCheck(String cEmail);
 
     String nickCheck(String cNick);
 
-    Boolean save(Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode);
+    Boolean save(Cust cust, HttpServletRequest request, @RequestParam("emailCode") String userInputCode);
 
     String joinEmail(String cEmail) throws Exception;
     String ResetEmail(String cEmail) throws Exception;

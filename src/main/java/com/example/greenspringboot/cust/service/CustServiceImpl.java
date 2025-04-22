@@ -97,8 +97,7 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
-    public Boolean save(@Valid Cust cust, CustDto custDto, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
-
+    public Boolean save(@Valid Cust cust, HttpServletRequest request, @RequestParam("emailCode") String userInputCode) {
         HttpSession session = request.getSession();
         String savedVerificationCode = (String) session.getAttribute("verificationCode");
 
@@ -106,8 +105,10 @@ public class CustServiceImpl implements CustService {
         System.out.println("내가 입력한 값: " + userInputCode);
 
         if (savedVerificationCode != null && savedVerificationCode.equals(userInputCode)) {
-            validatePassword(custDto.getCPwd());
-            cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
+//            validatePassword(custDto.getCPwd());
+//            cust.setCPwd(pwdEncrypt(custDto.getCPwd()));
+            validatePassword(cust.getCPwd());
+            cust.setCPwd(pwdEncrypt(cust.getCPwd()));
             custRepository.save(cust);
             return true;
         }
