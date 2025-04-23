@@ -23,4 +23,9 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
     @Query("UPDATE Cust SET visitCnt = visitCnt + 1 WHERE cEmail = :cEmail")
     int incrementViSitCnt(@Param("cEmail") String cEmail);
 
+    @Query("SELECT c.visitCnt FROM Cust c WHERE c.cId = :cId")
+    long getTotalVisitCnt(@Param("cId") int cId);
+
+
+
 }
