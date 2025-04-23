@@ -122,6 +122,10 @@ public class CustServiceImpl implements CustService {
 
             Cust cust = custRepository.findBycEmail(cEmail);
 
+        if (cust == null) {
+            return false; // 이메일 없으면 로그인 실패 처리
+        }
+
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            평문화와 암호화 비밀번호를 비교할 수 있는 메서드
                 if (!encoder.matches(cPwd, cust.getCPwd())) {
