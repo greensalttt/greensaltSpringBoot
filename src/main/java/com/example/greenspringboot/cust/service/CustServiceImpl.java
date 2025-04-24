@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.internet.MimeMessage;
@@ -134,12 +135,10 @@ public class CustServiceImpl implements CustService {
 
         CustDto custDto = CustDto.builder()  // 빌더 패턴을 사용하여 객체 생성
                 .cId(cust.getCId())
-                .cNick(cust.getCNick())
                 .build();  // 필요한 데이터만 DTO로 추출
 
         HttpSession session = request.getSession();
             session.setAttribute("cId", custDto.getCId());
-            session.setAttribute("cNick", custDto.getCNick());
             custRepository.incrementViSitCnt(cEmail);
         return true;
     }
@@ -170,41 +169,76 @@ public class CustServiceImpl implements CustService {
         return true;
     }
 
-
-
     @Override
-    public void myPage(int cId, HttpServletRequest request) {
+    public void myPage(int cId, HttpServletRequest request, Model model) {
         Optional<Cust> optionalCust = custRepository.findById(cId);
 
         if (optionalCust.isPresent()) {
             Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
-            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
+            String cName = cust.getCName();
+            String cNick = cust.getCNick();
+            Date regDt = cust.getRegDt();
+            long visitCnt = cust.getVisitCnt();
 
-        HttpSession session = request.getSession();
-        session.setAttribute("cEmail", custDto.getCEmail());
-        session.setAttribute("cName", custDto.getCName());
-        session.setAttribute("cZip", custDto.getCZip());
-        session.setAttribute("cRoadA", custDto.getCRoadA());
-        session.setAttribute("cJibunA", custDto.getCJibunA());
-        session.setAttribute("cDetA", custDto.getCDetA());
-        session.setAttribute("cPhn", custDto.getCPhn());
-        session.setAttribute("cGnd", custDto.getCGnd());
-        session.setAttribute("cBirth", custDto.getCBirth());
-        session.setAttribute("smsAgr", custDto.getSmsAgr());
-        session.setAttribute("emailAgr", custDto.getEmailAgr());
-        session.setAttribute("visitCnt", custDto.getVisitCnt());
+            CustDto custDto = CustDto.builder()
+                    .cName(cName)
+                    .cNick(cNick)
+                    .visitCnt(visitCnt)
+                    .regDt(regDt)
+                    .build();
 
-        Date regDate = custDto.getRegDt();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        String regDateStr = dateFormat.format(regDate);
+            model.addAttribute("custDto", custDto);
 
-        session.setAttribute("regDt", regDateStr);
+            System.out.println("custDto:" + custDto);
+
         } else {
             // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
             System.out.println("고객 정보를 찾을 수 없습니다.");
         }
     }
+
+
+
+
+//    @Override
+//    public void myPage(int cId, HttpServletRequest request, Model model) {
+//        Optional<Cust> optionalCust = custRepository.findById(cId);
+//
+//        if (optionalCust.isPresent()) {
+//            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+//
+//            long visitCnt = custRepository.getTotalVisitCnt(cId);
+//            model.addAttribute("visitCnt", visitCnt);
+//
+//            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
+//
+//
+//        HttpSession session = request.getSession();
+//        session.setAttribute("cEmail", custDto.getCEmail());
+//        session.setAttribute("cName", custDto.getCName());
+//        session.setAttribute("cZip", custDto.getCZip());
+//        session.setAttribute("cRoadA", custDto.getCRoadA());
+//        session.setAttribute("cJibunA", custDto.getCJibunA());
+//        session.setAttribute("cDetA", custDto.getCDetA());
+//        session.setAttribute("cPhn", custDto.getCPhn());
+//        session.setAttribute("cGnd", custDto.getCGnd());
+//        session.setAttribute("cBirth", custDto.getCBirth());
+//        session.setAttribute("smsAgr", custDto.getSmsAgr());
+//        session.setAttribute("emailAgr", custDto.getEmailAgr());
+//
+//
+//
+//        Date regDate = custDto.getRegDt();
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//        String regDateStr = dateFormat.format(regDate);
+//
+//        session.setAttribute("regDt", regDateStr);
+//        } else {
+//            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
+//            System.out.println("고객 정보를 찾을 수 없습니다.");
+//        }
+//    }
 
 
     @Override
@@ -351,6 +385,12 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
         return false; // 고객을 찾을 수 없으면 실패
     }
 }
+
+//    @Override
+    public boolean custDrop(){
+
+        return true;
+    }
 
 
 

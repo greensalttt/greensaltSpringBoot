@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
+
 //  MyBatis에서는 Dao, JPA에서는 Repository
 //Cust는 엔티티 이름, Integer은 테이블의 pk 타입
 public interface CustRepository extends JpaRepository<Cust, Integer> {
@@ -23,8 +25,19 @@ public interface CustRepository extends JpaRepository<Cust, Integer> {
     @Query("UPDATE Cust SET visitCnt = visitCnt + 1 WHERE cEmail = :cEmail")
     int incrementViSitCnt(@Param("cEmail") String cEmail);
 
-    @Query("SELECT c.visitCnt FROM Cust c WHERE c.cId = :cId")
-    long getTotalVisitCnt(@Param("cId") int cId);
+//    @Query("SELECT c.visitCnt FROM Cust c WHERE c.cId = :cId")
+//    long getTotalVisitCnt(@Param("cId") int cId);
+//
+//    @Query("SELECT c.cName FROM Cust c WHERE c.cId = :cId")
+//    String findNameBycId(@Param("cId") int cId);
+//
+//    @Query("SELECT c.cNick FROM Cust c WHERE c.cId = :cId")
+//    String findNickBycId(@Param("cId") int cId);
+//
+//
+//    @Query("SELECT c.regDt FROM Cust c WHERE c.cId = :cId")
+//    Date findRegDtBycId(@Param("cId") int cId);
+
 
 
 

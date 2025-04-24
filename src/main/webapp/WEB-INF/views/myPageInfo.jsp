@@ -276,8 +276,8 @@
     </form>
 </div>
 
+<form id="dropForm" method="POST" action="/mypage/info/drop">
 <div id="myModal" class="modal">
-
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
 
@@ -286,8 +286,7 @@
         <p id="nowPwd">비밀번호</p>
         <input id="dropPwd" type="password" placeholder="현재 사용중인 비밀번호를 적어주세요" maxlength="15">
 
-        <p id="pp">회원 탈퇴시 계정 복구가 불가능하며 회원님의 개인 정보는 탈퇴 시점으로</p>
-        <p id="pp2">3개월 동안 보관됩니다. 보관된 데이터는 3개월 뒤 자동으로 삭제됩니다.</p>
+        <p id="pp">회원 탈퇴시 계정 복구가 불가능하며 회원님의 개인 정보는 보관됩니다.</p>
 
 
         <div id="dropDiv">
@@ -295,9 +294,9 @@
             <label for="one" id="dropOk">동의</label><br><br>
         </div>
         <button id="dropBtn">탈퇴</button>
-    </div>
-
+    </div><br>
 </div>
+</form>
 
 <footer>
     <jsp:include page="footer.jsp" flush="false" />

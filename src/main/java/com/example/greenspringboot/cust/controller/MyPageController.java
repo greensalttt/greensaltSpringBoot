@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +36,10 @@ public class MyPageController {
     private CustService custService;
 
     @GetMapping("/list")
-    /*세션 속성에 저장되어있는 c_id를 가져와서 c_id 변수로 지정함*/
-    public String myPage(HttpSession session, HttpServletRequest request) {
+    public String myPage(HttpSession session, HttpServletRequest request, Model model) {
         Integer cId = (Integer) session.getAttribute("cId");
-
         if(cId != null) {
-
-            custService.myPage(cId, request);
+            custService.myPage(cId, request, model);
             return "myPage";
         }
         return "errorPageC";
@@ -50,7 +48,6 @@ public class MyPageController {
     //    엔티티는 DB 전송, DTO는 데이터 전송
     @GetMapping("/info")
     public String myPageInfo(HttpSession session) {
-        System.out.println("개인정보변경 겟맵핑: " + session.getAttribute("cName"));
         return "myPageInfo";
     }
 
@@ -99,6 +96,11 @@ public class MyPageController {
         msg.addFlashAttribute("pwdClear", "pwdMsg");
 
         return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
+    }
+
+    @PostMapping("/drop")
+    public Boolean custDrop(){
+        return true;
     }
 
 }

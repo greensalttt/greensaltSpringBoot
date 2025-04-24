@@ -3,6 +3,7 @@ package com.example.greenspringboot.cust.service;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.dto.CustDto;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +45,7 @@ public interface CustService {
 
     Cust toPwdEntity(Cust cust, CustDto custDto);
 
-    void myPage(int cId, HttpServletRequest request);
+    void myPage(int cId, HttpServletRequest request, Model model);
 
 
 }
