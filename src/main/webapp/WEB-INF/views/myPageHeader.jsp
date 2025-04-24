@@ -22,7 +22,6 @@
             font-weight: bold;
         }
         .sp {
-            /*font-size: 16px;*/
             margin: 40px;
             display: flex;
             flex-direction: column;
@@ -69,35 +68,24 @@
 
 <body>
 <div id="myPage">
-    <p id="title1"><a id="title2" href="/mypage/list"><%=session.getAttribute("cName")%>님의 MY PAGE</a></p>
+<%--    JavaBeans Introspector 규칙으로 겟맵핑 이후 필드명이 앞글자와 두번째 글자가 대문자면 그대로 가고 앞글자만 대문자면 소문자로 변환한다--%>
+    <p id="title1"><a id="title2" href="/mypage/list">${custDto.CName}님의 MY PAGE</a></p>
     <div class="one1">
         <div class="sp">
             <span class="date">닉네임</span>
             <span class="ma2">
-                    <%=session.getAttribute("cNick")%>
-                </span>
-        </div>
-        <div class="sp">
-            <span class="date">등급</span>
-            <span class="ma2">
-                Bronze
-                </span>
-        </div>
-        <div class="sp">
-            <span class="date">포인트</span>
-            <span class="ma2">
-                0원
+                ${custDto.CNick}
                 </span>
         </div>
         <div class="sp">
             <span class="date">방문</span>
             <span class="ma2">
-                <%=session.getAttribute("visitCnt")%>회
+                ${custDto.visitCnt}회
             </span>
         </div>
         <div class="sp">
             <span class="date">가입일</span>
-            <span class="ma2"><%=session.getAttribute("regDt")%></span>
+            <span class="ma2">${custDto.regDt}</span>
         </div>
     </div>
 
