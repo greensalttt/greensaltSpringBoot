@@ -198,6 +198,24 @@ public class CustServiceImpl implements CustService {
         }
     }
 
+    @Override
+    public void myPageInfo(){
+
+//        인포에 들어가면 이 세션들 다 모델로 데이터 받기
+//        session.setAttribute("cEmail", custDto.getCEmail());
+//        session.setAttribute("cName", custDto.getCName());
+//        session.setAttribute("cZip", custDto.getCZip());
+//        session.setAttribute("cRoadA", custDto.getCRoadA());
+//        session.setAttribute("cJibunA", custDto.getCJibunA());
+//        session.setAttribute("cDetA", custDto.getCDetA());
+//        session.setAttribute("cPhn", custDto.getCPhn());
+//        session.setAttribute("cGnd", custDto.getCGnd());
+//        session.setAttribute("cBirth", custDto.getCBirth());
+//        session.setAttribute("smsAgr", custDto.getSmsAgr());
+//        session.setAttribute("emailAgr", custDto.getEmailAgr());
+
+
+    }
 
 
 
