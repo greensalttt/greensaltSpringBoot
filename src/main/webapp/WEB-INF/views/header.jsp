@@ -1,9 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--<c:set var="loginLogoutLink" value="${sessionScope.cId==null ? '/login' : '/logout'}"/>--%>
-<%--<c:set var="loginLogout" value="${sessionScope.cId==null ? 'login' : 'logout'}"/>--%>
-
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
 
 
@@ -22,17 +19,9 @@
 
     <div id="headerTitle">
         <h1><a href="<c:url value='/'/>">Green Salt !</a></h1>
-        <h2 id="greenClover"><img src=https://cdn-icons-png.flaticon.com/128/15439/15439306.png></h2>
+<%--        <h2 id="greenClover"><img src=https://cdn-icons-png.flaticon.com/128/15439/15439306.png></h2>--%>
     </div>
 
-<%--<div id="custIcon">--%>
-<%--    <img id="custIconImg" src="https://cdn-icons-png.flaticon.com/128/3462/3462172.png" alt="User Icon">--%>
-<%--    <div id="links">--%>
-<%--        <a id="loginLogoutLink" href="<c:url value='${loginLogoutLink}'/>">${loginLogout}</a>--%>
-
-<%--        <a href="/mypage/list">My Page</a>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <div id="custIcon">
     <img id="custIconImg" src="https://cdn-icons-png.flaticon.com/128/3462/3462172.png" alt="User Icon">

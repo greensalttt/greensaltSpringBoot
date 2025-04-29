@@ -182,12 +182,12 @@
                     <li class="one">
                         <a href="#">
                             <div>
-                                <img class="albumAll" onclick="moveAll(event, 2)" src="../../album_img/omg.jpg"
+                                <img class="albumAll" onclick="moveAll(event, 5)" src="../../album_img/teambaby.webp"
                                      style="width:100%" height="170" />
                             </div>
 
                             <div class="three">
-                                <p>OMG</p>
+                                <p>TEAM BABY</p>
                             </div>
                         </a>
                     </li>
@@ -267,18 +267,22 @@
                         </a>
                     </li>
 
+
+
                     <li class="one">
                         <a href="#">
                             <div>
-                                <img class="albumAll" onclick="moveAll(event, 5)" src="../../album_img/teambaby.webp"
+                                <img class="albumAll" onclick="moveAll(event, 2)" src="../../album_img/omg.jpg"
                                      style="width:100%" height="170" />
                             </div>
 
                             <div class="three">
-                                <p>TEAM BABY</p>
+                                <p>OMG</p>
                             </div>
                         </a>
                     </li>
+
+
                 </ul>
             </div>
         </article>

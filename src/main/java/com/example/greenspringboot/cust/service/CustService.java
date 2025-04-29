@@ -46,6 +46,8 @@ public interface CustService {
     Cust toPwdEntity(Cust cust, CustDto custDto);
 
     void myPage(int cId, HttpServletRequest request, Model model);
+     void myPageInfo();
+
 
 
 }
