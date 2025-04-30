@@ -170,7 +170,7 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
-    public void myPage(int cId, HttpServletRequest request, Model model) {
+    public void myPage(int cId, Model model) {
         Optional<Cust> optionalCust = custRepository.findById(cId);
 
         if (optionalCust.isPresent()) {
@@ -199,20 +199,48 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
-    public void myPageInfo(){
+    public void myPageInfo(int cId, Model model){
 
-//        인포에 들어가면 이 세션들 다 모델로 데이터 받기
-//        session.setAttribute("cEmail", custDto.getCEmail());
-//        session.setAttribute("cName", custDto.getCName());
-//        session.setAttribute("cZip", custDto.getCZip());
-//        session.setAttribute("cRoadA", custDto.getCRoadA());
-//        session.setAttribute("cJibunA", custDto.getCJibunA());
-//        session.setAttribute("cDetA", custDto.getCDetA());
-//        session.setAttribute("cPhn", custDto.getCPhn());
-//        session.setAttribute("cGnd", custDto.getCGnd());
-//        session.setAttribute("cBirth", custDto.getCBirth());
-//        session.setAttribute("smsAgr", custDto.getSmsAgr());
-//        session.setAttribute("emailAgr", custDto.getEmailAgr());
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+
+            String cEmail = cust.getCEmail();
+            String cName = cust.getCName();
+            String cNick = cust.getCNick();
+            String cZip = cust.getCZip();
+            String cRoadA = cust.getCRoadA();
+            String cJibunA = cust.getCJibunA();
+            String cDetA = cust.getCDetA();
+            String cPhn = cust.getCPhn();
+            String cGnd = cust.getCGnd();
+            String cBirth = cust.getCBirth();
+            String smsAgr = cust.getSmsAgr();
+            String emailAgr = cust.getEmailAgr();
+
+            CustDto custDto = CustDto.builder()
+                    .cEmail(cEmail)
+                    .cName(cName)
+                    .cNick(cNick)
+                    .cZip(cZip)
+                    .cRoadA(cRoadA)
+                    .cJibunA(cJibunA)
+                    .cDetA(cDetA)
+                    .cPhn(cPhn)
+                    .cGnd(cGnd)
+                    .cBirth(cBirth)
+                    .smsAgr(smsAgr)
+                    .emailAgr(emailAgr)
+                    .build();
+            model.addAttribute("custDto", custDto);
+
+            System.out.println("custDto:" + custDto);
+
+        } else {
+            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
+            System.out.println("고객 정보를 찾을 수 없습니다.");
+        }
 
 
     }
