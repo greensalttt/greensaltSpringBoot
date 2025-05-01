@@ -95,7 +95,7 @@ public class Cust {
 
     @Builder.Default
     @Column(name= "visit_cnt")
-    private long visitCnt = 0;
+    private Long visitCnt = 0L;
 
     @Builder.Default
     private Date frst_reg_dt = new Date();

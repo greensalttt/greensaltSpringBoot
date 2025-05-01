@@ -56,15 +56,29 @@ public class MyPageController {
         return "errorPageC";
     }
 
+//    @PostMapping("/info")
+//    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
+//        HttpSession session = request.getSession();
+//
+//        // 로그인할때 저장한 cId 세션을 변수로 저장
+//        int cId = (int) session.getAttribute("cId");
+//
+//        // 서비스 호출하여 정보 업데이트 및 이력 기록
+//        boolean updateResult = custService.custModify(cId, custDto, session);
+//
+//        if (updateResult) {
+//            rattr.addFlashAttribute("msg", "CMOD_OK");
+//        } else {
+//            rattr.addFlashAttribute("msg", "CUSTOMER_NOT_FOUND");
+//        }
+//        return "redirect:/mypage/list";
+//    }
+
     @PostMapping("/info")
-    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
-        HttpSession session = request.getSession();
+    public String myPageInfo(HttpSession session, @ModelAttribute CustDto custDto, RedirectAttributes rattr) {
 
-        // 로그인할때 저장한 cId 세션을 변수로 저장
-        int cId = (int) session.getAttribute("cId");
-
-        // 서비스 호출하여 정보 업데이트 및 이력 기록
-        boolean updateResult = custService.custModify(cId, custDto, session);
+        Integer cId = (Integer) session.getAttribute("cId");
+        boolean updateResult = custService.custModify(cId, custDto);
 
         if (updateResult) {
             rattr.addFlashAttribute("msg", "CMOD_OK");

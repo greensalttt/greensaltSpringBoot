@@ -34,8 +34,6 @@ public interface CustService {
 
     void updateSession(HttpSession session, CustDto custDto);
 
-    boolean custModify(int cId, CustDto custDto, HttpSession session);
-
 
     CustDto toDto(Cust cust);
 
@@ -47,6 +45,9 @@ public interface CustService {
 
     void myPage(int cId, Model model);
      void myPageInfo(int cId, Model model);
+
+    boolean custModify(int cId, CustDto custDto);
+
 
 
 
