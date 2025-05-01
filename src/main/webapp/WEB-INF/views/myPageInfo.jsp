@@ -211,7 +211,7 @@
             margin-bottom: 3px;
         }
 
-        #pp, #pp2{
+        #pp{
             font-size: 11px;
         }
 
@@ -235,46 +235,106 @@
             <h1 id="loginTitle">개인정보 수정</h1>
             <p id="check-result"></p>
             <label class="infoLabel">이메일*</label>
-            <input class="special-class" type="text" id="c_email" name="cEmail" value="<%= session.getAttribute("cEmail")%>" disabled>
+            <input class="special-class" type="text" id="c_email" name="cEmail" value="${custDto.CEmail}" disabled>
             <label class="infoLabel">이름*</label>
-            <input class="special-class" type="text" name="cName" value="<%= session.getAttribute("cName")%>"disabled>
+            <input class="special-class" type="text" name="cName" value="${custDto.CName}" disabled>
             <label class="infoLabel">닉네임</label>
-            <input class="special-class" type="text" id="c_nm" name="cNick" value="<%= session.getAttribute("cNick")%>" maxlength="10">
+            <input class="special-class" type="text" id="c_nm" name="cNick" value="${custDto.CNick}" maxlength="10">
             <label class="infoLabel">주소</label>
             <div id="ad">
-                <input type="text" id="zip" name="cZip" value="<%= session.getAttribute("cZip")%>">
+                <input type="text" id="zip" name="cZip" value="${custDto.CZip}">
                 <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>
-            <input type="text" id="roadAddress" name="cRoadA" value="<%= session.getAttribute("cRoadA")%>">
-            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="<%= session.getAttribute("cJibunA")%>">
+            <input type="text" id="roadAddress" name="cRoadA" value="${custDto.CRoadA}">
+            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="${custDto.CJibunA}">
             <span id="guide" style="color:#999;display:none"></span>
-            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" value="<%= session.getAttribute("cDetA")%>"><p id="det">건물명 + 상세주소</p></div><br>
+            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" value="${custDto.CDetA}"><p id="det">건물명 + 상세주소</p></div><br>
             <label class="infoLabel">휴대폰</label>
-            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="<%= session.getAttribute("cPhn")%>"><p id="phn">-제외</p></div>
+            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="${custDto.CPhn}"><p id="phn">-제외</p></div>
             <label class="infoLabel">성별*</label>
-            <input class="special-class" type="text" name="cGnd" value="<%= session.getAttribute("cGnd")%>"disabled>
+            <input class="special-class" type="text" name="cGnd" value="${custDto.CGnd}"disabled>
             <label class="infoLabel" id="aa">생년월일</label>
-            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="<%= session.getAttribute("cBirth")%>" ><br><br>
-          <div id="choice">
-            <a class="infoLabel">SMS 수신</a>
-            <input type="radio" id="sms_agr" name="smsAgr" value="Y" <%= session.getAttribute("smsAgr").equals("Y") ? "checked" : "" %>>
-            <label for="sms_agr" class="choiceLabel">수신함</label>
-            <input type="radio" id="sms_no" name="smsAgr" value="N" <%= session.getAttribute("smsAgr").equals("N") ? "checked" : "" %>>
-            <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>
+            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="${custDto.CBirth}" ><br><br>
+            <div id="choice">
+                <a class="infoLabel">SMS 수신</a>
+<%--                <input type="radio" id="sms_agr" name="smsAgr" value="Y" ${custDto.smsAgr == 'Y' ? 'checked' : ''}>--%>
+<%--                <label for="sms_agr" class="choiceLabel">수신함</label>--%>
+<%--                <input type="radio" id="sms_no" name="smsAgr" value="N" ${custDto.smsAgr == 'N' ? 'checked' : ''}>--%>
+<%--                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>--%>
 
-            <a class="infoLabel">이메일 수신</a>
-            <input type="radio" id="email_agr" name="emailAgr" value="Y" <%= session.getAttribute("emailAgr").equals("Y") ? "checked" : "" %>>
-            <label for="email_agr" class="choiceLabel">수신함</label>
-            <input type="radio" id="email_no" name="emailAgr" value="N" <%= session.getAttribute("emailAgr").equals("N") ? "checked" : "" %>>
-            <label for="email_no" class="choiceLabel">수신 안함</label>
-          </div><br><br><br><br><br>
+                <input type="radio" id="sms_agr" name="smsAgr" value="Y"
+                       <c:if test="${custDto.smsAgr == 'Y'}">checked</c:if>>
+                <label for="sms_agr" class="choiceLabel">수신함</label>
 
+                <input type="radio" id="sms_no" name="smsAgr" value="N"
+                       <c:if test="${custDto.smsAgr == 'N'}">checked</c:if>>
+                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>
+
+                <a class="infoLabel">이메일 수신</a>
+                <input type="radio" id="email_agr" name="emailAgr" value="Y"
+                    <c:if test="${custDto.emailAgr == 'Y'}">checked</c:if>>
+
+                <label for="email_agr" class="choiceLabel">수신함</label>
+
+                <input type="radio" id="email_no" name="emailAgr" value="N"
+                    <c:if test="${custDto.emailAgr == 'N'}">checked</c:if>>
+                <label for="email_no" class="choiceLabel">수신 안함</label>
+
+            </div><br><br><br><br><br>
 
             <div id="check">
-     <button id="edit">수정</button> <a id="delete" onclick="openModal()">회원탈퇴</a>
+                <button id="edit">수정</button> <a id="delete" onclick="openModal()">회원탈퇴</a>
             </div>
-      </div>
+        </div>
     </form>
 </div>
+
+
+<%--<div id="infoForm">--%>
+<%--    <form action="/mypage/info" method="POST" onsubmit="return formCheck()">--%>
+<%--        <div class="container">--%>
+<%--            <h1 id="loginTitle">개인정보 수정</h1>--%>
+<%--            <p id="check-result"></p>--%>
+<%--            <label class="infoLabel">이메일*</label>--%>
+<%--            <input class="special-class" type="text" id="c_email" name="cEmail" value="<%= session.getAttribute("cEmail")%>" disabled>--%>
+<%--            <label class="infoLabel">이름*</label>--%>
+<%--            <input class="special-class" type="text" name="cName" value="<%= session.getAttribute("cName")%>"disabled>--%>
+<%--            <label class="infoLabel">닉네임</label>--%>
+<%--            <input class="special-class" type="text" id="c_nm" name="cNick" value="<%= session.getAttribute("cNick")%>" maxlength="10">--%>
+<%--            <label class="infoLabel">주소</label>--%>
+<%--            <div id="ad">--%>
+<%--                <input type="text" id="zip" name="cZip" value="<%= session.getAttribute("cZip")%>">--%>
+<%--                <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>--%>
+<%--            <input type="text" id="roadAddress" name="cRoadA" value="<%= session.getAttribute("cRoadA")%>">--%>
+<%--            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="<%= session.getAttribute("cJibunA")%>">--%>
+<%--            <span id="guide" style="color:#999;display:none"></span>--%>
+<%--            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" value="<%= session.getAttribute("cDetA")%>"><p id="det">건물명 + 상세주소</p></div><br>--%>
+<%--            <label class="infoLabel">휴대폰</label>--%>
+<%--            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="<%= session.getAttribute("cPhn")%>"><p id="phn">-제외</p></div>--%>
+<%--            <label class="infoLabel">성별*</label>--%>
+<%--            <input class="special-class" type="text" name="cGnd" value="<%= session.getAttribute("cGnd")%>"disabled>--%>
+<%--            <label class="infoLabel" id="aa">생년월일</label>--%>
+<%--            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="<%= session.getAttribute("cBirth")%>" ><br><br>--%>
+<%--          <div id="choice">--%>
+<%--            <a class="infoLabel">SMS 수신</a>--%>
+<%--            <input type="radio" id="sms_agr" name="smsAgr" value="Y" <%= session.getAttribute("smsAgr").equals("Y") ? "checked" : "" %>>--%>
+<%--            <label for="sms_agr" class="choiceLabel">수신함</label>--%>
+<%--            <input type="radio" id="sms_no" name="smsAgr" value="N" <%= session.getAttribute("smsAgr").equals("N") ? "checked" : "" %>>--%>
+<%--            <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>--%>
+
+<%--            <a class="infoLabel">이메일 수신</a>--%>
+<%--            <input type="radio" id="email_agr" name="emailAgr" value="Y" <%= session.getAttribute("emailAgr").equals("Y") ? "checked" : "" %>>--%>
+<%--            <label for="email_agr" class="choiceLabel">수신함</label>--%>
+<%--            <input type="radio" id="email_no" name="emailAgr" value="N" <%= session.getAttribute("emailAgr").equals("N") ? "checked" : "" %>>--%>
+<%--            <label for="email_no" class="choiceLabel">수신 안함</label>--%>
+<%--          </div><br><br><br><br><br>--%>
+
+
+<%--            <div id="check">--%>
+<%--     <button id="edit">수정</button> <a id="delete" onclick="openModal()">회원탈퇴</a>--%>
+<%--            </div>--%>
+<%--      </div>--%>
+<%--    </form>--%>
+<%--</div>--%>
 
 <form id="dropForm" method="POST" action="/mypage/info/drop">
 <div id="myModal" class="modal">

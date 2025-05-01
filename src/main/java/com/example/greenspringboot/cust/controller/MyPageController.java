@@ -36,19 +36,24 @@ public class MyPageController {
     private CustService custService;
 
     @GetMapping("/list")
-    public String myPage(HttpSession session, HttpServletRequest request, Model model) {
+    public String myPage(HttpSession session, Model model) {
         Integer cId = (Integer) session.getAttribute("cId");
         if(cId != null) {
-            custService.myPage(cId, request, model);
+            custService.myPage(cId, model);
             return "myPage";
         }
         return "errorPageC";
     }
 
-    //    엔티티는 DB 전송, DTO는 데이터 전송
+    //    엔티티는 DB 값이 변경될때, DTO는 눈에 보이는 데이터 화면으로 전송할때
     @GetMapping("/info")
-    public String myPageInfo(HttpSession session) {
-        return "myPageInfo";
+    public String myPageInfo(HttpSession session, Model model) {
+        Integer cId = (Integer) session.getAttribute("cId");
+        if(cId != null) {
+            custService.myPageInfo(cId, model);
+            return "myPageInfo";
+        }
+        return "errorPageC";
     }
 
     @PostMapping("/info")
