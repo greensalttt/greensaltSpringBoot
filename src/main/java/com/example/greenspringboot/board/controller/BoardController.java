@@ -34,7 +34,7 @@ public class BoardController {
     private BoardRepository boardRepository;
 
     @GetMapping("/list")
-    public String list(Model m, SearchCondition sc, HttpSession session) {
+    public String list(Model m, SearchCondition sc) {
         try {
             int totalCnt = boardService.getSearchResultCnt(sc);
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
@@ -52,22 +52,24 @@ public class BoardController {
             m.addAttribute("totalCnt", 0);
         }
 
-        System.out.println("게시판 겟맵핑 cId: " + session.getAttribute("cId"));
+//        System.out.println("게시판 겟맵핑 cId: " + session.getAttribute("cId"));
 
 
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
 
     @GetMapping("/write")
-    public String write(Model m, HttpSession session) {
+    public String write(Model m) {
         m.addAttribute("mode", "new");
-        System.out.println("글쓰기 겟맵핑: " + session.getAttribute("cId"));
-        System.out.println("글쓰기 DTO겟맵핑: " + session.getAttribute("boardDto.cId"));
+//        System.out.println("글쓰기 겟맵핑: " + session.getAttribute("cId"));
+//        System.out.println("글쓰기 DTO겟맵핑: " + session.getAttribute("boardDto.cId"));
 
 
         return "board";
     }
 
+
+//    닉네임을 어떻게 가져올지 새로운 고민
     @PostMapping("/write")
     public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
         boardDto.setCId((Integer) session.getAttribute("cId"));

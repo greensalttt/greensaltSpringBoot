@@ -218,8 +218,8 @@ public class CustServiceImpl implements CustService {
             String cBirth = cust.getCBirth();
             String smsAgr = cust.getSmsAgr();
             String emailAgr = cust.getEmailAgr();
-//            Date regDt = cust.getRegDt();
-//            long visitCnt = cust.getVisitCnt();
+            Date regDt = cust.getRegDt();
+            long visitCnt = cust.getVisitCnt();
 
             CustDto custDto = CustDto.builder()
                     .cEmail(cEmail)
@@ -234,8 +234,8 @@ public class CustServiceImpl implements CustService {
                     .cBirth(cBirth)
                     .smsAgr(smsAgr)
                     .emailAgr(emailAgr)
-//                    .visitCnt(visitCnt)
-//                    .regDt(regDt)
+                    .visitCnt(visitCnt)
+                    .regDt(regDt)
                     .build();
             model.addAttribute("custDto", custDto);
 

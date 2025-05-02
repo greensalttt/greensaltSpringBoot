@@ -1,8 +1,6 @@
 package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.entity.Cust;
-import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.service.CustService;
-import com.example.greenspringboot.cust.dto.CustDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
