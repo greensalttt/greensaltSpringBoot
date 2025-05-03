@@ -135,7 +135,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<BoardDto> getSearchResultPage(SearchCondition sc) {
-        // 검색 조건에 맞는 게시글 조회
+        // 게시글 조회 메서드, 게시글 목록 조회니까 그 게시글의 작성자도 같이 가져와야되는게 아닐까?
         String keyword = sc.getKeyword();
         String option = sc.getOption();
 
