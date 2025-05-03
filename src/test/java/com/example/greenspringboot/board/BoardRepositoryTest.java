@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 
 @SpringBootTest
 public class BoardRepositoryTest {
@@ -12,7 +13,7 @@ public class BoardRepositoryTest {
     private BoardService boardService;
 
     @Test
-    public void insertTest() {
+    public void insertTest(int cId) {
         for (int i = 1; i < 100; i++){
             BoardDto boardDto = BoardDto.builder()
                     .cId(1)
@@ -21,7 +22,7 @@ public class BoardRepositoryTest {
                     .writer("test")
                     .deleted(false)
                     .build();
-            boardService.write(boardDto);
+            boardService.write(boardDto, cId);
         }
     }
 

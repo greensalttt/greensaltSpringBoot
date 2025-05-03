@@ -54,7 +54,6 @@ public class BoardController {
 
 //        System.out.println("게시판 겟맵핑 cId: " + session.getAttribute("cId"));
 
-
         return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
 
@@ -72,11 +71,12 @@ public class BoardController {
 //    닉네임을 어떻게 가져올지 새로운 고민
     @PostMapping("/write")
     public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
+
+        Integer cId = (Integer) session.getAttribute("cId");
         boardDto.setCId((Integer) session.getAttribute("cId"));
-        boardDto.setWriter((String) session.getAttribute("cNick"));
 
         try {
-            boardService.write(boardDto);
+            boardService.write(boardDto,cId);
             rattr.addFlashAttribute("msg", "WRT_OK");
             return "redirect:/board/list";
         } catch (Exception e) {

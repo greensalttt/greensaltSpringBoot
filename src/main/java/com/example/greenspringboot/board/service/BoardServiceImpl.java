@@ -7,13 +7,19 @@ import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.repository.CustRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,17 +31,35 @@ public class BoardServiceImpl implements BoardService{
     @Autowired
     private BoardHistRepository boardHistRepository;
 
+    @Autowired
+    private CustRepository custRepository;
+
     @Override
-    public void write(BoardDto boardDto) {
-        Board board = Board.builder()
-                .bno(boardDto.getBno())
-                .cId(boardDto.getCId())
-                .title(boardDto.getTitle())
-                .content(boardDto.getContent())
-                .writer(boardDto.getWriter())
-                .build();
-        // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
-        boardRepository.save(board);
+    public void write(BoardDto boardDto, int cId) {
+
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+
+            String cNick = cust.getCNick();
+
+            CustDto custDto = CustDto.builder()
+                    .cNick(cNick)
+                    .build();
+//
+//            m.addAttribute("custDto", custDto);
+
+            Board board = Board.builder()
+                    .bno(boardDto.getBno())
+                    .cId(boardDto.getCId())
+                    .title(boardDto.getTitle())
+                    .content(boardDto.getContent())
+                    .writer(custDto.getCNick())
+                    .build();
+            // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
+            boardRepository.save(board);
+        }
     }
 
     @Override

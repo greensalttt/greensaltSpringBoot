@@ -3,13 +3,14 @@ package com.example.greenspringboot.board.service;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.SearchCondition;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
 public interface BoardService {
 
 
-    void write(BoardDto boardDto);
+    void write(BoardDto boardDto, int cId);
 
     BoardDto read(Integer bno);
 
