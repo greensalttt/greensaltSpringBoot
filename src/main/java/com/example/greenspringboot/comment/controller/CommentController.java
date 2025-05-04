@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 //RESTful은 HTTP 메서드(GET, POST, PUT, DELETE, PATCH)를 사용하여 클라이언트와 서버간의 데이터를 주고 받는 형식
+//MVC가 아닌 REST API 방식이기 때문에 댓글을 모델로 담아서 보여줄 필요가 없다. JSON으로 응답
 @RestController
 public class CommentController {
     @Autowired
@@ -24,7 +25,7 @@ public class CommentController {
     @PostMapping("/comments")
     public String write(@RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
         commentDto.setCId((Integer) session.getAttribute("cId"));
-        commentDto.setCommenter((String) session.getAttribute("cNick"));
+//        commentDto.setCommenter((String) session.getAttribute("cNick"));
         commentDto.setBno(bno);
         commentService.write(commentDto);
 

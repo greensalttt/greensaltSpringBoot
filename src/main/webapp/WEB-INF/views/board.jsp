@@ -385,7 +385,6 @@
                     $.ajax({
                         type:'GET',
                         url: '/comments?bno=' + bno,
-                        // result: JSON 형식으로 응답된 데이터
                         success: function(result){
                             if (result.length === 0) {
                                 $("#commentList").html("<p>등록된 댓글이 없습니다</p>");
