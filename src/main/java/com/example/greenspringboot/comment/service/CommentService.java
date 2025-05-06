@@ -7,11 +7,12 @@ import java.util.List;
 
 public interface CommentService{
 
-    void write(CommentDto commentdto);
+    void write(CommentDto commentdto, int cId);
     void modify(CommentDto commentdto, Integer cno);
     void remove(Integer cno);
 
     List<Comment> list(Integer bno);
+
 }
 
 //    void toEntity(Comment comment, CommentDto commentDto);

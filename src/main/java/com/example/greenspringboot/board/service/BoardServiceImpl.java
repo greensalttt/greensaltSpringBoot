@@ -47,8 +47,6 @@ public class BoardServiceImpl implements BoardService{
             CustDto custDto = CustDto.builder()
                     .cNick(cNick)
                     .build();
-//
-//            m.addAttribute("custDto", custDto);
 
             Board board = Board.builder()
                     .bno(boardDto.getBno())

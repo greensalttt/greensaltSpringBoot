@@ -5,10 +5,14 @@ import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.repository.CommentHistRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.repository.CustRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -20,6 +24,9 @@ public class CommentServiceImpl implements CommentService{
     private CommentHistRepository commentHistRepository;
 
 
+    @Autowired
+    private CustRepository custRepository;
+
     @Override
         public List<Comment> list(Integer bno){
         return commentRepository.findAllCommentsWithReplies(bno);
@@ -27,25 +34,37 @@ public class CommentServiceImpl implements CommentService{
 
 
     @Override
-    public void write(CommentDto commentDto) {
+    public void write(CommentDto commentDto, int cId) {
         Comment parentComment = null;
         if (commentDto.getPcno() != null) {
             parentComment = commentRepository.findById(commentDto.getPcno()).orElse(null);
         }
 
-        // comment 엔티티 빌드
-        Comment comment = Comment.builder()
-                .cId(commentDto.getCId())
-                .bno(commentDto.getBno())
-                .parentComment(parentComment)  // parentComment가 null일 수도 있음
-                .comment(commentDto.getComment())
-                .commenter(commentDto.getCommenter())
-                .build();
+        Optional<Cust> optionalCust = custRepository.findById(cId);
 
-        // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
-        commentRepository.save(comment);
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
-        System.out.println("commentDto:" + commentDto);
+            String cNick = cust.getCNick();
+
+            CustDto custDto = CustDto.builder()
+                    .cNick(cNick)
+                    .build();
+
+            // comment 엔티티 빌드
+            Comment comment = Comment.builder()
+                    .cId(commentDto.getCId())
+                    .bno(commentDto.getBno())
+                    .parentComment(parentComment)  // parentComment가 null일 수도 있음
+                    .comment(commentDto.getComment())
+                    .commenter(custDto.getCNick())
+                    .build();
+
+            // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
+            commentRepository.save(comment);
+
+            System.out.println("commentDto:" + commentDto);
+        }
     }
 
 

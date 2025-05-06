@@ -24,10 +24,12 @@ public class CommentController {
     // 댓글을 등록하는 메서드
     @PostMapping("/comments")
     public String write(@RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
+
+        Integer cId = (Integer) session.getAttribute("cId");
         commentDto.setCId((Integer) session.getAttribute("cId"));
 //        commentDto.setCommenter((String) session.getAttribute("cNick"));
         commentDto.setBno(bno);
-        commentService.write(commentDto);
+        commentService.write(commentDto, cId);
 
         return "redirect:/board";
     }
