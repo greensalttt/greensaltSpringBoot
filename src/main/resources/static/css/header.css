@@ -34,17 +34,7 @@ h1 {
     top: 53px;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 13px;
-    /*left: 53px;*/
 }
-
-/*#headerTitle>#greenClover {*/
-/*    display: flex;*/
-/*    position: relative;*/
-/*    right: 195px;*/
-/*    width: 50px;*/
-/*    height: 50px;*/
-/*    bottom: 5px;*/
-/*}*/
 
 #headerNav {
     display: flex;
@@ -70,8 +60,10 @@ h1 {
 }
 
 #search1 {
-    position: absolute;
-    bottom: 60px;
+    position: relative;
+    /*bottom: 60px;*/
+    /*left: 290px;*/
+    top: 50px;
     left: 290px;
     width: 550px;
     height: 40px;
@@ -98,17 +90,14 @@ h1 {
     width: 26px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    /* 애니메이션 효과 */
 }
 
 #custIconImg:hover {
     transform: scale(1.1);
-    /* 이미지 확대 효과 */
 }
 
 #links {
     display: none;
-    /* 기본적으로 링크들을 숨김 */
     position: absolute;
     top: 30px;
     right: 0;
@@ -118,10 +107,8 @@ h1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 5px;
     z-index: 1000;
-    /* 다른 요소 위에 표시되게 함 */
     opacity: 0;
     transition: opacity 0.3s ease;
-    /* 애니메이션 효과 */
     height: 70px;
     width: 80px;
 }
@@ -145,10 +132,10 @@ h1 {
 
 
 #logoutLink {
-    background: none; /* 배경 제거 */
-    font: inherit; /* 폰트 상속 */
-    text-decoration: none; /* 밑줄 제거 */
-    cursor: pointer; /* 마우스 커서 변경 */
+    background: none;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
     display: block;
     padding: 5px;
     margin-bottom: 4px;

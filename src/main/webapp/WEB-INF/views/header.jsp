@@ -19,8 +19,7 @@
 
     <div id="headerTitle">
         <h1><a href="<c:url value='/'/>">Green Salt !</a></h1>
-<%--        <h2 id="greenClover"><img src=https://cdn-icons-png.flaticon.com/128/15439/15439306.png></h2>--%>
-    </div>
+   </div>
 
 
 <div id="custIcon">
