@@ -13,10 +13,11 @@ public class BoardRepositoryTest {
     private BoardService boardService;
 
     @Test
-    public void insertTest(int cId) {
-        for (int i = 1; i < 100; i++){
+    public void insertTest() {
+        Integer cId = 1;
+        for (int i = 1; i < 10; i++){
             BoardDto boardDto = BoardDto.builder()
-                    .cId(1)
+                    .cId(cId)
                     .title("후발주자" + i)
                     .content("ㅇㅇ")
                     .writer("test")
