@@ -133,25 +133,24 @@
         }
 
         .modal {
-            display: none; /* 기본적으로 숨김 */
-            position: fixed; /* 위치 고정 */
-            z-index: 1; /* 다른 요소 위에 표시 */
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* 화면 전체 너비 */
-            height: 100%; /* 화면 전체 높이 */
-            overflow: auto; /* 스크롤 가능하도록 */
-            background-color: rgba(0, 0, 0, 0.4); /* 배경색과 투명도 설정 */
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
             font-size: 13px;
         }
 
-        /* 모달 내용 스타일 */
         .modal-content {
-            background-color: #fefefe; /* 모달 내용 배경색 */
-            margin: 15% auto; /* 중앙 정렬 */
+            background-color: #fefefe;
+            margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 500px; /* 모달 내용 너비 */
+            width: 500px;
             height: 340px;
         }
 
@@ -256,11 +255,6 @@
             <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="${custDto.CBirth}" ><br><br>
             <div id="choice">
                 <a class="infoLabel">SMS 수신</a>
-<%--                <input type="radio" id="sms_agr" name="smsAgr" value="Y" ${custDto.smsAgr == 'Y' ? 'checked' : ''}>--%>
-<%--                <label for="sms_agr" class="choiceLabel">수신함</label>--%>
-<%--                <input type="radio" id="sms_no" name="smsAgr" value="N" ${custDto.smsAgr == 'N' ? 'checked' : ''}>--%>
-<%--                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>--%>
-
                 <input type="radio" id="sms_agr" name="smsAgr" value="Y"
                        <c:if test="${custDto.smsAgr == 'Y'}">checked</c:if>>
                 <label for="sms_agr" class="choiceLabel">수신함</label>
@@ -289,54 +283,7 @@
 </div>
 
 
-<%--<div id="infoForm">--%>
-<%--    <form action="/mypage/info" method="POST" onsubmit="return formCheck()">--%>
-<%--        <div class="container">--%>
-<%--            <h1 id="loginTitle">개인정보 수정</h1>--%>
-<%--            <p id="check-result"></p>--%>
-<%--            <label class="infoLabel">이메일*</label>--%>
-<%--            <input class="special-class" type="text" id="c_email" name="cEmail" value="<%= session.getAttribute("cEmail")%>" disabled>--%>
-<%--            <label class="infoLabel">이름*</label>--%>
-<%--            <input class="special-class" type="text" name="cName" value="<%= session.getAttribute("cName")%>"disabled>--%>
-<%--            <label class="infoLabel">닉네임</label>--%>
-<%--            <input class="special-class" type="text" id="c_nm" name="cNick" value="<%= session.getAttribute("cNick")%>" maxlength="10">--%>
-<%--            <label class="infoLabel">주소</label>--%>
-<%--            <div id="ad">--%>
-<%--                <input type="text" id="zip" name="cZip" value="<%= session.getAttribute("cZip")%>">--%>
-<%--                <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>--%>
-<%--            <input type="text" id="roadAddress" name="cRoadA" value="<%= session.getAttribute("cRoadA")%>">--%>
-<%--            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="<%= session.getAttribute("cJibunA")%>">--%>
-<%--            <span id="guide" style="color:#999;display:none"></span>--%>
-<%--            <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" value="<%= session.getAttribute("cDetA")%>"><p id="det">건물명 + 상세주소</p></div><br>--%>
-<%--            <label class="infoLabel">휴대폰</label>--%>
-<%--            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="<%= session.getAttribute("cPhn")%>"><p id="phn">-제외</p></div>--%>
-<%--            <label class="infoLabel">성별*</label>--%>
-<%--            <input class="special-class" type="text" name="cGnd" value="<%= session.getAttribute("cGnd")%>"disabled>--%>
-<%--            <label class="infoLabel" id="aa">생년월일</label>--%>
-<%--            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="<%= session.getAttribute("cBirth")%>" ><br><br>--%>
-<%--          <div id="choice">--%>
-<%--            <a class="infoLabel">SMS 수신</a>--%>
-<%--            <input type="radio" id="sms_agr" name="smsAgr" value="Y" <%= session.getAttribute("smsAgr").equals("Y") ? "checked" : "" %>>--%>
-<%--            <label for="sms_agr" class="choiceLabel">수신함</label>--%>
-<%--            <input type="radio" id="sms_no" name="smsAgr" value="N" <%= session.getAttribute("smsAgr").equals("N") ? "checked" : "" %>>--%>
-<%--            <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>--%>
-
-<%--            <a class="infoLabel">이메일 수신</a>--%>
-<%--            <input type="radio" id="email_agr" name="emailAgr" value="Y" <%= session.getAttribute("emailAgr").equals("Y") ? "checked" : "" %>>--%>
-<%--            <label for="email_agr" class="choiceLabel">수신함</label>--%>
-<%--            <input type="radio" id="email_no" name="emailAgr" value="N" <%= session.getAttribute("emailAgr").equals("N") ? "checked" : "" %>>--%>
-<%--            <label for="email_no" class="choiceLabel">수신 안함</label>--%>
-<%--          </div><br><br><br><br><br>--%>
-
-
-<%--            <div id="check">--%>
-<%--     <button id="edit">수정</button> <a id="delete" onclick="openModal()">회원탈퇴</a>--%>
-<%--            </div>--%>
-<%--      </div>--%>
-<%--    </form>--%>
-<%--</div>--%>
-
-<form id="dropForm" method="POST" action="/mypage/info/drop">
+<form id="dropForm" method="POST" action="/mypage/info/drop" onsubmit="return handleDropSubmit()">
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -350,9 +297,10 @@
 
 
         <div id="dropDiv">
-            <input type="checkbox" id="one">
-            <label for="one" id="dropOk">동의</label><br><br>
+            <input type="checkbox" id="agree">
+            <label for="agree" id="dropOk">동의</label><br><br>
         </div>
+
         <button id="dropBtn">탈퇴</button>
     </div><br>
 </div>
@@ -365,6 +313,19 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+
+    function isAgreementChecked() {
+        return document.getElementById("agree").checked;
+    }
+
+    function handleDropSubmit() {
+        if (!isAgreementChecked()) {
+            alert("회원 탈퇴에 동의하셔야 합니다.");
+            return false; // 제출 막기
+        }
+        return true; // 제출 허용
+    }
+
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function (data) {
