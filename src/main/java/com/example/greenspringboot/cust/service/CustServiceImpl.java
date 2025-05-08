@@ -473,26 +473,59 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
     }
 }
 
-//    @Override
-    public boolean custDrop(){
-
-        return true;
-    }
-
-
-
     @Override
-    public void updateSession(HttpSession session, CustDto custDto) {
-        session.setAttribute("cNick", custDto.getCNick());
-        session.setAttribute("cZip", custDto.getCZip());
-        session.setAttribute("cRoadA", custDto.getCRoadA());
-        session.setAttribute("cJibunA", custDto.getCJibunA());
-        session.setAttribute("cDetA", custDto.getCDetA());
-        session.setAttribute("cPhn", custDto.getCPhn());
-        session.setAttribute("cBirth", custDto.getCBirth());
-        session.setAttribute("smsAgr", custDto.getSmsAgr());
-        session.setAttribute("emailAgr", custDto.getEmailAgr());
+    public boolean custDrop(int cId, String dropPwd){
+
+        // 고객 정보 조회
+        // Optional을 사용하면 내부에서 null 체크 생략 가능 > 자동 null 체크
+        Optional<Cust> optionalCust = custRepository.findById(cId);
+
+        if (optionalCust.isPresent()) {
+            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
+            CustDto oldCust = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
+
+            // 현재 비밀번호와 입력한 비밀번호 비교
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(dropPwd, oldCust.getCPwd())) {
+                System.out.println("비밀번호가 불일치합니다.");
+                return false; // 비밀번호 불일치
+            }
+
+            // 회원 코드 변경
+            cust.setCStatCd("D");
+            custRepository.save(cust); //  업데이트
+
+            // 이력 기록
+            CustHist custHist = new CustHist();
+            custHist.setCId(cust.getCId());
+            custHist.setCCngCd("STAT");
+            custHist.setCBf(oldCust.getCStatCd());
+            custHist.setCAf(cust.getCStatCd());
+
+            custHistRepository.save(custHist); // 이력 저장
+
+            return true;
+        } else {
+            System.out.println("고객 정보를 찾을 수 없습니다");
+            return false;
+        }
     }
+
+
+
+
+//    @Override
+//    public void updateSession(HttpSession session, CustDto custDto) {
+//        session.setAttribute("cNick", custDto.getCNick());
+//        session.setAttribute("cZip", custDto.getCZip());
+//        session.setAttribute("cRoadA", custDto.getCRoadA());
+//        session.setAttribute("cJibunA", custDto.getCJibunA());
+//        session.setAttribute("cDetA", custDto.getCDetA());
+//        session.setAttribute("cPhn", custDto.getCPhn());
+//        session.setAttribute("cBirth", custDto.getCBirth());
+//        session.setAttribute("smsAgr", custDto.getSmsAgr());
+//        session.setAttribute("emailAgr", custDto.getEmailAgr());
+//    }
 
     @Override
     public CustDto toDto(Cust cust) {
