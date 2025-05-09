@@ -23,9 +23,15 @@ public class Cust {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id", nullable = false)
     private Integer cId;
+//
+//    @Builder.Default
+//    private String c_stat_cd = "M";
+
 
     @Builder.Default
-    private String c_stat_cd = "M";
+    @Column(name = "c_stat_cd", nullable = false)
+    private String cStatCd = "M";
+
 
     @Column(name = "c_email", nullable = false, unique = true)
     @NotBlank(message = "이메일은 필수입니다.")

@@ -28,8 +28,6 @@ import java.util.Optional;
 @RequestMapping("/mypage")
 public class MyPageController {
 
-    @Autowired
-    private CustRepository custRepository;
 
 //    서비스에서 만든 메서드를 사용할려면 오토와이어드 어노테이션 필수
     @Autowired
@@ -56,24 +54,6 @@ public class MyPageController {
         return "errorPageC";
     }
 
-//    @PostMapping("/info")
-//    public String myPageInfo(@ModelAttribute CustDto custDto, HttpServletRequest request, RedirectAttributes rattr) {
-//        HttpSession session = request.getSession();
-//
-//        // 로그인할때 저장한 cId 세션을 변수로 저장
-//        int cId = (int) session.getAttribute("cId");
-//
-//        // 서비스 호출하여 정보 업데이트 및 이력 기록
-//        boolean updateResult = custService.custModify(cId, custDto, session);
-//
-//        if (updateResult) {
-//            rattr.addFlashAttribute("msg", "CMOD_OK");
-//        } else {
-//            rattr.addFlashAttribute("msg", "CUSTOMER_NOT_FOUND");
-//        }
-//        return "redirect:/mypage/list";
-//    }
-
     @PostMapping("/info")
     public String myPageInfo(HttpSession session, @ModelAttribute CustDto custDto, RedirectAttributes rattr) {
 
@@ -91,7 +71,6 @@ public class MyPageController {
 
     @GetMapping("/editPwd")
     public String editPwd(HttpSession session){
-        System.out.println("비밀번호 변경: "+ session.getAttribute("cName"));
         return "editPwd";
     }
 
@@ -117,9 +96,28 @@ public class MyPageController {
         return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
 
+
     @PostMapping("/drop")
-    public Boolean custDrop(){
-        return true;
+    public String custDrop(HttpServletRequest request, HttpSession sessionLogout, String dropPwd, RedirectAttributes msg) {
+        HttpSession session = request.getSession();
+
+        // 로그인할때 저장한 cId 세션을 변수로 저장
+        int cId = (int) session.getAttribute("cId");
+
+        // 비밀번호 변경을 위한 서비스 호출
+        boolean passwordChanged = custService.custDrop(cId,dropPwd);
+        System.out.println("입력받은 dropPwd: " + dropPwd);
+
+        if (!passwordChanged) {
+            // 메시지가 안뜸
+            msg.addFlashAttribute("pwdFail", "pwdMsg");
+            return "redirect:/mypage/info"; // 실패 시, 비밀번호 수정 페이지로 리다이렉트;
+        }
+        // 비밀번호 변경 후, 로그아웃 처리
+        sessionLogout.invalidate();
+        msg.addFlashAttribute("dropClear", "dropMsg");
+
+        return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
 
 }

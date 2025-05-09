@@ -283,7 +283,7 @@
 </div>
 
 
-<form id="dropForm" method="POST" action="/mypage/info/drop" onsubmit="return handleDropSubmit()">
+<form id="dropForm" method="POST" action="/mypage/drop" onsubmit="return handleDropSubmit()">
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -291,9 +291,9 @@
         <h4 id="dropTitle">회원 탈퇴</h4><br>
 
         <p id="nowPwd">비밀번호</p>
-        <input id="dropPwd" type="password" placeholder="현재 사용중인 비밀번호를 적어주세요" maxlength="15">
+        <input id="dropPwd" name="dropPwd" type="password" placeholder="현재 사용중인 비밀번호를 적어주세요" maxlength="15">
 
-        <p id="pp">회원 탈퇴시 계정 복구가 불가능하며 회원님의 개인 정보는 보관됩니다.</p>
+        <p id="pp">회원 탈퇴시 계정 복구가 불가능하며 회원님의 개인 정보는 보관됩니다. 또한 탈퇴한 이메일로는 다시 회원가입이 불가합니다.</p>
 
 
         <div id="dropDiv">
@@ -395,6 +395,11 @@ alert("테스트중입니다!")
     // 모달 닫기 함수
     function closeModal() {
         document.getElementById("myModal").style.display = "none";
+    }
+
+    let pwdFail = "${pwdFail}"
+    if(pwdFail==="pwdMsg") {
+        alert("비밀번호가 일치하지 않습니다.")
     }
 
 </script>

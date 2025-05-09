@@ -127,6 +127,10 @@ public class CustServiceImpl implements CustService {
             return false; // 이메일 없으면 로그인 실패 처리
         }
 
+        if ("D".equals(cust.getCStatCd())) {
+            return false;
+        }
+
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            평문화와 암호화 비밀번호를 비교할 수 있는 메서드
                 if (!encoder.matches(cPwd, cust.getCPwd())) {
@@ -278,95 +282,11 @@ public class CustServiceImpl implements CustService {
                 custHistRepository.save(custHist);
             }
 
-            // 수정된 정보 세션에도 반영 (로그인 유지 등 위해)
-//            updateSession(session, custDto);
-
             return true;
         }
         return false;
     }
 
-
-
-//    @Override
-//    public void myPage(int cId, HttpServletRequest request, Model model) {
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
-//
-//        if (optionalCust.isPresent()) {
-//            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
-//
-//            long visitCnt = custRepository.getTotalVisitCnt(cId);
-//            model.addAttribute("visitCnt", visitCnt);
-//
-//            CustDto custDto = toDto(cust); // 엔티티를 DTO로 변환하여 반환
-//
-//
-//        HttpSession session = request.getSession();
-//        session.setAttribute("cEmail", custDto.getCEmail());
-//        session.setAttribute("cName", custDto.getCName());
-//        session.setAttribute("cZip", custDto.getCZip());
-//        session.setAttribute("cRoadA", custDto.getCRoadA());
-//        session.setAttribute("cJibunA", custDto.getCJibunA());
-//        session.setAttribute("cDetA", custDto.getCDetA());
-//        session.setAttribute("cPhn", custDto.getCPhn());
-//        session.setAttribute("cGnd", custDto.getCGnd());
-//        session.setAttribute("cBirth", custDto.getCBirth());
-//        session.setAttribute("smsAgr", custDto.getSmsAgr());
-//        session.setAttribute("emailAgr", custDto.getEmailAgr());
-//
-//
-//
-//        Date regDate = custDto.getRegDt();
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//        String regDateStr = dateFormat.format(regDate);
-//
-//        session.setAttribute("regDt", regDateStr);
-//        } else {
-//            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
-//            System.out.println("고객 정보를 찾을 수 없습니다.");
-//        }
-//    }
-
-//
-//    @Override
-//    public boolean custModify(int cId, CustDto custDto, HttpSession session) {
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
-//        if (optionalCust.isPresent()) {
-//            Cust oldCust = optionalCust.get();
-//            CustDto oldData = toDto(oldCust);
-//
-//            // 데이터 설정
-//            custDto.setCId(cId);
-//
-//            // 기존 dto를 엔티티로 변환하고 정보 저장
-//            toEntity(oldCust, custDto);
-//            custRepository.save(oldCust);
-//
-//            // 이력 기록
-//            List<CustHist> custHistList = new ArrayList<>();
-//            addCustHist(custHistList, custDto, "NICK", oldData.getCNick(), custDto.getCNick());
-//            addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
-//            addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
-//            addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
-//            addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
-//            addCustHist(custHistList, custDto, "PHN", oldData.getCPhn(), custDto.getCPhn());
-//            addCustHist(custHistList, custDto, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
-//            addCustHist(custHistList, custDto, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
-//            addCustHist(custHistList, custDto, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
-//
-//            for (CustHist custHist : custHistList) {
-//                // 이력 저장
-//                custHistRepository.save(custHist);
-//            }
-//
-//            // 세션 업데이트
-//            updateSession(session, custDto);
-//
-//            return true;
-//        } else {
-//            return false;  // 고객이 없을 경우
-//        }
-//    }
 
     private void addCustHist(List<CustHist> custHistList, CustDto newData,
                              String changeCode, String oldValue, String newValue) {
@@ -473,6 +393,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
     }
 }
 
+    @Transactional
     @Override
     public boolean custDrop(int cId, String dropPwd){
 
@@ -482,7 +403,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
 
         if (optionalCust.isPresent()) {
             Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
-            CustDto oldCust = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
+            CustDto oldCust = toPwdDto2(cust); // 기존 비밀번호 DTO로 변환
 
             // 현재 비밀번호와 입력한 비밀번호 비교
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -511,21 +432,6 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
         }
     }
 
-
-
-
-//    @Override
-//    public void updateSession(HttpSession session, CustDto custDto) {
-//        session.setAttribute("cNick", custDto.getCNick());
-//        session.setAttribute("cZip", custDto.getCZip());
-//        session.setAttribute("cRoadA", custDto.getCRoadA());
-//        session.setAttribute("cJibunA", custDto.getCJibunA());
-//        session.setAttribute("cDetA", custDto.getCDetA());
-//        session.setAttribute("cPhn", custDto.getCPhn());
-//        session.setAttribute("cBirth", custDto.getCBirth());
-//        session.setAttribute("smsAgr", custDto.getSmsAgr());
-//        session.setAttribute("emailAgr", custDto.getEmailAgr());
-//    }
 
     @Override
     public CustDto toDto(Cust cust) {
@@ -594,6 +500,14 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
         return CustDto.builder()
         .cPwd(cust.getCPwd())
         .build(); // 빌더를 사용해 객체 생성
+    }
+
+    @Override
+    public CustDto toPwdDto2(Cust cust) {
+        return CustDto.builder()
+                .cStatCd(cust.getCStatCd())
+                .cPwd(cust.getCPwd())
+                .build(); // 빌더를 사용해 객체 생성
     }
 
 

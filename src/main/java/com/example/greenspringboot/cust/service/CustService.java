@@ -43,6 +43,9 @@ public interface CustService {
 
     CustDto toPwdDto(Cust cust);
 
+    CustDto toPwdDto2(Cust cust);
+
+
     Cust toPwdEntity(Cust cust, CustDto custDto);
 
     void myPage(int cId, Model model);

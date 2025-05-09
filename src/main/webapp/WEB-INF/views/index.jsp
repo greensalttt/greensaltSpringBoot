@@ -511,6 +511,11 @@
         alert("변경하신 비밀번호로 로그인해주세요.")
     }
 
+    let dropClear = "${dropClear}"
+    if(dropClear==="pwdMsg") {
+        alert("회원탈퇴가 완료되었습니다.")
+    }
+
     // 히스토리
     const albumAll = document.getElementsByClassName("albumAll");
     const boxMore = document.getElementsByClassName("new");

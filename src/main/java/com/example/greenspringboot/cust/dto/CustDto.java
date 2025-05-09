@@ -8,7 +8,7 @@ import java.util.Date;
 @Builder
 public class CustDto {
     private Integer cId;
-    private String c_stat_cd;
+    private String cStatCd;
     private String cEmail;
     private String cPwd;
     private String cName;
