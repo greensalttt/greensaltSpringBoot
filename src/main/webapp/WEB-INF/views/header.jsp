@@ -42,7 +42,7 @@
 
     <nav id="headerNav">
         <ul>
-            <li><a href="#">Store</a></li>
+            <li><a href="<c:url value='/album/list'/>">Album</a></li>
             <li><a href="#">Video</a></li>
             <li><a href="#">Interview</a></li>
             <li><a href="#">Performance</a></li>

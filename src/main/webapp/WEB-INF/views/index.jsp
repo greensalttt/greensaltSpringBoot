@@ -149,7 +149,7 @@
 
         <article class="box">
             <div id="cdBox">
-                <h1 class="week">CD</h1>
+                <h1 class="week">Album</h1>
                 <h1 class="more"><a
                         href="https://music.apple.com/us/playlist/top-100-global/pl.d25f5d1181894928af76c85c967f8f31"
                         target="_blank"> ❯</a></h1>
@@ -289,7 +289,7 @@
 
         <article class="box">
             <div id="vinylBox">
-                <h1 class="week">Vinyl</h1>
+                <h1 class="week">Album</h1>
                 <h1 class="more"><a href="https://www.melon.com/chart/index.htm" target="_blank"> ❯</a></h1>
 
                 <ul>
