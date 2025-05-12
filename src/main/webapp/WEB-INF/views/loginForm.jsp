@@ -3,10 +3,7 @@
 
 <head>
     <title>Green Salt</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
+  <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
 
 
@@ -143,13 +140,6 @@
             transition: all 1.5s
         }
 
-        #login:active:after {
-            padding: 0;
-            margin: 0;
-            opacity: 1;
-            transition: 0s
-        }
-
         #title, #adminTitle{
             margin-top: 30px;
             margin-bottom: 30px;
@@ -181,6 +171,14 @@
             background-color: darkgreen;
             color: white;
         }
+
+        #login:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            transition: 0s
+        }
+
     </style>
 </head>
 

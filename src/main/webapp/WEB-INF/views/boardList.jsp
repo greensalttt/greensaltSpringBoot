@@ -26,14 +26,13 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            /*margin: 0;*/
         }
 
         .board-container {
             width: 70%;
             text-align:center;
             margin: 0 auto;
-            flex: 1; /* 나머지 높이를 차지하도록 */
+            flex: 1;
         }
         .search-container {
             background-color: rgb(253, 253, 250);
@@ -255,7 +254,6 @@
                     </div>
                 </c:if>
         </div>
-<%--    </div>--%>
 
 <footer>
     <jsp:include page="footer.jsp"/>
