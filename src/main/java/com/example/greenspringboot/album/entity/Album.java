@@ -22,6 +22,8 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ano;
 
+    private String domestic;
+
     private String type;
 
     private String title;

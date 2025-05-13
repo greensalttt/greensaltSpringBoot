@@ -1,10 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
     <title>Green Salt</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="<c:url value="https://cdn-icons-png.flaticon.com/128/15439/15439306.png"/>">
+<%--    <link rel="icon" type="image/x-icon" href="<c:url value="https://cdn-icons-png.flaticon.com/128/15439/15439306.png"/>">--%>
 
 
     <link rel="stylesheet" href="<c:url value='/css/index.css'/>">
@@ -151,8 +150,7 @@
             <div id="cdBox">
                 <h1 class="week">Album</h1>
                 <h1 class="more"><a
-                        href="https://music.apple.com/us/playlist/top-100-global/pl.d25f5d1181894928af76c85c967f8f31"
-                        target="_blank"> ❯</a></h1>
+                        href="<c:url value='/album/list'/>"> ❯</a></h1>
                 <ul>
                     <li class="one">
                         <a href="#">
@@ -287,126 +285,126 @@
             </div>
         </article>
 
-        <article class="box">
-            <div id="vinylBox">
-                <h1 class="week">Album</h1>
-                <h1 class="more"><a href="https://www.melon.com/chart/index.htm" target="_blank"> ❯</a></h1>
+<%--        <article class="box">--%>
+<%--            <div id="vinylBox">--%>
+<%--                <h1 class="week">Album</h1>--%>
+<%--                <h1 class="more"><a href="https://www.melon.com/chart/index.htm" target="_blank"> ❯</a></h1>--%>
 
-                <ul>
-                    <li class="one"><a href="#">
-                        <div>
-                            <img class="albumAll" onclick="moveAll(event, 10)" src="../../album_img/dawnfm.jpg"
-                                 style="width:100%" height="170" />
-                        </div>
+<%--                <ul>--%>
+<%--                    <li class="one"><a href="#">--%>
+<%--                        <div>--%>
+<%--                            <img class="albumAll" onclick="moveAll(event, 10)" src="../../album_img/dawnfm.jpg"--%>
+<%--                                 style="width:100%" height="170" />--%>
+<%--                        </div>--%>
 
-                        <div class="three">
-                            <p>Dawn FM</p>
-                        </div></a>
+<%--                        <div class="three">--%>
+<%--                            <p>Dawn FM</p>--%>
+<%--                        </div></a>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 11)" src="../../album_img/teambaby.webp"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 11)" src="../../album_img/teambaby.webp"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>TEAM BABY</p>
-                            </div>
-                        </a></li>
+<%--                            <div class="three">--%>
+<%--                                <p>TEAM BABY</p>--%>
+<%--                            </div>--%>
+<%--                        </a></li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 12)" src="../../album_img/love.webp"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 12)" src="../../album_img/love.webp"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>사랑으로</p>
-                            </div>
-                        </a></li>
+<%--                            <div class="three">--%>
+<%--                                <p>사랑으로</p>--%>
+<%--                            </div>--%>
+<%--                        </a></li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 13)" src="../../album_img/choiyuri.jpg"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 13)" src="../../album_img/choiyuri.jpg"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>유영</p>
-                            </div>
-                        </a></li>
+<%--                            <div class="three">--%>
+<%--                                <p>유영</p>--%>
+<%--                            </div>--%>
+<%--                        </a></li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 14)" src="../../album_img/teen.jpeg"
-                                     style="width:100%" height="170" />
-                            </div>
-                            <div class="three">
-                                <p>TEEN TROUBLES</p>
-                            </div>
-                        </a></li><br>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 14)" src="../../album_img/teen.jpeg"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
+<%--                            <div class="three">--%>
+<%--                                <p>TEEN TROUBLES</p>--%>
+<%--                            </div>--%>
+<%--                        </a></li><br>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 15)" src="../../album_img/thirsty.webp"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 15)" src="../../album_img/thirsty.webp"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>THIRSTY</p>
-                            </div>
-                        </a>
-                        </li>
+<%--                            <div class="three">--%>
+<%--                                <p>THIRSTY</p>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                        </li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 16)" src="../../album_img/starboy.webp"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 16)" src="../../album_img/starboy.webp"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>Starboy</p>
-                            </div>
-                        </a>
-                        </li>
+<%--                            <div class="three">--%>
+<%--                                <p>Starboy</p>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                        </li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 17)" src="../../album_img/formyangel.jpg"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 17)" src="../../album_img/formyangel.jpg"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>For My Angel</p>
-                            </div>
-                        </a>
-                        </li>
+<%--                            <div class="three">--%>
+<%--                                <p>For My Angel</p>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                        </li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 18)"
-                                     src="../../album_img/flaws%20and%20all.png" style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 18)"--%>
+<%--                                     src="../../album_img/flaws%20and%20all.png" style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>Flaws and All</p>
-                            </div>
-                        </a>
-                        </li>
+<%--                            <div class="three">--%>
+<%--                                <p>Flaws and All</p>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                        </li>--%>
 
-                        <li class="one"><a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 19)" src="../../album_img/nwjns.jpg"
-                                     style="width:100%" height="170" />
-                            </div>
+<%--                        <li class="one"><a href="#">--%>
+<%--                            <div>--%>
+<%--                                <img class="albumAll" onclick="moveAll(event, 19)" src="../../album_img/nwjns.jpg"--%>
+<%--                                     style="width:100%" height="170" />--%>
+<%--                            </div>--%>
 
-                            <div class="three">
-                                <p>New Jeans</p>
-                            </div>
-                        </a>
-                        </li>
-                </ul>
-            </div>
+<%--                            <div class="three">--%>
+<%--                                <p>New Jeans</p>--%>
+<%--                            </div>--%>
+<%--                        </a>--%>
+<%--                        </li>--%>
+<%--                </ul>--%>
+<%--            </div>--%>
 
             <div id="god">
                 <div class="row2">
@@ -419,7 +417,7 @@
                                     <br>
                                     <h4>실리카겔</h4><br>
                                     <p class="sub">POWER ANDRE 99</p><br>
-                                    <p class="small">2023.11.10 ~2023.11.12</p>
+                                    <p class="small">2025.11.10 ~2025.11.12</p>
                                     <p class="small">블루스퀘어 마스터카드홀</p><br>
                                 </div>
                             </a>
@@ -434,7 +432,7 @@
                                     <br>
                                     <h4>Daniel Caesar</h4><br>
                                     <p class="sub">Superpowers World Tour</p><br>
-                                    <p class="small">2023.12.11 ~ 2023.12.12</p>
+                                    <p class="small">2025.12.11 ~ 2025.12.12</p>
                                     <p class="small">올림픽공원 올림픽홀</p><br>
                                 </div>
                             </a>
@@ -449,7 +447,7 @@
                                     <br>
                                     <h4>검정치마</h4><br>
                                     <p class="sub">201 DAYS OF HOLIDAY</p><br>
-                                    <p class="small">2023.12.23 ~ 2023.12.31</p>
+                                    <p class="small">2025.12.23 ~ 2025.12.31</p>
                                     <p class="small">예스24 라이브홀</p><br>
                                 </div>
                             </a>
@@ -463,8 +461,8 @@
                                 <div class="container3">
                                     <br>
                                     <h4>새소년</h4><br>
-                                    <p class="sub">SE SO NEON 2023</p><br>
-                                    <p class="small">2023.11.04</p>
+                                    <p class="sub">SE SO NEON 2025</p><br>
+                                    <p class="small">2025.11.04</p>
                                     <p class="small">올림픽공원 올림픽홀</p><br>
                                 </div>
                             </a>

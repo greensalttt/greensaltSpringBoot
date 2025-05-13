@@ -10,7 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AlbumController {
 
     @GetMapping("/list")
-    public String Album(){
+    public String AlbumList(){
         return "albumList";
+    }
+
+
+    @GetMapping("/page")
+    public String AlbumPage(){
+        return "albumPage";
     }
 }
