@@ -104,23 +104,22 @@
 			<a href="#">해외 앨범</a>
 		</span>
                 </div>
-
         <ul class="list">
+            <c:forEach var="albumDto" items="${albumDtos}">
+                <li class="album-item">
+                    <a href="/album/page">
+                        <img src="${albumDto.img}" class="img" alt="">
+                        <div class="info">
+                            <p class="title">${albumDto.title}</p>
+                            <p class="artist">${albumDto.artist}</p>
+                            <p class="date">${albumDto.released}</p>
+                        </div>
+                    </a>
+                </li>
+            </c:forEach>
+        </ul>
 
 
-            <li class="album-item">
-                <a href="/album/page">
-                <img src="../../album_img/sultan.webp" class="img" alt="">
-                <div class="info">
-                    <p class="title">album title</p>
-                    <p class="artist">아티스트</p>
-                    <p class="date">날짜</p>
-                </div>
-                </a>
-            </li>
-
-
-                </ul>
         </div>
 
 <footer>
@@ -129,3 +128,18 @@
     </div>
 
 </body>
+
+
+<%--        <ul class="list">--%>
+<%--            <li class="album-item">--%>
+<%--                <a href="/album/page">--%>
+<%--                <img src="${albumDto.img}" class="img" alt="">--%>
+<%--                <div class="info">--%>
+<%--                    <p class="title">${albumDto.title}</p>--%>
+<%--                    <p class="artist">${albumDto.artist}</p>--%>
+<%--                    <p class="date">${albumDto.released}</p>--%>
+<%--                </div>--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--                </ul>--%>
+<%--        --%>

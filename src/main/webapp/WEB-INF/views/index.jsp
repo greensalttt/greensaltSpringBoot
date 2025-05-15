@@ -156,7 +156,8 @@
                         <a href="#">
                             <div>
                                 <img class="albumAll" onclick="moveAll(event, 0)"
-                                     src="../../album_img/SilicaGelalbum.webp" style="width:100%" height="170" />
+                                  src="/album_img/SilicaGelalbum.webp" style="width:100%" height="170" />
+
                             </div>
                             <div class="three">
                                 <p>실리카겔</p>

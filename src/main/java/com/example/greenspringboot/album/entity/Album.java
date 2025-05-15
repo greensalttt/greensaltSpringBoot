@@ -16,9 +16,8 @@ import java.util.Date;
 @Builder
 public class Album {
 
-    //    pk값 설정
+    //    pk값, 오토 인크리먼트 설정
     @Id
-//    오토 인크리먼트 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ano;
 
@@ -26,18 +25,20 @@ public class Album {
 
     private String type;
 
+    private String genre;
+
     private String title;
 
     private String artist;
 
     private String content;
 
-    private String genre;
+    private String img;
 
     private String released;
 
     @Builder.Default
-    private Boolean deleted = false; // 기본값 false
+    private Boolean deleted = false;
 
     @Builder.Default
     @Column(name= "reg_dt", nullable = false)

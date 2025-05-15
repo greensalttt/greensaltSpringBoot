@@ -72,7 +72,7 @@
     </header>
     <div id="albumPageContainer">
             <div class="album-image">
-                <img src="../../album_img/sultan.webp" alt="앨범 이미지">
+                <img src="/album_img/sultan.webp" alt="앨범 이미지">
             </div>
 
             <div class="album-info">
