@@ -23,8 +23,9 @@ public class AlbumController {
     }
 
 
-    @GetMapping("/page")
-    public String AlbumPage(){
-        return "albumPage";
+    @GetMapping("/read")
+    public String AlbumRead(Integer ano, Model m){
+        albumService.albumRead(ano, m);
+        return "album";
     }
 }

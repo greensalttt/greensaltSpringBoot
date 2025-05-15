@@ -107,12 +107,14 @@
         <ul class="list">
             <c:forEach var="albumDto" items="${albumDtos}">
                 <li class="album-item">
-                    <a href="/album/page">
-                        <img src="${albumDto.img}" class="img" alt="">
+                    <a href="/album/read?ano=${albumDto.ano}">
+                    <img src="${albumDto.img}" class="img" alt="">
                         <div class="info">
                             <p class="title">${albumDto.title}</p>
                             <p class="artist">${albumDto.artist}</p>
-                            <p class="date">${albumDto.released}</p>
+<%--                            <p class="date">${albumDto.released}</p>--%>
+                            <p class="date">Released: ${albumDto.released}</p>
+
                         </div>
                     </a>
                 </li>

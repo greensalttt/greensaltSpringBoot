@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
+
+
 <head>
     <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
@@ -26,7 +29,7 @@
         }
 
         .album-image {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .album-image img {
@@ -36,17 +39,23 @@
             border-radius: 10px;
         }
 
-        .album-info h2 {
-            font-size: 15px;
+        .album-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 135px;
         }
 
         .album-info p {
-            margin: 4px 0;
+            display: flex;
+            align-items: center;
             font-size: 14px;
+            width: 300px;
         }
 
+
         .album-content {
-            margin-top: 100px;
+            margin-top: 77px;
             margin-bottom: 100px;
             text-align: left;
         }
@@ -72,26 +81,23 @@
     </header>
     <div id="albumPageContainer">
             <div class="album-image">
-                <img src="/album_img/sultan.webp" alt="앨범 이미지">
+                <img src="${albumDto.img}" alt="앨범 이미지">
             </div>
 
             <div class="album-info">
-                <h2>앨범 제목</h2>
-                <p><strong>아티스트:</strong> 아티스트 이름</p>
-                <p><strong>국적:</strong> 국내 / 해외</p>
-                <p><strong>장르:</strong> 장르명</p>
-                <p><strong>발매일:</strong> 2025-05-01</p>
+                <p><strong>album:</strong>&nbsp;${albumDto.title}</p>
+                <p><strong>artist:</strong>&nbsp;${albumDto.artist}</p>
+                <p><strong>type:</strong>&nbsp;${albumDto.type}</p>
+                <p><strong>genre:</strong>&nbsp;${albumDto.genre}</p>
+                <p><strong>released:</strong>&nbsp;${albumDto.released}</p>
             </div>
 
             <div class="album-content">
                 <h3>앨범 소개</h3>
-                <p>
-                    이 앨범은 아티스트의 새로운 시도와 음악적 실험이 담긴 작품입니다. 다양한 장르를 넘나드는 곡들이 수록되어 있으며, 감성적인 가사와 세련된 사운드가 조화를 이루며 깊은 인상을 남깁니다.이 앨범은 아티스트의 새로운 시도와 음악적 실험이 담긴 작품입니다. 다양한 장르를 넘나드는 곡들이 수록되어 있으며,
-                    감성적인 가사와 세련된 사운드가 조화를 이루며 깊은 인상을 남깁니다.이 앨범은 아티스트의 새로운 시도와 음악적 실험이 담긴 작품입니다. 다양한 장르를 넘나드는 곡들이 수록되어 있으며,
-                    감성적인 가사와 세련된 사운드가 조화를 이루며 깊은 인상을 남깁니다.이 앨범은 아티스트의 새로운 시도와 음악적 실험이 담긴 작품입니다. 다양한 장르를 넘나드는 곡들이 수록되어 있으며,
-                    감성적인 가사와 세련된 사운드가 조화를 이루며 깊은 인상을 남깁니다.
-                </p>
+                <p>${albumDto.content}</p>
             </div>
+
+
 
         </div>
     <footer>

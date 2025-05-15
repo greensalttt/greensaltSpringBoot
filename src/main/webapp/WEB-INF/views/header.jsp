@@ -38,7 +38,7 @@
 </div>
 
 
-    <input id="search1" type="text" placeholder="Search.." onkeydown="handleKeyPress(event)">
+<%--    <input id="search1" type="text" placeholder="Search.." onkeydown="handleKeyPress(event)">--%>
 
     <nav id="headerNav">
         <ul>
