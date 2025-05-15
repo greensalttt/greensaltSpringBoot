@@ -6,5 +6,7 @@ public interface AlbumService {
 
     void albumList(Model m);
 
+    void albumRead(Integer ano, Model m);
+
 
 }
