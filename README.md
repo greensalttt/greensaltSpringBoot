@@ -8,7 +8,7 @@
 ![비밀번호찾기2](https://github.com/user-attachments/assets/7c2b372f-90de-41d1-8a68-d831626fec58)
 ![마이페이지](https://github.com/user-attachments/assets/5934dae1-da1f-4a8e-9dbd-0a1c7ac19cf9)
 ![개인정보 수정](https://github.com/user-attachments/assets/cbe2c221-86a4-4181-b301-2e5d0b9ae516)
-![회원탈퇴](https://github.com/user-attachments/assets/f9e26bd9-27fe-4595-b1b9-6a7f363a6ff4)
+![회원탈퇴](https://github.com/user-attachments/assets/30689756-b731-407b-8e9a-31166c81f7d1)
 ![비밀번호변경](https://github.com/user-attachments/assets/f17361b1-14d9-4251-bea2-50e66ced780e)
 ![게시판](https://github.com/user-attachments/assets/12649633-3658-4f3b-bf98-751b88795f82)
 ![게시글검색](https://github.com/user-attachments/assets/1f59e8eb-1ff7-44de-849a-d5b180018114)
