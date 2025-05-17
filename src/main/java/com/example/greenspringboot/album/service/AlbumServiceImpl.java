@@ -11,8 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,7 +88,80 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
+
+//    @Override
+//    public boolean write(AlbumDto albumDto) {
+//        try {
+//            Album album = Album.builder()
+//                    .ano(albumDto.getAno())
+//                    .domestic(albumDto.getDomestic())
+//                    .type(albumDto.getType())
+//                    .genre(albumDto.getGenre())
+//                    .title(albumDto.getTitle())
+//                    .artist(albumDto.getArtist())
+//                    .content(albumDto.getContent())
+//                    .released(albumDto.getReleased())
+//                    .img(albumDto.getImg())
+//                    .build();
+//
+//            albumRepository.save(album);
+//            return true;
+//
+//        } catch (Exception e) {
+//            // 로그 찍어두는 것도 좋음
+//            System.err.println("Album 저장 실패: " + e.getMessage());
+//            return false;
+//        }
+//    }
+
+    @Override
+    public boolean write(AlbumDto albumDto, MultipartFile imgFile) {
+        try {
+
+            MultipartFile file = albumDto.getImgFile();
+            String img = uploadImage(file);
+            albumDto.setImg(img); // 이미지 경로를 저장할 img 필드에 넣음
+
+            Album album = Album.builder()
+                    .ano(albumDto.getAno())
+                    .domestic(albumDto.getDomestic())
+                    .type(albumDto.getType())
+                    .genre(albumDto.getGenre())
+                    .title(albumDto.getTitle())
+                    .artist(albumDto.getArtist())
+                    .content(albumDto.getContent())
+                    .released(albumDto.getReleased())
+                    .img(albumDto.getImg())
+                    .build();
+
+            albumRepository.save(album);
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
+//    @Override
+    public String uploadImage(MultipartFile file) throws IOException {
+        if (file == null || file.isEmpty()) return null;
+
+
+        String uploadDir = "src/main/webapp/album_img/";
+        String originalFilename = file.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+        String newFileName = uuid + "_" + originalFilename;
+
+        File destination = new File(uploadDir + newFileName);
+        file.transferTo(destination);
+
+        return "album_img/" + newFileName;
+    }
+
+
+
+}
 
 
 
