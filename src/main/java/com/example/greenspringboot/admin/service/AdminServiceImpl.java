@@ -1,6 +1,7 @@
 package com.example.greenspringboot.admin.service;
 import com.example.greenspringboot.admin.entity.Admin;
 import com.example.greenspringboot.admin.repository.AdminRepository;
+import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
@@ -28,6 +29,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private AlbumRepository albumRepository;
+
     @Override
     public Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model) {
         System.out.println("관리자 로그인 아이디: " + aId);
@@ -42,16 +46,32 @@ public class AdminServiceImpl implements AdminService {
             }
             HttpSession session = request.getSession();
             session.setAttribute("aId", admin.getAId());
+
             long custCount = custRepository.count();
             long boardCount = boardRepository.count();
             long commentCount = commentRepository.count();
+            long albumCount = albumRepository.count();
+
             model.addAttribute("custCount", custCount);
             model.addAttribute("boardCount", boardCount);
             model.addAttribute("commentCount", commentCount);
+            model.addAttribute("albumCount", albumCount);
 
             return true;
         }
         return false;
     }
 
+    @Override
+    public void albumPage(Model model){
+        long custCount = custRepository.count();
+        long boardCount = boardRepository.count();
+        long commentCount = commentRepository.count();
+        long albumCount = albumRepository.count();
+
+        model.addAttribute("custCount", custCount);
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("commentCount", commentCount);
+        model.addAttribute("albumCount", albumCount);
+    }
 }

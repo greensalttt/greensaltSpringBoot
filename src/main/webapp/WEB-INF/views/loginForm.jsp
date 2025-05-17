@@ -227,7 +227,7 @@
     </form>
 
     <!-- 관리자 로그인 폼 -->
-    <form id="adminLoginForm" action="/adminlogin" method="post" style="display: none;">
+    <form id="adminLoginForm" action="/adminpage" method="post" style="display: none;">
         <h1 id="adminTitle">관리자 로그인</h1>
 
         <div class="container">

@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        #write{
+            cursor: pointer;
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <p>관리자 사이트입니다</p>
@@ -11,7 +18,9 @@
 <h1>총 회원 수: <span>${custCount}</span></h1>
 <h1>총 게시글 수: <span>${boardCount}</span></h1>
 <h1>총 댓글 수: <span>${commentCount}</span></h1>
+<h1>총 앨범 수: <span>${albumCount}</span></h1>
 
+<a id="write" href="adminalbum">앨범 글 올리기</a><br><br>
 
 <form action="<c:url value='/adminlogout'/>" method="POST">
     <button type="submit" id="adminlogoutLink">Logout</button>
@@ -27,5 +36,11 @@
             };
         }
     };
+
+    let adminWrite = "${adminWrite}"
+    if(adminWrite==="msg") {
+        alert("앨범 등록에 성공했습니다.");
+    }
+
 </script>
 </body>

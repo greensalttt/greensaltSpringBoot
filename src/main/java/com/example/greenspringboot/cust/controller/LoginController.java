@@ -39,8 +39,6 @@ public class LoginController {
         return "loginForm"; // 로그인 폼 JSP 페이지로 반환
     }
 
-
-//    @GetMapping("/logout")
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
