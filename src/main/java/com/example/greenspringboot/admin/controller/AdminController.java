@@ -34,14 +34,14 @@ public class AdminController {
         return "dashboard";
     }
 
-    @PostMapping("/adminpage")
-    public String login(String aId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
-        if (!adminService.adminLogin(aId, aPwd, request, model)) {
-            msg.addFlashAttribute("adminLoginFail", "msg");
-            return "redirect:/login";
-        }
-        return "dashboard";
-    }
+//    @PostMapping("/adminpage")
+//    public String login(String aId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
+//        if (!adminService.adminLogin(aId, aPwd, request, model)) {
+//            msg.addFlashAttribute("adminLoginFail", "msg");
+//            return "redirect:/login";
+//        }
+//        return "dashboard";
+//    }
 
     @PostMapping("/adminlogout")
     public String logout(HttpSession session) {

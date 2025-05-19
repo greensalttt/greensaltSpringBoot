@@ -26,6 +26,6 @@
         </div>
 
         <div id="end2">
-            <p>© 2024 Green Salt</p>
+            <p>© 2025 Green Salt</p>
         </div>
 </div>

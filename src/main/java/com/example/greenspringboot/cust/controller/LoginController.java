@@ -1,13 +1,11 @@
 package com.example.greenspringboot.cust.controller;
+import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.cust.securityutils.EncryptionUtil;
 import com.example.greenspringboot.cust.service.CustService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +14,19 @@ import javax.servlet.http.HttpSession;
 
 // 레스트컨트롤러는 서버간의 데이터를 통신할때만, 뷰를 반환할때는 일반 컨트롤러
 //@RestController
+
+//리퀘스트맵핑은 앞에 고정 url을 주고싶을떄 사용
+//@RequestMapping
+
 @Controller
 //@RequiredArgsConstructor
 public class LoginController {
 
     @Autowired
     private CustService custService;
+
+    @Autowired
+    private AdminService adminService;
 
 //    쿠키에 있는 이메일이 암호화로 저장되기 때문에 다시 불러오기 위해 복호화 시켜 모델로 전달
     @GetMapping("/login")
@@ -93,5 +98,14 @@ public class LoginController {
             response.addCookie(idcookie);
         }
         return "redirect:" + toURL;
+    }
+
+    @PostMapping("/adminlogin")
+    public String login(String aId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
+        if (!adminService.adminLogin(aId, aPwd, request, model)) {
+            msg.addFlashAttribute("adminLoginFail", "msg");
+            return "redirect:/login";
+        }
+        return "dashboard";
     }
 }

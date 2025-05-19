@@ -271,12 +271,12 @@
                     <li class="one">
                         <a href="#">
                             <div>
-                                <img class="albumAll" onclick="moveAll(event, 2)" src="../../album_img/omg.jpg"
+                                <img class="albumAll" onclick="moveAll(event, 2)" src="../../album_img/starboy.webp"
                                      style="width:100%" height="170" />
                             </div>
 
                             <div class="three">
-                                <p>OMG</p>
+                                <p>Starboy</p>
                             </div>
                         </a>
                     </li>
