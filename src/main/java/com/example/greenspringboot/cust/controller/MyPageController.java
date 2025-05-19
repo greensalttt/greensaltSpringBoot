@@ -70,8 +70,13 @@ public class MyPageController {
 
 
     @GetMapping("/editPwd")
-    public String editPwd(HttpSession session){
-        return "editPwd";
+    public String editPwd(HttpSession session, Model model) {
+        Integer cId = (Integer) session.getAttribute("cId");
+        if(cId != null) {
+            custService.myPage(cId, model);
+            return "editPwd";
+        }
+        return "errorPageC";
     }
 
     @PostMapping("/editPwd")

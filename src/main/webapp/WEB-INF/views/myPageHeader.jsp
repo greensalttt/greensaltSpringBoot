@@ -83,9 +83,16 @@
                 ${custDto.visitCnt}회
             </span>
         </div>
+<%--        <div class="sp">--%>
+<%--            <span class="date">가입일</span>--%>
+<%--            <span class="ma2">${custDto.regDt}</span>--%>
+<%--        </div>--%>
+
         <div class="sp">
             <span class="date">가입일</span>
-            <span class="ma2">${custDto.regDt}</span>
+            <span class="ma2">
+        <fmt:formatDate value="${custDto.regDt}" pattern="yyyy-MM-dd" />
+    </span>
         </div>
     </div>
 

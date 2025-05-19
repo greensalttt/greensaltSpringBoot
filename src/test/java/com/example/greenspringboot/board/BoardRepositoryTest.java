@@ -1,5 +1,6 @@
 package com.example.greenspringboot.board;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,19 @@ public class BoardRepositoryTest {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
     @Test
     public void insertTest() {
-        Integer cId = 1;
-        for (int i = 1; i < 10; i++){
+        boardRepository.deleteAll(); // 기존 데이터 삭제
+        Integer cId = 2;
+        for (int i = 1; i < 100; i++){
             BoardDto boardDto = BoardDto.builder()
                     .cId(cId)
-                    .title("후발주자" + i)
+                    .title("test" + i)
                     .content("ㅇㅇ")
-                    .writer("test")
+                    .writer("greensalt")
                     .deleted(false)
                     .build();
             boardService.write(boardDto, cId);

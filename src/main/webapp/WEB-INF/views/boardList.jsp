@@ -119,7 +119,7 @@
         }
 
         .regdt {
-            width: 500px;
+            width: 450px;
         }
 
         .writer {
@@ -127,7 +127,7 @@
         }
 
         .viewcnt{
-            width: 250px;
+            width: 300px;
         }
 
 
@@ -233,7 +233,7 @@
                 </tr>
             </c:forEach>
         </table>
-    </div>
+    </div><br>
 
 
         <div class="paging-container">
