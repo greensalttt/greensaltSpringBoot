@@ -20,9 +20,9 @@
 <h1>총 댓글 수: <span>${commentCount}</span></h1>
 <h1>총 앨범 수: <span>${albumCount}</span></h1>
 
-<a id="write" href="adminalbum">앨범 글 올리기</a><br><br>
+<a id="write" href="/admin/album">앨범 글 올리기</a><br><br>
 
-<form action="<c:url value='/adminlogout'/>" method="POST">
+<form action="<c:url value='/admin/logout'/>" method="POST">
     <button type="submit" id="adminlogoutLink">Logout</button>
 </form>
 

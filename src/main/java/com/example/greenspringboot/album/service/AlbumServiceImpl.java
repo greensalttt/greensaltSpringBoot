@@ -88,32 +88,6 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
-
-//    @Override
-//    public boolean write(AlbumDto albumDto) {
-//        try {
-//            Album album = Album.builder()
-//                    .ano(albumDto.getAno())
-//                    .domestic(albumDto.getDomestic())
-//                    .type(albumDto.getType())
-//                    .genre(albumDto.getGenre())
-//                    .title(albumDto.getTitle())
-//                    .artist(albumDto.getArtist())
-//                    .content(albumDto.getContent())
-//                    .released(albumDto.getReleased())
-//                    .img(albumDto.getImg())
-//                    .build();
-//
-//            albumRepository.save(album);
-//            return true;
-//
-//        } catch (Exception e) {
-//            // 로그 찍어두는 것도 좋음
-//            System.err.println("Album 저장 실패: " + e.getMessage());
-//            return false;
-//        }
-//    }
-
     @Override
     public boolean write(AlbumDto albumDto, MultipartFile imgFile) {
         try {
@@ -143,12 +117,12 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
-//    @Override
     public String uploadImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
+        String uploadDir = "C:/album/";
 
-        String uploadDir = "src/main/webapp/album_img/";
+
         String originalFilename = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String newFileName = uuid + "_" + originalFilename;
@@ -156,10 +130,8 @@ public class AlbumServiceImpl implements AlbumService{
         File destination = new File(uploadDir + newFileName);
         file.transferTo(destination);
 
-        return "album_img/" + newFileName;
+        return "/images/" + newFileName;
     }
-
-
 
 }
 

@@ -7,10 +7,7 @@ import com.example.greenspringboot.cust.securityutils.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Cookie;
@@ -19,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@RequestMapping("/admin")
 @Controller
 public class AdminController {
 
@@ -28,56 +26,55 @@ public class AdminController {
     @Autowired
     private AlbumService albumService;
 
-    @GetMapping("/adminpage")
+    @GetMapping("/page")
     public String adminPage(Model model){
         adminService.albumPage(model);
         return "dashboard";
     }
 
-//    @PostMapping("/adminpage")
-//    public String login(String aId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
-//        if (!adminService.adminLogin(aId, aPwd, request, model)) {
-//            msg.addFlashAttribute("adminLoginFail", "msg");
-//            return "redirect:/login";
-//        }
-//        return "dashboard";
-//    }
-
-    @PostMapping("/adminlogout")
+    @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
 
-    @GetMapping("/adminalbum")
+    @GetMapping("/album")
     public String writePage(){
         return "adminAlbum";
     }
 
-//    @PostMapping("/adminwrite")
-//    public String albumWrite(AlbumDto albumDto, RedirectAttributes msg, @RequestParam("img") MultipartFile imgFile){
-//        if(!albumService.write(albumDto, imgFile)){
+//    @PostMapping("/write")
+//    public String albumWrite(
+//            @ModelAttribute AlbumDto albumDto,
+//            @RequestParam("img") MultipartFile imgFile,
+//            RedirectAttributes msg){
+//
+//
+//        if (!albumService.write(albumDto, imgFile)) {
 //            msg.addFlashAttribute("adminWriteFail", "msg");
 //            return "redirect:/adminalbum";
 //        }
+//
 //        msg.addFlashAttribute("adminWrite", "msg");
 //        return "redirect:/adminpage";
 //    }
 
-    @PostMapping("/adminwrite")
+
+
+    @PostMapping("/write")
     public String albumWrite(
             @ModelAttribute AlbumDto albumDto,
-            @RequestParam("img") MultipartFile imgFile,
             RedirectAttributes msg){
 
-
-        if (!albumService.write(albumDto, imgFile)) {
+        if (!albumService.write(albumDto, albumDto.getImgFile())) {
             msg.addFlashAttribute("adminWriteFail", "msg");
-            return "redirect:/adminalbum";
+            return "redirect:/admin/album";
         }
 
         msg.addFlashAttribute("adminWrite", "msg");
-        return "redirect:/adminpage";
+        return "redirect:/admin/page";
     }
+
+
 
 }

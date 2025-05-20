@@ -17,7 +17,7 @@
 <div id="album">
 <h2>앨범 등록</h2>
 
-<form action="/adminwrite" method="post" enctype="multipart/form-data">
+<form action="/admin/write" method="post" enctype="multipart/form-data">
 <label>국내/해외(domestic):</label>
     <select name="domestic" required>
         <option value="">-- 선택하세요 --</option>
@@ -50,7 +50,7 @@
     <input type="date" name="released"><br>
 
     <label>이미지 URL(img):</label>
-    <input type="file" name="img"><br><br>
+    <input type="file" name="imgFile"><br><br>
 
     <button type="submit">앨범 등록</button>
 </form>
