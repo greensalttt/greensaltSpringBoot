@@ -133,6 +133,11 @@ public class AlbumServiceImpl implements AlbumService{
         return "/images/" + newFileName;
     }
 
+    @Override
+    public boolean albumRemove(Integer ano){
+        albumRepository.deleteById(ano);
+        return true;
+    }
 }
 
 

@@ -13,9 +13,8 @@ public interface AlbumService {
     void albumRead(Integer ano, Model m);
 
     boolean write(AlbumDto albumDto, MultipartFile imgFile);
-//    String uploadImage(MultipartFile file) throws IOException;
 
-
+    boolean albumRemove(Integer ano);
 
 
     }
