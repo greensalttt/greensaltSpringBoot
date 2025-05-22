@@ -29,7 +29,7 @@
             color: #333;
         }
 
-        #write {
+        #write, #delete {
             display: inline-block;
             margin-top: 20px;
             background-color: darkgreen;
@@ -38,7 +38,6 @@
             border-radius: 4px;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s ease;
         }
 
 
@@ -86,6 +85,8 @@
     <h1>총 앨범 수: <span>${albumCount}</span></h1>
 
     <a id="write" href="/admin/album">앨범 글 올리기</a>
+    <a id="delete" href="/admin/manage">앨범 관리</a>
+
 
 </div>
 

@@ -43,23 +43,6 @@ public class AdminController {
         return "adminAlbum";
     }
 
-//    @PostMapping("/write")
-//    public String albumWrite(
-//            @ModelAttribute AlbumDto albumDto,
-//            @RequestParam("img") MultipartFile imgFile,
-//            RedirectAttributes msg){
-//
-//
-//        if (!albumService.write(albumDto, imgFile)) {
-//            msg.addFlashAttribute("adminWriteFail", "msg");
-//            return "redirect:/adminalbum";
-//        }
-//
-//        msg.addFlashAttribute("adminWrite", "msg");
-//        return "redirect:/adminpage";
-//    }
-
-
 
     @PostMapping("/write")
     public String albumWrite(
@@ -76,5 +59,25 @@ public class AdminController {
     }
 
 
+    @GetMapping("/manage")
+    public String albumManage(Model m){
+        albumService.albumList(m);
+        return "albumManage";
+    }
 
+    @PostMapping("/remove")
+    public String albumRemove(Integer ano, RedirectAttributes msg){
+        if(!albumService.albumRemove(ano)){
+            msg.addFlashAttribute("removeFail", "msg");
+            return "redirect:/admin/manage";
+        }
+        msg.addFlashAttribute("remove", "msg");
+        return "redirect:/admin/manage";
+    }
+
+    @GetMapping("/edit")
+    public String albumEdit(Integer ano, Model m){
+        albumService.albumRead(ano, m);
+        return "albumEdit";
+    }
 }
