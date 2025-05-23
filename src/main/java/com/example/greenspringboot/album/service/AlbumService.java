@@ -16,5 +16,8 @@ public interface AlbumService {
 
     boolean albumRemove(Integer ano);
 
+    boolean albumModify(AlbumDto albumDto, MultipartFile imgFile);
+
+
 
     }

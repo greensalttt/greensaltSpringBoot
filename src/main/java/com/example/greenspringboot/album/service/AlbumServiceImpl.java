@@ -138,6 +138,43 @@ public class AlbumServiceImpl implements AlbumService{
         albumRepository.deleteById(ano);
         return true;
     }
+
+    @Override
+    public boolean albumModify(AlbumDto albumDto, MultipartFile imgFile) {
+        try {
+            // 기존 앨범 가져오기
+            Optional<Album> optionalAlbum = albumRepository.findById(albumDto.getAno());
+            if (!optionalAlbum.isPresent()) {
+                return false; // 존재하지 않으면 false
+            }
+
+            Album album = optionalAlbum.get();
+
+            // 새 이미지가 업로드 되었을 경우
+            if (imgFile != null && !imgFile.isEmpty()) {
+                String img = uploadImage(imgFile);
+                album.setImg(img);
+            }
+
+            // 각 필드 null 체크 후 업데이트
+            if (albumDto.getTitle() != null) album.setTitle(albumDto.getTitle());
+            if (albumDto.getArtist() != null) album.setArtist(albumDto.getArtist());
+            if (albumDto.getType() != null) album.setType(albumDto.getType());
+            if (albumDto.getGenre() != null) album.setGenre(albumDto.getGenre());
+            if (albumDto.getReleased() != null) album.setReleased(albumDto.getReleased());
+            if (albumDto.getContent() != null) album.setContent(albumDto.getContent());
+            if (albumDto.getDomestic() != null) album.setDomestic(albumDto.getDomestic());
+
+            albumRepository.save(album);
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
 
 
