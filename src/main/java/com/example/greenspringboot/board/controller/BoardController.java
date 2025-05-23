@@ -53,10 +53,6 @@ public class BoardController {
     @GetMapping("/write")
     public String write(Model m) {
         m.addAttribute("mode", "new");
-//        System.out.println("글쓰기 겟맵핑: " + session.getAttribute("cId"));
-//        System.out.println("글쓰기 DTO겟맵핑: " + session.getAttribute("boardDto.cId"));
-
-
         return "board";
     }
 

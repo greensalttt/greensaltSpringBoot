@@ -150,12 +150,6 @@
             background-color: brown;
         }
 
-        .deleted {
-            color: #999;
-            text-decoration: line-through;
-            background-color: #f0f0f0;
-        }
-
         #top{
             margin-bottom: 150px;
         }
@@ -214,7 +208,24 @@
                 <button id="modBtn" type="button" style="display: none;">수정</button>
             </div>
         </div>
+
+
+        <c:if test="${empty sessionScope.cId}">
+            <script>
+                   $(document).ready(function () {
+                    const currentUrl = window.location.pathname + window.location.search;
+                    const messageHtml = '<a href="/login?redirect=' + encodeURIComponent(currentUrl) + '" style="color:gray;">' +
+                        '로그인 후 댓글을 작성할 수 있습니다.' +
+                        '</a>';
+
+                    $("input[name='comment']").replaceWith(messageHtml);
+                    $("#sendBtn").hide();
+                });
+            </script>
         </c:if>
+
+
+    </c:if>
     </div><br><br>
 
     <footer>
@@ -438,11 +449,7 @@
                 $("#modBtn").click(function(){
                     let cno = $(this).attr("data-cno");
                     let comment = $("input[name=comment]").val();
-                    // let bno = $(this).attr("data-bno");
-
                     console.log("bno:", bno);  // bno 값 확인
-
-
 
                     if(comment.trim() == ''){
                         alert("댓글을 입력해주세요.");

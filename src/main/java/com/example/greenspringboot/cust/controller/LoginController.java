@@ -29,8 +29,28 @@ public class LoginController {
     private AdminService adminService;
 
 //    쿠키에 있는 이메일이 암호화로 저장되기 때문에 다시 불러오기 위해 복호화 시켜 모델로 전달
+//    @GetMapping("/login")
+//    public String login(@CookieValue(value = "cEmail", defaultValue = "") String encryptedEmail, Model model) {
+//        String decryptedEmail = "";
+//        try {
+//            if (!encryptedEmail.isEmpty()) {
+//                decryptedEmail = EncryptionUtil.decrypt(encryptedEmail); // 이메일 복호화
+//                System.out.println("복호화된 이메일: " + decryptedEmail);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        model.addAttribute("decryptedEmail", decryptedEmail); // 복호화된 이메일을 모델에 추가
+//        return "loginForm"; // 로그인 폼 JSP 페이지로 반환
+//    }
+
     @GetMapping("/login")
-    public String login(@CookieValue(value = "cEmail", defaultValue = "") String encryptedEmail, Model model) {
+    public String login(
+            @CookieValue(value = "cEmail", defaultValue = "") String encryptedEmail,
+            @RequestParam(value = "redirect", required = false) String redirect,
+            HttpSession session,
+            Model model
+    ) {
         String decryptedEmail = "";
         try {
             if (!encryptedEmail.isEmpty()) {
@@ -40,9 +60,19 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // redirect 파라미터가 있으면 세션에 저장
+        if (redirect != null && !redirect.isEmpty()) {
+            session.setAttribute("toURL", redirect);
+            System.out.println("redirect 파라미터 세션에 저장: " + redirect);
+        }
+
         model.addAttribute("decryptedEmail", decryptedEmail); // 복호화된 이메일을 모델에 추가
         return "loginForm"; // 로그인 폼 JSP 페이지로 반환
     }
+
+
+
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {

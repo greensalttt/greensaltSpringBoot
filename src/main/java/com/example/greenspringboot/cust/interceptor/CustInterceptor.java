@@ -24,9 +24,9 @@ public class CustInterceptor implements HandlerInterceptor {
             session.setAttribute("toURL", request.getRequestURI());
             response.sendRedirect("/login");
             System.out.println("세션을 못찾아서 로그인 페이지로 리다이렉트");
-            return false; // 세션이 없으면 요청을 중단
+            return false;
         }
 
-        return true; // 세션이 있으면 다음으로 진행
+        return true;
     }
 }
