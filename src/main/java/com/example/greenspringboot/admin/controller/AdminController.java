@@ -80,4 +80,14 @@ public class AdminController {
         albumService.albumRead(ano, m);
         return "albumEdit";
     }
+
+    @PostMapping("/modify")
+    public String albumModify(AlbumDto albumDto, MultipartFile imgFile, RedirectAttributes msg){
+        if(!albumService.albumModify(albumDto, imgFile)){
+            msg.addFlashAttribute("modifyFail", "msg");
+            return "redirect:/admin/edit";
+        }
+        msg.addFlashAttribute("modify", "msg");
+        return "redirect:/admin/manage";
+    }
 }
