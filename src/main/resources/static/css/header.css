@@ -130,16 +130,13 @@ h1 {
 
 
 #logoutLink {
-    background: none;
-    font: inherit;
-    text-decoration: none;
-    cursor: pointer;
+    all: unset;
     display: block;
     padding: 5px;
     margin-bottom: 4px;
     font-size: 13px;
+    text-decoration: none;
     color: #333;
-    border: none;
+    border-radius: 2px;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 3px;
 }

@@ -37,9 +37,6 @@
     </div>
 </div>
 
-
-<%--    <input id="search1" type="text" placeholder="Search.." onkeydown="handleKeyPress(event)">--%>
-
     <nav id="headerNav">
         <ul>
             <li><a href="<c:url value='/album/list'/>">Album</a></li>
