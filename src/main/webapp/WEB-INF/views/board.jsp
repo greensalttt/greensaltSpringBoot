@@ -307,36 +307,6 @@
     <script>
         // 댓글을 HTML로 변환하는 함수
 
-        // let toHtml = function (comments) {
-        //     let tmp = "<ul>";
-        //
-        //     comments.forEach(function(comment){
-        //         console.log("Parent Comment:", comment.parentComment);
-        //
-        //         // 부모 댓글을 타고 올라가면서 최상위 부모를 찾는 로직
-        //         let topParentComment = comment;
-        //         while (topParentComment.parentComment !== null) {
-        //             topParentComment = topParentComment.parentComment;
-        //         }
-        //
-        //         tmp += '<li data-cno="' + comment.cno;
-        //         tmp += '" data-parentComment="' + topParentComment.cno + '"'; // 최상위 부모의 cno를 사용
-        //         tmp += '" data-bno="' + comment.bno;
-        //         tmp += '" data-comment="' + comment.comment;
-        //         tmp += '" data-commenter="' + comment.commenter + '">';
-        //
-        //         if(comment.parentComment != null) tmp += 'ㄴ';
-        //
-        //         tmp += '<span class="commenter">' + comment.commenter + "=" + '</span>'
-        //         tmp += '<span class="comment">' + comment.comment + '</span>'
-        //         tmp += '<button class="replyBtn">답글</button>'
-        //         tmp += '<button class="modBtn">수정</button>'
-        //         tmp += '<button class="delBtn">삭제</button>'
-        //         tmp += '</li>'
-        //     })
-        //     return tmp + "</ul>";
-        // }
-
         let toHtml = function (comments) {
 
             // 지금까 콘솔로 값 제대로 들고옴
@@ -345,6 +315,7 @@
             let tmp = "<ul>";
             comments.forEach(function(comment) {
                 console.log(comment);
+                // Jackson 규칙으로 cId를 cid로 찍어야 값이 나옴
                 console.log(comment.cid);
                 console.log(cId);
 
@@ -366,13 +337,13 @@
                 tmp += '<span class="commenter">' + comment.commenter + '=' + '</span>';
                 tmp += '<span class="comment">' + comment.comment + '</span>';
 
-                // ✅ 본인 댓글일 경우에만 수정/삭제 버튼 추가
+                // 본인 댓글일 경우에만 수정/삭제 버튼 추가
                 if (comment.cid == cId) {
                     tmp += '<button class="modBtn">수정</button>';
                     tmp += '<button class="delBtn">삭제</button>';
                 }
 
-                // ✅ 답글 버튼은 로그인한 사용자만 가능
+                // 답글 버튼은 로그인한 사용자만 가능
 
                 if (cId) {
                     tmp += '<button class="replyBtn">답글</button>';
