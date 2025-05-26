@@ -40,11 +40,11 @@
     <nav id="headerNav">
         <ul>
             <li><a href="<c:url value='/album/list'/>">Album</a></li>
-            <li><a href="#">Video</a></li>
-            <li><a href="#">Interview</a></li>
-            <li><a href="#">Performance</a></li>
+            <li><a onclick="test()">Video</a></li>
+            <li><a onclick="test()">Interview</a></li>
+            <li><a onclick="test()">Performance</a></li>
             <li><a href="<c:url value='/board/list'/>">Community</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a onclick="test()">Help</a></li>
         </ul>
     </nav>
 
@@ -65,5 +65,10 @@
             links.classList.remove('show');
         }
     });
+
+    function test(){
+        alert("테스트중입니다!")
+    }
+</script>
 
 </script>

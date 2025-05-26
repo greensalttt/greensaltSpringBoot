@@ -1,4 +1,6 @@
 package com.example.greenspringboot.cust.service;
+import com.example.greenspringboot.board.repository.BoardRepository;
+import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
@@ -34,6 +36,11 @@ public class CustServiceImpl implements CustService {
     //    일반 필드는 오토와이어드 필요없음
     private int authNumber;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Override
     public String emailCheck(String cEmail) {
@@ -171,7 +178,7 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
-    public void myPage(int cId, Model model) {
+    public void myPage(Integer cId, Model model) {
         Optional<Cust> optionalCust = custRepository.findById(cId);
 
         if (optionalCust.isPresent()) {
@@ -181,12 +188,16 @@ public class CustServiceImpl implements CustService {
             String cNick = cust.getCNick();
             Date regDt = cust.getRegDt();
             Long visitCnt = cust.getVisitCnt();
+            Long boardCount = boardRepository.countBycIdAndDeletedFalse(cId);
+            Long commentCount = commentRepository.countBycIdAndDeletedFalse(cId);
 
             CustDto custDto = CustDto.builder()
                     .cName(cName)
                     .cNick(cNick)
                     .visitCnt(visitCnt)
                     .regDt(regDt)
+                    .boardCount(boardCount)
+                    .commentCount(commentCount)
                     .build();
 
             model.addAttribute("custDto", custDto);

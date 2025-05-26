@@ -48,7 +48,7 @@ public interface CustService {
 
     Cust toPwdEntity(Cust cust, CustDto custDto);
 
-    void myPage(int cId, Model model);
+    void myPage(Integer cId, Model model);
      void myPageInfo(int cId, Model model);
 
     boolean custModify(int cId, CustDto custDto);
