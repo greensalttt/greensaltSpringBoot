@@ -24,5 +24,6 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     Long countBycIdAndDeletedFalse(Integer cId);
 
+    Long countByDeletedFalse();
 
 }

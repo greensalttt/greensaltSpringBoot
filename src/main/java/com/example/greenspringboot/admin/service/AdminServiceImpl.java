@@ -64,9 +64,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void albumPage(Model model){
-        long custCount = custRepository.count();
-        long boardCount = boardRepository.count();
-        long commentCount = commentRepository.count();
+        long custCount = custRepository.countBycStatCd("M");
+        long boardCount = boardRepository.countByDeletedFalse();
+        long commentCount = commentRepository.countByDeletedFalse();
         long albumCount = albumRepository.count();
 
         model.addAttribute("custCount", custCount);

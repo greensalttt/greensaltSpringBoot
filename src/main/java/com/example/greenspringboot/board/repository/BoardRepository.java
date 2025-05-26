@@ -49,6 +49,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
 
     Long countBycIdAndDeletedFalse(Integer cId);
+
+    Long countByDeletedFalse();
 }
 
 ////      JPA 방식으로 사용할때 순서

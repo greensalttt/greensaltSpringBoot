@@ -23,10 +23,6 @@ public class Cust {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_id", nullable = false)
     private Integer cId;
-//
-//    @Builder.Default
-//    private String c_stat_cd = "M";
-
 
     @Builder.Default
     @Column(name = "c_stat_cd", nullable = false)
