@@ -57,7 +57,7 @@
             color: #2c3e50;
         }
 
-        .dashboard-header {
+        .adminPage-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -67,7 +67,7 @@
 <body>
 <div class="container">
 
-    <div class="dashboard-header">
+    <div class="adminPage-header">
         <div class="title">관리자 대시보드</div>
 
         <div id="logout-wrapper">
@@ -84,7 +84,7 @@
     <h1>총 댓글 수: <span>${commentCount}</span></h1>
     <h1>총 앨범 수: <span>${albumCount}</span></h1>
 
-    <a id="write" href="/admin/album">앨범 글 올리기</a>
+    <a id="write" href="/admin/album">앨범 업로드</a>
     <a id="delete" href="/admin/manage">앨범 관리</a>
 
 

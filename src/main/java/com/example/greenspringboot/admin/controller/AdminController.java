@@ -29,7 +29,7 @@ public class AdminController {
     @GetMapping("/page")
     public String adminPage(Model model){
         adminService.albumPage(model);
-        return "dashboard";
+        return "adminPage";
     }
 
     @PostMapping("/logout")
