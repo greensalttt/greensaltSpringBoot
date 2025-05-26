@@ -47,6 +47,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("UPDATE Board SET viewCnt = viewCnt + 1 WHERE bno = :bno")
     int incrementViewCnt(@Param("bno") Integer bno);
 
+
+    Long countBycIdAndDeletedFalse(Integer cId);
 }
 
 ////      JPA 방식으로 사용할때 순서
