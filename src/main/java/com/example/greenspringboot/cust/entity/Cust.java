@@ -58,7 +58,7 @@ public class Cust {
 
     @Column(name = "c_phn", nullable = false)
     @NotBlank(message = "핸드폰 입력은 필수입니다.")
-    @Pattern(regexp = "^[1-9]{11,12}$", message = "핸드폰 번호는 11~12자 사이여야 합니다.")
+    @Pattern(regexp = "^[0-9]{11,12}$", message = "핸드폰 번호는 11~12자 사이여야 합니다.")
     private String cPhn;
 
     @Column(name= "c_zip", nullable = false)
