@@ -49,17 +49,17 @@ public class Cust {
     @Pattern(regexp = "^[가-힣a-zA-Z1-9]{2,10}$", message = "닉네임은 한글,영어, 숫자 조합으로 2~10자 이하로 입력해야 합니다.")
     private String cNick;
 
-    @Column(name = "c_birth", nullable = false)
-    @NotBlank(message = "생년월일은 필수입니다.")
-    private String cBirth;
-
-    @Column(name="c_gnd", nullable = false)
-    private String cGnd;
-
-    @Column(name = "c_phn", nullable = false)
-    @NotBlank(message = "핸드폰 입력은 필수입니다.")
-    @Pattern(regexp = "^[0-9]{11,12}$", message = "핸드폰 번호는 11~12자 사이여야 합니다.")
-    private String cPhn;
+//    @Column(name = "c_birth", nullable = false)
+//    @NotBlank(message = "생년월일은 필수입니다.")
+//    private String cBirth;
+//
+//    @Column(name="c_gnd", nullable = false)
+//    private String cGnd;
+//
+//    @Column(name = "c_phn", nullable = false)
+//    @NotBlank(message = "핸드폰 입력은 필수입니다.")
+//    @Pattern(regexp = "^[0-9]{11,12}$", message = "핸드폰 번호는 11~12자 사이여야 합니다.")
+//    private String cPhn;
 
     @Column(name= "c_zip", nullable = false)
     @NotBlank(message = "우편번호는 필수입니다.")
@@ -80,17 +80,17 @@ public class Cust {
     @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s\\-/]{1,30}$", message = "상세 주소는 특수문자(공백, -, /)만 포함 가능하며 30자 이하여야 합니다.")
     private String cDetA;
 
-    @Column(name="sms_agr")
-    @Builder.Default
-    private String smsAgr = "N";
-
-    @Column(name="email_agr")
-    @Builder.Default
-    private String emailAgr = "N";
-
-    @Builder.Default
-    @Column(name= "reg_dt")
-    private Date regDt = new Date();
+//    @Column(name="sms_agr")
+//    @Builder.Default
+//    private String smsAgr = "N";
+//
+//    @Column(name="email_agr")
+//    @Builder.Default
+//    private String emailAgr = "N";
+//
+//    @Builder.Default
+//    @Column(name= "reg_dt")
+//    private Date regDt = new Date();
 
     @Builder.Default
     private Date login_dt = new Date();
@@ -100,7 +100,8 @@ public class Cust {
     private Long visitCnt = 0L;
 
     @Builder.Default
-    private Date frst_reg_dt = new Date();
+    @Column(name= "frst_reg_dt")
+    private Date regDt = new Date();
 
     @Builder.Default
     private String frst_reg_id = "minwook";
