@@ -32,10 +32,10 @@
         }
 
         #albumListContainer {
-            margin-top: 100px;
-            margin-bottom: 100px;
             padding: 20px;
             flex: 1;
+            width: 80%;
+            margin: 100px auto 100px auto;
         }
 
         #albumListContainer .domestic {

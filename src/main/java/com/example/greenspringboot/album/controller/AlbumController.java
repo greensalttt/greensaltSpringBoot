@@ -1,6 +1,4 @@
 package com.example.greenspringboot.album.controller;
-
-import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.album.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

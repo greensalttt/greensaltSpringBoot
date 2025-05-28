@@ -17,7 +17,7 @@
         }
 
         #albumListContainer {
-            margin-top: 150px;
+            margin-top: 120px;
             padding: 20px;
             flex: 1;
         }
@@ -48,8 +48,8 @@
         }
 
         #albumListContainer .list img{
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             flex-shrink: 0;
         }
@@ -95,15 +95,15 @@
 <div id="wrapper">
 <header>
     <jsp:include page="header.jsp"/>
-</header>
+</header><br><br>
+
     <div id="albumListContainer">
                 <div class="domestic">
      <span class="cate">
-			<a href="#">국내 앨범</a>
-			<span class="bar">|</span>
-			<a href="#">해외 앨범</a>
+			<a href="#">Album</a>
 		</span>
                 </div>
+
         <ul class="list">
             <c:forEach var="albumDto" items="${albumDtos}">
                 <li class="album-item">
@@ -112,7 +112,6 @@
                         <div class="info">
                             <p class="title">${albumDto.title}</p>
                             <p class="artist">${albumDto.artist}</p>
-<%--                            <p class="date">${albumDto.released}</p>--%>
                             <p class="date">Released: ${albumDto.released}</p>
 
                         </div>
@@ -130,18 +129,3 @@
     </div>
 
 </body>
-
-
-<%--        <ul class="list">--%>
-<%--            <li class="album-item">--%>
-<%--                <a href="/album/page">--%>
-<%--                <img src="${albumDto.img}" class="img" alt="">--%>
-<%--                <div class="info">--%>
-<%--                    <p class="title">${albumDto.title}</p>--%>
-<%--                    <p class="artist">${albumDto.artist}</p>--%>
-<%--                    <p class="date">${albumDto.released}</p>--%>
-<%--                </div>--%>
-<%--                </a>--%>
-<%--            </li>--%>
-<%--                </ul>--%>
-<%--        --%>

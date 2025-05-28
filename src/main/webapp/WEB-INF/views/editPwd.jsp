@@ -96,7 +96,7 @@
 <div id="pwdForm">
     <form action="/mypage/editPwd" method="POST" onsubmit="return editPwdCheck()">
     <div class="container">
-      <h1 id="pwdTitle">비밀번호 변경</h1><br><br>
+      <h1 id="pwdTitle">비밀번호 수정</h1>
 
         <label class="pwdLabel">현재 비밀번호</label>
         <input id="curPwd" class="special-class" type="password" name="curPwd" maxlength="15">

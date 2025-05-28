@@ -231,14 +231,14 @@
 <div id="infoForm">
     <form action="/mypage/info" method="POST" onsubmit="return formCheck()">
         <div class="container">
-            <h1 id="loginTitle">개인정보 수정</h1>
+            <h1 id="loginTitle">개인정보</h1>
             <p id="check-result"></p>
             <label class="infoLabel">이메일*</label>
             <input class="special-class" type="text" id="c_email" name="cEmail" value="${custDto.CEmail}" disabled>
-            <label class="infoLabel">이름*</label>
-            <input class="special-class" type="text" name="cName" value="${custDto.CName}" disabled>
-            <label class="infoLabel">닉네임</label>
-            <input class="special-class" type="text" id="c_nm" name="cNick" value="${custDto.CNick}" maxlength="10">
+<%--            <label class="infoLabel">이름*</label>--%>
+<%--            <input class="special-class" type="text" name="cName" value="${custDto.CName}" disabled>--%>
+            <label class="infoLabel">닉네임*</label>
+            <input class="special-class" type="text" id="cNick" name="cNick" value="${custDto.CNick}" disabled >
             <label class="infoLabel">주소</label>
             <div id="ad">
                 <input type="text" id="zip" name="cZip" value="${custDto.CZip}">
@@ -247,33 +247,34 @@
             <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="${custDto.CJibunA}">
             <span id="guide" style="color:#999;display:none"></span>
             <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" value="${custDto.CDetA}"><p id="det">건물명 + 상세주소</p></div><br>
-            <label class="infoLabel">휴대폰</label>
-            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="${custDto.CPhn}"><p id="phn">-제외</p></div>
-            <label class="infoLabel">성별*</label>
-            <input class="special-class" type="text" name="cGnd" value="${custDto.CGnd}"disabled>
-            <label class="infoLabel" id="aa">생년월일</label>
-            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="${custDto.CBirth}" ><br><br>
-            <div id="choice">
-                <a class="infoLabel">SMS 수신</a>
-                <input type="radio" id="sms_agr" name="smsAgr" value="Y"
-                       <c:if test="${custDto.smsAgr == 'Y'}">checked</c:if>>
-                <label for="sms_agr" class="choiceLabel">수신함</label>
+<%--            <label class="infoLabel">휴대폰</label>--%>
+<%--            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="${custDto.CPhn}"><p id="phn">-제외</p></div>--%>
+<%--            <label class="infoLabel">성별*</label>--%>
+<%--            <input class="special-class" type="text" name="cGnd" value="${custDto.CGnd}"disabled>--%>
+<%--            <label class="infoLabel" id="aa">생년월일</label>--%>
+<%--            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="${custDto.CBirth}" ><br><br>--%>
+<%--            <div id="choice">--%>
+<%--                <a class="infoLabel">SMS 수신</a>--%>
+<%--                <input type="radio" id="sms_agr" name="smsAgr" value="Y"--%>
+<%--                       <c:if test="${custDto.smsAgr == 'Y'}">checked</c:if>>--%>
+<%--                <label for="sms_agr" class="choiceLabel">수신함</label>--%>
 
-                <input type="radio" id="sms_no" name="smsAgr" value="N"
-                       <c:if test="${custDto.smsAgr == 'N'}">checked</c:if>>
-                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>
+<%--                <input type="radio" id="sms_no" name="smsAgr" value="N"--%>
+<%--                       <c:if test="${custDto.smsAgr == 'N'}">checked</c:if>>--%>
+<%--                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>--%>
 
-                <a class="infoLabel">이메일 수신</a>
-                <input type="radio" id="email_agr" name="emailAgr" value="Y"
-                    <c:if test="${custDto.emailAgr == 'Y'}">checked</c:if>>
+<%--                <a class="infoLabel">이메일 수신</a>--%>
+<%--                <input type="radio" id="email_agr" name="emailAgr" value="Y"--%>
+<%--                    <c:if test="${custDto.emailAgr == 'Y'}">checked</c:if>>--%>
 
-                <label for="email_agr" class="choiceLabel">수신함</label>
+<%--                <label for="email_agr" class="choiceLabel">수신함</label>--%>
 
-                <input type="radio" id="email_no" name="emailAgr" value="N"
-                    <c:if test="${custDto.emailAgr == 'N'}">checked</c:if>>
-                <label for="email_no" class="choiceLabel">수신 안함</label>
+<%--                <input type="radio" id="email_no" name="emailAgr" value="N"--%>
+<%--                    <c:if test="${custDto.emailAgr == 'N'}">checked</c:if>>--%>
+<%--                <label for="email_no" class="choiceLabel">수신 안함</label>--%>
 
-            </div><br><br><br><br><br>
+<%--            </div>--%>
+        <br><br><br>
 
             <div id="check">
                 <button id="edit">수정</button> <a id="delete" onclick="openModal()">회원탈퇴</a>
@@ -348,40 +349,40 @@
         }).open();
     }
 
-    function formCheck() {
-        var isNm = newNmCheck();
-        if (!isNm) {
-            return false;
-        }
+    // function formCheck() {
+    //     var isNm = newNmCheck();
+    //     if (!isNm) {
+    //         return false;
+    //     }
+    //
+    //     var isPhn = newPhnCheck();
+    //     if (!isPhn) {
+    //         return false;
+    //     }
+    //     return confirm("변경사항을 마무리하시고 적용하시겠습니까?")
+    // }
 
-        var isPhn = newPhnCheck();
-        if (!isPhn) {
-            return false;
-        }
-        return confirm("변경사항을 마무리하시고 적용하시겠습니까?")
-    }
-
-    function newNmCheck() {
-        var newNm = document.getElementById("c_nm").value;
-
-        if (newNm.length < 2 || newNm.length > 10){
-            alert("닉네임은 2자 이상 10자 이하로 가능합니다")
-            return false;
-        }
-        return true;
-    }
-
-    function newPhnCheck() {
-        var newPhn = document.getElementById("c_phn").value;
-
-        var newPhnPattern = /^[0-9]{11,12}$/;
-
-        if (!newPhnPattern.test(newPhn)) {
-            alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.")
-            return false;
-        }
-        return true;
-    }
+    // function newNmCheck() {
+    //     var newNm = document.getElementById("cNick").value;
+    //
+    //     if (newNm.length < 2 || newNm.length > 10){
+    //         alert("닉네임은 2자 이상 10자 이하로 가능합니다")
+    //         return false;
+    //     }
+    //     return true;
+    // }
+    //
+    // function newPhnCheck() {
+    //     var newPhn = document.getElementById("c_phn").value;
+    //
+    //     var newPhnPattern = /^[0-9]{11,12}$/;
+    //
+    //     if (!newPhnPattern.test(newPhn)) {
+    //         alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.")
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
 
 function test(){
@@ -396,6 +397,7 @@ alert("테스트중입니다!")
     function closeModal() {
         document.getElementById("myModal").style.display = "none";
     }
+
 
     let pwdFail = "${pwdFail}"
     if(pwdFail==="pwdMsg") {

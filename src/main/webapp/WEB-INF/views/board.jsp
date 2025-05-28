@@ -23,6 +23,7 @@
         }
 
         .writing-header {
+            font-size: 20px;
             position: relative;
             margin: 20px 0 0 0;
             padding-bottom: 10px;
@@ -65,6 +66,10 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             background-color: #f9f9f9;
+        }
+
+        .comment-container h2{
+            font-size: 16px;
         }
 
         #commentList {
@@ -168,7 +173,7 @@
 </script>
 
 <div class="container">
-    <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : ""}</h2>
+    <h2 class="writing-header">게시글 ${mode=="new" ? "작성" : ""}</h2>
     <form id="form" class="frm" action="" method="post">
         <input class="boardTitle" type="hidden" name="bno" value="${boardDto.bno}">
 

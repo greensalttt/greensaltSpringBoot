@@ -28,28 +28,22 @@
         }
 
         .board-container {
-            width: 70%;
+            width: 80%;
             text-align:center;
-            margin: 0 auto;
+            margin: 120px auto 0 auto;
             flex: 1;
         }
         .search-container {
-            background-color: rgb(253, 253, 250);
-            width: 100%;
-            height: 110px;
-            border: 1px solid #ddd;
-            margin-top : 10px;
-            margin-bottom: 30px;
+            height: 80px;
             display: flex;
-            justify-content: center;
             align-items: center;
         }
         .search-form {
-            height: 37px;
+            height: 32px;
             display: flex;
         }
         .search-option {
-            width: 100px;
+            width: 70px;
             height: 100%;
             outline: none;
             margin-right: 5px;
@@ -66,26 +60,12 @@
             background-color: white;
             border: 1px solid #ccc;
             height: 100%;
-            width: 300px;
-            font-size: 15px;
+            width: 200px;
+            font-size: 14px;
             padding: 5px 7px;
         }
         .search-input::placeholder {
             color: gray;
-        }
-
-        .search-button {
-            width: 20%;
-            height: 100%;
-            background-color: rgb(22, 22, 22);
-            color: rgb(209, 209, 209);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-        }
-        .search-button:hover {
-            color: rgb(165, 165, 165);
         }
 
         table {
@@ -137,23 +117,14 @@
         }
 
 
-        .btn-write {
+        #writeBtn {
             background-color: rgb(236, 236, 236);
             border: none;
             color: black;
             padding: 6px 12px;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             border-radius: 5px;
-            margin-left: 30px;
-        }
-
-        .btn-write:hover {
-            text-decoration: underline;
-        }
-
-        #top{
-            margin-bottom: 150px;
         }
 
         .paging-container {
@@ -176,6 +147,43 @@
             margin-bottom: 120px;
         }
 
+        .search-container2 {
+            position: relative;
+            width: 200px;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 32px;
+            padding-right: 40px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /*margin-bottom: 20px;*/
+        }
+
+        .community-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+
+
 
     </style>
 </head>
@@ -191,19 +199,27 @@
     if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
 </script>
     <div class="board-container">
+    <div class="board-header">
+        <div class="community-title">Community</div>
+
         <div class="search-container">
-            <form action="<c:url value="/board/list"/>" class="search-form" method="get">
+            <form action="<c:url value='/board/list' />" class="search-form" method="get">
                 <select class="search-option" name="option">
                     <option value="title" ${ph.sc.option=='title' ? "selected" : ""}>제목만</option>
                     <option value="content" ${ph.sc.option=='content' ? "selected" : ""}>내용만</option>
                     <option value="writer" ${ph.sc.option=='writer' ? "selected" : ""}>작성자</option>
                     <option value="both" ${ph.sc.option=='both' ? "selected" : ""}>제목+내용</option>
                 </select>
-                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
-                <input type="submit" class="search-button" value="검색">
+
+                <div class="search-container2">
+                    <input type="text" name="keyword" class="search-input" placeholder="검색어를 입력해주세요">
+                    <img src="/icon_img/searchIcon.png" class="search-icon" onclick="this.closest('form').submit()" alt="검색">
+                </div>
             </form>
-            <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
+
+            <button id="writeBtn" onclick="location.href='<c:url value='/board/write'/>'">글쓰기</button>
         </div>
+    </div>
 
         <table>
             <tr>
@@ -233,8 +249,6 @@
             </c:forEach>
         </table>
     </div><br>
-
-
         <div class="paging-container">
                 <c:if test="${totalCnt==null || totalCnt==0}">
                     <div id="noBoard"> 게시물이 없습니다. </div>
@@ -252,7 +266,7 @@
                     </c:if>
                     </div>
                 </c:if>
-        </div>
+        </div><br>
 
 <footer>
     <jsp:include page="footer.jsp"/>

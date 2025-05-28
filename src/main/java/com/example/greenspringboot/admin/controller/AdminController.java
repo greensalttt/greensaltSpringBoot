@@ -40,7 +40,7 @@ public class AdminController {
 
     @GetMapping("/album")
     public String writePage(){
-        return "adminAlbum";
+        return "albumInsertForm";
     }
 
 

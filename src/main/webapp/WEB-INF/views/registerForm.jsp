@@ -4,7 +4,7 @@
 
 <head>
     <title>회원가입</title>
-    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/15439/15439306.png">
+<%--    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/15439/15439306.png">--%>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
 
@@ -248,143 +248,109 @@
                 <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" placeholder="지번주소는 선택사항입니다." disabled>
                 <span id="guide" style="color:#999;display:none"></span>
                 <input type="text" id="detailAddress" name="cDetA" maxlength="30" placeholder="건물명+상세주소" disabled><br><br>
-                <label>휴대폰</label>
-                <input class="special-class" type="text" id="cPhn" name="cPhn" placeholder="&nbsp;-제외" maxlength="12" disabled>
-                <label>성별</label>
-                <div id="gndLine">
-                    <input type="radio" id="female" name="cGnd" value="여" disabled>
-                    <label for="female" id="femaleLabel">여성</label> &nbsp;&nbsp;
+<%--                <label>휴대폰</label>--%>
+<%--                <input class="special-class" type="text" id="cPhn" name="cPhn" placeholder="&nbsp;-제외" maxlength="12" disabled>--%>
+<%--                <label>성별</label>--%>
+<%--                <div id="gndLine">--%>
+<%--                    <input type="radio" id="female" name="cGnd" value="여" disabled>--%>
+<%--                    <label for="female" id="femaleLabel">여성</label> &nbsp;&nbsp;--%>
 
-                    <input type="radio" id="male" name="cGnd" value="남" disabled>
-                    <label for="male" id="maleLabel">남성</label><br>
-                </div>
+<%--                    <input type="radio" id="male" name="cGnd" value="남" disabled>--%>
+<%--                    <label for="male" id="maleLabel">남성</label><br>--%>
+<%--                </div>--%>
 
-                <label>생년월일</label>
-                <input type="date" id="birth" name="cBirth" min="1900-01-01" max="2023-12-31" disabled><br><br>
+<%--                <label>생년월일</label>--%>
+<%--                <input type="date" id="birth" name="cBirth" min="1900-01-01" max="2023-12-31" disabled><br><br>--%>
 
-                <input type="checkbox" id="touBox" onclick="openModal()" name="touBox" value="Y" disabled>
-
-
-                <label for="touBox" id="touLabel">[필수] 이용약관</label><br>
+<%--                <input type="checkbox" id="touBox" onclick="openModal()" name="touBox" value="Y" disabled>--%>
+<%--                <label for="touBox" id="touLabel">[필수] 이용약관</label><br>--%>
 
                 <input type="checkbox" id="piiBox" onclick="openModal2()" name="piiBox" value="Y" disabled>
+                <label for="piiBox" id="piiLabel">[필수] 개인정보 및 이용</label><br><br><br>
 
-                <label for="piiBox" id="piiLabel">[필수] 개인정보 및 이용</label><br>
+<%--                <input type="checkbox" id="smsAgr" name="smsAgr" value="Y" disabled>--%>
+<%--                <label for="smsAgr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>--%>
 
-                <input type="checkbox" id="smsAgr" name="smsAgr" value="Y" disabled>
-                <label for="smsAgr" id="smsLabel">[선택] 쇼핑정보 SMS 수신</label><br>
-
-                <input type="checkbox" id="emailAgr" name="emailAgr" value="Y" disabled>
-                <label for="emailAgr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>
+<%--                <input type="checkbox" id="emailAgr" name="emailAgr" value="Y" disabled>--%>
+<%--                <label for="emailAgr" id="emailLabel">[선택] 쇼핑정보 이메일 수신</label><br><br><br>--%>
 
                 <button id="rBtn" disabled>가입하기</button>
             </div>
         </form>
     </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
+<%--    <div id="myModal" class="modal">--%>
+<%--        <div class="modal-content">--%>
 
-            <h3>그린솔트 이용약관</h3><br>
-            <p>제1조(목적)</p>
-            <p>이 약관은 그린솔트 회사(전자상거래 사업자)가 운영하는 그린솔트 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어
-                사이버 몰과 이용자의 권리.의무 및 책임사항을 규정함을 목적으로 합니다.</p><br>
+<%--            <h3>그린솔트 이용약관</h3><br>--%>
+<%--            <p>제1조(목적)</p>--%>
+<%--            <p>이 약관은 그린솔트 회사(전자상거래 사업자)가 운영하는 그린솔트 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어--%>
+<%--                사이버 몰과 이용자의 권리.의무 및 책임사항을 규정함을 목적으로 합니다.</p><br>--%>
 
-            <h3>그린솔트 이용약관</h3><br>
-            <p>제1조(목적)</p>
-            <p>이 약관은 그린솔트 회사(전자상거래 사업자)가 운영하는 그린솔트 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어
-                사이버 몰과 이용자의 권리.의무 및 책임사항을 규정함을 목적으로 합니다.</p><br>
+<%--            <h3>그린솔트 이용약관</h3><br>--%>
+<%--            <p>제1조(목적)</p>--%>
+<%--            <p>이 약관은 그린솔트 회사(전자상거래 사업자)가 운영하는 그린솔트 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어--%>
+<%--                사이버 몰과 이용자의 권리.의무 및 책임사항을 규정함을 목적으로 합니다.</p><br>--%>
 
-            <p>제2조(정의)</p>
+<%--            <p>제2조(정의)</p>--%>
 
-            <p>① “몰”이란 그린솔트 회사가 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 설정한
-                가상의 영업장을 말하며,
-                아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.</p>
-            <p>② “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원을 말합니다.
-                ③ ‘회원’이라 함은 “몰”에 회원등록을 한 자로서, 계속적으로 “몰”이 제공하는 서비스를 이용할 수 있는 자를 말합니다.</p><br>
+<%--            <p>① “몰”이란 그린솔트 회사가 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 설정한--%>
+<%--                가상의 영업장을 말하며,--%>
+<%--                아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.</p>--%>
+<%--            <p>② “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원을 말합니다.--%>
+<%--                ③ ‘회원’이라 함은 “몰”에 회원등록을 한 자로서, 계속적으로 “몰”이 제공하는 서비스를 이용할 수 있는 자를 말합니다.</p><br>--%>
 
-            <p>제3조(서비스의 제공 및 변경)</p>
+<%--            <p>제3조(서비스의 제공 및 변경)</p>--%>
 
-            <p>① “몰”은 다음과 같은 업무를 수행합니다.</p>
-            <p>1. 재화 또는 용역에 대한 정보 제공 및 구매계약의 체결</p>
-            <p>2. 기타 “몰”이 정하는 업무</p>
-            <p>① “몰”은 재화 또는 용역의 품절 또는 기술적 사양의 변경 등의 경우에는 장차 체결되는 계약에 의해 제공할 재화 또는 용역의 내용을 변경할 수 있습니다.
-                이 경우에는 변경된 재화 또는 용역의 내용 및 제공일자를 명시하여 현재의 재화 또는 용역의 내용을 게시한 곳에 즉시 공지합니다.</p><br>
+<%--            <p>① “몰”은 다음과 같은 업무를 수행합니다.</p>--%>
+<%--            <p>1. 재화 또는 용역에 대한 정보 제공 및 구매계약의 체결</p>--%>
+<%--            <p>2. 기타 “몰”이 정하는 업무</p>--%>
+<%--            <p>① “몰”은 재화 또는 용역의 품절 또는 기술적 사양의 변경 등의 경우에는 장차 체결되는 계약에 의해 제공할 재화 또는 용역의 내용을 변경할 수 있습니다.--%>
+<%--                이 경우에는 변경된 재화 또는 용역의 내용 및 제공일자를 명시하여 현재의 재화 또는 용역의 내용을 게시한 곳에 즉시 공지합니다.</p><br>--%>
 
-            <p>제4조(회원가입)</p>
+<%--            <p>제4조(회원가입)</p>--%>
 
-            <p>① 이용자는 “몰”이 정한 가입 양식에 따라 회원정보를 기입한 후 이 약관에 동의한다는 의사표시를 함으로서 회원가입을 신청합니다.</p>
-            <p>② “몰”은 제1항과 같이 회원으로 가입할 것을 신청한 이용자 중 다음 각 호에 해당하지 않는 한 회원으로 등록합니다.</p>
-            <p>1. 등록 내용에 허위, 기재누락, 오기가 있는 경우</p>
-            <p>2. 기타 회원으로 등록하는 것이 “몰”의 기술상 현저히 지장이 있다고 판단되는 경우</p>
-            <p>③ 회원가입계약의 성립 시기는 “몰”의 승낙이 회원에게 도달한 시점으로 합니다.</p>
-            <p>④ 회원은 회원가입 시 등록한 사항에 변경이 있는 경우, 상당한 기간 이내에 “몰”에 대하여 회원정보 수정 등의 방법으로 그 변경사항을 알려야 합니다.</p><br>
+<%--            <p>① 이용자는 “몰”이 정한 가입 양식에 따라 회원정보를 기입한 후 이 약관에 동의한다는 의사표시를 함으로서 회원가입을 신청합니다.</p>--%>
+<%--            <p>② “몰”은 제1항과 같이 회원으로 가입할 것을 신청한 이용자 중 다음 각 호에 해당하지 않는 한 회원으로 등록합니다.</p>--%>
+<%--            <p>1. 등록 내용에 허위, 기재누락, 오기가 있는 경우</p>--%>
+<%--            <p>2. 기타 회원으로 등록하는 것이 “몰”의 기술상 현저히 지장이 있다고 판단되는 경우</p>--%>
+<%--            <p>③ 회원가입계약의 성립 시기는 “몰”의 승낙이 회원에게 도달한 시점으로 합니다.</p>--%>
+<%--            <p>④ 회원은 회원가입 시 등록한 사항에 변경이 있는 경우, 상당한 기간 이내에 “몰”에 대하여 회원정보 수정 등의 방법으로 그 변경사항을 알려야 합니다.</p><br>--%>
 
-            <p>제5조(회원 탈퇴 및 자격 상실 등)</p>
-            <p>① 회원은 “몰”에 언제든지 탈퇴를 요청할 수 있으며 “몰”은 즉시 회원상태를 회원탈퇴로 처리합니다.</p>
-            <p>② 회원이 다음 각 호의 사유에 해당하는 경우, “몰”은 회원자격을 제한 및 정지시킬 수 있습니다.</p>
-            <p>1. 가입 신청 시에 허위 내용을 등록한 경우</p>
-            <p>2. “몰”을 이용하여 구입한 재화 등의 대금, 기타 “몰”이용에 관련하여 회원이 부담하는 채무를 기일에 지급하지 않는 경우</p>
-            <br>
+<%--            <p>제5조(회원 탈퇴 및 자격 상실 등)</p>--%>
+<%--            <p>① 회원은 “몰”에 언제든지 탈퇴를 요청할 수 있으며 “몰”은 즉시 회원상태를 회원탈퇴로 처리합니다.</p>--%>
+<%--            <p>② 회원이 다음 각 호의 사유에 해당하는 경우, “몰”은 회원자격을 제한 및 정지시킬 수 있습니다.</p>--%>
+<%--            <p>1. 가입 신청 시에 허위 내용을 등록한 경우</p>--%>
+<%--            <p>2. “몰”을 이용하여 구입한 재화 등의 대금, 기타 “몰”이용에 관련하여 회원이 부담하는 채무를 기일에 지급하지 않는 경우</p>--%>
+<%--            <br>--%>
 
-            <p>제6조(이용자의 의무)</p>
-            <p>이용자는 다음 행위를 하여서는 안 됩니다.</p>
-            <p>1. 신청 또는 변경시 허위 내용의 등록</p>
-            <p>2. 타인의 정보 도용</p>
-            <p>3. 외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에 반하는 정보를 몰에 공개 또는 게시하는 행위</p>
+<%--            <p>(부칙) 2024년 04월 22일부터 시행합니다. (2024.04.22 개정) <span id="close" onclick="closeModal()" >&times;</span> </p>--%>
+<%--            <br>--%>
 
-            <p>(부칙) 2024년 04월 22일부터 시행합니다. (2024.04.22 개정) <span id="close" onclick="closeModal()" >&times;</span> </p>
-            <br>
-
-        </div>
-    </div>
+<%--        </div>--%>
+<%--    </div>--%>
 
     <div id="myModal2" class="modal">
         <div class="modal-content">
             <h3>그린솔트 개인정보 수집 및 이용</h3><br>
 
-            <p>(주)그린솔트는 고객님의 개인정보를 중요시하며, “정보통신망 이용촉진 및 정보보호” 에 관한 법률을 준수하고 있습니다.</p>
-            <p>회사는 개인정보취급방침을 통하여 고객님께서 제공하는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.</p><br>
+            <p>개인정보취급방침을 통하여 고객님께서 제공하는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.</p><br>
 
-            <p>제 1조 수집하는 개인정보 항목</p>
+            <p>1번 수집하는 개인정보 항목</p>
 
             <p>* 회사는 회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
-            <p>회원가입시 : 이름, 이메일(로그인 ID), 비밀번호</p>
-            <p>서비스 신청시 : 주소, 전화번호, 결제정보</p>
+            <p>회원가입시 : 이름, 이메일(로그인 ID), 주소, 비밀번호</p>
+            <p>* 서비스 이용 과정이나 사업처리 과정에서 서비스이용기록, 접속로그, 쿠키, 접속IP이 생성되어 수집될 수 있습니다.</p><br>
 
-            <p>* 서비스 이용 과정이나 사업처리 과정에서 서비스이용기록, 접속로그, 쿠키, 접속IP, 결제기록이 생성되어 수집될 수 있습니다.</p><br>
-
-
-            <p>제 2조 개인정보의 수집 및 이용목적</p>
+            <p>2번 개인정보의 수집 및 이용목적</p>
 
             <p>회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.</p>
             <p>수신 동의한 SMS 혹은 이메일로 알림 발송</p>
-            <p>콘텐츠 제공, 구매 및 요금결제, 물품배송 청구지 등 발송, 금융거래 본인인증 및 금융서비스</p>
 
-            <p>* 회원관리</p>
-            <p>회원제 서비스 이용에 따른 본인확인, 개인식별, 불량회원의 부정이용 방지와 비인가 사용방지</p>
-            <p>불만처리 등 민원처리, 고지사항 전달</p>
-            <p>* 마케팅 및 광고에 활용</p>
-            <p>이벤트 등 광고성 정보전달, 접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계</p><br>
-
-            <p>제 3조 개인정보의 보유 및 방법</p>
+            <p>3번 개인정보의 보유 및 방법</p>
             <p>회원님이 회원가입에서 입력하신 비밀번호는 암호화 처리된 후 DB에서 관리하고 있습니다.</p><br>
 
-            <p>제 4조 개인정보 제공</p>
-            <p>회사는 이용자의 개인정보를 원칙적으로 외부에 지공하지 않습니다. 다만, 아래의 경우 예외로 합니다.</p>
-            <p>* 이용자들이 사전에 동의한 경우</p>
-            <p>* 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</p><br>
-
-            <p>제 5조 수집한 개인정보의 위탁</p>
-            <p>회사는 서비스 이행을 위해 아래와 같이 외부 전문업체에 위탁하여 운영하고 있습니다.</p>
-            <p>* 위탁대상자: 택배사</p>
-            <p>* 위탁업무 내용: 택배사 위탁내용</p>
-            <p>* 위탁대상자: 입점사(파트너사)</p>
-            <p>* 위탁업무 내용: 입점사(파트너사) 제품 구매 시 구매정보</p>
-            <p> * 위탁대상자: PG사</p>
-            <p> * 위탁업무 내용: PG사 위탁내용</p><br>
-
-            <p> 제 6조 이용자의 권리</p>
+            <p> 4번 이용자의 권리</p>
             <p> * 이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며, 탈퇴를 요청할 수도 있습니다. <span id="close2" onclick="closeModal2()">&times;</span></p>
             <br>
 
@@ -465,13 +431,13 @@
             document.getElementById('roadAddress').disabled = false;
             document.getElementById('jibunAddress').disabled = false;
             document.getElementById('detailAddress').disabled = false;
-            document.getElementById('cPhn').disabled = false;
-            document.querySelectorAll('input[name="cGnd"]').forEach(el => el.disabled = false);
-            document.getElementById('birth').disabled = false;
-            document.getElementById('touBox').disabled = false;
+            // document.getElementById('cPhn').disabled = false;
+            // document.querySelectorAll('input[name="cGnd"]').forEach(el => el.disabled = false);
+            // document.getElementById('birth').disabled = false;
+            // document.getElementById('touBox').disabled = false;
             document.getElementById('piiBox').disabled = false;
-            document.getElementById('smsAgr').disabled = false;
-            document.getElementById('emailAgr').disabled = false;
+            // document.getElementById('smsAgr').disabled = false;
+            // document.getElementById('emailAgr').disabled = false;
             document.getElementById('rBtn').disabled = false;
         }
 
@@ -525,9 +491,9 @@
             var isPwd2 = pwd2Check(frm);
             var isName = nameCheck(frm);
             var isNm = nickNameCheck(frm);
-            var isPhn = phnCheck(frm);
-            var isGen = genCheck(frm);
-            var isTou = touCheck(frm)
+            // var isPhn = phnCheck(frm);
+            // var isGen = genCheck(frm);
+            // var isTou = touCheck(frm)
             var isPii = piiCheck(frm)
             var isCodeVerified = vNum(frm);
 
@@ -538,8 +504,8 @@
             var zip = frm.cZip.value;
             var road = frm.cRoadA.value;
             var det = frm.cDetA.value;
-            var phn = frm.cPhn.value;
-            var birth = frm.cBirth.value;
+            // var phn = frm.cPhn.value;
+            // var birth = frm.cBirth.value;
 
             if (!isEmailFormat) {
                 return false;
@@ -578,22 +544,26 @@
             } else if (!det) {
                 alert('상세주소를 입력해주세요.');
                 return false;
-            } else if (!phn) {
-                alert('휴대폰 번호를 입력하세요.');
-                return false;
-            } else if (!isPhn) {
-                alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.");
-                return false;
-            } else if (!isGen) {
-                alert("성별을 선택해주세요.");
-                return false;
-            } else if (!birth) {
-                alert("생년월일을 선택해주세요.");
-                return false;
-            } else if (!isTou) {
-                alert("회원가입을 하실려면 이용약관 동의를 하셔야합니다.");
-                return false;
-            } else if (!isPii) {
+            }
+
+            // else if (!phn) {
+            //     alert('휴대폰 번호를 입력하세요.');
+            //     return false;
+            // } else if (!isPhn) {
+            //     alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.");
+            //     return false;
+            // } else if (!isGen) {
+            //     alert("성별을 선택해주세요.");
+            //     return false;
+            // } else if (!birth) {
+            //     alert("생년월일을 선택해주세요.");
+            //     return false;
+            // } else if (!isTou) {
+            //     alert("회원가입을 하실려면 이용약관 동의를 하셔야합니다.");
+            //     return false;
+            // }
+
+            else if (!isPii) {
                 alert("회원가입을 하실려면 개인정보 동의를 하셔야합니다.");
                 return false;
             }
@@ -732,35 +702,35 @@
         }
 
         /*   휴대폰 유효성 검사*/
-        function phnCheck(frm) {
-            var phn = frm.cPhn.value;
-            var phnPattern = /^[0-9]{11,12}$/;
-            if (!phnPattern.test(phn)) {
-                return false;
-            }
-            return true;
-        }
-
-        /*  성별 유효성 검사*/
-        function genCheck(frm) {
-            var female = frm.querySelector('input[name="cGnd"][value="여"]').checked;
-            var male = frm.querySelector('input[name="cGnd"][value="남"]').checked;
-            if (female || male) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        // function phnCheck(frm) {
+        //     var phn = frm.cPhn.value;
+        //     var phnPattern = /^[0-9]{11,12}$/;
+        //     if (!phnPattern.test(phn)) {
+        //         return false;
+        //     }
+        //     return true;
+        // }
+        //
+        // /*  성별 유효성 검사*/
+        // function genCheck(frm) {
+        //     var female = frm.querySelector('input[name="cGnd"][value="여"]').checked;
+        //     var male = frm.querySelector('input[name="cGnd"][value="남"]').checked;
+        //     if (female || male) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
 
         /* 필수 이용약관 유효성 검사*/
-        function touCheck(frm) {
-            var tou = frm.querySelector('input[name="touBox"]').checked;
-            if (tou) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        // function touCheck(frm) {
+        //     var tou = frm.querySelector('input[name="touBox"]').checked;
+        //     if (tou) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
 
         /* 필수 개인정보 유효성 검사*/
         function piiCheck(frm) {
@@ -772,21 +742,21 @@
             }
         }
 
-        var modalSeen = false;
+        // var modalSeen = false;
         var modalSeen2 = false;
 
 
-        function enableTouBox() {
-            var touBox = document.getElementById("touBox");
-            touBox.disabled = false;
-            // 체크박스를 체크하고 다시 체크되지 않도록 합니다.
-            touBox.checked = true;
-            // 체크박스의 onchange 이벤트에 함수를 연결하여 체크박스가 변경되지 않도록 합니다.
-            touBox.onchange = function() {
-                // 체크박스가 항상 체크된 상태로 유지됩니다.
-                touBox.checked = true;
-            };
-        }
+        // function enableTouBox() {
+        //     var touBox = document.getElementById("touBox");
+        //     touBox.disabled = false;
+        //     // 체크박스를 체크하고 다시 체크되지 않도록 합니다.
+        //     touBox.checked = true;
+        //     // 체크박스의 onchange 이벤트에 함수를 연결하여 체크박스가 변경되지 않도록 합니다.
+        //     touBox.onchange = function() {
+        //         // 체크박스가 항상 체크된 상태로 유지됩니다.
+        //         touBox.checked = true;
+        //     };
+        // }
 
         function enablePiiBox() {
             var piiBox = document.getElementById("piiBox");
@@ -800,27 +770,27 @@
             };
         }
 
-        function openModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-
-            // 스크롤바 너비 계산
-            var scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.body.style.paddingRight = scrollBarWidth + "px"; // 스크롤바 너비만큼 패딩 추가
-
-            document.body.style.overflowY = "hidden"; // 스크롤 숨기기
-            document.body.style.overflowX = "hidden";
-        }
-
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-
-            // 패딩 제거
-            document.body.style.paddingRight = "";
-            document.body.style.overflowY = "auto"; // 스크롤 복구
-            document.body.style.overflowX = "";
-        }
+        // function openModal() {
+        //     var modal = document.getElementById("myModal");
+        //     modal.style.display = "block";
+        //
+        //     // 스크롤바 너비 계산
+        //     var scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        //     document.body.style.paddingRight = scrollBarWidth + "px"; // 스크롤바 너비만큼 패딩 추가
+        //
+        //     document.body.style.overflowY = "hidden"; // 스크롤 숨기기
+        //     document.body.style.overflowX = "hidden";
+        // }
+        //
+        // function closeModal() {
+        //     var modal = document.getElementById("myModal");
+        //     modal.style.display = "none";
+        //
+        //     // 패딩 제거
+        //     document.body.style.paddingRight = "";
+        //     document.body.style.overflowY = "auto"; // 스크롤 복구
+        //     document.body.style.overflowX = "";
+        // }
 
         function openModal2() {
             var modal = document.getElementById("myModal2");
@@ -845,22 +815,22 @@
 
 
         /*페이지 로드시 이벤트 리스너 등록*/
-        document.addEventListener('DOMContentLoaded', function () {
-            var touModal = document.getElementById("touModal");
-
-            /*touModal을 클릭했을 때 모달 열기*/
-            touModal.addEventListener('click', openModal);
-
-            /*touBox를 클릭했을 때*/
-            document.getElementById('touBox').addEventListener('click', function () {
-                /*모달을 아직 보지 않았다면*/
-                if (!modalSeen) {
-                    alert("이용약관을 먼저 확인해주세요.");
-                    /*체크박스 다시 체크 해제*/
-                    this.checked = true;
-                }
-            });
-        });
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var touModal = document.getElementById("touModal");
+        //
+        //     /*touModal을 클릭했을 때 모달 열기*/
+        //     touModal.addEventListener('click', openModal);
+        //
+        //     /*touBox를 클릭했을 때*/
+        //     document.getElementById('touBox').addEventListener('click', function () {
+        //         /*모달을 아직 보지 않았다면*/
+        //         if (!modalSeen) {
+        //             alert("이용약관을 먼저 확인해주세요.");
+        //             /*체크박스 다시 체크 해제*/
+        //             this.checked = true;
+        //         }
+        //     });
+        // });
 
         document.addEventListener('DOMContentLoaded', function () {
             var piiModal = document.getElementById("piiModal");

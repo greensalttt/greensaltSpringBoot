@@ -87,17 +87,18 @@
 <body>
 
 <div id="wrapper">
-    <form action="/admin/modify" method="post" enctype="multipart/form-data">
+    <form action="/admin/modify" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div id="albumPageContainer">
             <div class="album-image">
-                <img src="${albumDto.img}" alt="앨범 이미지" style="max-width: 200px;">
+                <img id="albumPreview" src="${albumDto.img}" alt="앨범 이미지" style="max-width: 200px;">
                 <p>
                     <label>이미지 변경:
-                        <input type="file" name="imgFile">
+                        <input type="file" name="imgFile" id="imgFile">
                     </label>
                 </p>
             </div>
-            <div class="album-info">
+
+    <div class="album-info">
                 <input type="hidden" name="ano" value="${albumDto.ano}" />
 
                 <p><strong>album:</strong>
@@ -136,6 +137,59 @@
 </body>
 
 <script>
+     document.getElementById('imgFile').addEventListener('change', function (e) {
+        const previewImg = document.getElementById('albumPreview');
+        const file = e.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+        previewImg.src = event.target.result; // 기존 이미지 태그의 src를 변경
+    };
+        reader.readAsDataURL(file);
+    } else {
+        alert("이미지 파일을 선택해주세요.");
+    }
+    });
+
+
+function validateForm() {
+        const title = document.querySelector('input[name="title"]').value.trim();
+        const artist = document.querySelector('input[name="artist"]').value.trim();
+        const type = document.querySelector('input[name="type"]').value.trim();
+        const genre = document.querySelector('input[name="genre"]').value.trim();
+        const released = document.querySelector('input[name="released"]').value;
+        const content = document.querySelector('textarea[name="content"]').value.trim();
+
+        if (!title) {
+            alert("앨범 제목을 입력하세요.");
+            return false;
+        }
+        if (!artist) {
+            alert("아티스트 이름을 입력하세요.");
+            return false;
+        }
+        if (!type) {
+            alert("앨범 타입을 입력하세요.");
+            return false;
+        }
+        if (!genre) {
+            alert("장르를 입력하세요.");
+            return false;
+        }
+        if (!released) {
+            alert("발매일을 선택하세요.");
+            return false;
+        }
+        if (!content) {
+            alert("앨범 소개를 입력하세요.");
+            return false;
+        }
+
+        return true; // 모든 검사를 통과했을 때만 제출 허용
+    }
+
+
     let modifyFail = "${modifyFail}"
     if(modifyFail==="msg") {
         alert("앨범 수정에 실패했습니다.")
