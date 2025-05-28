@@ -1,11 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
+
+
+
 <head>
     <title>Green Salt</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-<%--    <link rel="icon" type="image/x-icon" href="<c:url value="https://cdn-icons-png.flaticon.com/128/15439/15439306.png"/>">--%>
-
-
     <link rel="stylesheet" href="<c:url value='/css/index.css'/>">
     <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
@@ -149,265 +152,52 @@
         <article class="box">
             <div id="cdBox">
                 <h1 class="week">Album</h1>
-                <h1 class="more"><a
-                        href="<c:url value='/album/list'/>"> ❯</a></h1>
+                <h1 class="more">
+                    <a href="<c:url value='/album/list'/>"> ❯</a>
+                </h1>
                 <ul>
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 0)"
-                                  src="/album_img/SilicaGelalbum.webp" style="width:100%" height="170" />
+                    <c:forEach begin="0" end="9" var="i">
+                        <c:choose>
+                            <c:when test="${i < fn:length(albumDtos)}">
+                                <c:set var="albumDto" value="${albumDtos[i]}" />
 
-                            </div>
-                            <div class="three">
-                                <p>실리카겔</p>
-                            </div>
-                        </a>
-                    </li>
+                                <li class="one">
+                                    <a href="/album/read?ano=${albumDto.ano}" onclick="moveAll(event, ${i})">
+                                        <div>
+                                            <img class="albumAll"
+                                                 src="${albumDto.img}"
+                                                 style="width:100%" height="170" alt="${albumDto.title}" />
+                                        </div>
+                                        <div class="three">
+                                            <p>${albumDto.title}</p>
+                                        </div>
+                                    </a>
+                                </li>
 
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 1)" src="../../album_img/orange.webp"
-                                     style="width:100%" height="170" />
-                            </div>
-
-                            <div class="three">
-                                <p>Channel ORANGE</p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 5)" src="../../album_img/teambaby.webp"
-                                     style="width:100%" height="170" />
-                            </div>
-
-                            <div class="three">
-                                <p>TEAM BABY</p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 3)"
-                                     src="../../album_img/Let's_Start_Here.jpg" style="width:100%" height="170" />
-                            </div>
-                            <div class="three">
-                                <p>Let's Start Here</p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 4)" src="../../album_img/magic.jpg"
-                                     style="width:100%" height="170" />
-                            </div>
-                            <div class="three">
-                                <p>Magic 8Ball</p>
-                            </div>
-                        </a>
-                    </li><br>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 9)" src="../../album_img/never.png"
-                                     style="width:100%" height="170" />
-                            </div>
-                            <div class="three">
-                                <p>Never Enough</p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 6)" src="../../album_img/choiyuri.jpg"
-                                     style="width:100%" height="170" />
-                            </div>
-
-                            <div class="three">
-                                <p>유영</p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 7)" src="../../album_img/thirsty.webp"
-                                     style="width:100%" height="170" />
-                            </div>
-
-                            <div class="three">
-                                <p>THIRSTY</p>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 8)" src="../../album_img/proverb.jpg"
-                                     style="width:100%" height="170" />
-                            </div>
-
-                            <div class="three">
-                                <p>Proverb</p>
-                            </div>
-                        </a>
-                    </li>
-
-
-
-                    <li class="one">
-                        <a href="#">
-                            <div>
-                                <img class="albumAll" onclick="moveAll(event, 2)" src="../../album_img/starboy.webp"
-                                     style="width:100%" height="170" />
-                            </div>
-
-                            <div class="three">
-                                <p>Starboy</p>
-                            </div>
-                        </a>
-                    </li>
-
-
+                            </c:when>
+                            <c:otherwise>
+                                <li class="one">
+                                    <div>
+                                        <img class="albumAll"
+                                             style="width:100%" height="170" alt="No Album" />
+                                    </div>
+                                    <div class="three">
+                                        <p>비어 있음</p>
+                                    </div>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
                 </ul>
             </div>
         </article>
 
-<%--        <article class="box">--%>
-<%--            <div id="vinylBox">--%>
-<%--                <h1 class="week">Album</h1>--%>
-<%--                <h1 class="more"><a href="https://www.melon.com/chart/index.htm" target="_blank"> ❯</a></h1>--%>
 
-<%--                <ul>--%>
-<%--                    <li class="one"><a href="#">--%>
-<%--                        <div>--%>
-<%--                            <img class="albumAll" onclick="moveAll(event, 10)" src="../../album_img/dawnfm.jpg"--%>
-<%--                                 style="width:100%" height="170" />--%>
-<%--                        </div>--%>
 
-<%--                        <div class="three">--%>
-<%--                            <p>Dawn FM</p>--%>
-<%--                        </div></a>--%>
 
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 11)" src="../../album_img/teambaby.webp"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
 
-<%--                            <div class="three">--%>
-<%--                                <p>TEAM BABY</p>--%>
-<%--                            </div>--%>
-<%--                        </a></li>--%>
 
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 12)" src="../../album_img/love.webp"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>사랑으로</p>--%>
-<%--                            </div>--%>
-<%--                        </a></li>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 13)" src="../../album_img/choiyuri.jpg"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>유영</p>--%>
-<%--                            </div>--%>
-<%--                        </a></li>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 14)" src="../../album_img/teen.jpeg"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-<%--                            <div class="three">--%>
-<%--                                <p>TEEN TROUBLES</p>--%>
-<%--                            </div>--%>
-<%--                        </a></li><br>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 15)" src="../../album_img/thirsty.webp"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>THIRSTY</p>--%>
-<%--                            </div>--%>
-<%--                        </a>--%>
-<%--                        </li>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 16)" src="../../album_img/starboy.webp"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>Starboy</p>--%>
-<%--                            </div>--%>
-<%--                        </a>--%>
-<%--                        </li>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 17)" src="../../album_img/formyangel.jpg"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>For My Angel</p>--%>
-<%--                            </div>--%>
-<%--                        </a>--%>
-<%--                        </li>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 18)"--%>
-<%--                                     src="../../album_img/flaws%20and%20all.png" style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>Flaws and All</p>--%>
-<%--                            </div>--%>
-<%--                        </a>--%>
-<%--                        </li>--%>
-
-<%--                        <li class="one"><a href="#">--%>
-<%--                            <div>--%>
-<%--                                <img class="albumAll" onclick="moveAll(event, 19)" src="../../album_img/nwjns.jpg"--%>
-<%--                                     style="width:100%" height="170" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="three">--%>
-<%--                                <p>New Jeans</p>--%>
-<%--                            </div>--%>
-<%--                        </a>--%>
-<%--                        </li>--%>
-<%--                </ul>--%>
-<%--            </div>--%>
-
-            <div id="god">
+        <div id="god">
                 <div class="row2">
                     <h1 class="week">Performance</h1><br>
                     <div class="column2">
@@ -469,7 +259,6 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="cartBox">
@@ -495,6 +284,7 @@
             </div>
 
         </article>
+
     </section>
 </div>
 
@@ -542,7 +332,7 @@
     });
 
     function moveAll(event, index) {
-        event.preventDefault();
+
         const albumPick = albumAll[index].cloneNode();
         albumPick.style.width = "130px";
         albumPick.style.height = "100px";
@@ -587,16 +377,6 @@
         // albumDataArray 배열을 JSON 문자열로 변환하여
         // 로컬 스토리지에 albums 키로 저장
         localStorage.setItem("albums", JSON.stringify(albumDataArray));
-    }
-
-    // 검색창 엔터키 호환
-    function handleKeyPress(event) {
-        // Enter 키의 키코드는 13
-        if (event.keyCode === 13) {
-            // 엔터 키를 눌렀을 때 검색 함수 호출
-            var searchValue = document.getElementById('search').value;
-            alert('검색어: ' + searchValue);
-        }
     }
 
     // 첫번째 슬라이드
