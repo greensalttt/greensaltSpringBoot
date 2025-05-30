@@ -28,7 +28,7 @@ public class AdminController {
 
     @GetMapping("/page")
     public String adminPage(Model model){
-        adminService.albumPage(model);
+        adminService.adminPage(model);
         return "adminPage";
     }
 
@@ -45,11 +45,11 @@ public class AdminController {
 
 
     @PostMapping("/write")
-    public String albumWrite(
-            @ModelAttribute AlbumDto albumDto,
-            RedirectAttributes msg){
+    public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
 
-        if (!albumService.write(albumDto, albumDto.getImgFile())) {
+//        if (!albumService.write(albumDto, session, albumDto.getImgFile())) {
+        if (!albumService.write(albumDto, session)) {
+
             msg.addFlashAttribute("adminWriteFail", "msg");
             return "redirect:/admin/album";
         }
@@ -82,8 +82,8 @@ public class AdminController {
     }
 
     @PostMapping("/modify")
-    public String albumModify(AlbumDto albumDto, MultipartFile imgFile, RedirectAttributes msg){
-        if(!albumService.albumModify(albumDto, imgFile)){
+    public String albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
+        if(!albumService.albumModify(albumDto, imgFile, session)){
             msg.addFlashAttribute("modifyFail", "msg");
             return "redirect:/admin/edit";
         }

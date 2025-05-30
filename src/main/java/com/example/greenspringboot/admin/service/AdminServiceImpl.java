@@ -33,17 +33,16 @@ public class AdminServiceImpl implements AdminService {
     private AlbumRepository albumRepository;
 
     @Override
-    public Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model) {
-        System.out.println("관리자 로그인 아이디: " + aId);
+    public Boolean adminLogin(String aLoginId, String aPwd, HttpServletRequest request, Model model) {
+        System.out.println("관리자 로그인 아이디: " + aLoginId);
 
-        Optional<Admin> optionalAdmin = adminRepository.findById(aId);
+        Admin admin = adminRepository.findByaLoginId(aLoginId);
 
-        if (optionalAdmin.isPresent()) {
-            Admin admin = optionalAdmin.get();
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             if (!encoder.matches(aPwd, admin.getAPwd())) {
                 return false;
             }
+
             HttpSession session = request.getSession();
             session.setAttribute("aId", admin.getAId());
 
@@ -58,12 +57,11 @@ public class AdminServiceImpl implements AdminService {
             model.addAttribute("albumCount", albumCount);
 
             return true;
-        }
-        return false;
+
     }
 
     @Override
-    public void albumPage(Model model){
+    public void adminPage(Model model){
         long custCount = custRepository.countBycStatCd("M");
         long boardCount = boardRepository.countByDeletedFalse();
         long commentCount = commentRepository.countByDeletedFalse();

@@ -21,6 +21,9 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ano;
 
+    @Column(name = "a_id", nullable = false)
+    private int aId;
+
     private String domestic;
 
     private String type;

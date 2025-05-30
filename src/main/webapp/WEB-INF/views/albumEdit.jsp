@@ -101,7 +101,8 @@
     <div class="album-info">
                 <input type="hidden" name="ano" value="${albumDto.ano}" />
 
-                <p><strong>album:</strong>
+
+        <p><strong>title:</strong>
                     <input type="text" name="title" value="${albumDto.title}" />
                 </p>
 

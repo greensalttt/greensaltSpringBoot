@@ -9,5 +9,5 @@ public interface AdminService {
 
     Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model);
 
-    void albumPage(Model model);
+    void adminPage(Model model);
 }

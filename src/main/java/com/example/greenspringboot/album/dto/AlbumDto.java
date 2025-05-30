@@ -10,6 +10,7 @@ import java.util.Date;
 @Builder
 public class AlbumDto {
     private Integer ano;
+    private Integer aId;
     private String domestic;
     private String type;
     private String genre;
