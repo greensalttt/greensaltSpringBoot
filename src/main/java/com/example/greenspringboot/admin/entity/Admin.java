@@ -23,10 +23,12 @@ public class Admin {
     @Id
     @NotBlank(message = "아이디를 입력해주세요.")
     @Column(name= "a_id", nullable = false)
-    private String aId;
+    private Integer aId;
 
-    @Builder.Default
-    private String a_nick = "관리자";
+    @Column(name= "a_login_id")
+    private String aLoginId;
+
+    private String a_nick;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @Column(name= "a_pwd")
