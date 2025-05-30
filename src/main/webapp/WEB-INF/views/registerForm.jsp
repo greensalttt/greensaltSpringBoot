@@ -235,11 +235,11 @@
                 <p id="check-pwd"></p>
                 <label id="pwdCheck">비밀번호 확인</label>
                 <input class="special-class" type="password" id="cPwd2" name="cPwd2" placeholder="비밀번호를 다시 한번 입력해주세요." maxlength="15" oninput="pwd2Check(this.form)" disabled><br>
-                <label>이름</label>
-                <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>
+<%--                <label>이름</label>--%>
+<%--                <input class="special-class" type="text" id="cName" name="cName" maxlength="15" disabled>--%>
                 <p id="nickCheck-result"></p>
                 <label id="nickName">닉네임 확인</label>
-                <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 6자 이하" maxlength="10" onblur="nickCheck()" disabled>
+                <input class="special-class" type="text" id="cNick" name="cNick" placeholder="2자 이상 10자 이하" maxlength="10" onblur="nickCheck()" disabled>
                 <label>주소</label>
                 <div id="ad">
                     <input type="text" id="zip" name="cZip" placeholder="우편번호"  readonly disabled>
@@ -336,21 +336,21 @@
 
             <p>개인정보취급방침을 통하여 고객님께서 제공하는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.</p><br>
 
-            <p>1번 수집하는 개인정보 항목</p>
+            <p>1. 수집하는 개인정보 항목</p>
 
             <p>* 회사는 회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
             <p>회원가입시 : 이름, 이메일(로그인 ID), 주소, 비밀번호</p>
             <p>* 서비스 이용 과정이나 사업처리 과정에서 서비스이용기록, 접속로그, 쿠키, 접속IP이 생성되어 수집될 수 있습니다.</p><br>
 
-            <p>2번 개인정보의 수집 및 이용목적</p>
+            <p>2. 개인정보의 수집 및 이용목적</p>
 
             <p>회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.</p>
             <p>수신 동의한 SMS 혹은 이메일로 알림 발송</p>
 
-            <p>3번 개인정보의 보유 및 방법</p>
+            <p>3. 개인정보의 보유 및 방법</p>
             <p>회원님이 회원가입에서 입력하신 비밀번호는 암호화 처리된 후 DB에서 관리하고 있습니다.</p><br>
 
-            <p> 4번 이용자의 권리</p>
+            <p>4. 이용자의 권리</p>
             <p> * 이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며, 탈퇴를 요청할 수도 있습니다. <span id="close2" onclick="closeModal2()">&times;</span></p>
             <br>
 
@@ -424,7 +424,7 @@
             document.getElementById('emailCode').disabled = false;
             document.getElementById('cPwd').disabled = false;
             document.getElementById('cPwd2').disabled = false;
-            document.getElementById('cName').disabled = false;
+            // document.getElementById('cName').disabled = false;
             document.getElementById('cNick').disabled = false;
             document.getElementById('zip').disabled = false;
             document.querySelector('[onclick="sample4_execDaumPostcode()"]').disabled = false;
@@ -489,7 +489,7 @@
             var isEmailFormat = emailFormatCheck(frm);
             var isPwd = pwdCheck(frm);
             var isPwd2 = pwd2Check(frm);
-            var isName = nameCheck(frm);
+            // var isName = nameCheck(frm);
             var isNm = nickNameCheck(frm);
             // var isPhn = phnCheck(frm);
             // var isGen = genCheck(frm);
@@ -499,7 +499,7 @@
 
             var pwd = frm.cPwd.value;
             var pwd2 = frm.cPwd2.value;
-            var name = frm.cName.value;
+            // var name = frm.cName.value;
             var nm = frm.cNick.value;
             var zip = frm.cZip.value;
             var road = frm.cRoadA.value;
@@ -523,17 +523,17 @@
             } else if (!isPwd2) {
                 alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
                 return false;
-            } else if (!name) {
-                alert('이름을 입력해주세요.');
-                return false;
-            } else if (!isName) {
-                alert("이름은 최대 10자 이하로 작성하셔야 합니다.");
-                return false;
+            // } else if (!name) {
+            //     alert('이름을 입력해주세요.');
+            //     return false;
+            // } else if (!isName) {
+            //     alert("이름은 최대 10자 이하로 작성하셔야 합니다.");
+            //     return false;
             } else if (!nm) {
                 alert('닉네임을을 입력해주세요.');
                 return false;
             } else if (!isNm) {
-                alert("닉네임은 특수문자 제외 2~6글자로 설정해주세요.");
+                alert("닉네임은 특수문자 제외 2~10글자로 설정해주세요.");
                 return false;
             } else if (!zip) {
                 alert('우편번호를 입력해주세요.');
@@ -655,9 +655,9 @@
                 return false;
             }
 
-            if (nick.length <= 2 || nick.length >= 6) {
+            if (nick.length <= 2 || nick.length >= 10) {
                 nickCheckResult.style.color = "red";
-                nickCheckResult.innerHTML = "닉네임은 2~6글자 사이로 설정해주세요.";
+                nickCheckResult.innerHTML = "닉네임은 2~10글자 사이로 설정해주세요.";
                 return false;
             }
 
@@ -672,7 +672,7 @@
                     console.log("요청성공", nickGood);
                     if (nickGood == "ok") {
                         nickCheckResult.style.color = "green";
-                        nickCheckResult.innerHTML = "사용 가능한 이메일입니다.";
+                        nickCheckResult.innerHTML = "사용 가능한 닉네임입니다.";
                     } else {
                         nickCheckResult.style.color = "red";
                         nickCheckResult.innerHTML = "이미 사용중인 닉네임입니다.";
@@ -685,17 +685,17 @@
         }
 
         /*  이름 유효성 검사*/
-        function nameCheck(frm) {
-            var name = frm.cName.value;
-            if (name.length >= 15) {
-                return false;
-            }
-            return true;
-        }
+        // function nameCheck(frm) {
+        //     var name = frm.cName.value;
+        //     if (name.length >= 15) {
+        //         return false;
+        //     }
+        //     return true;
+        // }
 
         function nickNameCheck(frm) {
             var nm = frm.cNick.value;
-            if (nm.length < 2 || nm.length > 6) {
+            if (nm.length < 2 || nm.length > 10) {
                 return false;
             }
             return true;

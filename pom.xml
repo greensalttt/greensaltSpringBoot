@@ -10,6 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>greenSpringBoot</artifactId>
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>greenSpringBoot</name>
     <description>greenSpringBoot</description>
@@ -51,11 +52,17 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 
         <dependency>

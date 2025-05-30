@@ -39,10 +39,10 @@ public class Cust {
 //    비밀번호 해쉬화는 따로 서비스를 만들어서 진행
     private String cPwd;
 
-    @Column(name = "c_name", nullable = false)
-    @NotBlank(message = "이름은 필수입니다.")
-    @Pattern(regexp = "^[가-힣a-zA-Z]{1,15}$", message = "이름은 한글과 영어만 입력 가능하며, 15자 이하로 입력해야 합니다.")
-    private String cName;
+//    @Column(name = "c_name", nullable = false)
+//    @NotBlank(message = "이름은 필수입니다.")
+//    @Pattern(regexp = "^[가-힣a-zA-Z]{1,15}$", message = "이름은 한글과 영어만 입력 가능하며, 15자 이하로 입력해야 합니다.")
+//    private String cName;
 
     @Column(name = "c_nick", nullable = false)
     @NotBlank(message = "닉네임은 필수입니다.")

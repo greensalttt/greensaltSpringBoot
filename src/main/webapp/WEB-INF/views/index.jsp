@@ -149,7 +149,10 @@
             </div>
         </div>
 
+
+
         <article class="box">
+
             <div id="cdBox">
                 <h1 class="week">Album</h1>
                 <h1 class="more">
@@ -193,17 +196,13 @@
         </article>
 
 
-
-
-
+        <h1 class="week">Performance</h1>
 
         <div id="god">
-                <div class="row2">
-                    <h1 class="week">Performance</h1><br>
-                    <div class="column2">
+<%--                    <h1 class="week">Performance</h1><br>--%>
                         <div class="card2">
                             <a href="#" onclick="stop()">
-                                <img src="../../album_img/silPerformance.gif" style="width:100%" height="320px">
+                                <img src="../../album_img/silPerformance.gif">
                                 <div class="container3">
                                     <br>
                                     <h4>실리카겔</h4><br>
@@ -213,12 +212,10 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
 
-                    <div class="column2">
                         <div class="card2">
                             <a href="#" onclick="stop()">
-                                <img src="../../album_img/caesarPerformance.jpg" style="width:100%" height="320px">
+                                <img src="../../album_img/caesarPerformance.jpg">
                                 <div class="container3">
                                     <br>
                                     <h4>Daniel Caesar</h4><br>
@@ -228,12 +225,10 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
 
-                    <div class="column2">
                         <div class="card2">
                             <a href="#" onclick="stop()">
-                                <img src="../../album_img/blackPerformance.jpg" style="width:100%" height="320px">
+                                <img src="../../album_img/blackPerformance.jpg">
                                 <div class="container3">
                                     <br>
                                     <h4>검정치마</h4><br>
@@ -242,13 +237,11 @@
                                     <p class="small">예스24 라이브홀</p><br>
                                 </div>
                             </a>
-                        </div>
                     </div>
 
-                    <div class="column2">
                         <div class="card2">
                             <a href="#" onclick="stop()">
-                                <img src="../../album_img/newboyPerformance.gif" style="width:100%" height="320px">
+                                <img src="../../album_img/newboyPerformance.gif">
                                 <div class="container3">
                                     <br>
                                     <h4>새소년</h4><br>
@@ -258,32 +251,8 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
-                </div>
-
-                <div class="cartBox">
-                    <ul>
-                        <h4><a class="week" href="#">History</a></h4><br>
-                        <li class="new">
-                            <a href="#"></a>
-                        </li>
-
-                        <li class="new">
-                            <a href="#"></a>
-                        </li>
-
-                        <li class="new">
-                            <a href="#"></a>
-                        </li>
-
-                        <li class="new">
-                            <a href="#"></a>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-        </article>
 
     </section>
 </div>
@@ -303,80 +272,6 @@
     let dropClear = "${dropClear}"
     if(dropClear==="pwdMsg") {
         alert("회원탈퇴가 완료되었습니다.")
-    }
-
-    // 히스토리
-    const albumAll = document.getElementsByClassName("albumAll");
-    const boxMore = document.getElementsByClassName("new");
-
-    let newAlbumAll = [];
-
-    // 페이지 로드 시 로컬 스토리지에서 앨범 불러오기
-    document.addEventListener("DOMContentLoaded", () => {
-        const storedData = JSON.parse(localStorage.getItem("albums"));
-        if (storedData) {
-            const currentTime = new Date().getTime();
-            const oneDay = 24 * 60 * 60 * 1000; // 24시간
-
-            newAlbumAll = storedData.filter(album => currentTime - album.timestamp < oneDay)
-                .map(album => {
-                    const img = document.createElement("img");
-                    img.src = album.src;
-                    img.style.width = "130px";
-                    img.style.height = "100px";
-                    return { element: img, timestamp: album.timestamp };
-                });
-            updateAlbumsDisplay();
-            saveAlbumsToLocalStorage();
-        }
-    });
-
-    function moveAll(event, index) {
-
-        const albumPick = albumAll[index].cloneNode();
-        albumPick.style.width = "130px";
-        albumPick.style.height = "100px";
-
-        // 선택한 앨범이 이미 박스에 있는지 확인
-        const tamjung = newAlbumAll.findIndex((event) => event.element.src === albumPick.src);
-        // 중복 선택일 경우 기존 박스에서 제거
-        if (tamjung !== -1) {
-            newAlbumAll.splice(tamjung, 1);
-        }
-        // 클릭한 앨범을 배열의 첫 번째에 추가
-        newAlbumAll.unshift({ element: albumPick, timestamp: new Date().getTime() });
-
-        // 디스플레이 업데이트 및 로컬 스토리지에 저장
-        updateAlbumsDisplay();
-        saveAlbumsToLocalStorage();
-    }
-
-    function updateAlbumsDisplay() {
-        // boxMore 요소(앨범을 표시할 박스들)의 개수만큼 반복
-        for (let i = 0; i < boxMore.length; i++) {
-            // 박스 초기화
-            boxMore[i].innerHTML = "";
-
-            // 현재 인덱스가 newAlbumAll 배열의 길이보다 작으면
-            if (i < newAlbumAll.length) {
-                // 박스에 newAlbumAll 배열의 앨범 이미지를 추가
-                boxMore[i].appendChild(newAlbumAll[i].element);
-            }
-        }
-    }
-
-    function saveAlbumsToLocalStorage() {
-        // newAlbumAll 배열의 각 앨범 객체를 순회하면서
-        // 앨범의 src(이미지 소스)와 timestamp(타임스탬프)를 추출하여
-        // 새로운 객체 배열(albumDataArray)을 생성
-        const albumDataArray = newAlbumAll.map(album => ({
-            src: album.element.src,
-            timestamp: album.timestamp
-        }));
-
-        // albumDataArray 배열을 JSON 문자열로 변환하여
-        // 로컬 스토리지에 albums 키로 저장
-        localStorage.setItem("albums", JSON.stringify(albumDataArray));
     }
 
     // 첫번째 슬라이드

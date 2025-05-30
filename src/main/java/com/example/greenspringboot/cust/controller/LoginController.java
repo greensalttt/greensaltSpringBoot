@@ -98,7 +98,7 @@ public class LoginController {
                 // 암호화된 이메일을 쿠키에 저장
                 Cookie idcookie = new Cookie("cEmail", encryptedEmail);
                 idcookie.setMaxAge(7 * 24 * 3600); // 7일 동안 유효
-                idcookie.setSecure(true); // HTTPS에서만 전송
+//                idcookie.setSecure(true); // HTTPS에서만 전송
                 idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
                 response.addCookie(idcookie);
 
@@ -115,8 +115,8 @@ public class LoginController {
     }
 
     @PostMapping("/adminlogin")
-    public String login(String aId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
-        if (!adminService.adminLogin(aId, aPwd, request, model)) {
+    public String login(String aLoginId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
+        if (!adminService.adminLogin(aLoginId, aPwd, request, model)) {
             msg.addFlashAttribute("adminLoginFail", "msg");
             return "redirect:/login";
         }

@@ -184,7 +184,7 @@ public class CustServiceImpl implements CustService {
         if (optionalCust.isPresent()) {
             Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
-            String cName = cust.getCName();
+//            String cName = cust.getCName();
             String cNick = cust.getCNick();
             Date regDt = cust.getRegDt();
             Long visitCnt = cust.getVisitCnt();
@@ -192,7 +192,7 @@ public class CustServiceImpl implements CustService {
             Long commentCount = commentRepository.countBycIdAndDeletedFalse(cId);
 
             CustDto custDto = CustDto.builder()
-                    .cName(cName)
+//                    .cName(cName)
                     .cNick(cNick)
                     .visitCnt(visitCnt)
                     .regDt(regDt)
@@ -219,33 +219,21 @@ public class CustServiceImpl implements CustService {
             Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
             String cEmail = cust.getCEmail();
-            String cName = cust.getCName();
             String cNick = cust.getCNick();
             String cZip = cust.getCZip();
             String cRoadA = cust.getCRoadA();
             String cJibunA = cust.getCJibunA();
             String cDetA = cust.getCDetA();
-//            String cPhn = cust.getCPhn();
-//            String cGnd = cust.getCGnd();
-//            String cBirth = cust.getCBirth();
-//            String smsAgr = cust.getSmsAgr();
-//            String emailAgr = cust.getEmailAgr();
             Date regDt = cust.getRegDt();
             long visitCnt = cust.getVisitCnt();
 
             CustDto custDto = CustDto.builder()
                     .cEmail(cEmail)
-                    .cName(cName)
                     .cNick(cNick)
                     .cZip(cZip)
                     .cRoadA(cRoadA)
                     .cJibunA(cJibunA)
                     .cDetA(cDetA)
-//                    .cPhn(cPhn)
-//                    .cGnd(cGnd)
-//                    .cBirth(cBirth)
-//                    .smsAgr(smsAgr)
-//                    .emailAgr(emailAgr)
                     .visitCnt(visitCnt)
                     .regDt(regDt)
                     .build();
@@ -275,17 +263,11 @@ public class CustServiceImpl implements CustService {
 
             // 변경 이력 기록
             List<CustHist> custHistList = new ArrayList<>();
-//            addCustHist(custHistList, custDto, "NICK", oldData.getCNick(), custDto.getCNick());
             addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
             addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
             addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
             addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
-//            addCustHist(custHistList, custDto, "PHN", oldData.getCPhn(), custDto.getCPhn());
-//            addCustHist(custHistList, custDto, "BIRTH", oldData.getCBirth(), custDto.getCBirth());
-//            addCustHist(custHistList, custDto, "SMS", oldData.getSmsAgr(), custDto.getSmsAgr());
-//            addCustHist(custHistList, custDto, "EMAIL", oldData.getEmailAgr(), custDto.getEmailAgr());
-
-            // 이력 저장
+      // 이력 저장
             for (CustHist custHist : custHistList) {
                 custHistRepository.save(custHist);
             }
@@ -447,17 +429,11 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
                 .cId(cust.getCId())
                 .cPwd(cust.getCPwd())
                 .cEmail(cust.getCEmail())
-                .cName(cust.getCName())
                 .cNick(cust.getCNick())
-//                .cBirth(cust.getCBirth())
-//                .cGnd(cust.getCGnd())
-//                .cPhn(cust.getCPhn())
                 .cZip(cust.getCZip())
                 .cRoadA(cust.getCRoadA())
                 .cJibunA(cust.getCJibunA())
                 .cDetA(cust.getCDetA())
-//                .smsAgr(cust.getSmsAgr())
-//                .emailAgr(cust.getEmailAgr())
                 .visitCnt(cust.getVisitCnt())
                 .regDt(cust.getRegDt())
                 .build(); // 빌더를 사용해 객체 생성
@@ -471,18 +447,9 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
         if (custDto.getCEmail() != null) {
             cust.setCEmail(custDto.getCEmail());
         }
-        if (custDto.getCName() != null) {
-            cust.setCName(custDto.getCName());
-        }
         if (custDto.getCNick() != null) {
             cust.setCNick(custDto.getCNick());
         }
-//        if (custDto.getCGnd() != null) {
-//            cust.setCGnd(custDto.getCGnd());
-//        }
-//        if (custDto.getCPhn() != null) {
-//            cust.setCPhn(custDto.getCPhn());
-//        }
         if (custDto.getCZip() != null) {
             cust.setCZip(custDto.getCZip());
         }
@@ -495,12 +462,6 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
         if (custDto.getCDetA() != null) {
             cust.setCDetA(custDto.getCDetA());
         }
-//        if (custDto.getSmsAgr() != null) {
-//            cust.setSmsAgr(custDto.getSmsAgr());
-//        }
-//        if (custDto.getEmailAgr() != null) {
-//            cust.setEmailAgr(custDto.getEmailAgr());
-//        }
     }
 
     @Override

@@ -18,6 +18,7 @@
     position: relative;
     width: 100%;
     font-size: 13px;
+    margin-bottom: 40px;
 }
 
 #cdBox {
@@ -230,15 +231,23 @@ img {
     color: dimgray;
 }
 
-
-.column2 {
-    float: left;
-    width: 23%;
-    margin-right: 15px;
+#god {
+    display: flex;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: left;
+    gap: 30px;
 }
 
 .card2 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /*margin-top: 40px;*/
+}
+
+.card2 img{
+    /*width: 300px;*/
+    width: 100%;
+    height: 400px;
 }
 
 .container3 {
@@ -249,41 +258,6 @@ img {
     color: grey;
     font-size: 14px;
 }
-
-#god {
-    display: flex;
-    font-size: 14px;
-    margin-top: 50px;
-    text-align: left;
-}
-
-.cartBox {
-    position: relative;
-    float: left;
-}
-
-.new {
-    display: flex;
-    position: relative;
-    overflow: hidden;
-    padding: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 120px;
-    height: 120px;
-}
-
 .small {
     font-size: 13px;
-}
-.more2 {
-    position: relative;
-    float: right;
-    bottom: 30px;
-    font-size: 13px;
-    margin-left: auto;
-    right: 32px;
-}
-
-.more2>a {
-    color: dimgray;
 }

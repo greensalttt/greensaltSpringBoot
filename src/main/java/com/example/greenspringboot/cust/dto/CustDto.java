@@ -11,7 +11,7 @@ public class CustDto {
     private String cStatCd;
     private String cEmail;
     private String cPwd;
-    private String cName;
+//    private String cName;
     private String cNick;
 //    private String cBirth;
 //    private String cGnd;

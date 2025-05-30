@@ -20,6 +20,7 @@ public class PageHandler {
         doPaging(totalCnt, sc);
     }
 
+
     //    게시글 갯수에 따라 페이지수 늘어나는 메서드
     public void doPaging(int totalCnt, SearchCondition sc){
         this.totalCnt = totalCnt;
@@ -94,27 +95,14 @@ public class PageHandler {
         this.showNext = showNext;
     }
 
-    public void print() {
-        System.out.println("page =" + sc.getPage());
-        System.out.print(showPrev ? "[PREV] " : "");
-        for(int i = beginPage; i<= endPage; i++){
-            System.out.print(i+" ");
-
-        }
-        System.out.println(showNext ? " [NEXT]" : "");
-    }
-
-//    @Override
-//    public String toString() {
-//        return "PageHandler{" +
-//                "sc=" + sc +
-//                ", totalCnt=" + totalCnt +
-//                ", naviSize=" + naviSize +
-//                ", totalPage=" + totalPage +
-//                ", beginPage=" + beginPage +
-//                ", endPage=" + endPage +
-//                ", showPrev=" + showPrev +
-//                ", showNext=" + showNext +
-//                '}';
+//    public void print() {
+//        System.out.println("page =" + sc.getPage());
+//        System.out.print(showPrev ? "[PREV] " : "");
+//        for(int i = beginPage; i<= endPage; i++){
+//            System.out.print(i+" ");
+//
+//        }
+//        System.out.println(showNext ? " [NEXT]" : "");
 //    }
+
 }

@@ -69,7 +69,7 @@
 <body>
 <div id="myPage">
 <%--    JavaBeans Introspector 규칙으로 겟맵핑 이후 필드명이 앞글자와 두번째 글자가 대문자면 그대로 가고 앞글자만 대문자면 소문자로 변환한다--%>
-    <p id="title1"><a id="title2" href="/mypage/list">${custDto.CName}님의 MY PAGE</a></p>
+    <p id="title1"><a id="title2" href="/mypage/list">${custDto.CNick}님의 MY PAGE</a></p>
     <div class="one1">
         <div class="sp">
             <span class="date">닉네임</span>

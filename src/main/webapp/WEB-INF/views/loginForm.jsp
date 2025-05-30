@@ -232,7 +232,7 @@
 
         <div class="container">
             <div id="adminLoginDiv">
-                <input id="adminId" name="aId" class="special-class" type="text" maxlength="30"
+                <input id="adminId" name="aLoginId" class="special-class" type="text" maxlength="30"
                        placeholder="admin" required>
                 <img id="adminLoginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
             </div>
