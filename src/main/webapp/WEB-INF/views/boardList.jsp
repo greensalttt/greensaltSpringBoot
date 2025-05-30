@@ -33,40 +33,6 @@
             margin: 120px auto 0 auto;
             flex: 1;
         }
-        .search-container {
-            height: 80px;
-            display: flex;
-            align-items: center;
-        }
-        .search-form {
-            height: 32px;
-            display: flex;
-        }
-        .search-option {
-            width: 70px;
-            height: 100%;
-            outline: none;
-            margin-right: 5px;
-            border: 1px solid #ccc;
-            color: gray;
-        }
-
-        .search-option > option {
-            text-align: center;
-        }
-
-        .search-input {
-            color: gray;
-            background-color: white;
-            border: 1px solid #ccc;
-            height: 100%;
-            width: 200px;
-            font-size: 14px;
-            padding: 5px 7px;
-        }
-        .search-input::placeholder {
-            color: gray;
-        }
 
         table {
             width: 100%;
@@ -147,17 +113,48 @@
             margin-bottom: 120px;
         }
 
+        .search-container {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        .search-form {
+            height: 32px;
+            display: flex;
+        }
+        .search-option {
+            width: 70px;
+            height: 100%;
+            outline: none;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            color: gray;
+        }
+
+        .search-option > option {
+            text-align: center;
+        }
+
+        .search-input::placeholder {
+            color: gray;
+        }
+
+
         .search-container2 {
             position: relative;
             width: 200px;
         }
 
         .search-input {
-            width: 100%;
-            height: 32px;
+            width: 200px;
+            height: 100%;
+            padding: 5px 7px;
             padding-right: 40px;
             box-sizing: border-box;
             font-size: 14px;
+            color: gray;
+            background-color: white;
+            border: 1px solid #ccc;
         }
 
         .search-icon {
@@ -174,7 +171,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /*margin-bottom: 20px;*/
         }
 
         .community-title {
@@ -198,6 +194,7 @@
     if(msg=="WRT_OK")    alert("성공적으로 등록되었습니다.");
     if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
 </script>
+
     <div class="board-container">
     <div class="board-header">
         <div class="community-title">Community</div>
@@ -249,6 +246,7 @@
             </c:forEach>
         </table>
     </div><br>
+
         <div class="paging-container">
                 <c:if test="${totalCnt==null || totalCnt==0}">
                     <div id="noBoard"> 게시물이 없습니다. </div>

@@ -4,6 +4,7 @@ import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.entity.BoardHist;
 import com.example.greenspringboot.board.paging.SearchCondition;
+import com.example.greenspringboot.board.paging.SearchCondition15;
 import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
@@ -43,7 +44,6 @@ public class BoardServiceImpl implements BoardService{
             Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
             String cNick = cust.getCNick();
-
             CustDto custDto = CustDto.builder()
                     .cNick(cNick)
                     .build();
@@ -78,6 +78,19 @@ public class BoardServiceImpl implements BoardService{
     }
 
 
+    private void addBoardHistDto(List<BoardHistDto> boardHistDtoList, BoardDto newData,
+                              String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            BoardHistDto boardHistDto = new BoardHistDto();
+            boardHistDto.setBno(newData.getBno());
+            boardHistDto.setCId(newData.getCId());
+            boardHistDto.setBCngCd(changeCode);
+            boardHistDto.setBBf(oldValue);
+            boardHistDto.setBAf(newValue);
+            boardHistDtoList.add(boardHistDto);
+        }}
+
+//    추후 boolean으로 수정
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData) {
@@ -89,13 +102,17 @@ public class BoardServiceImpl implements BoardService{
         // 바뀐 개인정보 저장
         boardRepository.save(board);
 
+        // 변경 이력을 담을 DTO 리스트
         List<BoardHistDto> boardHistDtoList = new ArrayList<>();
 
-        addBoardHist(boardHistDtoList, boardDto, "TITLE", oldData.getTitle(), boardDto.getTitle());
-        addBoardHist(boardHistDtoList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
+        //2개의 필드 변경시 코드 설정
+        addBoardHistDto(boardHistDtoList, boardDto, "TITLE", oldData.getTitle(), boardDto.getTitle());
+        addBoardHistDto(boardHistDtoList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
 
+        // 변경 이력이 담긴 DTO 리스트를 순회하면서
         for (BoardHistDto boardHistDto : boardHistDtoList) {
 
+//          addBoardHistDto에 설정한 dto를 엔티티로 옮기기
             BoardHist boardHist = new BoardHist();
             boardHist.setBno(boardHistDto.getBno());
             boardHist.setCId(boardHistDto.getCId());
@@ -107,18 +124,6 @@ public class BoardServiceImpl implements BoardService{
             boardHistRepository.save(boardHist);
         }
     }
-
-    private void addBoardHist(List<BoardHistDto> boardHistDtoList, BoardDto newData,
-                              String changeCode, String oldValue, String newValue) {
-        if (!oldValue.equals(newValue)) {
-            BoardHistDto boardHistDto = new BoardHistDto();
-            boardHistDto.setBno(newData.getBno());
-            boardHistDto.setCId(newData.getCId());
-            boardHistDto.setBCngCd(changeCode);
-            boardHistDto.setBBf(oldValue);
-            boardHistDto.setBAf(newValue);
-            boardHistDtoList.add(boardHistDto);
-        }}
 
     @Override
     public void toEntity(Board board, BoardDto boardDto) {
@@ -156,7 +161,7 @@ public class BoardServiceImpl implements BoardService{
 
 
     @Override
-    public List<BoardDto> getSearchResultPage(SearchCondition sc) {
+    public List<BoardDto> getSearchResultPage(SearchCondition15 sc) {
         // 게시글 조회 메서드, 게시글 목록 조회니까 그 게시글의 작성자도 같이 가져와야되는게 아닐까?
         String keyword = sc.getKeyword();
         String option = sc.getOption();
@@ -171,7 +176,8 @@ public class BoardServiceImpl implements BoardService{
         } else if ("writer".equals(option)) {
             boardList = boardRepository.findByWriterContainingAndDeletedFalse(keyword, sort);  // 작성자만 검색
         } else {
-            boardList = boardRepository.findByTitleContainingOrContentContainingAndDeletedFalse(keyword, sort);  // 제목 + 내용 검색
+//            키워드가 비어있을시 전체 가져옴
+            boardList = boardRepository.findByTitleContainingOrContentContainingAndDeletedFalse(keyword, sort);
         }
 
         // 검색된 게시글 리스트를 페이지에 맞게 잘라서 반환
@@ -185,7 +191,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int getSearchResultCnt(SearchCondition sc) {
+    public int getSearchResultCnt(SearchCondition15 sc) {
         // SearchCondition에서 'keyword'와 'option'을 풀어서 사용
         String keyword = sc.getKeyword();
         String option = sc.getOption();

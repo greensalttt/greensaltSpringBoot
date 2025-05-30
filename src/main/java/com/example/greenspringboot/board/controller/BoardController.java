@@ -2,7 +2,9 @@ package com.example.greenspringboot.board.controller;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.paging.PageHandler;
+import com.example.greenspringboot.board.paging.PageHandler15;
 import com.example.greenspringboot.board.paging.SearchCondition;
+import com.example.greenspringboot.board.paging.SearchCondition15;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +29,15 @@ public class BoardController {
     private BoardRepository boardRepository;
 
     @GetMapping("/list")
-    public String list(Model m, SearchCondition sc) {
+    public String list(Model m, SearchCondition15 sc) {
         try {
             int totalCnt = boardService.getSearchResultCnt(sc);
-            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+            PageHandler15 pageHandler15 = new PageHandler15(totalCnt, sc);
             List<BoardDto> list = boardService.getSearchResultPage(sc);
 
             m.addAttribute("totalCnt", totalCnt);
             m.addAttribute("list", list);
-            m.addAttribute("ph", pageHandler);
+            m.addAttribute("ph", pageHandler15);
 
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
@@ -45,9 +47,7 @@ public class BoardController {
             m.addAttribute("totalCnt", 0);
         }
 
-//        System.out.println("게시판 겟맵핑 cId: " + session.getAttribute("cId"));
-
-        return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
+        return "boardList";
     }
 
     @GetMapping("/write")
