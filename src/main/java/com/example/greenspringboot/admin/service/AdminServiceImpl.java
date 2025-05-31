@@ -4,6 +4,8 @@ import com.example.greenspringboot.admin.repository.AdminRepository;
 import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,7 +14,9 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -38,6 +42,10 @@ public class AdminServiceImpl implements AdminService {
 
         Admin admin = adminRepository.findByaLoginId(aLoginId);
 
+        if (admin == null) {
+            return false;
+        }
+
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             if (!encoder.matches(aPwd, admin.getAPwd())) {
                 return false;
@@ -61,15 +69,48 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void adminPage(Model model){
-        long custCount = custRepository.countBycStatCd("M");
+    public void adminPage(Model m){
+        long custCount = custRepository.countByStatCd("M");
         long boardCount = boardRepository.countByDeletedFalse();
         long commentCount = commentRepository.countByDeletedFalse();
         long albumCount = albumRepository.count();
 
-        model.addAttribute("custCount", custCount);
-        model.addAttribute("boardCount", boardCount);
-        model.addAttribute("commentCount", commentCount);
-        model.addAttribute("albumCount", albumCount);
+        m.addAttribute("custCount", custCount);
+        m.addAttribute("boardCount", boardCount);
+        m.addAttribute("commentCount", commentCount);
+        m.addAttribute("albumCount", albumCount);
+
+        System.out.println("회원수:" + custCount);
+        System.out.println("게시글수:" + boardCount);
+    }
+
+
+    @Override
+    public void custList(Model m){
+    List<Cust> custs = custRepository.findAll();
+
+        if (!custs.isEmpty()) {
+            List<CustDto> custDtos = custs.stream()
+                    .map(cust -> CustDto.builder()
+                            .cId(cust.getCId())
+                            .statCd(cust.getStatCd())
+                            .cEmail(cust.getCEmail())
+                            .cNick(cust.getCNick())
+                            .cZip(cust.getCZip())
+                            .cRoadA(cust.getCRoadA())
+                            .cJibunA(cust.getCJibunA())
+                            .cDetA(cust.getCDetA())
+                            .loginDt(cust.getLoginDt())
+                            .regDt(cust.getRegDt())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("custDtos", custDtos);
+            System.out.println("custDtos:" + custDtos);
+
+
+        } else {
+            System.out.println("회원 정보를 찾을 수 없습니다.");
+        }
     }
 }

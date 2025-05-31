@@ -29,7 +29,7 @@
             color: #333;
         }
 
-        #write, #delete {
+        #write, #modify, #cust {
             display: inline-block;
             margin-top: 20px;
             background-color: darkgreen;
@@ -85,7 +85,9 @@
     <h1>총 앨범 수: <span>${albumCount}</span></h1>
 
     <a id="write" href="/admin/album">앨범 업로드</a>
-    <a id="delete" href="/admin/manage">앨범 관리</a>
+    <a id="modify" href="/admin/album_manage">앨범 관리</a>
+    <a id="cust" href="/admin/cust_list">회원 목록</a>
+
 
 
 </div>

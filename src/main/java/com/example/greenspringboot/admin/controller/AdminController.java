@@ -27,8 +27,8 @@ public class AdminController {
     private AlbumService albumService;
 
     @GetMapping("/page")
-    public String adminPage(Model model){
-        adminService.adminPage(model);
+    public String adminPage(Model m){
+        adminService.adminPage(m);
         return "adminPage";
     }
 
@@ -59,10 +59,16 @@ public class AdminController {
     }
 
 
-    @GetMapping("/manage")
+    @GetMapping("/album_manage")
     public String albumManage(Model m){
         albumService.albumList(m);
         return "albumManage";
+    }
+
+    @GetMapping("/cust_list")
+    public String custList(Model m){
+        adminService.custList(m);
+        return "custList";
     }
 
     @PostMapping("/remove")

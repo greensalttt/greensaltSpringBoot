@@ -10,4 +10,6 @@ public interface AdminService {
     Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model);
 
     void adminPage(Model model);
+
+    void custList(Model m);
 }

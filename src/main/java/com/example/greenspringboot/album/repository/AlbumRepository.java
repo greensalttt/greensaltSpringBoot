@@ -28,10 +28,6 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
     int countByArtistContainingAndDeletedFalse(String keyword);
 
-//    List<Album> findByTitleContainingOrArtistContainingAndDeletedFalse(String keyword, Sort sort);
-//
-//    int countByTitleContainingOrArtistContainingAndDeletedFalse(String keyword, String keyword1);
-
     //    연산이 복잡할 경우 직접 쿼리를 생성해서 해야 오류가 안난다. SQL에서 or보다 and가 우선순위가 더 높기때문에 이 JPA는 의도와 다르게 작동했음
     @Query("SELECT a FROM Album a WHERE (a.title LIKE %:keyword% OR a.artist LIKE %:keyword%) AND a.deleted = false")
     List<Album> findByTitleContainingOrArtistContainingAndDeletedFalse(@Param("keyword") String keyword, Sort sort);
