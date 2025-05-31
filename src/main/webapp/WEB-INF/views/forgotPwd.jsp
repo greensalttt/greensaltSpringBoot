@@ -154,16 +154,20 @@
                 data: {
                     "cEmail": email
                 },
-                success: function (emailGood) {
-                    console.log("요청성공", emailGood);
-                    if (emailGood == "ok") {
-                        checkResult.style.color = "red";
-                        checkResult.innerHTML = "가입되어있지 않은 이메일입니다.";
-                        verifyButton.prop('disabled', true);
-                    } else {
+                success: function (emailCode) {
+                    console.log("요청성공", emailCode);
+                    if (emailCode == "ok") {
                         checkResult.style.color = "green";
-                        checkResult.innerHTML = "가입된 이메일입니다.";
-                        verifyButton.prop('disabled', false);
+                        checkResult.innerHTML = "인증번호를 받기를 진행해주세요.";
+                        verifyButton.prop('disabled', false); // 버튼 활성화
+                    }else if (emailCode == "deleted"){
+                        checkResult.style.color = "red";
+                        checkResult.innerHTML = "탈퇴 처리된 이메일입니다.";
+                        verifyButton.prop('disabled', true); // 버튼 비활성화
+                    }else {
+                        checkResult.style.color = "red";
+                        checkResult.innerHTML = "이미 사용중인 이메일입니다.";
+                        verifyButton.prop('disabled', true); // 버튼 비활성화
                     }
                 },
                 error: function (err) {

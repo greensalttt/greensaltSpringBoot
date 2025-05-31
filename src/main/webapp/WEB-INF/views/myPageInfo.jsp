@@ -235,8 +235,6 @@
             <p id="check-result"></p>
             <label class="infoLabel">이메일*</label>
             <input class="special-class" type="text" id="c_email" name="cEmail" value="${custDto.CEmail}" disabled>
-<%--            <label class="infoLabel">이름*</label>--%>
-<%--            <input class="special-class" type="text" name="cName" value="${custDto.CName}" disabled>--%>
             <label class="infoLabel">닉네임*</label>
             <input class="special-class" type="text" id="cNick" name="cNick" value="${custDto.CNick}" disabled >
             <label class="infoLabel">주소</label>
@@ -244,36 +242,9 @@
                 <input type="text" id="zip" name="cZip" value="${custDto.CZip}">
                 <input type="button" id="zipBtn" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ></div>
             <input type="text" id="roadAddress" name="cRoadA" value="${custDto.CRoadA}">
-            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="${custDto.CJibunA}">
+            <input type="text" id="jibunAddress" name="cJibunA" maxlength="30" value="${custDto.CJibunA}" placeholder="지번 주소는 선택사항입니다.">
             <span id="guide" style="color:#999;display:none"></span>
             <div class="oneLine"><input type="text" id="detailAddress" name="cDetA" maxlength="30" value="${custDto.CDetA}"><p id="det">건물명 + 상세주소</p></div><br>
-<%--            <label class="infoLabel">휴대폰</label>--%>
-<%--            <div class="oneLine"><input class="special-class" type="text" id="c_phn" name="cPhn" maxlength="12" value="${custDto.CPhn}"><p id="phn">-제외</p></div>--%>
-<%--            <label class="infoLabel">성별*</label>--%>
-<%--            <input class="special-class" type="text" name="cGnd" value="${custDto.CGnd}"disabled>--%>
-<%--            <label class="infoLabel" id="aa">생년월일</label>--%>
-<%--            <input type="date" id="c_birth" name="cBirth" min="1900-01-01" max="2023-12-31" value="${custDto.CBirth}" ><br><br>--%>
-<%--            <div id="choice">--%>
-<%--                <a class="infoLabel">SMS 수신</a>--%>
-<%--                <input type="radio" id="sms_agr" name="smsAgr" value="Y"--%>
-<%--                       <c:if test="${custDto.smsAgr == 'Y'}">checked</c:if>>--%>
-<%--                <label for="sms_agr" class="choiceLabel">수신함</label>--%>
-
-<%--                <input type="radio" id="sms_no" name="smsAgr" value="N"--%>
-<%--                       <c:if test="${custDto.smsAgr == 'N'}">checked</c:if>>--%>
-<%--                <label for="sms_no" class="choiceLabel">수신 안함</label><br><br>--%>
-
-<%--                <a class="infoLabel">이메일 수신</a>--%>
-<%--                <input type="radio" id="email_agr" name="emailAgr" value="Y"--%>
-<%--                    <c:if test="${custDto.emailAgr == 'Y'}">checked</c:if>>--%>
-
-<%--                <label for="email_agr" class="choiceLabel">수신함</label>--%>
-
-<%--                <input type="radio" id="email_no" name="emailAgr" value="N"--%>
-<%--                    <c:if test="${custDto.emailAgr == 'N'}">checked</c:if>>--%>
-<%--                <label for="email_no" class="choiceLabel">수신 안함</label>--%>
-
-<%--            </div>--%>
         <br><br><br>
 
             <div id="check">
@@ -348,7 +319,7 @@
             }
         }).open();
     }
-
+    //
     // function formCheck() {
     //     var isNm = newNmCheck();
     //     if (!isNm) {
@@ -361,7 +332,7 @@
     //     }
     //     return confirm("변경사항을 마무리하시고 적용하시겠습니까?")
     // }
-
+    //
     // function newNmCheck() {
     //     var newNm = document.getElementById("cNick").value;
     //
@@ -384,8 +355,49 @@
     //     return true;
     // }
 
+    function formCheck() {
+        if (!checkZip()) return false;
+        if (!checkRoadAddress()) return false;
+        if (!checkDetailAddress()) return false;
 
-function test(){
+        return confirm("변경사항을 마무리하시고 적용하시겠습니까?");
+    }
+
+    // 우편번호: 숫자 1~6자리
+    function checkZip() {
+        var zip = document.getElementById("zip").value.trim();
+        var pattern = /^[0-9]{1,6}$/;
+        if (!pattern.test(zip)) {
+            alert("우편번호는 숫자 1~6자리로 입력해주세요.");
+            return false;
+        }
+        return true;
+    }
+
+    // 도로명 주소: 필수, 한글/영문/숫자/공백/-/ 까지 허용, 1~30자
+    function checkRoadAddress() {
+        var road = document.getElementById("roadAddress").value.trim();
+        var pattern = /^[가-힣a-zA-Z0-9\s\-/]{1,30}$/;
+        if (!pattern.test(road)) {
+            alert("도로명 주소는 한글/영문/숫자와 공백, -, / 만 허용되며 1~30자까지 가능합니다.");
+            return false;
+        }
+        return true;
+    }
+
+    // 상세 주소: 필수, 1~30자
+    function checkDetailAddress() {
+        var detail = document.getElementById("detailAddress").value.trim();
+        if (detail.length < 1 || detail.length > 30) {
+            alert("상세 주소는 1자 이상 30자 이하로 입력해주세요.");
+            return false;
+        }
+        return true;
+    }
+
+
+
+    function test(){
 alert("테스트중입니다!")
 }
 

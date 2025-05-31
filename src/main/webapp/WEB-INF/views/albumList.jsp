@@ -55,12 +55,6 @@
             flex-shrink: 0;
         }
 
-
-        #albumListContainer .list .title {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
         .album-item {
             display: flex;
             align-items: center;
@@ -81,8 +75,13 @@
             margin-left: 20px;
         }
 
-        .artist{
-            font-size: 14px;
+        .artist-title{
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .domestic-type{
+            font-size: 12px;
         }
 
         .date{
@@ -201,8 +200,8 @@
                     <a href="/album/read?ano=${albumDto.ano}">
                     <img src="${albumDto.img}" class="img" alt="">
                         <div class="info">
-                            <p class="title">${albumDto.title}</p>
-                            <p class="artist">${albumDto.artist}</p>
+                            <p class="domestic-type">${albumDto.domestic} | ${albumDto.type}</p>
+                            <p class="artist-title">${albumDto.artist} - ${albumDto.title}</p>
                             <p class="date">Released: ${albumDto.released}</p>
                         </div>
                     </a>

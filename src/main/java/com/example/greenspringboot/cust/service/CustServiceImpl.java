@@ -42,14 +42,16 @@ public class CustServiceImpl implements CustService {
     @Autowired
     private CommentRepository commentRepository;
 
+////            AjAX emailCode의 응답이랑 서비스 리턴값이랑 서로 일치해야됨
     @Override
     public String emailCheck(String cEmail) {
         if (!custRepository.existsBycEmail(cEmail)) {
-//            AjAX emailgood의 응답이랑 서비스 리턴값이랑 서로 일치해야됨
             return "ok";
-        } else {
-            return "fail";
         }
+        if (custRepository.existsBycEmailAndStatCd(cEmail, "D")) {
+            return "deleted";
+        }
+        return "fail";
     }
 
     @Override
@@ -61,6 +63,7 @@ public class CustServiceImpl implements CustService {
             return "fail";
         }
     }
+
 
     public void makeRandomNumber() throws Exception {
 //        랜덤 객체 생성
@@ -131,7 +134,7 @@ public class CustServiceImpl implements CustService {
             return false; // 이메일 없으면 로그인 실패 처리
         }
 
-        if ("D".equals(cust.getCStatCd())) {
+        if ("D".equals(cust.getStatCd())) {
             return false;
         }
 
@@ -141,13 +144,16 @@ public class CustServiceImpl implements CustService {
                 return false;
         }
 
+        custRepository.incrementViSitCnt(cEmail); // 방문 수 증가
+        custRepository.updateLoginDate(cEmail);
+
+
         CustDto custDto = CustDto.builder()  // 빌더 패턴을 사용하여 객체 생성
                 .cId(cust.getCId())
                 .build();  // 필요한 데이터만 DTO로 추출
 
         HttpSession session = request.getSession();
             session.setAttribute("cId", custDto.getCId());
-            custRepository.incrementViSitCnt(cEmail);
         return true;
     }
 
@@ -184,7 +190,6 @@ public class CustServiceImpl implements CustService {
         if (optionalCust.isPresent()) {
             Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
-//            String cName = cust.getCName();
             String cNick = cust.getCNick();
             Date regDt = cust.getRegDt();
             Long visitCnt = cust.getVisitCnt();
@@ -192,7 +197,6 @@ public class CustServiceImpl implements CustService {
             Long commentCount = commentRepository.countBycIdAndDeletedFalse(cId);
 
             CustDto custDto = CustDto.builder()
-//                    .cName(cName)
                     .cNick(cNick)
                     .visitCnt(visitCnt)
                     .regDt(regDt)
@@ -403,15 +407,15 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             }
 
             // 회원 코드 변경
-            cust.setCStatCd("D");
+            cust.setStatCd("D");
             custRepository.save(cust); //  업데이트
 
             // 이력 기록
             CustHist custHist = new CustHist();
             custHist.setCId(cust.getCId());
             custHist.setCCngCd("STAT");
-            custHist.setCBf(oldCust.getCStatCd());
-            custHist.setCAf(cust.getCStatCd());
+            custHist.setCBf(oldCust.getStatCd());
+            custHist.setCAf(cust.getStatCd());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -474,7 +478,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
     @Override
     public CustDto toPwdDto2(Cust cust) {
         return CustDto.builder()
-                .cStatCd(cust.getCStatCd())
+                .statCd(cust.getStatCd())
                 .cPwd(cust.getCPwd())
                 .build(); // 빌더를 사용해 객체 생성
     }

@@ -8,22 +8,15 @@ import java.util.Date;
 @Builder
 public class CustDto {
     private Integer cId;
-    private String cStatCd;
+    private String statCd;
     private String cEmail;
     private String cPwd;
-//    private String cName;
     private String cNick;
-//    private String cBirth;
-//    private String cGnd;
-//    private String cPhn;
     private String cZip;
     private String cRoadA;
     private String cJibunA;
     private String cDetA;
-//    private String smsAgr;
-//    private String emailAgr;
-//    private Date regDt;
-    private Date login_dt;
+    private Date loginDt;
     private Long visitCnt;
     private Date regDt;
     private String frst_reg_id;

@@ -22,12 +22,6 @@ public class AlbumController {
 
     @Autowired
     private AlbumService albumService;
-//
-//    @GetMapping("/list")
-//    public String AlbumList(Model m, SearchCondition sc) {
-//            albumService.albumList(m);
-//            return "albumList";
-//    }
 
     @GetMapping("/list")
     public String AlbumList(Model m, SearchCondition sc) {
@@ -39,6 +33,7 @@ public class AlbumController {
             m.addAttribute("totalCnt", totalCnt);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
+
 
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());

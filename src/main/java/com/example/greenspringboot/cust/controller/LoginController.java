@@ -115,11 +115,12 @@ public class LoginController {
     }
 
     @PostMapping("/adminlogin")
-    public String login(String aLoginId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model model) {
-        if (!adminService.adminLogin(aLoginId, aPwd, request, model)) {
+    public String login(String aLoginId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model m) {
+        if (!adminService.adminLogin(aLoginId, aPwd, request, m)) {
             msg.addFlashAttribute("adminLoginFail", "msg");
             return "redirect:/login";
         }
+        adminService.adminPage(m);
         return "adminPage";
     }
 }

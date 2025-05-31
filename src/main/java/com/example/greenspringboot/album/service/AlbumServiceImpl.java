@@ -29,6 +29,8 @@ public class AlbumServiceImpl implements AlbumService{
     @Autowired
     private AlbumHistRepository albumHistRepository;
 
+
+//    관리자에서 수정할때 앨범 목록 가져오기
     @Override
     public void albumList(Model m) {
         List<Album> albums = albumRepository.findAllByOrderByAnoDesc(); // 모든 앨범 목록을 조회
@@ -45,8 +47,6 @@ public class AlbumServiceImpl implements AlbumService{
                     .collect(Collectors.toList());
 
             m.addAttribute("albumDtos", albumDtos); // 모델에 albumDtos 추가
-
-            System.out.println("albumDtos: " + albumDtos);
 
         } else {
             System.out.println("앨범 정보를 찾을 수 없습니다.");
@@ -145,41 +145,6 @@ public class AlbumServiceImpl implements AlbumService{
         return true;
     }
 
-//    @Override
-//    public boolean albumModify(AlbumDto albumDto, MultipartFile imgFile) {
-//        try {
-//            // 기존 앨범 가져오기
-//            Optional<Album> optionalAlbum = albumRepository.findById(albumDto.getAno());
-//            if (!optionalAlbum.isPresent()) {
-//                return false; // 존재하지 않으면 false
-//            }
-//
-//            Album album = optionalAlbum.get();
-//
-//            // 새 이미지가 업로드 되었을 경우
-//            if (imgFile != null && !imgFile.isEmpty()) {
-//                String img = uploadImage(imgFile);
-//                album.setImg(img);
-//            }
-//
-//            // 각 필드 null 체크 후 업데이트
-//            if (albumDto.getTitle() != null) album.setTitle(albumDto.getTitle());
-//            if (albumDto.getArtist() != null) album.setArtist(albumDto.getArtist());
-//            if (albumDto.getType() != null) album.setType(albumDto.getType());
-//            if (albumDto.getGenre() != null) album.setGenre(albumDto.getGenre());
-//            if (albumDto.getReleased() != null) album.setReleased(albumDto.getReleased());
-//            if (albumDto.getContent() != null) album.setContent(albumDto.getContent());
-//            if (albumDto.getDomestic() != null) album.setDomestic(albumDto.getDomestic());
-//
-//            albumRepository.save(album);
-//            return true;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
     @Override
     public List<AlbumDto> getSearchResultPage(SearchCondition sc) {
         // 게시글 조회 메서드, 게시글 목록 조회니까 그 게시글의 작성자도 같이 가져와야되는게 아닐까?
@@ -242,75 +207,6 @@ public class AlbumServiceImpl implements AlbumService{
                         .build())
                 .collect(Collectors.toList());
     }
-
-
-//    이게 표본
-//    @Override
-//    public boolean albumModify(AlbumDto albumDto, MultipartFile imgFile, AlbumDto oldData) {
-//        try {
-//            // 기존 앨범 가져오기
-//            Optional<Album> optionalAlbum = albumRepository.findById(albumDto.getAno());
-//            if (!optionalAlbum.isPresent()) {
-//                return false; // 존재하지 않으면 false
-//            }
-//
-//            Album album = optionalAlbum.get();
-//
-//            // 새 이미지가 업로드 되었을 경우
-//            if (imgFile != null && !imgFile.isEmpty()) {
-//                String img = uploadImage(imgFile);
-////                album.setImg(img);
-//                albumDto.setImg(img);
-//            }
-
-//            // 각 필드 null 체크 후 업데이트
-//            if (albumDto.getImg() != null) album.setImg(albumDto.getImg());
-//            if (albumDto.getTitle() != null) album.setTitle(albumDto.getTitle());
-//            if (albumDto.getArtist() != null) album.setArtist(albumDto.getArtist());
-//            if (albumDto.getType() != null) album.setType(albumDto.getType());
-//            if (albumDto.getGenre() != null) album.setGenre(albumDto.getGenre());
-//            if (albumDto.getReleased() != null) album.setReleased(albumDto.getReleased());
-//            if (albumDto.getContent() != null) album.setContent(albumDto.getContent());
-//            if (albumDto.getDomestic() != null) album.setDomestic(albumDto.getDomestic());
-//
-//            albumRepository.save(album);
-//
-//            // 변경 이력을 담을 DTO 리스트
-//            List<AlbumHistDto> albumHistDtoList = new ArrayList<>();
-//
-//            // 기존에 작성된 2개 필드 변경 이력 추가
-//            addAlbumHistDto(albumHistDtoList, albumDto, "IMG", oldData.getImg(), albumDto.getImg());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "TITLE", oldData.getTitle(), albumDto.getTitle());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "ARTIST", oldData.getArtist(), albumDto.getArtist());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "TYPE", oldData.getType(), albumDto.getType());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "GENRE", oldData.getGenre(), albumDto.getGenre());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "RELEASED", oldData.getReleased(), albumDto.getReleased());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "CONTENT", oldData.getContent(), albumDto.getContent());
-//            addAlbumHistDto(albumHistDtoList, albumDto, "DOMESTIC", oldData.getDomestic(), albumDto.getDomestic());
-//
-//
-//            // 변경 이력이 담긴 DTO 리스트를 순회하면서
-//            for (AlbumHistDto albumHistDto : albumHistDtoList) {
-//
-////          addAlbumHistDto에 설정한 dto를 엔티티로 옮기기
-//                AlbumHist albumHist = new AlbumHist();
-//                albumHist.setAno(albumHistDto.getAno());
-//                albumHist.setAId(albumHistDto.getAId());
-//                albumHist.setACngCd(albumHistDto.getACngCd());
-//                albumHist.setABf(albumHistDto.getABf());
-//                albumHist.setAAf(albumHistDto.getAAf());
-//
-//                // 이력 저장
-//                albumHistRepository.save(albumHist);
-//            }
-//            return true;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
 
     @Override
     public boolean albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException {

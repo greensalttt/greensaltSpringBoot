@@ -199,7 +199,6 @@
         <h1 class="week">Performance</h1>
 
         <div id="god">
-<%--                    <h1 class="week">Performance</h1><br>--%>
                         <div class="card2">
                             <a href="#" onclick="stop()">
                                 <img src="../../album_img/silPerformance.gif">
