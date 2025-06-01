@@ -78,14 +78,14 @@
     <h2>앨범 등록</h2>
 
     <form id="albumForm" action="/admin/write" method="post" enctype="multipart/form-data">
-        <label for="domestic">국내/해외 (domestic):</label>
+        <label for="domestic">국내/해외:</label>
         <select name="domestic" id="domestic" required>
             <option value="">-- 선택하세요 --</option>
             <option value="국내">국내</option>
             <option value="해외">해외</option>
         </select>
 
-        <label for="type">유형 (type):</label>
+        <label for="type">유형:</label>
         <select name="type" id="type" required>
             <option value="">-- 선택하세요 --</option>
             <option value="싱글">싱글</option>
@@ -94,19 +94,19 @@
             <option value="믹스테잎">믹스테잎</option>
         </select>
 
-        <label for="genre">장르 (genre):</label>
+        <label for="genre">장르:</label>
         <input type="text" name="genre" id="genre">
 
-        <label for="title">앨범 제목 (title):</label>
+        <label for="title">앨범 제목:</label>
         <input type="text" name="title" id="title" required>
 
-        <label for="artist">아티스트 (artist):</label>
+        <label for="artist">아티스트:</label>
         <input type="text" name="artist" id="artist" required>
 
-        <label for="content">내용 (content):</label>
+        <label for="content">내용:</label>
         <textarea name="content" id="content" rows="8"></textarea>
 
-        <label for="released">발매일 (released):</label>
+        <label for="released">발매일:</label>
         <input type="date" name="released" id="released">
 
         <label for="imgFile">앨범 이미지:</label>
@@ -149,7 +149,6 @@
         }
     });
 
-    // 등록 실패 시 alert
     let adminWriteFail = "${adminWriteFail}";
     if (adminWriteFail === "msg") {
         alert("앨범 등록에 실패했습니다.");

@@ -4,6 +4,8 @@ import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.album.service.AlbumService;
 import com.example.greenspringboot.cust.securityutils.EncryptionUtil;
+import com.example.greenspringboot.performance.dto.PerformanceDto;
+import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ public class AdminController {
     @Autowired
     private AlbumService albumService;
 
+    @Autowired
+    private PerformanceService performanceService;
+
     @GetMapping("/page")
     public String adminPage(Model m){
         adminService.adminPage(m);
@@ -47,7 +52,6 @@ public class AdminController {
     @PostMapping("/write")
     public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
 
-//        if (!albumService.write(albumDto, session, albumDto.getImgFile())) {
         if (!albumService.write(albumDto, session)) {
 
             msg.addFlashAttribute("adminWriteFail", "msg");
@@ -64,6 +68,26 @@ public class AdminController {
         albumService.albumList(m);
         return "albumManage";
     }
+
+    @GetMapping("/performance")
+    public String performanceWritePage(){
+        return "performanceInsertForm";
+    }
+
+    @PostMapping("/performance_write")
+    public String performanceWrite(@ModelAttribute PerformanceDto performanceDto, HttpSession session, RedirectAttributes msg){
+
+        if (!performanceService.write(performanceDto, session)) {
+
+            msg.addFlashAttribute("performanceWriteFail", "msg");
+            return "redirect:/admin/performance";
+        }
+
+        msg.addFlashAttribute("performanceWrite", "msg");
+        return "redirect:/admin/page";
+    }
+
+
 
     @GetMapping("/cust_list")
     public String custList(Model m){

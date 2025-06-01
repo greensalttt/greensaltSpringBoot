@@ -30,7 +30,7 @@ public class AlbumServiceImpl implements AlbumService{
     private AlbumHistRepository albumHistRepository;
 
 
-//    관리자에서 수정할때 앨범 목록 가져오기
+//    관리자에서 수정할때 앨범 목록 가져오기, 인덱스 화면에서 보여주기
     @Override
     public void albumList(Model m) {
         List<Album> albums = albumRepository.findAllByOrderByAnoDesc(); // 모든 앨범 목록을 조회
@@ -69,7 +69,6 @@ public class AlbumServiceImpl implements AlbumService{
             String released = album.getReleased();
             String content = album.getContent().replace("\n", "<br/>");
             String img = album.getImg();
-
 
             AlbumDto albumDto = AlbumDto.builder()
                     .ano(aano)

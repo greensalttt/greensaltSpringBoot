@@ -233,7 +233,7 @@
             <p>회원님이 회원가입에서 입력하신 비밀번호는 암호화 처리된 후 DB에서 관리하고 있습니다.</p><br>
 
             <p>4. 이용자의 권리</p>
-            <p> * 이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며, 탈퇴를 요청할 수도 있습니다. <span id="close2" onclick="closeModal2()">&times;</span></p>
+            <p> * 이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며, 탈퇴를 요청할 수도 있습니다. <span id="close2" onclick="closeModal2()">&times</span></p>
             <br>
 
         </div>
@@ -633,6 +633,7 @@
             var modal = document.getElementById("myModal2");
             if (event.key === "Escape" && modal.style.display === "block") {
                 closeModal2();
+                // modal.style.display = "none";
             }
         });
 

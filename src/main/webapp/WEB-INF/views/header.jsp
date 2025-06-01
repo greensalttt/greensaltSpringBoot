@@ -42,7 +42,7 @@
             <li><a href="<c:url value='/album/list'/>">Album</a></li>
             <li><a onclick="test()">Video</a></li>
             <li><a onclick="test()">Interview</a></li>
-            <li><a onclick="test()">Performance</a></li>
+            <li><a href="<c:url value='/performance/list'/>">Performance</a></li>
             <li><a href="<c:url value='/board/list'/>">Community</a></li>
             <li><a onclick="test()">Help</a></li>
         </ul>

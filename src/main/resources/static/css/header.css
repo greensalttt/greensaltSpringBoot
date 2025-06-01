@@ -31,7 +31,7 @@ h1 {
     position: absolute;
     width: 500px;
     height: 200px;
-    top: 53px;
+    top: 30px;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 13px;
 }
@@ -40,7 +40,7 @@ h1 {
     display: flex;
     position: relative;
     left: 263px;
-    top: 100px;
+    top: 80px;
 }
 
 #headerNav>ul {
@@ -80,7 +80,7 @@ h1 {
 #custIcon {
     position: relative;
     float: right;
-    top: 60px;
+    top: 35px;
 }
 
 #custIconImg {

@@ -7,6 +7,8 @@ import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
+import com.example.greenspringboot.performance.entity.Performance;
+import com.example.greenspringboot.performance.repository.PerformanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AlbumRepository albumRepository;
+
+    @Autowired
+    private PerformanceRepository performanceRepository;
+
 
     @Override
     public Boolean adminLogin(String aLoginId, String aPwd, HttpServletRequest request, Model model) {
@@ -74,11 +80,15 @@ public class AdminServiceImpl implements AdminService {
         long boardCount = boardRepository.countByDeletedFalse();
         long commentCount = commentRepository.countByDeletedFalse();
         long albumCount = albumRepository.count();
+        long performanceCount = performanceRepository.count();
+
 
         m.addAttribute("custCount", custCount);
         m.addAttribute("boardCount", boardCount);
         m.addAttribute("commentCount", commentCount);
         m.addAttribute("albumCount", albumCount);
+        m.addAttribute("performanceCount", performanceCount);
+
 
         System.out.println("회원수:" + custCount);
         System.out.println("게시글수:" + boardCount);

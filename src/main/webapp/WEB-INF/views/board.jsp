@@ -139,22 +139,53 @@
             background-color: darkolivegreen;
         }
 
-        #modBtn {
-            background-color: saddlebrown;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        /*#modBtn {*/
+        /*    background-color: saddlebrown;*/
+        /*    color: white;*/
+        /*    padding: 10px 20px;*/
+        /*    border: none;*/
+        /*    border-radius: 5px;*/
+        /*    cursor: pointer;*/
+        /*    font-weight: bold;*/
+        /*}*/
 
-        #modBtn:hover {
-            background-color: brown;
-        }
+        /*#modBtn:hover {*/
+        /*    background-color: brown;*/
+        /*}*/
 
         #top{
             margin-bottom: 150px;
+        }
+
+
+        .modal {
+            display: none; /* 기본 숨김 */
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto 15% auto;
+            padding: 20px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -208,10 +239,8 @@
             <input type="text" name="comment" placeholder="댓글을 남겨보세요.">
             <div id="buttonContainer">
                 <button id="sendBtn" type="button">작성</button>
-                <button id="modBtn" type="button" style="display: none;">수정</button>
             </div>
         </div>
-
 
         <c:if test="${empty sessionScope.cId}">
             <script>
@@ -223,15 +252,24 @@
 
                     $("input[name='comment']").replaceWith(messageHtml);
                     $("#sendBtn").hide();
-                    // $(".modBtn, .replyBtn, .delBtn").hide(); // 수정, 답글, 삭제 버튼 숨김
 
                 });
             </script>
         </c:if>
-
-
     </c:if>
     </div><br><br>
+
+    <!-- 댓글 수정용 모달 -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="commentModalClose()">&times;</span>
+
+            <h3>댓글 수정</h3>
+            <input type="text" id="modalCommentInput">
+            <button id="confirmModBtn">수정하기</button>
+        </div>
+    </div>
+
 
     <footer>
         <jsp:include page="footer.jsp"/>
@@ -380,13 +418,13 @@
 
                 // 답글 작성 버튼
 
-                $("#wrtRepBtn").click(function(){
+                $("#wrtRepBtn").click(function () {
                     let comment = $("input[name=replyComment]").val();
                     let parentComment = $("#replyForm").parent().attr("data-parentComment");
 
                     console.log("parentComment:", parentComment);
 
-                    if(comment.trim() == ''){
+                    if (comment.trim() == '') {
                         alert("답글을 입력해 주세요.");
                         $("input[name=replyComment]").focus();
                         return;
@@ -396,11 +434,11 @@
                         url: '/comments?bno=' + bno,
                         headers: {"content-type": "application/json"},
                         data: JSON.stringify({bno: bno, comment: comment, pcno: parentComment}),
-                        success: function(){
+                        success: function () {
                             alert("답글이 등록되었습니다");
                             showList(bno);
                         },
-                        error: function(){
+                        error: function () {
                             alert("error");
                         }
                     });
@@ -414,20 +452,20 @@
                 // 댓글 보여주기
 
                 let bno = ${boardDto.bno};
-                let showList = function (bno){
+                let showList = function (bno) {
 
                     <%--    제이쿼리 방식으로 Ajax를 활용한 콜백 함수로 비동기통신 처리 방식--%>
                     $.ajax({
-                        type:'GET',
+                        type: 'GET',
                         url: '/comments?bno=' + bno,
-                        success: function(result){
+                        success: function (result) {
                             if (result.length === 0) {
                                 $("#commentList").html("<p>등록된 댓글이 없습니다</p>");
                             } else {
                                 $("#commentList").html(toHtml(result));
                             }
                         },
-                        error: function(){
+                        error: function () {
                             alert("error");
                         }
                     });
@@ -437,9 +475,9 @@
 
                 // 댓글 작성
 
-                $("#sendBtn").click(function(){
+                $("#sendBtn").click(function () {
                     let comment = $("input[name=comment]").val();
-                    if(comment.trim() == ''){
+                    if (comment.trim() == '') {
                         alert("댓글을 입력해주세요.");
                         $("input[name=comment]").focus();
                         return;
@@ -449,81 +487,124 @@
                         url: '/comments?bno=' + bno,
                         headers: {"content-type": "application/json"},
                         data: JSON.stringify({bno: bno, comment: comment}),
-                        success: function(){
+                        success: function () {
                             alert("댓글이 등록되었습니다.");
                             $("input[name=comment]").val('');  // 댓글 입력란 초기화
                             showList(bno);
                         },
-                        error: function(){
+                        error: function () {
                             alert("error");
                         }
                     });
                 });
 
                 // 댓글 수정
+                    let selectedCno = null;
 
-                $("#commentList").on("click", ".modBtn", function () {
-                    let cno = $(this).parent().attr("data-cno");
-                    let comment = $("span.comment", $(this).parent()).text();
-                    $("input[name=comment]").val(comment);
-                    $("#modBtn").show();
-                    $("#modBtn").attr("data-cno", cno);
+                    // 1. 댓글 수정 버튼 클릭 → 모달 열기
+                    $("#commentList").on("click", ".modBtn", function () {
+                    selectedCno = $(this).parent().attr("data-cno");
+                    const comment = $("span.comment", $(this).parent()).text();
+
+                    $("#modalCommentInput").val(comment);
+                    $("#commentModal").show();
                 });
 
-                $("#modBtn").click(function(){
-                    let cno = $(this).attr("data-cno");
-                    let comment = $("input[name=comment]").val();
-                    console.log("bno:", bno);  // bno 값 확인
+                    // 2. 모달 내 "수정하기" 버튼 → 댓글 수정 AJAX
+                    $("#confirmModBtn").click(function () {
+                    const comment = $("#modalCommentInput").val().trim();
 
-                    if(comment.trim() == ''){
-                        alert("댓글을 입력해주세요.");
-                        $("input[name=comment]").focus();
-                        return;
-                    }
+                    if (comment === "") {
+                    alert("댓글을 입력해주세요.");
+                    $("#modalCommentInput").focus();
+                    return;
+                }
+
                     $.ajax({
-                        type: 'PATCH',
-                        url: '/comments/' + cno,
-                        headers: {"content-type": "application/json"},
-                        data: JSON.stringify({cno: cno, comment: comment, bno: bno}),
-                        success: function(){
-                            alert("댓글이 수정됐습니다.");
-                            showList(bno);
-                        },
-                        error: function(){
-                            alert("error");
-                        }
-                    });
+                    type: 'PATCH',
+                    url: '/comments/' + selectedCno,
+                    headers: {"content-type": "application/json"},
+                    data: JSON.stringify({cno: selectedCno, comment: comment, bno: bno}),
+                    success: function () {
+                    alert("댓글이 수정됐습니다.");
+                    $("#commentModal").hide();
+                    showList(bno);
+                },
+                    error: function () {
+                    alert("댓글 수정 중 오류가 발생했습니다.");
+                }
+                });
                 });
 
-                $("#commentList").on("click", ".delBtn", function (){
-                    let commentElement = $(this).parent(); // 클릭된 버튼의 부모(li 요소)
-                    let cno = commentElement.attr("data-cno"); // 댓글의 고유 번호
+                // function commentModalClose() {
+                //     var modal = document.getElementById("commentModal");
+                //     modal.style.display = "none";
+                //
+                //     document.body.style.paddingRight = "";
+                //     document.body.style.overflowY = "auto"; // 스크롤 복구
+                //     document.body.style.overflowX = "";
+                // }
+                //
+                //
+                // // ESC 키 눌렀을 때 댓글 수정 모달 닫기
+                // document.addEventListener("keydown", function (event) {
+                //     var modal = document.getElementById("commentModal");
+                //     if (event.key === "Escape" && modal.style.display === "block") {
+                //             commentModalClose();
+                //         }
+                //     });
 
-                    if (!confirm("정말로 삭제하시겠습니까?")) {
-                        return;
-                    }
-                    $.ajax({
-                        type: 'DELETE',
-                        url: '/comments/' + cno + '?bno=' + bno,
-                        success: function() {
-                            // 댓글 삭제 성공 시 처리
-                            alert("삭제에 성공했습니다."); // 성공 메시지를 알림으로 표시
 
-                            // // 댓글 내용만 "삭제된 댓글입니다"로 변경
-                            commentElement.find(".commenter").text("삭제된 댓글입니다");
-                            commentElement.find(".comment").text(""); // 댓글 내용 제거
-                            commentElement.find(".modBtn, .replyBtn, .delBtn").hide(); // 수정, 답글, 삭제 버튼 숨김
-                            //
-                            // // 삭제된 상태를 시각적으로 표시하기 위한 클래스 추가 (CSS 적용 가능)
-                            commentElement.addClass("deleted");
-                        },
-                        error: function() {
-                            alert("댓글 삭제 중 오류가 발생했습니다.");
-                        }
-                    });
-                });
+    $("#commentList").on("click", ".delBtn", function (){
+    let commentElement = $(this).parent(); // 클릭된 버튼의 부모(li 요소)
+    let cno = commentElement.attr("data-cno"); // 댓글의 고유 번호
+
+    if (!confirm("정말로 삭제하시겠습니까?")) {
+    return;
+    }
+    $.ajax({
+    type: 'DELETE',
+    url: '/comments/' + cno + '?bno=' + bno,
+    success: function() {
+    // 댓글 삭제 성공 시 처리
+    alert("삭제에 성공했습니다."); // 성공 메시지를 알림으로 표시
+
+    // // 댓글 내용만 "삭제된 댓글입니다"로 변경
+    commentElement.find(".commenter").text("삭제된 댓글입니다");
+    commentElement.find(".comment").text(""); // 댓글 내용 제거
+    commentElement.find(".modBtn, .replyBtn, .delBtn").hide(); // 수정, 답글, 삭제 버튼 숨김
+    //
+    // // 삭제된 상태를 시각적으로 표시하기 위한 클래스 추가 (CSS 적용 가능)
+    commentElement.addClass("deleted");
+    },
+    error: function() {
+    alert("댓글 삭제 중 오류가 발생했습니다.");
+    }
+    });
+    });
+    }
+    });
+    </script>
+
+    <script>
+        function commentModalClose() {
+            var modal = document.getElementById("commentModal");
+            modal.style.display = "none";
+
+            document.body.style.paddingRight = "";
+            document.body.style.overflowY = "auto"; // 스크롤 복구
+            document.body.style.overflowX = "";
+        }
+
+
+        // ESC 키 눌렀을 때 댓글 수정 모달 닫기
+        document.addEventListener("keydown", function (event) {
+            var modal = document.getElementById("commentModal");
+            if (event.key === "Escape" && modal.style.display === "block") {
+                commentModalClose();
             }
         });
+
     </script>
 
 </body>

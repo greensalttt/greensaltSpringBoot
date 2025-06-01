@@ -29,7 +29,7 @@
             color: #333;
         }
 
-        #write, #modify, #cust {
+        #write, #modify, #cust , #performanceWrite{
             display: inline-block;
             margin-top: 20px;
             background-color: darkgreen;
@@ -83,8 +83,11 @@
     <h1>총 게시글 수: <span>${boardCount}</span></h1>
     <h1>총 댓글 수: <span>${commentCount}</span></h1>
     <h1>총 앨범 수: <span>${albumCount}</span></h1>
+    <h1>총 공연 수: <span>${performanceCount}</span></h1>
+
 
     <a id="write" href="/admin/album">앨범 업로드</a>
+    <a id="performanceWrite" href="/admin/performance">공연 업로드</a>
     <a id="modify" href="/admin/album_manage">앨범 관리</a>
     <a id="cust" href="/admin/cust_list">회원 목록</a>
 
@@ -105,6 +108,11 @@
         let adminWrite = "${adminWrite}";
         if(adminWrite === "msg") {
             alert("앨범 등록에 성공했습니다.");
+        }
+
+        let performanceWrite = "${performanceWrite}";
+        if(performanceWrite === "msg") {
+            alert("공연 등록에 성공했습니다.");
         }
     };
 </script>
