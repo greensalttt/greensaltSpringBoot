@@ -131,8 +131,8 @@
                             <p class="date">Released: ${albumDto.released}</p>
                         </div>
                     </a>
-                    <button onclick="location.href='/admin/edit?ano=${albumDto.ano}'">수정</button>
-                    <form id="removeForm" action="/admin/remove" method="post">
+                    <button onclick="location.href='/admin/album_edit?ano=${albumDto.ano}'">수정</button>
+                    <form id="removeForm" action="/admin/album_remove" method="post">
                     <input type="hidden" name="ano" value="${albumDto.ano}" />
                     <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
                     </form>
@@ -145,6 +145,11 @@
 </body>
 
 <script>
+
+    let testAid = "${testAid}";
+    if (testAid === "msg") {
+        alert("테스트 아이디는 삭제할 수 없습니다.");
+    }
 
     let removeFail = "${removeFail}"
     if(removeFail==="msg") {

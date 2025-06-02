@@ -52,8 +52,15 @@ public class AdminController {
     @PostMapping("/write")
     public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
 
-        if (!albumService.write(albumDto, session)) {
+        Integer aId = (Integer) session.getAttribute("aId");
 
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/album";
+        }
+
+
+        if (!albumService.write(albumDto, session)) {
             msg.addFlashAttribute("adminWriteFail", "msg");
             return "redirect:/admin/album";
         }
@@ -69,6 +76,12 @@ public class AdminController {
         return "albumManage";
     }
 
+    @GetMapping("/performance_manage")
+    public String performanceManage(Model m){
+        performanceService.performanceList(m);
+        return "performanceManage";
+    }
+
     @GetMapping("/performance")
     public String performanceWritePage(){
         return "performanceInsertForm";
@@ -77,8 +90,14 @@ public class AdminController {
     @PostMapping("/performance_write")
     public String performanceWrite(@ModelAttribute PerformanceDto performanceDto, HttpSession session, RedirectAttributes msg){
 
-        if (!performanceService.write(performanceDto, session)) {
+        Integer aId = (Integer) session.getAttribute("aId");
 
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/performance";
+        }
+
+        if (!performanceService.write(performanceDto, session)) {
             msg.addFlashAttribute("performanceWriteFail", "msg");
             return "redirect:/admin/performance";
         }
@@ -95,29 +114,89 @@ public class AdminController {
         return "custList";
     }
 
-    @PostMapping("/remove")
-    public String albumRemove(Integer ano, RedirectAttributes msg){
+    @PostMapping("/album_remove")
+    public String albumRemove(Integer ano, RedirectAttributes msg, HttpSession session){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/album_manage";
+        }
+
         if(!albumService.albumRemove(ano)){
             msg.addFlashAttribute("removeFail", "msg");
-            return "redirect:/admin/manage";
+            return "redirect:/admin/album_manage";
         }
         msg.addFlashAttribute("remove", "msg");
-        return "redirect:/admin/manage";
+        return "redirect:/admin/album_manage";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/album_edit")
     public String albumEdit(Integer ano, Model m){
         albumService.albumRead(ano, m);
         return "albumEdit";
     }
 
-    @PostMapping("/modify")
+    @PostMapping("/album_modify")
     public String albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/album_edit";
+        }
+
         if(!albumService.albumModify(albumDto, imgFile, session)){
             msg.addFlashAttribute("modifyFail", "msg");
-            return "redirect:/admin/edit";
+            return "redirect:/admin/album_edit";
         }
         msg.addFlashAttribute("modify", "msg");
-        return "redirect:/admin/manage";
+        return "redirect:/admin/album_manage";
     }
+
+
+    @GetMapping("/performance_edit")
+    public String performanceEdit(Integer pno, Model m){
+        performanceService.performanceRead(pno, m);
+        return "performanceEdit";
+    }
+
+    @PostMapping("/performance_modify")
+    public String performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/performance_edit";
+        }
+
+        if(!performanceService.performanceModify(performanceDto, imgFile, session)){
+            msg.addFlashAttribute("performanceModifyFail", "msg");
+            return "redirect:/admin/performance_edit";
+        }
+        msg.addFlashAttribute("performanceModify", "msg");
+        return "redirect:/admin/performance_manage";
+    }
+
+    @PostMapping("/performance_remove")
+    public String performanceRemove(Integer pno, RedirectAttributes msg,HttpSession session){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/performance_manage";
+        }
+
+        if(!performanceService.performanceRemove(pno)){
+            msg.addFlashAttribute("performanceRemoveFail", "msg");
+            return "redirect:/admin/performance_manage";
+        }
+        msg.addFlashAttribute("performanceRemove", "msg");
+        return "redirect:/admin/performance_manage";
+    }
+
 }

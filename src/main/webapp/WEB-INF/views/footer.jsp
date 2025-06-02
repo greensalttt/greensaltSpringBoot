@@ -11,19 +11,6 @@
 
         </div>
 
-        <div>
-            <a href=https://soundcloud.com/ target="_blank">
-                <img class="insta" src="/icon_img/soundcloud2.png">
-            </a>
-
-            <a href=https://www.youtube.com/ target="_blank">
-                <img class="insta" src="/icon_img/youtube2.png">
-            </a>
-
-            <a href=https://www.instagram.com/ target="_blank">
-                <img class="insta" src="/icon_img/instagram.png">
-            </a>
-        </div>
 
         <div id="end2">
             <p>© 2025 Green Salt</p>

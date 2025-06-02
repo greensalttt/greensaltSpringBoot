@@ -157,6 +157,12 @@
         alert("공연 등록에 실패했습니다.");
     }
 
+
+    let testAid = "${testAid}";
+    if (testAid === "msg") {
+        alert("테스트 아이디는 등록할 수 없습니다.");
+    }
+
 </script>
 </body>
 </html>

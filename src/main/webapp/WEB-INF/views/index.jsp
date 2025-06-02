@@ -20,51 +20,45 @@
 <div id="content">
     <section id="main_section">
 
+        <div class="miniHeader">
         <h1 class="week">Performance</h1>
         <h1 class="more">
             <a href="<c:url value='/performance/list'/>"> ❯</a>
         </h1>
+        </div>
 
         <div id="god">
+            <c:if test="${not empty performanceDtos}">
+                <c:forEach var="i" begin="0" end="${fn:length(performanceDtos) - 1}" varStatus="loop">
+                    <c:if test="${loop.count <= 4}">
+                        <c:set var="performanceDto" value="${performanceDtos[i]}" />
+                        <div class="card2">
+                            <a href="/performance/read?pno=${performanceDto.pno}">
+                                <img src="${performanceDto.img}" alt="포스터 이미지">
+                                <div class="container3">
+                                    <h4>${performanceDto.artist}</h4>
+                                    <p class="sub">${performanceDto.title}</p>
+                                    <p class="small">${performanceDto.date}</p>
+                                    <p class="small">${performanceDto.venue}</p><br>
+                                </div>
+                            </a>
+                        </div>
+                    </c:if>
+                </c:forEach>
 
-<%--            <c:forEach var="i" begin="0" end="${fn:length(performanceDtos) - 1}" varStatus="loop">--%>
-<%--                <c:if test="${loop.count <= 4}">--%>
-<%--                    <c:set var="performanceDto" value="${performanceDtos[i]}" />--%>
-<%--                    <div class="card2">--%>
-<%--                        <a href="/performance/read?pno=${performanceDto.pno}">--%>
-<%--                            <img src="${performanceDto.img}" alt="포스터 이미지">--%>
-<%--                            <div class="container3">--%>
-<%--                                <h4>${performanceDto.artist}</h4>--%>
-<%--                                <p class="sub">${performanceDto.title}</p>--%>
-<%--                                <p class="small">${performanceDto.date}</p>--%>
-<%--                                <p class="small">${performanceDto.venue}</p><br>--%>
-<%--                            </div>--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-<%--            </c:forEach>--%>
+                <c:if test="${fn:length(performanceDtos) < 4}">
+                    <c:forEach begin="1" end="${4 - fn:length(performanceDtos)}" var="i">
+                        <div class="card2">
+                            <div class="container3" style="text-align:center; padding-top: 150px;">
+                                <p style="color:gray;">비어 있음</p>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
+            </c:if>
 
-    <c:if test="${not empty performanceDtos}">
-    <c:forEach var="i" begin="0" end="${fn:length(performanceDtos) - 1}" varStatus="loop">
-        <c:if test="${loop.count <= 4}">
-            <c:set var="performanceDto" value="${performanceDtos[i]}" />
-            <div class="card2">
-                <a href="/performance/read?pno=${performanceDto.pno}">
-                    <img src="${performanceDto.img}" alt="포스터 이미지">
-                    <div class="container3">
-                        <h4>${performanceDto.artist}</h4>
-                        <p class="sub">${performanceDto.title}</p>
-                        <p class="small">${performanceDto.date}</p>
-                        <p class="small">${performanceDto.venue}</p><br>
-                    </div>
-                </a>
-            </div>
-        </c:if>
-    </c:forEach>
-
-
-            <c:if test="${fn:length(performanceDtos) < 4}">
-                <c:forEach begin="1" end="${4 - fn:length(performanceDtos)}" var="i">
+            <c:if test="${empty performanceDtos}">
+                <c:forEach begin="1" end="4" var="i">
                     <div class="card2">
                         <div class="container3" style="text-align:center; padding-top: 150px;">
                             <p style="color:gray;">비어 있음</p>
@@ -72,221 +66,64 @@
                     </div>
                 </c:forEach>
             </c:if>
+
         </div>
 
-        </c:if>
-
-    <%--        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ--%>
-
-        <article class="box">
-
-            <div id="cdBox">
-                <h1 class="week">Album</h1>
-                <h1 class="more">
-                    <a href="<c:url value='/album/list'/>"> ❯</a>
-                </h1>
-                <ul>
-
-<%--                    <c:forEach begin="0" end="9" var="i">--%>
-<%--                        <c:choose>--%>
-<%--                            <c:when test="${i < fn:length(albumDtos)}">--%>
-<%--                                <c:set var="albumDto" value="${albumDtos[i]}" />--%>
-
-<%--                                <li class="one">--%>
-<%--                                    <a href="/album/read?ano=${albumDto.ano}">--%>
-<%--                                        <div>--%>
-<%--                                            <img class="albumAll"--%>
-<%--                                                 src="${albumDto.img}"--%>
-<%--                                                 style="width:100%" height="170" alt="${albumDto.title}" />--%>
-<%--                                        </div>--%>
-<%--                                        <div class="three">--%>
-<%--                                            <p>${albumDto.title}</p>--%>
-<%--                                        </div>--%>
-<%--                                    </a>--%>
-<%--                                </li>--%>
-
-<%--                            </c:when>--%>
-<%--                            <c:otherwise>--%>
-<%--                                <li class="one">--%>
-<%--                                    <div>--%>
-<%--                                        <img class="albumAll"--%>
-<%--                                             style="width:100%" height="170" alt="No Album" />--%>
-<%--                                    </div>--%>
-<%--                                    <div class="three">--%>
-<%--                                        <p>비어 있음</p>--%>
-<%--                                    </div>--%>
-<%--                                </li>--%>
-<%--                            </c:otherwise>--%>
-<%--                        </c:choose>--%>
-<%--                    </c:forEach>--%>
-<%--                </ul>--%>
+<%--        ㅡㅡ--%>
 
 
-    <c:if test="${not empty albumDtos}">
-    <c:forEach begin="0" end="9" var="i">
-    <c:choose>
-    <c:when test="${i < fn:length(albumDtos)}">
-        <c:set var="albumDto" value="${albumDtos[i]}" />
-    <li class="one">
-        <a href="/album/read?ano=${albumDto.ano}">
-            <div>
-                <img class="albumAll"
-                     src="${albumDto.img}"
-                     style="width:100%" height="170" alt="${albumDto.title}" />
-            </div>
-            <div class="three">
-                <p>${albumDto.title}</p>
-            </div>
-        </a>
-    </li>
-    </c:when>
-    <c:otherwise>
-    <li class="one">
-        <div>
-            <img class="albumAll"
-                 style="width:100%" height="170" alt="No Album" />
-        </div>
-        <div class="three">
-            <p>비어 있음</p>
-        </div>
-    </li>
-    </c:otherwise>
-    </c:choose>
-    </c:forEach>
-    </c:if>
-
-    <c:if test="${empty albumDtos}">
-    <c:forEach begin="0" end="9" var="i">
-    <li class="one">
-        <div>
-            <img class="albumAll"
-                 style="width:100%" height="170" alt="No Album" />
-        </div>
-        <div class="three">
-            <p>비어 있음</p>
-        </div>
-    </li>
-    </c:forEach>
-    </c:if>
-
-            </div>
-        </article>
-
-
-    <div id="king">
-
-        <div class="container1">
-            <h1 class="week">Interview</h1><br>
-
-            <div class="mySlides">
-                <a href="#">
-                    <img src="/album_img/SilicaGel.avif" style="width:100%" height="325">
-                </a>
-            </div>
-
-            <div class="mySlides">
-                <a href="#">
-                    <img src="../../album_img/caesar.webp" style="width:100%" height="325">
-                </a>
-            </div>
-
-            <div class="mySlides">
-                <a href="#">
-                    <img src="/album_img/sultan.webp" style="width:100%" height="325">
-                </a>
-            </div>
-
-            <div class="mySlides">
-                <a href="#">
-                    <img src="../../album_img/rashad.webp" style="width:100%" height="325">
-                </a>
-            </div>
-
-            <div class="mySlides">
-                <a href="#">
-                    <img src="../../album_img/green.jpg" style="width:100%" height="325">
-                </a>
-            </div>
-
-            <div class="mySlides">
-                <a href="#">
-                    <img src="../../album_img/singclair.jpg" style="width:100%" height="325">
-                </a>
-            </div>
-
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>
-
-            <div class="row">
-                <div class="column">
-                    <img class="demo cursor" src="../../album_img/SilicaGel.avif" style=width:100% height="70px"
-                         onclick="currentSlide(1)" alt="실리카겔">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="../../album_img/caesar.webp" style="width:100%" height="70px"
-                         onclick="currentSlide(2)" alt="Daniel Caesar">
-                </div>
-
-
-                <div class="column">
-                    <img class="demo cursor" src="../../album_img/sultan.webp" style="width: 100%;" height="70px"
-                         onclick="currentSlide(3)" alt="Sultan of the Disco">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="../../album_img/rashad.webp" style="width:100%" height="70px"
-                         onclick="currentSlide(4)" alt="Isaiah Rashad">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="../../album_img/green.jpg" style="width:100%" height="70px"
-                         onclick="currentSlide(5)" alt="녹황색사회">
-                </div>
-                <div class="column">
-                    <img class="demo cursor" src="../../album_img/singclair.jpg" style="width:100%" height="70px"
-                         onclick="currentSlide(6)" alt="Dylan sinclair">
-                </div>
-            </div>
-        </div>
-
-
-
+        <div class="album-video-wrap">
+    <div class="video-box">
         <div class="container2">
             <h1 class="week">Video</h1><br>
 
             <div class="mySlides2">
                 <a href="https://www.youtube.com/watch?v=B_gKTJTIcYw" target="_blank">
-                    <img width="100%" height="350" src="../../album_img/balming.jpg">
+                    <div class="img-container">
+                        <img src="../../album_img/balming.jpg" alt="Balming Tiger - Buriburi">
+                        <div class="overlay-title">Balming Tiger - Buriburi</div>
+                    </div>
                 </a>
-                <div class="text">Balming Tiger - Buriburi</div>
             </div>
 
             <div class="mySlides2">
                 <a href="https://www.youtube.com/watch?v=JaIMSzE5yLA" target="_blank">
-                    <img width="100%" height="350" src="../../album_img/nopain.jpg">
+                    <div class="img-container">
+                        <img src="../../album_img/nopain.jpg" alt="실리카겔 - NO PAIN">
+                        <div class="overlay-title">실리카겔 - NO PAIN</div>
+                    </div>
                 </a>
-                <div class="text">실리카겔 - NO PAIN</div>
             </div>
 
             <div class="mySlides2">
                 <a href="https://www.youtube.com/watch?v=2fDzCWNS3ig" target="_blank">
-                    <img width="100%" height="350" src="../../album_img/theweekend.jpg">
+                    <div class="img-container">
+                        <img src="../../album_img/theweekend.jpg" alt="The Weeknd - Out of Time">
+                        <div class="overlay-title">The Weeknd - Out of Time</div>
+                    </div>
                 </a>
-                <div class="text">The Weeknd - Out of Time</div>
             </div>
-
 
             <div class="mySlides2">
                 <a href="https://www.youtube.com/watch?v=H-OtP2KKtPc" target="_blank">
-                    <img width="100%" height="350" src="../../album_img/sultan.webp">
+                    <div class="img-container">
+                        <img src="../../album_img/sultan.webp" alt="Sultan of The Disco - Shining Road (Live)">
+                        <div class="overlay-title">Sultan of The Disco - Shining Road (Live)</div>
+                    </div>
                 </a>
-                <div class="text">Sultan of The Disco - Shining Road (Live)</div>
             </div>
+
             <div class="mySlides2">
                 <a href="https://www.youtube.com/watch?v=kGAhLNbZ864" target="_blank">
-                    <img width="100%" height="350" src="../../album_img/driveme.jpg">
+                    <div class="img-container">
+                        <img src="../../album_img/driveme.jpg" alt="Lil Yachty - drive ME crazy! (Live)">
+                        <div class="overlay-title">Lil Yachty - drive ME crazy! (Live)</div>
+                    </div>
                 </a>
-                <div class="text">Lil Yachty - drive ME crazy! (Live)</div>
             </div>
+
+
+            <div id="move">
 
             <a class="prev2" onclick="plusSlides2(-1)">❮</a>
             <a class="next2" onclick="plusSlides2(1)">❯</a>
@@ -298,9 +135,60 @@
                 <span class="dot" onclick="currentSlide2(4)"></span>
                 <span class="dot" onclick="currentSlide2(5)"></span>
             </div>
+            </div>
+
         </div>
     </div>
 
+
+    <div id="cdBox">
+        <div class="albumHeader">
+        <h1 class="week">Album</h1>
+        <h1 class="more">
+            <a href="<c:url value='/album/list'/>"> ❯</a>
+        </h1>
+        </div>
+        <ul>
+            <c:if test="${not empty albumDtos}">
+                <c:forEach begin="0" end="5" var="i">
+                    <c:choose>
+                        <c:when test="${i < fn:length(albumDtos)}">
+                            <c:set var="albumDto" value="${albumDtos[i]}" />
+                            <li class="one">
+                                <a href="/album/read?ano=${albumDto.ano}">
+                                    <div class="img-container">
+                                        <img src="${albumDto.img}" alt="${albumDto.title}" />
+                                        <div class="overlay-title">${albumDto.title}</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </c:when>
+
+                        <c:otherwise>
+                            <li class="one">
+                                <div>
+                                    <img alt="No Album" />
+                                </div>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </c:if>
+
+            <c:if test="${empty albumDtos}">
+                <c:forEach begin="0" end="5" var="i">
+                    <li class="one">
+                        <div>
+                            <img alt="No Album" />
+                        </div>
+                    </li>
+                </c:forEach>
+            </c:if></ul>
+    </div>
+
+
+
+        </div>
     </section>
 </div>
 
@@ -321,33 +209,6 @@
         alert("회원탈퇴가 완료되었습니다.")
     }
 
-    // 첫번째 슬라이드
-    let slideIndex = 1;
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("demo");
-        let captionText = document.getElementById("caption");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        captionText.innerHTML = dots[slideIndex - 1].alt;
-    }
 
     // 두번째 슬라이드
     let slideIndex2 = 1;

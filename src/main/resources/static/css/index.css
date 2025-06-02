@@ -14,37 +14,6 @@
 
 }
 
-.box {
-    position: relative;
-    width: 100%;
-    font-size: 13px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-#cdBox {
-    display: grid;
-    position: relative;
-    width: 100%;
-}
-
-#vinylBox {
-    display: grid;
-    position: relative;
-    width: 100%;
-    margin-top: 50px;
-
-}
-
-.one {
-    overflow: hidden;
-    padding: 10px;
-    width: 222px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    display: inline-block;
-}
-
-
 img {
     vertical-align: middle;
 }
@@ -127,6 +96,187 @@ img {
     position: relative;
 }
 
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+
+#two2 {
+    text-align: center;
+}
+
+.text {
+    position: relative;
+    top: 3px;
+    font-size: 14px;
+    color: dimgray;
+}
+
+#god {
+    display: flex;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: left;
+    gap: 20px;
+}
+
+.card2 {
+    width: 100%;
+    height: 490px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card2 img{
+    width: 100%;
+    height: 380px;
+}
+
+.container3 {
+    padding: 0 12px;
+}
+.container3 h4{
+    margin-top: 10px;
+}
+
+.sub {
+    color: grey;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.small {
+    font-size: 13px;
+}
+
+
+.album-video-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    flex-wrap: wrap; /* 모바일 대응 시 줄바꿈 */
+}
+
+
+
+/*앨범*/
+#cdBox {
+    display: grid;
+    position: relative;
+    font-size: 13px;
+    box-sizing: border-box;
+    width: 48%;
+}
+
+.three {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+.one {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    width: 177px;
+    height: 177px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: inline-block;
+}
+
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/*ㅡㅡ*/
+
+.miniHeader{
+    display: flex;
+    justify-content: space-between; /* 좌우 정렬 */
+}
+
+.albumHeader{
+    display: flex;
+    justify-content: space-between; /* 좌우 정렬 */
+    margin-bottom: 20px;
+}
+
+
+
+.week {
+    color: dimgrey;
+    display: flex;
+    font-size: 14px;
+}
+
+.more {
+    position: relative;
+    float: right;
+    font-size: 13px;
+    margin-left: auto;
+    right: 5px;
+    color: dimgray;
+}
+
+
+.video-box {
+    font-size: 13px;
+    box-sizing: border-box;
+    width:50%;
+}
+
+
+.mySlides2>.text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+/* .mySlides2 수정 */
+.mySlides2 {
+    position: relative;
+    width: 100%;
+    height: 335px;
+}
+
+/* 이미지 컨테이너 */
+.img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* 이미지 설정 */
+.img-container img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#move{
+    margin-top: 5px;;
+}
+
+
+
 .prev2,
 .next2 {
     cursor: pointer;
@@ -134,7 +284,7 @@ img {
     top: 90%;
     width: auto;
     padding: 3px;
-    margin-top: 8px;
+    margin-top: 16px;
     color: silver;
     font-weight: bold;
     font-size: 16px;
@@ -167,101 +317,3 @@ img {
 
 }
 
-.active,
-.dot:hover {
-    background-color: #717171;
-}
-
-
-#king {
-    display: flex;
-    width: 1130px;
-}
-
-.container1,
-.container2 {
-    width: 50%;
-    box-sizing: border-box;
-}
-
-#two2 {
-    text-align: center;
-}
-
-.three>p {
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-.week {
-    color: dimgrey;
-    display: flex;
-    font-size: 14px;
-    margin-bottom: -5px;
-}
-
-.more {
-    position: relative;
-    float: right;
-    bottom: 10px;
-    font-size: 13px;
-    margin-left: auto;
-    right: 5px;
-}
-
-.more>a {
-    color: dimgray;
-}
-
-
-
-.mySlides2 img {
-    margin-bottom: 10px;
-}
-
-.mySlides2>.text {
-    margin-bottom: 10px;
-}
-
-.text {
-    position: relative;
-    top: 3px;
-    font-size: 14px;
-    color: dimgray;
-}
-
-#god {
-    display: flex;
-    font-size: 14px;
-    margin-top: 20px;
-    text-align: left;
-    gap: 20px;
-}
-
-.card2 {
-    width: 100%;
-    height: 510px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.card2 img{
-    width: 100%;
-    height: 400px;
-}
-
-.container3 {
-    padding: 0 12px;
-}
-.container3 h4{
-    margin-top: 10px;
-}
-
-.sub {
-    color: grey;
-    font-size: 14px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-.small {
-    font-size: 13px;
-}

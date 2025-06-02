@@ -47,7 +47,6 @@ public class Album {
     @Column(name= "reg_dt", nullable = false)
     private Date regDt = new Date();
 
-
     @Builder.Default
     @Column(name= "up_dt", nullable = false)
     private Date upDt = new Date();

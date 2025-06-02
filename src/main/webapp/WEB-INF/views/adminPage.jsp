@@ -29,7 +29,7 @@
             color: #333;
         }
 
-        #write, #modify, #cust , #performanceWrite{
+        #write, #modify, #cust , #performanceWrite, #performanceModify{
             display: inline-block;
             margin-top: 20px;
             background-color: darkgreen;
@@ -87,8 +87,9 @@
 
 
     <a id="write" href="/admin/album">앨범 업로드</a>
-    <a id="performanceWrite" href="/admin/performance">공연 업로드</a>
     <a id="modify" href="/admin/album_manage">앨범 관리</a>
+    <a id="performanceWrite" href="/admin/performance">공연 업로드</a>
+    <a id="performanceModify" href="/admin/performance_manage">공연 관리</a>
     <a id="cust" href="/admin/cust_list">회원 목록</a>
 
 

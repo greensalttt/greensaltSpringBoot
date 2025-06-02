@@ -75,6 +75,8 @@
     <header>
         <jsp:include page="header.jsp"/>
     </header>
+
+
     <div id="performancePageContainer">
         <div class="performance-image">
             <img src="${performanceDto.img}" alt="앨범 이미지">
@@ -94,10 +96,9 @@
             <h3>공연 소개</h3>
             <p>${performanceDto.content}</p>
         </div>
-
-
-
     </div>
+
+
     <footer>
         <jsp:include page="footer.jsp"/>
     </footer>

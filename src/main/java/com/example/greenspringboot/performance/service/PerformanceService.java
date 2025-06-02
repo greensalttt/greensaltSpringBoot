@@ -5,8 +5,10 @@ import com.example.greenspringboot.board.paging.SearchCondition12;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.entity.Performance;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 public interface PerformanceService {
@@ -22,4 +24,12 @@ public interface PerformanceService {
     List<PerformanceDto> toDtoList(List<Performance> performanceList);
 
     void performanceList(Model m);
+
+    boolean performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session) throws IOException;
+
+    PerformanceDto toDto(Performance performance);
+
+    void toEntity(Performance performance, PerformanceDto performanceDto, MultipartFile imgFile) throws IOException;
+
+    boolean performanceRemove(Integer pno);
 }

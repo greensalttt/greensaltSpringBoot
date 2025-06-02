@@ -149,6 +149,12 @@
         }
     });
 
+
+    let testAid = "${testAid}";
+    if (testAid === "msg") {
+        alert("테스트 아이디는 등록할 수 없습니다.");
+    }
+
     let adminWriteFail = "${adminWriteFail}";
     if (adminWriteFail === "msg") {
         alert("앨범 등록에 실패했습니다.");

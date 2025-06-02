@@ -87,7 +87,7 @@
 <body>
 
 <div id="wrapper">
-    <form action="/admin/modify" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <form action="/admin/album_modify" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div id="albumPageContainer">
             <div class="album-image">
                 <img id="albumPreview" src="${albumDto.img}" alt="앨범 이미지" style="max-width: 200px;">
@@ -189,6 +189,12 @@ function validateForm() {
 
         return true; // 모든 검사를 통과했을 때만 제출 허용
     }
+
+
+     let testAid = "${testAid}";
+     if (testAid === "msg") {
+         alert("테스트 아이디는 수정할 수 없습니다.");
+     }
 
 
     let modifyFail = "${modifyFail}"
