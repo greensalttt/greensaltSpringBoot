@@ -1,3 +1,7 @@
+## 음악 커뮤니티 녹색소금
+
+> https://greensalt.site/
+<br>
 
 ## 개발환경
 
@@ -11,7 +15,6 @@ Build: Maven
 IDE: IntelliJ IDEA
 ```
 <br>
-
 
 ## Commit Message Convention
 
@@ -27,9 +30,7 @@ chore: 빌드 업데이트 및 자잘한 수정
 refactor: 코드 구조 개선 (기능 변경 X)
 
 ```
-
 <br>
-
 
 ## 개발기능 (~ing)
 
