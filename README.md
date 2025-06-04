@@ -4,13 +4,27 @@
 
 https://greensalt.site/
 
-## 개발환경
-
-> Java + Spring Boot + JSP + JPA
+## 배포환경
+> Spring Boot + JSP
 
 ```yaml
+Packaging: WAR
+Deployment: AWS EC2
+OS: Windows 2025
+WAS: External Tomcat
+DBMS: MySQL(AppPaaS)
+Build: Maven
+SSL: Cloudflare(https)
+```
+
+
+## 개발환경
+
+> Spring Boot + JSP + JPA
+
+```yaml
+WAS : Embedded Tomcat
 DBMS: MySQL
-WAS : tomcat
 VCS: github
 Build: Maven
 IDE: IntelliJ IDEA
@@ -34,7 +48,7 @@ refactor: 코드 구조 개선 (기능 변경 X)
 ## 개발기능 (~ing)
 
 #### 홈
-   + 앨범과 공연의 리스트를 받아 최신순으로 홈화면에 표시
+   + 앨범과 공연 정보를 최신순으로 표시
 
 #### 회원가입
    + 587포트와 Ajax를 활용하여 이메일 인증
@@ -44,7 +58,7 @@ refactor: 코드 구조 개선 (기능 변경 X)
 
 #### 로그인
    + 회원, 관리자 로그인 구분
-   + 세션을 통한 비밀번호 찾기 기능 구현
+   + 세션을 통한 비밀번호 찾기 
    + Cookie를 활용한 이메일 저장 체크박스
      + 체크하고 로그인에 성공하면 이메일이 암호화 된 상태로 쿠키에 저장
      + 재로그인시 암호화 된 이메일 쿠키가 복호화 되어 로그인폼에 표시
