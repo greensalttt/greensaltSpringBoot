@@ -24,8 +24,6 @@ public class Album {
     @Column(name = "a_id", nullable = false)
     private int aId;
 
-    private String domestic;
-
     private String type;
 
     private String genre;

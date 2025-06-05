@@ -28,8 +28,6 @@ public class Performance {
 
     private String artist;
 
-    private String region;
-
     private String genre;
 
     private String venue;

@@ -103,7 +103,6 @@ public class AlbumServiceImpl implements AlbumService{
             Album album = Album.builder()
                     .ano(albumDto.getAno())
                     .aId(albumDto.getAId())
-                    .domestic(albumDto.getDomestic())
                     .type(albumDto.getType())
                     .genre(albumDto.getGenre())
                     .title(albumDto.getTitle())
@@ -192,7 +191,6 @@ public class AlbumServiceImpl implements AlbumService{
         return albumList.stream()
                 .map(album -> AlbumDto.builder()
                         .ano(album.getAno())
-                        .domestic(album.getDomestic())
                         .type(album.getType())
                         .genre(album.getGenre())
                         .title(album.getTitle())
@@ -272,7 +270,6 @@ public class AlbumServiceImpl implements AlbumService{
         return AlbumDto.builder()
                 .ano(album.getAno())
                 .aId(album.getAId())
-                .domestic(album.getDomestic())
                 .type(album.getType())
                 .genre(album.getGenre())
                 .title(album.getTitle())
@@ -293,8 +290,8 @@ public class AlbumServiceImpl implements AlbumService{
         if (albumDto.getTitle() != null) {
             album.setTitle(albumDto.getTitle());
         }
-        if (albumDto.getDomestic() != null) {
-            album.setDomestic(albumDto.getDomestic());
+        if (albumDto.getArtist() != null) {
+            album.setArtist(albumDto.getArtist());
         }
         if (albumDto.getType() != null) {
             album.setType(albumDto.getType());
@@ -302,9 +299,7 @@ public class AlbumServiceImpl implements AlbumService{
         if (albumDto.getGenre() != null) {
             album.setGenre(albumDto.getGenre());
         }
-        if (albumDto.getArtist() != null) {
-            album.setArtist(albumDto.getArtist());
-        }
+
         if (albumDto.getContent() != null) {
             album.setContent(albumDto.getContent());
         }

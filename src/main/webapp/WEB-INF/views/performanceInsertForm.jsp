@@ -85,13 +85,6 @@
         <label for="artist">아티스트명:</label>
         <input type="text" name="artist" id="artist" required>
 
-        <label for="region">국내/해외 구분:</label>
-        <select name="region" id="region" required>
-            <option value="">-- 선택하세요 --</option>
-            <option value="국내">국내</option>
-            <option value="해외">해외</option>
-        </select>
-
         <label for="genre">장르:</label>
         <input type="text" name="genre" id="genre">
 
@@ -138,7 +131,7 @@
 
     // 기본 유효성 검사
     document.getElementById('performanceForm').addEventListener('submit', function (e) {
-        const requiredFields = [ 'title', 'artist', 'region', 'genre',
+        const requiredFields = [ 'title', 'artist', 'genre',
             'venue', 'duration', 'rating', 'date',
             'content', 'imgFile'];
         for (let id of requiredFields) {

@@ -11,7 +11,6 @@ import java.util.Date;
 public class AlbumDto {
     private Integer ano;
     private Integer aId;
-    private String domestic;
     private String type;
     private String genre;
     private String title;

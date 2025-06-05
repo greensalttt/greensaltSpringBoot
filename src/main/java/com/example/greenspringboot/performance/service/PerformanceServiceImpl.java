@@ -39,7 +39,6 @@ public class PerformanceServiceImpl implements PerformanceService{
             Integer ppno = performance.getPno();
             String title = performance.getTitle();
             String artist = performance.getArtist();
-            String region = performance.getRegion();
             String genre = performance.getGenre();
             String venue = performance.getVenue();
             String duration = performance.getDuration();
@@ -52,7 +51,6 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .pno(ppno)
                     .title(title)
                     .artist(artist)
-                    .region(region)
                     .genre(genre)
                     .venue(venue)
                     .duration(duration)
@@ -86,7 +84,6 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .aId(performanceDto.getAId())
                     .title(performanceDto.getTitle())
                     .artist(performanceDto.getArtist())
-                    .region(performanceDto.getRegion())
                     .genre(performanceDto.getGenre())
                     .venue(performanceDto.getVenue())
                     .duration(performanceDto.getDuration())
@@ -170,7 +167,6 @@ public class PerformanceServiceImpl implements PerformanceService{
                         .pno(performance.getPno())
                         .title(performance.getTitle())
                         .artist(performance.getArtist())
-                        .region(performance.getRegion())
                         .genre(performance.getGenre())
                         .venue(performance.getVenue())
                         .duration(performance.getDuration())
@@ -280,7 +276,6 @@ public class PerformanceServiceImpl implements PerformanceService{
                 .aId(performance.getAId())
                 .title(performance.getTitle())
                 .artist(performance.getArtist())
-                .region(performance.getRegion())
                 .genre(performance.getGenre())
                 .venue(performance.getVenue())
                 .duration(performance.getDuration())
@@ -302,9 +297,6 @@ public class PerformanceServiceImpl implements PerformanceService{
         }
         if (performanceDto.getArtist() != null) {
             performance.setArtist(performanceDto.getArtist());
-        }
-        if (performanceDto.getRegion() != null) {
-            performance.setRegion(performanceDto.getRegion());
         }
         if (performanceDto.getGenre() != null) {
             performance.setGenre(performanceDto.getGenre());

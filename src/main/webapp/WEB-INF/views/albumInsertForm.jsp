@@ -78,12 +78,6 @@
     <h2>앨범 등록</h2>
 
     <form id="albumForm" action="/admin/write" method="post" enctype="multipart/form-data">
-        <label for="domestic">국내/해외:</label>
-        <select name="domestic" id="domestic" required>
-            <option value="">-- 선택하세요 --</option>
-            <option value="국내">국내</option>
-            <option value="해외">해외</option>
-        </select>
 
         <label for="type">유형:</label>
         <select name="type" id="type" required>
@@ -137,7 +131,7 @@
 
     // 기본 유효성 검사
     document.getElementById('albumForm').addEventListener('submit', function (e) {
-        const requiredFields = ['domestic', 'type', 'genre', 'title', 'artist',  'content','released', 'imgFile'];
+        const requiredFields = ['type', 'genre', 'title', 'artist',  'content','released', 'imgFile'];
         for (let id of requiredFields) {
             const input = document.getElementById(id);
             if (!input.value.trim()) {

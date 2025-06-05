@@ -110,11 +110,19 @@
                     <input type="text" name="artist" value="${albumDto.artist}" />
                 </p>
 
-                <p><strong>type:</strong>
-                    <input type="text" name="type" value="${albumDto.type}" />
-                </p>
 
-                <p><strong>genre:</strong>
+                <label for="type">유형:</label>
+                <select name="type" id="type" required>
+                    <option value="">-- 선택하세요 --</option>
+                    <option value="싱글" ${albumDto.type == '싱글' ? 'selected' : ''}>싱글</option>
+                    <option value="EP" ${albumDto.type == 'EP' ? 'selected' : ''}>EP</option>
+                    <option value="정규" ${albumDto.type == '정규' ? 'selected' : ''}>정규</option>
+                    <option value="믹스테잎" ${albumDto.type == '믹스테잎' ? 'selected' : ''}>믹스테잎</option>
+                </select>
+
+
+
+        <p><strong>genre:</strong>
                     <input type="text" name="genre" value="${albumDto.genre}" />
                 </p>
 

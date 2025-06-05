@@ -14,7 +14,6 @@ public class PerformanceDto {
     private Integer aId;
     private String title;
     private String artist;
-    private String region;
     private String genre;
     private String venue;
     private String duration;
