@@ -57,7 +57,7 @@ public class CustRepositoryTest {
     @Test
     public void pwd(){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPwd = "test";
+        String rawPwd = "";
         String encodedPwd = encoder.encode(rawPwd);
         System.out.println("해시값: "+encodedPwd);
     }
