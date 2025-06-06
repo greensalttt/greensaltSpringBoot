@@ -111,7 +111,7 @@ public class AdminServiceImpl implements AdminService {
                             .cJibunA(cust.getCJibunA())
                             .cDetA(cust.getCDetA())
                             .loginDt(cust.getLoginDt())
-                            .regDt(cust.getRegDt())
+                            .createdAt(cust.getCreatedAt())
                             .build())
                     .collect(Collectors.toList());
 

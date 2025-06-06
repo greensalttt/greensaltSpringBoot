@@ -192,7 +192,9 @@
     let msg = "${msg}";
     if(msg=="DEL_OK")    alert("성공적으로 삭제되었습니다.");
     if(msg=="WRT_OK")    alert("성공적으로 등록되었습니다.");
-    if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
+    // if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
+    // if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
+    // if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 </script>
 
     <div class="board-container">
@@ -234,11 +236,11 @@
 
 <%--                JSTL로 반복문,조건문,URL,날짜 형식화 등을 할 수 있다--%>
                     <c:choose>
-                        <c:when test="${boardDto.regDt.time >= startOfToday}">
-                            <td class="regdt"><fmt:formatDate value="${boardDto.regDt}" pattern="HH:mm" type="time"/></td>
+                        <c:when test="${boardDto.createdAt.time >= startOfToday}">
+                            <td class="regdt"><fmt:formatDate value="${boardDto.createdAt}" pattern="HH:mm" type="time"/></td>
                         </c:when>
                         <c:otherwise>
-                            <td class="regdt"><fmt:formatDate value="${boardDto.regDt}" pattern="yyyy-MM-dd" type="date"/></td>
+                            <td class="regdt"><fmt:formatDate value="${boardDto.createdAt}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
                     <td class="viewcnt">${boardDto.viewCnt}</td>

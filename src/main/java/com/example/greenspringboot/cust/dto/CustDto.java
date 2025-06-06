@@ -18,10 +18,10 @@ public class CustDto {
     private String cDetA;
     private Date loginDt;
     private Long visitCnt;
-    private Date regDt;
-    private String frst_reg_id;
-    private Date last_mod_dt;
-    private String last_mod_id;
+    private Date createdAt;
+//    private Integer createdBy;
+    private Date updatedAt;
+//    private Integer updatedBy;
     private Long boardCount;
     private Long commentCount;
 }

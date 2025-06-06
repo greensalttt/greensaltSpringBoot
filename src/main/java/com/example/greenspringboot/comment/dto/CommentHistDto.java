@@ -14,8 +14,6 @@ public class CommentHistDto {
         private Integer bno;
         private String coBf;
         private String coAf;
-        private Date frst_reg_dt;
-        private String frst_reg_id;
-        private Date last_mod_dt;
-        private String last_mod_id;
+        private Date createdAt;
+        private Integer createdBy;
     }

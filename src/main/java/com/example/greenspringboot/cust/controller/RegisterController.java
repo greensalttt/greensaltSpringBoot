@@ -70,6 +70,6 @@ public class RegisterController {
         return "errorPage";
         }
         msg.addFlashAttribute("signUpClear", "msg");
-        return "loginForm";
+        return "redirect:/login";
     }
 }

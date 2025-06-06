@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "cust_hist")
@@ -20,8 +21,8 @@ public class CustHist {
     @Column(name = "c_hist_num", nullable = false)
     private int cHistNum;
 
-    @Column(name = "c_id", nullable = false)
-    private int cId;
+//    @Column(name = "c_id", nullable = false)
+//    private int cId;
 
     @Column(name = "c_cng_cd", nullable = false)
     private String cCngCd;
@@ -33,15 +34,11 @@ public class CustHist {
     private String cAf;
 
     @Builder.Default
-    private LocalDateTime frst_reg_dt = LocalDateTime.now();
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
 
-    @Builder.Default
-    private String frst_reg_id = "minwook";
-
-    @Builder.Default
-    private LocalDateTime last_mod_dt = LocalDateTime.now();
-
-    @Builder.Default
-    private String last_mod_id = "minwook";
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
 
 }

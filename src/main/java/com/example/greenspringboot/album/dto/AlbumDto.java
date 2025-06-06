@@ -10,7 +10,6 @@ import java.util.Date;
 @Builder
 public class AlbumDto {
     private Integer ano;
-    private Integer aId;
     private String type;
     private String genre;
     private String title;
@@ -20,7 +19,9 @@ public class AlbumDto {
     private String img;
     private String released;
     private Boolean deleted;
-    private Date regDt;
-    private Date upDt;
+    private Date createdAt;
+    private Integer createdBy;
+    private Date updatedAt;
+    private Integer updatedBy;
 }
 

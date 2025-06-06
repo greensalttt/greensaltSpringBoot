@@ -191,15 +191,15 @@ public class CustServiceImpl implements CustService {
             Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
 
             String cNick = cust.getCNick();
-            Date regDt = cust.getRegDt();
+            Date createdAt = cust.getCreatedAt();
             Long visitCnt = cust.getVisitCnt();
-            Long boardCount = boardRepository.countBycIdAndDeletedFalse(cId);
+            Long boardCount = boardRepository.countByCreatedByAndDeletedFalse(cId);
             Long commentCount = commentRepository.countBycIdAndDeletedFalse(cId);
 
             CustDto custDto = CustDto.builder()
                     .cNick(cNick)
                     .visitCnt(visitCnt)
-                    .regDt(regDt)
+                    .createdAt(createdAt)
                     .boardCount(boardCount)
                     .commentCount(commentCount)
                     .build();
@@ -228,7 +228,7 @@ public class CustServiceImpl implements CustService {
             String cRoadA = cust.getCRoadA();
             String cJibunA = cust.getCJibunA();
             String cDetA = cust.getCDetA();
-            Date regDt = cust.getRegDt();
+            Date createdAt = cust.getCreatedAt();
             long visitCnt = cust.getVisitCnt();
 
             CustDto custDto = CustDto.builder()
@@ -239,7 +239,7 @@ public class CustServiceImpl implements CustService {
                     .cJibunA(cJibunA)
                     .cDetA(cDetA)
                     .visitCnt(visitCnt)
-                    .regDt(regDt)
+                    .createdAt(createdAt)
                     .build();
             model.addAttribute("custDto", custDto);
 
@@ -286,10 +286,10 @@ public class CustServiceImpl implements CustService {
                              String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
             CustHist custHist = new CustHist();
-            custHist.setCId(newData.getCId());
             custHist.setCCngCd(changeCode);
             custHist.setCBf(oldValue);
             custHist.setCAf(newValue);
+            custHist.setCreatedBy(newData.getCId());
             custHistList.add(custHist);
         }
     }
@@ -334,10 +334,10 @@ public class CustServiceImpl implements CustService {
 
             // 이력 기록
             CustHist custHist = new CustHist();
-            custHist.setCId(custDto.getCId());
             custHist.setCCngCd("PWD");
             custHist.setCBf(oldPwd.getCPwd());
             custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+            custHist.setCreatedBy(custDto.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -369,10 +369,10 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
 
             // 이력 기록
             CustHist custHist = new CustHist();
-            custHist.setCId(custDto.getCId());
             custHist.setCCngCd("PWD");
             custHist.setCBf(oldPwd.getCPwd());
             custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+            custHist.setCreatedBy(custDto.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -412,10 +412,10 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
 
             // 이력 기록
             CustHist custHist = new CustHist();
-            custHist.setCId(cust.getCId());
             custHist.setCCngCd("STAT");
             custHist.setCBf(oldCust.getStatCd());
             custHist.setCAf(cust.getStatCd());
+            custHist.setCreatedBy(cust.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -439,7 +439,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
                 .cJibunA(cust.getCJibunA())
                 .cDetA(cust.getCDetA())
                 .visitCnt(cust.getVisitCnt())
-                .regDt(cust.getRegDt())
+                .createdAt(cust.getCreatedAt())
                 .build(); // 빌더를 사용해 객체 생성
     }
 

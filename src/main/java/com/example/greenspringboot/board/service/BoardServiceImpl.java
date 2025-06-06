@@ -50,10 +50,12 @@ public class BoardServiceImpl implements BoardService{
 
             Board board = Board.builder()
                     .bno(boardDto.getBno())
-                    .cId(boardDto.getCId())
+//                    .cId(boardDto.getCId())
                     .title(boardDto.getTitle())
                     .content(boardDto.getContent())
                     .writer(custDto.getCNick())
+                    .createdBy(boardDto.getCreatedBy())
+                    .updatedBy(boardDto.getCreatedBy())
                     .build();
             // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
             boardRepository.save(board);
@@ -71,8 +73,8 @@ public class BoardServiceImpl implements BoardService{
     //삭제
 
     @Override
-    public void remove(Integer cId, Integer bno){
-        Board board = boardRepository.findBycIdAndBno(cId, bno);
+    public void remove(Integer createdBy, Integer bno){
+        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
         board.setDeleted(true);
         boardRepository.save(board);
     }
@@ -83,19 +85,20 @@ public class BoardServiceImpl implements BoardService{
         if (!oldValue.equals(newValue)) {
             BoardHistDto boardHistDto = new BoardHistDto();
             boardHistDto.setBno(newData.getBno());
-            boardHistDto.setCId(newData.getCId());
+            boardHistDto.setCId(newData.getCreatedBy());
             boardHistDto.setBCngCd(changeCode);
             boardHistDto.setBBf(oldValue);
             boardHistDto.setBAf(newValue);
+            boardHistDto.setCreatedBy(newData.getCreatedBy());
             boardHistDtoList.add(boardHistDto);
         }}
 
 //    추후 boolean으로 수정
     @Transactional
     @Override
-    public void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData) {
+    public void boardModify(BoardDto boardDto, Integer createdBy, Integer bno, BoardDto oldData) {
 
-        Board board = boardRepository.findBycIdAndBno(cId, bno);
+        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
 
         // 기존 dto를 엔티티로 변환
         toEntity(board, boardDto);
@@ -119,6 +122,8 @@ public class BoardServiceImpl implements BoardService{
             boardHist.setBCngCd(boardHistDto.getBCngCd());
             boardHist.setBBf(boardHistDto.getBBf());
             boardHist.setBAf(boardHistDto.getBAf());
+            boardHist.setCreatedBy(boardHistDto.getCreatedBy());
+
 
             // 이력 저장
             boardHistRepository.save(boardHist);
@@ -130,9 +135,9 @@ public class BoardServiceImpl implements BoardService{
         if (boardDto.getBno() != null) {
             board.setBno(boardDto.getBno());
         }
-        if (boardDto.getCId() != null) {
-            board.setCId(boardDto.getCId());
-        }
+//        if (boardDto.getCId() != null) {
+//            board.setCId(boardDto.getCId());
+//        }
         if (boardDto.getTitle() != null) {
             board.setTitle(boardDto.getTitle());
         }
@@ -151,11 +156,17 @@ public class BoardServiceImpl implements BoardService{
         if (boardDto.getDeleted() != null) {
             board.setDeleted(boardDto.getDeleted());
         }
-        if (boardDto.getRegDt() != null) {
-            board.setRegDt(boardDto.getRegDt());
+        if (boardDto.getCreatedAt() != null) {
+            board.setCreatedAt(boardDto.getCreatedAt());
         }
-        if (boardDto.getUpDt() != null) {
-            board.setUpDt(boardDto.getUpDt());
+        if (boardDto.getCreatedBy() != null) {
+            board.setCreatedBy(boardDto.getCreatedBy());
+        }
+        if (boardDto.getUpdatedAt() != null) {
+            board.setUpdatedAt(boardDto.getUpdatedAt());
+        }
+        if (boardDto.getUpdatedBy() != null) {
+            board.setUpdatedBy(boardDto.getUpdatedBy());
         }
     }
 
@@ -217,15 +228,15 @@ public class BoardServiceImpl implements BoardService{
         return boardList.stream()
                 .map(board -> BoardDto.builder()
                         .bno(board.getBno())
-                        .cId(board.getCId())
+//                        .cId(board.getCId())
                         .title(board.getTitle())
                         .content(board.getContent())
                         .writer(board.getWriter())
                         .viewCnt(board.getViewCnt())
                         .commentCnt(board.getCommentCnt())
                         .deleted(board.getDeleted())
-                        .regDt(board.getRegDt())
-                        .upDt(board.getUpDt())
+                        .createdAt(board.getCreatedAt())
+                        .createdBy(board.getCreatedBy())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -236,15 +247,15 @@ public class BoardServiceImpl implements BoardService{
     public BoardDto toDto(Board board) {
         return BoardDto.builder()
                 .bno(board.getBno())
-                .cId(board.getCId())
+//                .cId(board.getCId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
                 .viewCnt(board.getViewCnt())
                 .commentCnt(board.getCommentCnt())
                 .deleted(board.getDeleted())
-                .regDt(board.getRegDt())
-                .upDt(board.getUpDt())
+                .createdAt(board.getCreatedAt())
+                .createdBy(board.getCreatedBy())
                 .build();
     }
     

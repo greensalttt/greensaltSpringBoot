@@ -40,7 +40,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Board findByBno(Integer bno);
 
-    Board findBycIdAndBno(Integer cId, Integer bno);
+    Board findByCreatedByAndBno(Integer createdBy, Integer bno);
 
     // 게시글 조회 시 조회수(view_cnt) 1 증가
     @Modifying
@@ -48,7 +48,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     int incrementViewCnt(@Param("bno") Integer bno);
 
 
-    Long countBycIdAndDeletedFalse(Integer cId);
+    Long countByCreatedByAndDeletedFalse(Integer createdBy);
 
     Long countByDeletedFalse();
 }

@@ -78,10 +78,9 @@ public class PerformanceServiceImpl implements PerformanceService{
             String img = uploadImage(file);
 
             performanceDto.setImg(img); // 이미지 경로를 저장할 img 필드에 넣음
-            performanceDto.setAId((Integer) session.getAttribute("aId"));
+            performanceDto.setCreatedBy((Integer) session.getAttribute("aId"));
 
             Performance performance = Performance.builder()
-                    .aId(performanceDto.getAId())
                     .title(performanceDto.getTitle())
                     .artist(performanceDto.getArtist())
                     .genre(performanceDto.getGenre())
@@ -91,6 +90,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .date(performanceDto.getDate())
                     .content(performanceDto.getContent())
                     .img(performanceDto.getImg())
+                    .createdBy(performanceDto.getCreatedBy())
                     .build();
 
             performanceRepository.save(performance);
@@ -175,8 +175,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                         .content(performance.getContent())
                         .img(performance.getImg())
                         .deleted(performance.getDeleted())
-                        .regDt(performance.getRegDt())
-                        .upDt(performance.getUpDt())
+                        .createdAt(performance.getCreatedAt())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -258,11 +257,11 @@ public class PerformanceServiceImpl implements PerformanceService{
                               String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
             PerformanceHist performanceHist = new PerformanceHist();
-            performanceHist.setPno(pno);               // 공연 번호
-            performanceHist.setAId(modifierAId);       // 수정자 ID
-            performanceHist.setPCngCd(changeCode);     // 변경 항목
-            performanceHist.setPBf(oldValue);          // 변경 전
-            performanceHist.setPAf(newValue);          // 변경 후
+            performanceHist.setPno(pno);
+            performanceHist.setPCngCd(changeCode);
+            performanceHist.setPBf(oldValue);
+            performanceHist.setPAf(newValue);
+            performanceHist.setCreatedBy(modifierAId);
             performanceHistList.add(performanceHist);
 
             System.out.println(">>> 변경 감지: " + changeCode + " / old: " + oldValue + " / new: " + newValue);
@@ -273,7 +272,6 @@ public class PerformanceServiceImpl implements PerformanceService{
     public PerformanceDto toDto(Performance performance) {
         return PerformanceDto.builder()
                 .pno(performance.getPno())
-                .aId(performance.getAId())
                 .title(performance.getTitle())
                 .artist(performance.getArtist())
                 .genre(performance.getGenre())
@@ -284,8 +282,8 @@ public class PerformanceServiceImpl implements PerformanceService{
                 .content(performance.getContent())
                 .img(performance.getImg())
                 .deleted(performance.getDeleted())
-                .regDt(performance.getRegDt())
-                .upDt(performance.getUpDt())
+                .createdAt(performance.getCreatedAt())
+                .createdBy(performance.getCreatedBy())
                 .build();
     }
 

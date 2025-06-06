@@ -98,11 +98,10 @@ public class AlbumServiceImpl implements AlbumService{
             String img = uploadImage(file);
 
             albumDto.setImg(img); // 이미지 경로를 저장할 img 필드에 넣음
-            albumDto.setAId((Integer) session.getAttribute("aId"));
+            albumDto.setCreatedBy((Integer) session.getAttribute("aId"));
 
             Album album = Album.builder()
                     .ano(albumDto.getAno())
-                    .aId(albumDto.getAId())
                     .type(albumDto.getType())
                     .genre(albumDto.getGenre())
                     .title(albumDto.getTitle())
@@ -110,6 +109,8 @@ public class AlbumServiceImpl implements AlbumService{
                     .content(albumDto.getContent())
                     .released(albumDto.getReleased())
                     .img(albumDto.getImg())
+                    .createdAt(albumDto.getCreatedAt())
+                    .createdBy(albumDto.getCreatedBy())
                     .build();
 
             albumRepository.save(album);
@@ -199,8 +200,6 @@ public class AlbumServiceImpl implements AlbumService{
                         .img(album.getImg())
                         .released(album.getReleased())
                         .deleted(album.getDeleted())
-                        .regDt(album.getRegDt())
-                        .upDt(album.getUpDt())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -253,11 +252,11 @@ public class AlbumServiceImpl implements AlbumService{
                               String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
             AlbumHist albumHist = new AlbumHist();
-            albumHist.setAno(ano);               // 앨범 번호
-            albumHist.setAId(modifierAId);       // 수정자 ID
-            albumHist.setACngCd(changeCode);     // 변경 항목
-            albumHist.setABf(oldValue);          // 변경 전
-            albumHist.setAAf(newValue);          // 변경 후
+            albumHist.setAno(ano);
+            albumHist.setACngCd(changeCode);
+            albumHist.setABf(oldValue);
+            albumHist.setAAf(newValue);
+            albumHist.setCreatedBy(modifierAId);
             albumHistList.add(albumHist);
 
             System.out.println(">>> 변경 감지: " + changeCode + " / old: " + oldValue + " / new: " + newValue);
@@ -269,7 +268,6 @@ public class AlbumServiceImpl implements AlbumService{
     public AlbumDto toDto(Album album) {
         return AlbumDto.builder()
                 .ano(album.getAno())
-                .aId(album.getAId())
                 .type(album.getType())
                 .genre(album.getGenre())
                 .title(album.getTitle())
@@ -278,8 +276,8 @@ public class AlbumServiceImpl implements AlbumService{
                 .img(album.getImg())
                 .released(album.getReleased())
                 .deleted(album.getDeleted())
-                .regDt(album.getRegDt())
-                .upDt(album.getUpDt())
+                .createdAt(album.getCreatedAt())
+                .createdBy(album.getCreatedBy())
                 .build();
     }
 

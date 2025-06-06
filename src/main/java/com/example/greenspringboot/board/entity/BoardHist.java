@@ -37,14 +37,12 @@ public class BoardHist {
     private String bAf;
 
     @Builder.Default
-    private Date frst_reg_dt = new Date();
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
 
-    @Builder.Default
-    private String frst_reg_id = "minwook";
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
 
-    @Builder.Default
-    private Date last_mod_dt = new Date();
 
-    @Builder.Default
-    private String last_mod_id = "minwook";
 }

@@ -10,10 +10,8 @@ public class BoardHistDto {
     private String bCngCd;
     private String bBf;
     private String bAf;
-    private Date frst_reg_dt;
-    private String frst_reg_id;
-    private Date last_mod_dt;
-    private String last_mod_id;
+    private Date createdAt;
+    private Integer createdBy;
 
     public BoardHistDto(){}
 

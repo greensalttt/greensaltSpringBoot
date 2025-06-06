@@ -35,14 +35,27 @@ public class Admin {
     private String aPwd;
 
     @Builder.Default
-    @Column(name= "reg_dt")
-    private Date regDt = new Date();
-
-    @Builder.Default
     private Date login_dt = new Date();
 
     @Builder.Default
     @Column(name= "visit_cnt")
     private int visitCnt = 0;
+
+    @Builder.Default
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
+
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
+
+    @Builder.Default
+    @Column(name= "updated_at")
+    private Date updatedAt = new Date();
+
+//    @Builder.Default
+    @Column(name= "updated_by")
+    private Integer updatedBy;
+
 
 }

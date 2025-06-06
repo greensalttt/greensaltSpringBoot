@@ -24,9 +24,6 @@ public class AlbumHist{
 
     private Integer ano;
 
-    @Column(name = "a_id", nullable = false)
-    private Integer aId;
-
     @Column(name = "a_cng_cd", nullable = false)
     private String aCngCd;
 
@@ -36,15 +33,12 @@ public class AlbumHist{
     @Column(name = "a_af", nullable = false)
     private String aAf;
 
-    @Builder.Default
-    private LocalDateTime frst_reg_dt = LocalDateTime.now();
+//    @Builder.Default
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
 
-    @Builder.Default
-    private String frst_reg_id = "minwook";
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
 
-    @Builder.Default
-    private LocalDateTime last_mod_dt = LocalDateTime.now();
-
-    @Builder.Default
-    private String last_mod_id = "minwook";
 }

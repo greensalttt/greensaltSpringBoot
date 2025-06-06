@@ -15,7 +15,9 @@ public class CommentDto {
     private Integer pcno;
     private String  comment;
     private String  commenter;
-    private Date    regDt;
-    private Date    upDt;
     private Boolean deleted;
+    private Date createdAt;
+    private Integer createdBy;
+    private Date updatedAt;
+    private Integer updatedBy;
 }

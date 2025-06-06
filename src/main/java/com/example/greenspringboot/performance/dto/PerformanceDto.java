@@ -11,7 +11,6 @@ import java.util.Date;
 @Builder
 public class PerformanceDto {
     private Integer pno;
-    private Integer aId;
     private String title;
     private String artist;
     private String genre;
@@ -23,6 +22,8 @@ public class PerformanceDto {
     private MultipartFile imgFile;
     private String img;
     private Boolean deleted;
-    private Date regDt;
-    private Date upDt;
+    private Date createdAt;
+    private Integer createdBy;
+    private Date updatedAt;
+    private Integer updatedBy;
 }

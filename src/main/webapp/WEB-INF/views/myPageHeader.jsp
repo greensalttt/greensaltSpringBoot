@@ -87,7 +87,7 @@
         <div class="sp">
             <span class="date">가입일</span>
             <span class="ma2">
-        <fmt:formatDate value="${custDto.regDt}" pattern="yyyy-MM-dd" />
+        <fmt:formatDate value="${custDto.createdAt}" pattern="yyyy-MM-dd" />
     </span>
         </div>
     </div>

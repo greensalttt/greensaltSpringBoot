@@ -107,8 +107,7 @@
                     <td>${custDto.CJibunA}</td>
                     <td>${custDto.CDetA}</td>
                     <td>${custDto.loginDt}</td>
-<%--                    <td>${custDto.regDt}</td>--%>
-                    <td><fmt:formatDate value="${custDto.regDt}" pattern="yyyy-MM-dd" /></td>
+                    <td><fmt:formatDate value="${custDto.createdAt}" pattern="yyyy-MM-dd" /></td>
 
                 </tr>
             </c:forEach>

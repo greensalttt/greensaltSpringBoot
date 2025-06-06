@@ -62,7 +62,7 @@ public class BoardController {
     public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
 
         Integer cId = (Integer) session.getAttribute("cId");
-        boardDto.setCId((Integer) session.getAttribute("cId"));
+        boardDto.setCreatedBy((Integer) session.getAttribute("cId"));
 
         try {
             boardService.write(boardDto,cId);
@@ -70,7 +70,6 @@ public class BoardController {
             return "redirect:/board/list";
         } catch (Exception e) {
             m.addAttribute("msg", "WRT_ERR");
-
             return "board";
         }
     }
@@ -86,27 +85,27 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto, HttpSession session, Board board, Integer bno, RedirectAttributes rattr){
-        Integer cId = (Integer) session.getAttribute("cId");
+    public String modify(BoardDto boardDto, HttpSession session, Board board, Integer bno, RedirectAttributes rattr, Model m){
+        Integer createdBy = (Integer) session.getAttribute("cId");
 
         System.out.println("BoardDto bno: " + boardDto.getBno());
         System.out.println("Board bno: " + board.getBno());
 
-        Board oldBoard = boardRepository.findBycIdAndBno(cId, bno);
+        Board oldBoard = boardRepository.findByCreatedByAndBno(createdBy, bno);
         BoardDto oldData = boardService.toDto(oldBoard);
 
-        boardDto.setCId(cId);
+        boardDto.setCreatedBy(createdBy);
 
-        boardService.boardModify(boardDto, cId, bno, oldData);
-        rattr.addFlashAttribute("msg", "MOD_OK");
-
+        boardService.boardModify(boardDto, createdBy, bno, oldData);
+//        rattr.addFlashAttribute("msg", "MOD_OK");
+        m.addAttribute("msg", "MOD_OK");
         return "board";
     }
 
     @PostMapping("/remove")
     public String remove(BoardDto boardDto, HttpSession session, Integer bno, RedirectAttributes rattr){
         Integer cId = (Integer) session.getAttribute("cId");
-        boardDto.setCId(cId);
+        boardDto.setCreatedBy(cId);
         boardService.remove(cId, bno);
         rattr.addFlashAttribute("msg", "DEL_OK");
         return "redirect:/board/list";

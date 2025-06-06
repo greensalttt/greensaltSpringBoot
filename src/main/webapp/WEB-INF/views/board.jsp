@@ -139,27 +139,13 @@
             background-color: darkolivegreen;
         }
 
-        /*#modBtn {*/
-        /*    background-color: saddlebrown;*/
-        /*    color: white;*/
-        /*    padding: 10px 20px;*/
-        /*    border: none;*/
-        /*    border-radius: 5px;*/
-        /*    cursor: pointer;*/
-        /*    font-weight: bold;*/
-        /*}*/
-
-        /*#modBtn:hover {*/
-        /*    background-color: brown;*/
-        /*}*/
-
         #top{
             margin-bottom: 150px;
         }
 
 
         .modal {
-            display: none; /* 기본 숨김 */
+            display: none;
             position: fixed;
             z-index: 10;
             left: 0;
@@ -199,6 +185,7 @@
 
 <script>
     let msg = "${msg}";
+    if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
     if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
     if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 </script>
@@ -216,7 +203,7 @@
         </c:if>
 
 
-        <c:if test="${boardDto.CId == cId}">
+        <c:if test="${boardDto.createdBy == cId}">
             <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
             <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
         </c:if>
@@ -535,25 +522,6 @@
                 }
                 });
                 });
-
-                // function commentModalClose() {
-                //     var modal = document.getElementById("commentModal");
-                //     modal.style.display = "none";
-                //
-                //     document.body.style.paddingRight = "";
-                //     document.body.style.overflowY = "auto"; // 스크롤 복구
-                //     document.body.style.overflowX = "";
-                // }
-                //
-                //
-                // // ESC 키 눌렀을 때 댓글 수정 모달 닫기
-                // document.addEventListener("keydown", function (event) {
-                //     var modal = document.getElementById("commentModal");
-                //     if (event.key === "Escape" && modal.style.display === "block") {
-                //             commentModalClose();
-                //         }
-                //     });
-
 
     $("#commentList").on("click", ".delBtn", function (){
     let commentElement = $(this).parent(); // 클릭된 버튼의 부모(li 요소)

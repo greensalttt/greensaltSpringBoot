@@ -20,8 +20,8 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bno;
 
-    @Column(name="c_id", nullable = false)
-    private Integer cId;
+//    @Column(name="c_id", nullable = false)
+//    private Integer cId;
 
     private String title;
 
@@ -42,12 +42,20 @@ public class Board {
     private Boolean deleted = false; // 기본값 false
 
     @Builder.Default
-    @Column(name= "reg_dt", nullable = false)
-    private Date regDt = new Date();
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
 
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
 
     @Builder.Default
-    @Column(name= "up_dt", nullable = false)
-    private Date upDt = new Date();
+    @Column(name= "updated_at")
+    private Date updatedAt = new Date();
+
+//    @Builder.Default
+    @Column(name= "updated_by")
+    private Integer updatedBy;
+
 
 }

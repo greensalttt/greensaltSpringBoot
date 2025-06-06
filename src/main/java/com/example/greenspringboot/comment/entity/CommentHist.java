@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "comment_hist")
@@ -36,15 +37,11 @@ public class CommentHist {
     private String coAf;
 
     @Builder.Default
-    private LocalDateTime frst_reg_dt = LocalDateTime.now();
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
 
-    @Builder.Default
-    private String frst_reg_id = "minwook";
-
-    @Builder.Default
-    private LocalDateTime last_mod_dt = LocalDateTime.now();
-
-    @Builder.Default
-    private String last_mod_id = "minwook";
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
 
 }

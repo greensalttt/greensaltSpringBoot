@@ -33,7 +33,7 @@
         }
 
 
-        .domestic{
+        .miniHeader{
             font-weight: bold;
             color: #333;
         }
@@ -75,12 +75,12 @@
             margin-left: 20px;
         }
 
-        .artist-title{
+        .artist{
             font-size: 16px;
             font-weight: bold;
         }
 
-        .domestic-type{
+        .title{
             font-size: 12px;
         }
 
@@ -177,7 +177,7 @@
     <div id="albumListContainer">
         <div class="album-header">
 
-                <div class="domestic">Album</div>
+                <div class="miniHeader">Album</div>
 
         <div class="search-container">
             <form action="<c:url value='/album/list' />" class="search-form" method="get">
@@ -200,8 +200,8 @@
                     <a href="/album/read?ano=${albumDto.ano}">
                     <img src="${albumDto.img}" class="img" alt="">
                         <div class="info">
-                            <p class="domestic-type">${albumDto.domestic} | ${albumDto.type}</p>
-                            <p class="artist-title">${albumDto.artist} - ${albumDto.title}</p>
+                            <p class="title">${albumDto.title}</p>
+                            <p class="artist">${albumDto.artist}</p>
                             <p class="date">Released: ${albumDto.released}</p>
                         </div>
                     </a>

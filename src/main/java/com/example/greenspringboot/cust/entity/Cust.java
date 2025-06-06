@@ -74,17 +74,19 @@ public class Cust {
     private Long visitCnt = 0L;
 
     @Builder.Default
-    @Column(name= "frst_reg_dt")
-    private Date regDt = new Date();
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
+
+//    @Column(name= "created_by")
+//    private Integer createdBy;
 
     @Builder.Default
-    private String frst_reg_id = "minwook";
+    @Column(name= "updated_at")
+    private Date updatedAt = new Date();
 
-    @Builder.Default
-    private Date last_mod_dt = new Date();
+//    @Column(name= "updated_by")
+//    private Integer updatedBy;
 
-    @Builder.Default
-    private String last_mod_id = "minwook";
 }
 
 

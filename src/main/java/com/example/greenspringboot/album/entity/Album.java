@@ -21,9 +21,6 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ano;
 
-    @Column(name = "a_id", nullable = false)
-    private int aId;
-
     private String type;
 
     private String genre;
@@ -42,11 +39,21 @@ public class Album {
     private Boolean deleted = false;
 
     @Builder.Default
-    @Column(name= "reg_dt", nullable = false)
-    private Date regDt = new Date();
+    @Column(name= "created_at")
+    private Date createdAt = new Date();
+
+//    @Builder.Default
+    @Column(name= "created_by")
+    private Integer createdBy;
 
     @Builder.Default
-    @Column(name= "up_dt", nullable = false)
-    private Date upDt = new Date();
+    @Column(name= "updated_at")
+    private Date updatedAt = new Date();
+
+//    @Builder.Default
+    @Column(name= "updated_by")
+    private Integer updatedBy;
+
+
 
 }
