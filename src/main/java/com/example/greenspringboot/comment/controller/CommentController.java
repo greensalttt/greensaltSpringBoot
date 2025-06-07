@@ -27,7 +27,7 @@ public class CommentController {
     public String write(@RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
 
         Integer cId = (Integer) session.getAttribute("cId");
-        commentDto.setCId((Integer) session.getAttribute("cId"));
+        commentDto.setCreatedBy((Integer) session.getAttribute("cId"));
         commentDto.setBno(bno);
         commentService.write(commentDto, cId);
 
@@ -36,7 +36,7 @@ public class CommentController {
     // 댓글 수정
     @PatchMapping("/comments/{cno}")
     public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
-        commentDto.setCId((Integer) session.getAttribute("cId"));
+        commentDto.setCreatedBy((Integer) session.getAttribute("cId"));
         commentDto.setCno(cno);
         commentService.modify(commentDto, cno);
         return "redirect:/board";

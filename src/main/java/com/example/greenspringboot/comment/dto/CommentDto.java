@@ -10,7 +10,7 @@ import java.util.Date;
 @ToString
 public class CommentDto {
     private Integer cno;
-    private Integer cId;
+//    private Integer cId;
     private Integer bno;
     private Integer pcno;
     private String  comment;

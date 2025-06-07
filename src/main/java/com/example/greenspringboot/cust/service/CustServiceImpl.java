@@ -194,7 +194,7 @@ public class CustServiceImpl implements CustService {
             Date createdAt = cust.getCreatedAt();
             Long visitCnt = cust.getVisitCnt();
             Long boardCount = boardRepository.countByCreatedByAndDeletedFalse(cId);
-            Long commentCount = commentRepository.countBycIdAndDeletedFalse(cId);
+            Long commentCount = commentRepository.countByCreatedByAndDeletedFalse(cId);
 
             CustDto custDto = CustDto.builder()
                     .cNick(cNick)

@@ -22,7 +22,10 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     Comment findByCno(Integer cno);
 
-    Long countBycIdAndDeletedFalse(Integer cId);
+//    Long countBycIdAndDeletedFalse(Integer cId);
+
+    Long countByCreatedByAndDeletedFalse(Integer createdBy);
+
 
     Long countByDeletedFalse();
 

@@ -25,8 +25,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cno;
 
-    @Column(name="c_id")
-    private Integer cId;
+//    @Column(name="c_id")
+//    private Integer cId;
 
     private Integer bno;
 

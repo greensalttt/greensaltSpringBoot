@@ -345,7 +345,7 @@
             comments.forEach(function(comment) {
                 console.log(comment);
                 // Jackson 규칙으로 cId를 cid로 찍어야 값이 나옴
-                console.log(comment.cid);
+                console.log(comment.createdBy);
                 console.log(cId);
 
 
@@ -367,7 +367,7 @@
                 tmp += '<span class="comment">' + comment.comment + '</span>';
 
                 // 본인 댓글일 경우에만 수정/삭제 버튼 추가
-                if (comment.cid == cId) {
+                if (comment.createdBy == cId) {
                     tmp += '<button class="modBtn">수정</button>';
                     tmp += '<button class="delBtn">삭제</button>';
                 }

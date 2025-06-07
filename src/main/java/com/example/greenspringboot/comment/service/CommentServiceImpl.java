@@ -54,11 +54,12 @@ public class CommentServiceImpl implements CommentService{
 
             // comment 엔티티 빌드
             Comment comment = Comment.builder()
-                    .cId(commentDto.getCId())
                     .bno(commentDto.getBno())
                     .parentComment(parentComment)  // parentComment가 null일 수도 있음
                     .comment(commentDto.getComment())
                     .commenter(custDto.getCNick())
+                    .createdBy(commentDto.getCreatedBy())
+                    .updatedBy(commentDto.getCreatedBy())
                     .build();
 
             // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
@@ -91,10 +92,11 @@ public class CommentServiceImpl implements CommentService{
         if (!oldValue.equals(newValue)) {
             CommentHist commentHist = CommentHist.builder()
                     .cno(commentDto.getCno())   // commentDto에서 cno 값 사용
-                    .cId(commentDto.getCId())   // commentDto에서 cId 값 사용
+                    .cId(commentDto.getCreatedBy())   // commentDto에서 cId 값 사용
                     .bno(commentDto.getBno())   // commentDto에서 bno 값 사용
                     .coBf(oldValue)             // 이전 값
                     .coAf(newValue)             // 새로운 값
+                    .createdBy(commentDto.getCreatedBy())   // commentDto에서 cId 값 사용
                     .build();
 
             // 이력 저장
