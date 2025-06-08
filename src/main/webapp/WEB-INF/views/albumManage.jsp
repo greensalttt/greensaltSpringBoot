@@ -109,6 +109,12 @@
             padding: 0 10px;"
         }
 
+        #noAlbum{
+            margin-top: 100px;
+            margin-bottom: 120px;
+        }
+
+
     </style>
 
 </head>
@@ -121,6 +127,9 @@
 		</span>
         </div>
         <ul class="list">
+            <c:if test="${empty albumDtos}">
+                <div id="noAlbum"> 앨범이 없습니다. </div>
+            </c:if>
             <c:forEach var="albumDto" items="${albumDtos}">
                 <li class="album-item">
                     <a>

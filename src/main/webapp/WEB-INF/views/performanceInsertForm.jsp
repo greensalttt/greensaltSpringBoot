@@ -80,25 +80,25 @@
     <form id="performanceForm" action="/admin/performance_write" method="post" enctype="multipart/form-data">
 
         <label for="title">공연 제목:</label>
-        <input type="text" name="title" id="title" required>
+        <input type="text" name="title" id="title" maxlength="30" required>
 
         <label for="artist">아티스트명:</label>
-        <input type="text" name="artist" id="artist" required>
+        <input type="text" name="artist" id="artist" maxlength="20" required>
 
         <label for="genre">장르:</label>
-        <input type="text" name="genre" id="genre">
+        <input type="text" name="genre" id="genre" maxlength="15">
 
         <label for="venue">공연장:</label>
-        <input type="text" name="venue" id="venue" required>
+        <input type="text" name="venue" id="venue" maxlength="20" required>
 
         <label for="duration">관람 시간:</label>
-        <input type="text" name="duration" id="duration" placeholder="예: 120분" required>
+        <input type="text" name="duration" id="duration" placeholder="예: 120분" maxlength="10" required>
 
         <label for="rating">관람 등급:</label>
-        <input type="text" name="rating" id="rating" placeholder="예: 전체관람가" required>
+        <input type="text" name="rating" id="rating" placeholder="예: 전체관람가" maxlength="10" required>
 
         <label for="date">공연 날짜:</label>
-        <input type="date" name="date" id="date" required>
+        <input type="date" name="date" id="date" maxlength="10" required>
 
         <label for="content">공연 설명:</label>
         <textarea name="content" id="content" rows="6"></textarea>

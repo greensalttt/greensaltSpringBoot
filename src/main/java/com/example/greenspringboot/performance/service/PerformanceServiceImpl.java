@@ -29,13 +29,51 @@ public class PerformanceServiceImpl implements PerformanceService{
     @Autowired
     private PerformanceHistRepository performanceHistRepository;
 
+//    @Override
+//    public void performanceRead(Integer pno, Model m) {
+//        Optional<Performance> optionalPerformance = performanceRepository.findByPno(pno);
+//
+//        if (optionalPerformance.isPresent()) {
+//            Performance performance = optionalPerformance.get();
+//
+//            Integer ppno = performance.getPno();
+//            String title = performance.getTitle();
+//            String artist = performance.getArtist();
+//            String genre = performance.getGenre();
+//            String venue = performance.getVenue();
+//            String duration = performance.getDuration();
+//            String rating = performance.getRating();
+//            String date = performance.getDate();
+//            String content = performance.getContent() != null ? performance.getContent().replace("\n", "<br/>") : null;
+//            String img = performance.getImg();
+//
+//            PerformanceDto performanceDto = PerformanceDto.builder()
+//                    .pno(ppno)
+//                    .title(title)
+//                    .artist(artist)
+//                    .genre(genre)
+//                    .venue(venue)
+//                    .duration(duration)
+//                    .rating(rating)
+//                    .date(date)
+//                    .content(content)
+//                    .img(img)
+//                    .build();
+//
+//            m.addAttribute("performanceDto", performanceDto);
+//
+//            System.out.println("performanceDto:" + performanceDto);
+//
+//        } else {
+//            System.out.println("공연 정보를 찾을 수 없습니다.");
+//        }
+//    }
+
     @Override
     public void performanceRead(Integer pno, Model m) {
-        Optional<Performance> optionalPerformance = performanceRepository.findByPno(pno);
+        Performance performance = performanceRepository.findByPno(pno); // Optional 제거
 
-        if (optionalPerformance.isPresent()) {
-            Performance performance = optionalPerformance.get();
-
+        if (performance != null) {
             Integer ppno = performance.getPno();
             String title = performance.getTitle();
             String artist = performance.getArtist();
@@ -63,7 +101,6 @@ public class PerformanceServiceImpl implements PerformanceService{
             m.addAttribute("performanceDto", performanceDto);
 
             System.out.println("performanceDto:" + performanceDto);
-
         } else {
             System.out.println("공연 정보를 찾을 수 없습니다.");
         }
@@ -91,6 +128,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .content(performanceDto.getContent())
                     .img(performanceDto.getImg())
                     .createdBy(performanceDto.getCreatedBy())
+                    .updatedBy(performanceDto.getCreatedBy())
                     .build();
 
             performanceRepository.save(performance);
@@ -183,7 +221,7 @@ public class PerformanceServiceImpl implements PerformanceService{
 //    관리자에서 수정할때 공연 목록 가져오기, 인덱스 화면에서 보여주기
     @Override
     public void performanceList(Model m) {
-        List<Performance> performances = performanceRepository.findAllByOrderByPnoDesc(); // 모든 앨범 목록을 조회
+        List<Performance> performances = performanceRepository.findAllByDeletedFalseOrderByPnoDesc(); // 모든 앨범 목록을 조회
         if (!performances.isEmpty()) {
             List<PerformanceDto> performanceDtos = performances.stream() // 앨범을 DTO로 변환
                     .map(performance -> PerformanceDto.builder()
@@ -328,7 +366,9 @@ public class PerformanceServiceImpl implements PerformanceService{
 
     @Override
     public boolean performanceRemove(Integer pno){
-        performanceRepository.deleteById(pno);
+        Performance performance = performanceRepository.findByPno(pno);
+        performance.setDeleted(true);
+        performanceRepository.save(performance);
         return true;
     }
 

@@ -192,14 +192,11 @@
     let msg = "${msg}";
     if(msg=="DEL_OK")    alert("성공적으로 삭제되었습니다.");
     if(msg=="WRT_OK")    alert("성공적으로 등록되었습니다.");
-    // if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
-    // if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
-    // if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 </script>
 
     <div class="board-container">
     <div class="board-header">
-        <div class="community-title">Community</div>
+        <div class="community-title">Open Forum</div>
 
         <div class="search-container">
             <form action="<c:url value='/board/list' />" class="search-form" method="get">

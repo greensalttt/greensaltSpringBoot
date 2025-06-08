@@ -103,11 +103,11 @@
 
 
         <p><strong>title:</strong>
-                    <input type="text" name="title" value="${albumDto.title}" />
+                    <input type="text" name="title" value="${albumDto.title}" maxlength="30">
                 </p>
 
                 <p><strong>artist:</strong>
-                    <input type="text" name="artist" value="${albumDto.artist}" />
+                    <input type="text" name="artist" value="${albumDto.artist}" maxlength="20">
                 </p>
 
 
@@ -123,11 +123,11 @@
 
 
         <p><strong>genre:</strong>
-                    <input type="text" name="genre" value="${albumDto.genre}" />
+                    <input type="text" name="genre" value="${albumDto.genre}" maxlength="15">
                 </p>
 
                 <p><strong>released:</strong>
-                    <input type="date" name="released" value="${albumDto.released}" />
+                    <input type="date" name="released" value="${albumDto.released}" maxlength="10">
                 </p>
             </div>
 

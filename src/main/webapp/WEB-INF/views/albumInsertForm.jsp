@@ -89,19 +89,19 @@
         </select>
 
         <label for="genre">장르:</label>
-        <input type="text" name="genre" id="genre">
+        <input type="text" name="genre" id="genre" maxlength="15" required>
 
         <label for="title">앨범 제목:</label>
-        <input type="text" name="title" id="title" required>
+        <input type="text" name="title" id="title" maxlength="30" required>
 
         <label for="artist">아티스트:</label>
-        <input type="text" name="artist" id="artist" required>
+        <input type="text" name="artist" id="artist" maxlength="20" required>
 
         <label for="content">내용:</label>
         <textarea name="content" id="content" rows="8"></textarea>
 
         <label for="released">발매일:</label>
-        <input type="date" name="released" id="released">
+        <input type="date" name="released" id="released" maxlength="10">
 
         <label for="imgFile">앨범 이미지:</label>
         <input type="file" name="imgFile" id="imgFile" accept="image/*">

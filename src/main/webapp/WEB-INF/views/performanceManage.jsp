@@ -99,6 +99,12 @@
             margin: 0 5px;
         }
 
+        #noPerformance{
+            margin-top: 100px;
+            margin-bottom: 120px;
+        }
+
+
     </style>
 
 </head>
@@ -111,6 +117,9 @@
 		</span>
         </div>
         <div class="list">
+            <c:if test="${empty albumDtos}">
+                <div id="noPerformance"> 등록된 공연이 없습니다. </div>
+            </c:if>
             <c:forEach var="performanceDto" items="${performanceDtos}">
                 <div class="performance-card">
 <%--                    <a href="/performance/read?pno=${performanceDto.pno}">--%>

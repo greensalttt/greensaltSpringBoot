@@ -33,7 +33,7 @@ public class AlbumServiceImpl implements AlbumService{
 //    관리자에서 수정할때 앨범 목록 가져오기, 인덱스 화면에서 보여주기
     @Override
     public void albumList(Model m) {
-        List<Album> albums = albumRepository.findAllByOrderByAnoDesc(); // 모든 앨범 목록을 조회
+        List<Album> albums = albumRepository.findAllByDeletedFalseOrderByAnoDesc(); // 모든 앨범 목록을 조회
 
         if (!albums.isEmpty()) {
             List<AlbumDto> albumDtos = albums.stream() // 앨범을 DTO로 변환
@@ -54,13 +54,47 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
 
+//    @Override
+//    public void albumRead(Integer ano, Model m) {
+//        Optional<Album> optionalAlbum = albumRepository.findByAno(ano);
+//
+//        if (optionalAlbum.isPresent()) {
+//            Album album = optionalAlbum.get();
+//
+//            Integer aano = album.getAno();
+//            String type = album.getType();
+//            String genre = album.getGenre();
+//            String title = album.getTitle();
+//            String artist = album.getArtist();
+//            String released = album.getReleased();
+//            String content = album.getContent().replace("\n", "<br/>");
+//            String img = album.getImg();
+//
+//            AlbumDto albumDto = AlbumDto.builder()
+//                    .ano(aano)
+//                    .type(type)
+//                    .genre(genre)
+//                    .title(title)
+//                    .artist(artist)
+//                    .released(released)
+//                    .content(content)
+//                    .img(img)
+//                    .build();
+//
+//            m.addAttribute("albumDto", albumDto);
+//
+//            System.out.println("albumDto:" + albumDto);
+//
+//        } else {
+//            System.out.println("앨범 정보를 찾을 수 없습니다.");
+//        }
+//    }
+
     @Override
     public void albumRead(Integer ano, Model m) {
-        Optional<Album> optionalAlbum = albumRepository.findByAno(ano);
+        Album album = albumRepository.findByAno(ano); // Optional 제거
 
-        if (optionalAlbum.isPresent()) {
-            Album album = optionalAlbum.get();
-
+        if (album != null) {
             Integer aano = album.getAno();
             String type = album.getType();
             String genre = album.getGenre();
@@ -84,11 +118,11 @@ public class AlbumServiceImpl implements AlbumService{
             m.addAttribute("albumDto", albumDto);
 
             System.out.println("albumDto:" + albumDto);
-
         } else {
             System.out.println("앨범 정보를 찾을 수 없습니다.");
         }
     }
+
 
     @Override
     public boolean write(AlbumDto albumDto, HttpSession session) {
@@ -109,8 +143,8 @@ public class AlbumServiceImpl implements AlbumService{
                     .content(albumDto.getContent())
                     .released(albumDto.getReleased())
                     .img(albumDto.getImg())
-                    .createdAt(albumDto.getCreatedAt())
                     .createdBy(albumDto.getCreatedBy())
+                    .updatedBy(albumDto.getCreatedBy())
                     .build();
 
             albumRepository.save(album);
@@ -140,9 +174,13 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public boolean albumRemove(Integer ano){
-        albumRepository.deleteById(ano);
+        Album album = albumRepository.findByAno(ano);
+        album.setDeleted(true);
+        albumRepository.save(album);
         return true;
     }
+
+    //        albumRepository.deleteById(ano);
 
     @Override
     public List<AlbumDto> getSearchResultPage(SearchCondition sc) {
@@ -276,7 +314,6 @@ public class AlbumServiceImpl implements AlbumService{
                 .img(album.getImg())
                 .released(album.getReleased())
                 .deleted(album.getDeleted())
-                .createdAt(album.getCreatedAt())
                 .createdBy(album.getCreatedBy())
                 .build();
     }

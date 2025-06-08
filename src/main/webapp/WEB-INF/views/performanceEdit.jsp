@@ -104,31 +104,31 @@
                 <input type="hidden" name="pno" value="${performanceDto.pno}" />
 
                 <p><strong>공연 제목:</strong>&nbsp;
-                    <input type="text" name="title" value="${performanceDto.title}" />
+                    <input type="text" name="title" value="${performanceDto.title}" maxlength="30">
                 </p>
 
                 <p><strong>아티스트:</strong>&nbsp;
-                    <input type="text" name="artist" value="${performanceDto.artist}" />
+                    <input type="text" name="artist" value="${performanceDto.artist}" maxlength="20">
                 </p>
 
                 <p><strong>공연 시간:</strong>&nbsp;
-                    <input type="text" name="duration" value="${performanceDto.duration}" />
+                    <input type="text" name="duration" value="${performanceDto.duration}" maxlength="10">
                 </p>
 
                 <p><strong>관람 연령:</strong>&nbsp;
-                    <input type="text" name="rating" value="${performanceDto.rating}" />
+                    <input type="text" name="rating" value="${performanceDto.rating}" maxlength="10">
                 </p>
 
-                <p><strong>장소:</strong>&nbsp;
-                    <input type="text" name="venue" value="${performanceDto.venue}" />
+                <p><strong>공연장:</strong>&nbsp;
+                    <input type="text" name="venue" value="${performanceDto.venue}" maxlength="20">
                 </p>
 
                 <p><strong>장르:</strong>&nbsp;
-                    <input type="text" name="genre" value="${performanceDto.genre}" />
+                    <input type="text" name="genre" value="${performanceDto.genre}" maxlength="15">
                 </p>
 
                 <p><strong>공연 날짜:</strong>&nbsp;
-                    <input type="date" name="date" value="${performanceDto.date}" />
+                    <input type="date" name="date" value="${performanceDto.date}" maxlength="10">
                 </p>
             </div>
 

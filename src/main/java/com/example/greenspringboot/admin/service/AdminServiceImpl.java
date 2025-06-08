@@ -79,8 +79,8 @@ public class AdminServiceImpl implements AdminService {
         long custCount = custRepository.countByStatCd("M");
         long boardCount = boardRepository.countByDeletedFalse();
         long commentCount = commentRepository.countByDeletedFalse();
-        long albumCount = albumRepository.count();
-        long performanceCount = performanceRepository.count();
+        long albumCount = albumRepository.countByDeletedFalse();
+        long performanceCount = performanceRepository.countByDeletedFalse();
 
 
         m.addAttribute("custCount", custCount);

@@ -57,10 +57,11 @@ public class CustRepositoryTest {
     @Test
     public void pwd(){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPwd = "";
+        String rawPwd = "1234";
         String encodedPwd = encoder.encode(rawPwd);
         System.out.println("해시값: "+encodedPwd);
     }
+
 
     @Test
     public void checkPassword() {

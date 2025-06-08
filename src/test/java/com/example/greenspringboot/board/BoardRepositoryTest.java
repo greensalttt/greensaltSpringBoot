@@ -22,7 +22,7 @@ public class BoardRepositoryTest {
         Integer cId = 2;
         for (int i = 1; i < 100; i++){
             BoardDto boardDto = BoardDto.builder()
-                    .cId(cId)
+                    .createdBy(cId)
                     .title("test" + i)
                     .content("ㅇㅇ")
                     .writer("greensalt")

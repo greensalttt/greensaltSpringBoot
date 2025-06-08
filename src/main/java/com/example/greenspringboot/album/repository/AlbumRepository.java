@@ -2,6 +2,7 @@ package com.example.greenspringboot.album.repository;
 
 import com.example.greenspringboot.album.entity.Album;
 import com.example.greenspringboot.board.entity.Board;
+import com.example.greenspringboot.performance.entity.Performance;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,9 +17,14 @@ import java.util.Optional;
 public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
     // ano 기준 내림차순 정렬
-    List<Album> findAllByOrderByAnoDesc();
+    List<Album> findAllByDeletedFalseOrderByAnoDesc();
 
-    Optional<Album> findByAno(Integer ano);
+
+//    Optional<Album> findByAno(Integer ano);
+
+    Long countByDeletedFalse();
+
+   Album findByAno(Integer ano);
 
     List<Album> findByTitleContainingAndDeletedFalse(String keyword, Sort sort);
 
