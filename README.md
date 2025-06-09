@@ -9,12 +9,13 @@ https://greensalt.site/
 
 ```yaml
 Packaging: WAR
+Build: Maven
 Deployment: AWS EC2
-OS: Windows 2025
+Deployment Method: PuTTY + FileZilla
+OS: Ubuntu(Linux)
 WAS: External Tomcat
 DBMS: MySQL(AppPaaS)
-Build: Maven
-SSL: Cloudflare(https)
+SSL: Cloudflare(HTTPS)
 ```
 
 
