@@ -144,7 +144,12 @@ public class PerformanceServiceImpl implements PerformanceService{
         if (file == null || file.isEmpty()) return null;
 
         String uploadDir = "C:/performance/";
+//        String uploadDir = "/home/ubuntu/performance/";
 
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
 
         String originalFilename = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();

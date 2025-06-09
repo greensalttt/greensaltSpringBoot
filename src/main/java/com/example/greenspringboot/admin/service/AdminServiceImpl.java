@@ -2,12 +2,13 @@ package com.example.greenspringboot.admin.service;
 import com.example.greenspringboot.admin.entity.Admin;
 import com.example.greenspringboot.admin.repository.AdminRepository;
 import com.example.greenspringboot.album.repository.AlbumRepository;
+import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
-import com.example.greenspringboot.performance.entity.Performance;
 import com.example.greenspringboot.performance.repository.PerformanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +18,6 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -123,4 +123,44 @@ public class AdminServiceImpl implements AdminService {
             System.out.println("회원 정보를 찾을 수 없습니다.");
         }
     }
+
+
+    @Override
+    public void boardList(Model m) {
+        List<Board> boards = boardRepository.findAllByDeletedFalseOrderByBnoDesc(); // 삭제되지 않은 게시글 전체 조회
+
+        if (!boards.isEmpty()) {
+            List<BoardDto> boardDtos = boards.stream()
+                    .map(board -> BoardDto.builder()
+                            .bno(board.getBno())
+                            .title(board.getTitle())
+                            .content(board.getContent())
+                            .writer(board.getWriter())
+                            .viewCnt(board.getViewCnt())
+                            .commentCnt(board.getCommentCnt())
+                            .deleted(board.getDeleted())
+                            .createdAt(board.getCreatedAt())
+                            .createdBy(board.getCreatedBy())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("boardDtos", boardDtos); // 모델에 boardDtos 추가
+        } else {
+            System.out.println("게시판 정보를 찾을 수 없습니다.");
+        }
+    }
+
+    @Override
+    public boolean boardRemove(Integer bno, HttpSession session){
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        Board board = boardRepository.findByBno(bno);
+        board.setDeleted(true);
+        board.setUpdatedBy(aId);
+        board.setUpdatedByType("admin");
+        boardRepository.save(board);
+        return true;
+    }
+
+
 }

@@ -19,9 +19,7 @@ public class CustDto {
     private Date loginDt;
     private Long visitCnt;
     private Date createdAt;
-//    private Integer createdBy;
     private Date updatedAt;
-//    private Integer updatedBy;
     private Long boardCount;
     private Long commentCount;
 }

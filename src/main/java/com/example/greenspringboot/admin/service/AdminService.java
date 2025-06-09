@@ -3,6 +3,7 @@ package com.example.greenspringboot.admin.service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public interface AdminService {
 
@@ -12,4 +13,10 @@ public interface AdminService {
     void adminPage(Model model);
 
     void custList(Model m);
+
+    void boardList(Model m);
+
+//    boolean boardRemove(Integer bno);
+
+    boolean boardRemove(Integer bno, HttpSession session);
 }

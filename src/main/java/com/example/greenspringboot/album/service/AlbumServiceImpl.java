@@ -53,43 +53,6 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
-
-//    @Override
-//    public void albumRead(Integer ano, Model m) {
-//        Optional<Album> optionalAlbum = albumRepository.findByAno(ano);
-//
-//        if (optionalAlbum.isPresent()) {
-//            Album album = optionalAlbum.get();
-//
-//            Integer aano = album.getAno();
-//            String type = album.getType();
-//            String genre = album.getGenre();
-//            String title = album.getTitle();
-//            String artist = album.getArtist();
-//            String released = album.getReleased();
-//            String content = album.getContent().replace("\n", "<br/>");
-//            String img = album.getImg();
-//
-//            AlbumDto albumDto = AlbumDto.builder()
-//                    .ano(aano)
-//                    .type(type)
-//                    .genre(genre)
-//                    .title(title)
-//                    .artist(artist)
-//                    .released(released)
-//                    .content(content)
-//                    .img(img)
-//                    .build();
-//
-//            m.addAttribute("albumDto", albumDto);
-//
-//            System.out.println("albumDto:" + albumDto);
-//
-//        } else {
-//            System.out.println("앨범 정보를 찾을 수 없습니다.");
-//        }
-//    }
-
     @Override
     public void albumRead(Integer ano, Model m) {
         Album album = albumRepository.findByAno(ano); // Optional 제거
@@ -160,7 +123,12 @@ public class AlbumServiceImpl implements AlbumService{
         if (file == null || file.isEmpty()) return null;
 
         String uploadDir = "C:/album/";
+//        String uploadDir = "/home/ubuntu/album/";
 
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
 
         String originalFilename = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();

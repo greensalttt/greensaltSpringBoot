@@ -25,9 +25,21 @@ public class WebConfig implements WebMvcConfigurer {
 
     }
 
+
+
+//      윈도우용 3개 수정해야댐 앨범 공연 서비스
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
     }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/images/**")
+//                .addResourceLocations("file:/home/ubuntu/album/", "file:/home/ubuntu/performance/");
+//    }
+
+
+
 }

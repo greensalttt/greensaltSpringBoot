@@ -50,7 +50,6 @@ public class BoardServiceImpl implements BoardService{
 
             Board board = Board.builder()
                     .bno(boardDto.getBno())
-//                    .cId(boardDto.getCId())
                     .title(boardDto.getTitle())
                     .content(boardDto.getContent())
                     .writer(custDto.getCNick())
@@ -135,9 +134,6 @@ public class BoardServiceImpl implements BoardService{
         if (boardDto.getBno() != null) {
             board.setBno(boardDto.getBno());
         }
-//        if (boardDto.getCId() != null) {
-//            board.setCId(boardDto.getCId());
-//        }
         if (boardDto.getTitle() != null) {
             board.setTitle(boardDto.getTitle());
         }
@@ -228,7 +224,6 @@ public class BoardServiceImpl implements BoardService{
         return boardList.stream()
                 .map(board -> BoardDto.builder()
                         .bno(board.getBno())
-//                        .cId(board.getCId())
                         .title(board.getTitle())
                         .content(board.getContent())
                         .writer(board.getWriter())
@@ -247,7 +242,6 @@ public class BoardServiceImpl implements BoardService{
     public BoardDto toDto(Board board) {
         return BoardDto.builder()
                 .bno(board.getBno())
-//                .cId(board.getCId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())

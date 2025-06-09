@@ -125,6 +125,12 @@ public class MyPageController {
         return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
 
+
+//    @GetMapping("/myBoardList")
+//    public String myBoardList(Model m){
+//        custService.myBoardList(Model m);
+//        return "myBoardList";
+//    }
 }
 
 

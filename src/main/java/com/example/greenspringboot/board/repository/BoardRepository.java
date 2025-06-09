@@ -51,6 +51,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Long countByCreatedByAndDeletedFalse(Integer createdBy);
 
     Long countByDeletedFalse();
+
+    List<Board> findAllByDeletedFalseOrderByBnoDesc();
 }
 
 ////      JPA 방식으로 사용할때 순서

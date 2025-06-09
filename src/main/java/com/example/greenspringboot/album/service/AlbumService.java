@@ -16,16 +16,12 @@ public interface AlbumService {
 
     void albumRead(Integer ano, Model m);
 
-//    boolean write(AlbumDto albumDto, MultipartFile imgFile);
-
     boolean write(AlbumDto albumDto, HttpSession session);
 
     boolean albumRemove(Integer ano);
 
     // 여러개 게시글 한번에
     List<AlbumDto> toDtoList(List<Album> albumList);
-
-//    boolean albumModify(AlbumDto albumDto, MultipartFile imgFile, AlbumDto oldData);
 
     List<AlbumDto> getSearchResultPage(SearchCondition sc);
 

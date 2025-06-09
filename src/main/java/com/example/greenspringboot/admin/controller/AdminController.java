@@ -1,9 +1,7 @@
 package com.example.greenspringboot.admin.controller;
 import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
-import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.album.service.AlbumService;
-import com.example.greenspringboot.cust.securityutils.EncryptionUtil;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -27,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private AlbumService albumService;
+
+//    @Autowired
+//    private BoardService boardService;
 
     @Autowired
     private PerformanceService performanceService;
@@ -197,6 +195,31 @@ public class AdminController {
         }
         msg.addFlashAttribute("performanceRemove", "msg");
         return "redirect:/admin/performance_manage";
+    }
+
+
+    @GetMapping("/board_manage")
+    public String boardManage(Model m){
+        adminService.boardList(m);
+        return "boardManage";
+    }
+
+    @PostMapping("/board_remove")
+    public String boardRemove(Integer bno, RedirectAttributes msg, HttpSession session){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/board_manage";
+        }
+
+        if(!adminService.boardRemove(bno, session)){
+            msg.addFlashAttribute("removeFail", "msg");
+            return "redirect:/admin/board_manage";
+        }
+        msg.addFlashAttribute("remove", "msg");
+        return "redirect:/admin/board_manage";
     }
 
 }
