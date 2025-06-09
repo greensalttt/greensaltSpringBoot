@@ -36,7 +36,7 @@
             border: none;
             cursor: pointer;
             outline: none;
-            font-size: 13px;
+            font-size: 14px;
             margin-right: 310px;
             font-weight: bold;
         }
@@ -45,7 +45,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             color: gray;
         }
 
@@ -82,16 +82,6 @@
             margin-right: 150px;
         }
 
-        #c_birth {
-            padding: 9px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-            width: 400px;
-            box-sizing: border-box;
-        }
-
-
         #ad {
             display: flex;
             justify-content: space-between;
@@ -99,7 +89,7 @@
 
         #check {
             margin-bottom: 20px;
-            font-size: 13px;
+            font-size: 14px;
             margin-left: 395px;
             width: 500px;
             display: inline-block;
@@ -110,26 +100,14 @@
             cursor: pointer;
         }
 
-        #choice{
-            font-size: 11px;
-        }
-
-        .choiceLabel {
-            cursor: pointer;
-        }
-
         .oneLine{
             display: flex;
             justify-content: space-between;
         }
 
-        #det, #phn{
-            font-size: 12px;
+        #det{
+            font-size: 13px;
             margin-top: 15px;
-        }
-
-        #phn{
-            margin-right: 37px;
         }
 
         .modal {
@@ -142,7 +120,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.4);
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .modal-content {
@@ -173,7 +151,7 @@
             height: 30px;
             display: block;
             margin-bottom: 30px;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         #dropBtn {
@@ -189,14 +167,14 @@
 
         #dropOk {
             margin-top: 7px;
-            font-size: 12px;
+            font-size: 13px;
         }
 
 
         #dropDiv {
             display: flex;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
             float: left;
             margin-top: 5px;
         }
@@ -211,7 +189,7 @@
         }
 
         #pp{
-            font-size: 11px;
+            font-size: 12px;
         }
 
         #top{
@@ -226,13 +204,14 @@
 
 <header id="top">
     <jsp:include page="header.jsp"/></header><br><br>
+
 <jsp:include page="myPageHeader.jsp"/>
 
 <div id="infoForm">
     <form action="/mypage/info" method="POST" onsubmit="return formCheck()">
         <div class="container">
             <h1 id="loginTitle">개인정보</h1>
-            <p id="check-result"></p>
+<%--            <p id="check-result"></p>--%>
             <label class="infoLabel">이메일*</label>
             <input class="special-class" type="text" id="c_email" name="cEmail" value="${custDto.CEmail}" disabled>
             <label class="infoLabel">닉네임*</label>
@@ -319,41 +298,6 @@
             }
         }).open();
     }
-    //
-    // function formCheck() {
-    //     var isNm = newNmCheck();
-    //     if (!isNm) {
-    //         return false;
-    //     }
-    //
-    //     var isPhn = newPhnCheck();
-    //     if (!isPhn) {
-    //         return false;
-    //     }
-    //     return confirm("변경사항을 마무리하시고 적용하시겠습니까?")
-    // }
-    //
-    // function newNmCheck() {
-    //     var newNm = document.getElementById("cNick").value;
-    //
-    //     if (newNm.length < 2 || newNm.length > 10){
-    //         alert("닉네임은 2자 이상 10자 이하로 가능합니다")
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    //
-    // function newPhnCheck() {
-    //     var newPhn = document.getElementById("c_phn").value;
-    //
-    //     var newPhnPattern = /^[0-9]{11,12}$/;
-    //
-    //     if (!newPhnPattern.test(newPhn)) {
-    //         alert("휴대폰 번호는 숫자 11~12자로 입력이 가능합니다.")
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     function formCheck() {
         if (!checkZip()) return false;

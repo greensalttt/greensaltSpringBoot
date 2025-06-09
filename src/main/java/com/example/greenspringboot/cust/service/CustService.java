@@ -54,6 +54,7 @@ public interface CustService {
     boolean custModify(int cId, CustDto custDto);
 
 
+    void myBoardList(Model m, Integer createdBy);
 
-
+    void myCommentList(Model m, Integer createdBy);
 }

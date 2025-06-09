@@ -29,4 +29,5 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     Long countByDeletedFalse();
 
+    List<Comment> findAllByCreatedByAndDeletedFalseOrderByCnoDesc(Integer createdBy);
 }

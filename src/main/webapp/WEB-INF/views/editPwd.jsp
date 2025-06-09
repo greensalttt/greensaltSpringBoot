@@ -36,7 +36,7 @@
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
-      font-size: 13px;
+      font-size: 14px;
       color: gray;
     }
 
@@ -56,7 +56,7 @@
       background-color: white;
       color: black;
       outline: none;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: bold;
       float: right;
       margin-right: 200px;
@@ -70,11 +70,11 @@
     }
 
     #pp{
-      font-size: 12px;
+      font-size: 13px;
       margin-top: 15px;
     }
     #check-newPwd{
-      font-size: 11px;
+      font-size: 12px;
       height: 20px;
     }
 
@@ -110,7 +110,7 @@
       <button id="continue">변경</button>
     </div>
   </form>
-</div>
+</div><br>
 
 <footer>
   <jsp:include page="footer.jsp" flush="false" />

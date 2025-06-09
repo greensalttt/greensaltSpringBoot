@@ -94,13 +94,10 @@
 
     <div class="one2">
         <div class="sp">
-            <span><a class="none" href="mypage/myBoardList">작성글</a></span>
+            <span><a class="none" href="/mypage/myBoardList">작성글</a></span>
         </div>
         <div class="sp">
-            <span><a class="none" onclick="test()">작성 댓글</a></span>
-        </div>
-        <div class="sp">
-            <span><a class="none" onclick="test()">좋아요</a></span>
+            <span><a class="none" href="/mypage/myCommentList">작성 댓글</a></span>
         </div>
         <div class="sp">
             <span><a class="none" href="/mypage/info">개인정보 수정</a></span>

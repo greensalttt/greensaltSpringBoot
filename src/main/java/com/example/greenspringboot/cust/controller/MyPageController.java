@@ -126,11 +126,24 @@ public class MyPageController {
     }
 
 
-//    @GetMapping("/myBoardList")
-//    public String myBoardList(Model m){
-//        custService.myBoardList(Model m);
-//        return "myBoardList";
-//    }
+    @GetMapping("/myBoardList")
+    public String myBoardList(Model m, HttpSession session){
+
+        Integer createdBy = (Integer) session.getAttribute("cId");
+        custService.myPage(createdBy, m);
+        custService.myBoardList(m, createdBy);
+        return "myBoardList";
+    }
+
+
+    @GetMapping("/myCommentList")
+    public String myCommentList(Model m, HttpSession session){
+
+        Integer createdBy = (Integer) session.getAttribute("cId");
+        custService.myPage(createdBy, m);
+        custService.myCommentList(m, createdBy);
+        return "myCommentList";
+    }
 }
 
 

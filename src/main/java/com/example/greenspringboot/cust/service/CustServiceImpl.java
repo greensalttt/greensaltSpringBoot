@@ -1,5 +1,9 @@
 package com.example.greenspringboot.cust.service;
+import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.repository.BoardRepository;
+import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustServiceImpl implements CustService {
@@ -491,8 +496,57 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
 }
 
 
-//    @Override
-//    public
+    @Override
+    public void myBoardList(Model m, Integer createdBy) {
+        List<Board> boards = boardRepository.findAllByCreatedByAndDeletedFalseOrderByBnoDesc(createdBy);
+
+
+        if (!boards.isEmpty()) {
+            List<BoardDto> boardDtos = boards.stream()
+                    .map(board -> BoardDto.builder()
+                            .bno(board.getBno())
+                            .title(board.getTitle())
+                            .content(board.getContent())
+                            .writer(board.getWriter())
+                            .viewCnt(board.getViewCnt())
+                            .commentCnt(board.getCommentCnt())
+                            .deleted(board.getDeleted())
+                            .createdAt(board.getCreatedAt())
+                            .createdBy(board.getCreatedBy())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("boardDtos", boardDtos); // 모델에 boardDtos 추가
+        } else {
+            System.out.println("게시판 정보를 찾을 수 없습니다.");
+        }
+    }
+
+
+    @Override
+    public void myCommentList(Model m, Integer createdBy) {
+        List<Comment> comments = commentRepository.findAllByCreatedByAndDeletedFalseOrderByCnoDesc(createdBy);
+
+        if (!comments.isEmpty()) {
+            List<CommentDto> commentDtos = comments.stream()
+                    .map(comment -> CommentDto.builder()
+                            .cno(comment.getCno())
+                            .bno(comment.getBno())
+//                            .parentComment(comment.getParentComment())
+                            .comment(comment.getComment())
+                            .commenter(comment.getCommenter())
+                            .deleted(comment.getDeleted())
+                            .createdAt(comment.getCreatedAt())
+                            .createdBy(comment.getCreatedBy())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("commentDtos", commentDtos);
+        } else {
+            System.out.println("댓글 정보를 찾을 수 없습니다.");
+        }
+    }
+
 
 
 }
