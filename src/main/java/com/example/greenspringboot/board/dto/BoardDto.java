@@ -20,4 +20,5 @@ public class BoardDto {
     private Integer createdBy;
     private Date updatedAt;
     private Integer updatedBy;
+    private String updatedByType;
 }
