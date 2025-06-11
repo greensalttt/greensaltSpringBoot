@@ -19,4 +19,8 @@ public interface AdminService {
 //    boolean boardRemove(Integer bno);
 
     boolean boardRemove(Integer bno, HttpSession session);
+
+    void commentList(Model m);
+
+    boolean commentRemove(Integer cno, HttpSession session);
 }

@@ -25,9 +25,6 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cno;
 
-//    @Column(name="c_id")
-//    private Integer cId;
-
     private Integer bno;
 
     // 대댓글 중에서 최고 조상을 찾는 관계이므로 다대일(Many-to-One) 관계를 사용
@@ -57,5 +54,10 @@ public class Comment {
 //    @Builder.Default
     @Column(name= "updated_by")
     private Integer updatedBy;
+
+    @Builder.Default
+    @Column(name = "updated_by_type")
+    private String updatedByType = "user";
+
 
 }

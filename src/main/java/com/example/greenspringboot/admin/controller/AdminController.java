@@ -222,4 +222,29 @@ public class AdminController {
         return "redirect:/admin/board_manage";
     }
 
+
+    @GetMapping("/comment_manage")
+    public String commentManage(Model m){
+        adminService.commentList(m);
+        return "commentManage";
+    }
+
+    @PostMapping("/comment_remove")
+    public String commentRemove(Integer cno, RedirectAttributes msg, HttpSession session){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/comment_manage";
+        }
+
+        if(!adminService.commentRemove(cno, session)){
+            msg.addFlashAttribute("removeFail", "msg");
+            return "redirect:/admin/comment_manage";
+        }
+        msg.addFlashAttribute("remove", "msg");
+        return "redirect:/admin/comment_manage";
+    }
+
 }

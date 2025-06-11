@@ -5,6 +5,8 @@ import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.repository.BoardRepository;
+import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
@@ -159,6 +161,41 @@ public class AdminServiceImpl implements AdminService {
         board.setUpdatedBy(aId);
         board.setUpdatedByType("admin");
         boardRepository.save(board);
+        return true;
+    }
+
+
+    @Override
+    public void commentList(Model m) {
+        List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc(); // 삭제되지 않은 댓글 전체 조회
+
+        if (!comments.isEmpty()) {
+            List<CommentDto> commentDtos = comments.stream()
+                    .map(comment -> CommentDto.builder()
+                            .cno(comment.getCno())
+                            .bno(comment.getBno())
+                            .comment(comment.getComment())
+                            .commenter(comment.getCommenter())
+                            .createdAt(comment.getCreatedAt())
+                            .deleted(comment.getDeleted())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("commentDtos", commentDtos); // 모델에 commentDtos 추가
+        } else {
+            System.out.println("댓글 정보를 찾을 수 없습니다.");
+        }
+    }
+
+    @Override
+    public boolean commentRemove(Integer cno, HttpSession session){
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        Comment comment = commentRepository.findByCno(cno);
+        comment.setDeleted(true);
+        comment.setUpdatedBy(aId);
+        comment.setUpdatedByType("admin");
+        commentRepository.save(comment);
         return true;
     }
 

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/myPageHeader.css"/>">
 
-    <title>commentManage</title>
+    <title>myCommentList</title>
     <style>
         * {
             margin: 0;
@@ -67,8 +67,6 @@
         .title { width: 35%; text-align: left; }
         .writer { width: 15%; }
         .regdt { width: 15%; }
-        .viewcnt { width: 10%; }
-        .actions { width: 10%; }
 
         #nocomment {
             margin-top: 100px;
@@ -149,9 +147,5 @@
     </footer>
 </div>
 
-
-<%--<footer>--%>
-<%--    <jsp:include page="footer.jsp" flush="false" />--%>
-<%--</footer>--%>
 </body>
 
