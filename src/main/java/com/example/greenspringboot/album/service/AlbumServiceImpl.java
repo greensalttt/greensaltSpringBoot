@@ -122,8 +122,8 @@ public class AlbumServiceImpl implements AlbumService{
     public String uploadImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
-        String uploadDir = "C:/album/";
-//        String uploadDir = "/home/ubuntu/album/";
+//        String uploadDir = "C:/album/";
+        String uploadDir = "/home/ubuntu/album/";
 
         File dir = new File(uploadDir);
         if (!dir.exists()) {

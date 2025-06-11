@@ -64,7 +64,7 @@
 <p class="myPageH">My Activity</p>
         <div class="oneone">
             <div class="sp">
-                <span class="ma">작성글</span>
+                <span class="ma">작성 게시글</span>
                 <span class="ma2">${custDto.boardCount}개</span>
             </div>
             <div class="sp">

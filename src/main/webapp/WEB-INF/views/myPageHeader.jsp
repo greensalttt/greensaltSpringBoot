@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setTimeZone value="Asia/Seoul" />
+
 
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -94,7 +96,7 @@
 
     <div class="one2">
         <div class="sp">
-            <span><a class="none" href="/mypage/myBoardList">작성글</a></span>
+            <span><a class="none" href="/mypage/myBoardList">작성 게시글</a></span>
         </div>
         <div class="sp">
             <span><a class="none" href="/mypage/myCommentList">작성 댓글</a></span>

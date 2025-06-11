@@ -23,7 +23,7 @@
         }
 
         .writing-header {
-            font-size: 20px;
+            font-size: 15px;
             position: relative;
             margin: 20px 0 0 0;
             padding-bottom: 10px;
@@ -191,7 +191,9 @@
 </script>
 
 <div class="container">
-    <h2 class="writing-header">게시글 ${mode=="new" ? "작성" : ""}</h2>
+  <p class="writing-header">${mode == "new" ? "글쓰기" : boardDto.writer}</p>
+
+
     <form id="form" class="frm" action="" method="post">
         <input class="boardTitle" type="hidden" name="bno" value="${boardDto.bno}">
 

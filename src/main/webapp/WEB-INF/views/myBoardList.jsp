@@ -104,7 +104,7 @@
 
 <div id="wrapper">
     <div id="boardListContainer">
-    <h1 class="domestic">작성글</h1>
+    <h1 class="domestic">작성 게시글</h1>
 
         <c:if test="${empty boardDtos}">
             <div id="noboard">게시글이 없습니다.</div>
