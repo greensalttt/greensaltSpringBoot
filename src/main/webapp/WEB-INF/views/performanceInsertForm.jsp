@@ -85,8 +85,16 @@
         <label for="artist">아티스트명:</label>
         <input type="text" name="artist" id="artist" maxlength="20" required>
 
+<%--        <label for="genre">장르:</label>--%>
+<%--        <input type="text" name="genre" id="genre" maxlength="15">--%>
+
         <label for="genre">장르:</label>
-        <input type="text" name="genre" id="genre" maxlength="15">
+        <select name="genre" id="genre" required>
+            <option value="">-- 선택하세요 --</option>
+            <option value="콘서트">콘서트</option>
+            <option value="스포츠">스포츠</option>
+        </select>
+
 
         <label for="venue">공연장:</label>
         <input type="text" name="venue" id="venue" maxlength="20" required>
