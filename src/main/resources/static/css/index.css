@@ -154,7 +154,7 @@ img {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
-    flex-wrap: wrap; /* 모바일 대응 시 줄바꿈 */
+    flex-wrap: wrap;
 }
 
 
@@ -204,11 +204,9 @@ img {
     text-align: center;
 }
 
-/*ㅡㅡ*/
-
 .miniHeader{
     display: flex;
-    justify-content: space-between; /* 좌우 정렬 */
+    justify-content: space-between;
 }
 
 .albumHeader{
@@ -247,23 +245,18 @@ img {
     margin-bottom: 10px;
 }
 
-
-
-/* .mySlides2 수정 */
 .mySlides2 {
     position: relative;
     width: 100%;
     height: 335px;
 }
 
-/* 이미지 컨테이너 */
 .img-container {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-/* 이미지 설정 */
 .img-container img {
     display: block;
     width: 100%;
@@ -314,6 +307,4 @@ img {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-
 }
-

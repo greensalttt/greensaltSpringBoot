@@ -1,28 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
-
-    <title>albumEdit</title>
-
+    <title>앨범 수정</title>
     <style>
-
-        * {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
             margin: 0;
             padding: 0;
-            color: black;
-            box-sizing: border-box;
-            text-decoration: none;
         }
-
-        body {
-            background-color: whitesmoke;
-            margin: 0 auto;
-            max-width: 1130px;
-            height: 160px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
 
         #wrapper {
             min-height: 100vh;
@@ -31,119 +18,117 @@
         }
 
         #albumPageContainer {
-            margin-top: 100px;
-            margin-bottom: 100px;
-            padding: 20px;
-            flex: 1;
-            text-align: center;
-
+            max-width: 700px;
+            margin: 100px auto;
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        .album-image {
-            margin-bottom: 20px;
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 12px;
+            background-color: darkgreen;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         .album-image img {
-            width: 250px;
-            height: 250px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            display: block;
         }
-
-        .album-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-left: 135px;
-        }
-
-        .album-info p {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            width: 300px;
-        }
-
 
         .album-content {
-            margin-top: 77px;
-            margin-bottom: 100px;
-            text-align: left;
-        }
-
-        .album-content h3 {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .album-content p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #444;
+            margin-top: 20px;
         }
     </style>
-
 </head>
-<body>
 
+<body>
 <div id="wrapper">
     <form action="/admin/album_modify" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div id="albumPageContainer">
-            <div class="album-image">
-                <img id="albumPreview" src="${albumDto.img}" alt="앨범 이미지" style="max-width: 200px;">
-                <p>
-                    <label>이미지 변경:
-                        <input type="file" name="imgFile" id="imgFile">
-                    </label>
-                </p>
-            </div>
+            <h2>앨범 수정</h2>
 
-    <div class="album-info">
-                <input type="hidden" name="ano" value="${albumDto.ano}" />
+            <input type="hidden" name="ano" value="${albumDto.ano}" />
 
+            <label for="albumPreview">앨범 이미지:</label>
+            <img id="albumPreview" src="${albumDto.img}" alt="앨범 이미지" style="max-width: 200px;">
+            <label for="imgFile">이미지 변경:</label>
+            <input type="file" name="imgFile" id="imgFile" accept="image/*">
 
-        <p><strong>title:</strong>
-                    <input type="text" name="title" value="${albumDto.title}" maxlength="30">
-                </p>
+            <label for="title">제목:</label>
+            <input type="text" name="title" id="title" value="${albumDto.title}" maxlength="30" required>
 
-                <p><strong>artist:</strong>
-                    <input type="text" name="artist" value="${albumDto.artist}" maxlength="20">
-                </p>
+            <label for="artist">아티스트:</label>
+            <input type="text" name="artist" id="artist" value="${albumDto.artist}" maxlength="20" required>
 
+            <label for="type">유형:</label>
+            <select name="type" id="type" required>
+                <option value="">-- 선택하세요 --</option>
+                <option value="싱글" ${albumDto.type == '싱글' ? 'selected' : ''}>싱글</option>
+                <option value="EP" ${albumDto.type == 'EP' ? 'selected' : ''}>EP</option>
+                <option value="정규" ${albumDto.type == '정규' ? 'selected' : ''}>정규</option>
+                <option value="믹스테잎" ${albumDto.type == '믹스테잎' ? 'selected' : ''}>믹스테잎</option>
+            </select>
 
-                <label for="type">유형:</label>
-                <select name="type" id="type" required>
-                    <option value="">-- 선택하세요 --</option>
-                    <option value="싱글" ${albumDto.type == '싱글' ? 'selected' : ''}>싱글</option>
-                    <option value="EP" ${albumDto.type == 'EP' ? 'selected' : ''}>EP</option>
-                    <option value="정규" ${albumDto.type == '정규' ? 'selected' : ''}>정규</option>
-                    <option value="믹스테잎" ${albumDto.type == '믹스테잎' ? 'selected' : ''}>믹스테잎</option>
-                </select>
+            <label for="genre">장르:</label>
+            <input type="text" name="genre" id="genre" value="${albumDto.genre}" maxlength="15">
 
-
-
-        <p><strong>genre:</strong>
-                    <input type="text" name="genre" value="${albumDto.genre}" maxlength="15">
-                </p>
-
-                <p><strong>released:</strong>
-                    <input type="date" name="released" value="${albumDto.released}" maxlength="10">
-                </p>
-            </div>
+            <label for="released">발매일:</label>
+            <input type="date" name="released" id="released" value="${albumDto.released}" maxlength="10">
 
             <div class="album-content">
-                <h3>앨범 소개</h3>
-                <textarea name="content" rows="10" cols="50">${albumDto.content}</textarea>
+                <label for="content">앨범 소개:</label>
+                <textarea name="content" id="content" rows="10">${albumDto.content}</textarea>
             </div>
 
-                <button type="submit">수정 완료</button>
-
+            <button type="submit">수정 완료</button>
         </div>
     </form>
-
-
 </div>
 </body>
+
 
 <script>
      document.getElementById('imgFile').addEventListener('change', function (e) {

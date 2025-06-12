@@ -56,14 +56,9 @@
             text-align: left;
         }
 
-        .performance-card:hover {
-            transform: translateY(-5px);
-        }
-
         .performance-card img {
             width: 100%;
             height: 300px;
-            object-fit: cover;
         }
 
         .performance-card .info {
@@ -163,6 +158,18 @@
             height: 20px;
             cursor: pointer;
         }
+
+
+        .date, .venue {
+            font-size: 13px;
+        }
+        .title {
+            color: grey;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
 
 
     </style>
