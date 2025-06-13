@@ -8,6 +8,8 @@ import com.example.greenspringboot.board.paging.SearchCondition15;
 import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.comment.entity.Comment;
+import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
@@ -31,6 +33,9 @@ public class BoardServiceImpl implements BoardService{
 
     @Autowired
     private BoardHistRepository boardHistRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     private CustRepository custRepository;
@@ -69,12 +74,13 @@ public class BoardServiceImpl implements BoardService{
         return toDto(board);
     }
 
-    //삭제
-
+//    레포에 쿼리를 수정하는 메서드가 있을시 트렌젝션 필수
     @Override
+    @Transactional
     public void remove(Integer createdBy, Integer bno){
         Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
         board.setDeleted(true);
+        commentRepository.deleteByBno(bno);
         boardRepository.save(board);
     }
 

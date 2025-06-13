@@ -57,7 +57,6 @@ public class BoardController {
     }
 
 
-//    닉네임을 어떻게 가져올지 새로운 고민
     @PostMapping("/write")
     public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
 
