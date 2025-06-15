@@ -95,7 +95,7 @@
 
         .button-section h2 {
             font-size: 20px;
-            margin: 30px 0 15px;
+            margin: 20px 0 15px;
             color: #2c3e50;
             border-left: 4px solid darkgreen;
             padding-left: 10px;
@@ -104,8 +104,7 @@
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 5px;
         }
 
         .btn {
@@ -166,12 +165,15 @@
             <h2>게시판 관리</h2>
             <div class="action-buttons">
                 <a class="btn" href="/admin/board_manage">게시글 관리</a>
+                <a class="btn" href="/admin/board_hist">게시글 로그</a>
                 <a class="btn" href="/admin/comment_manage">댓글 관리</a>
+                <a class="btn" href="/admin/comment_hist">댓글 로그</a>
             </div>
 
             <h2>회원 관리</h2>
             <div class="action-buttons">
                 <a class="btn" href="/admin/cust_list">회원 목록</a>
+                <a class="btn" href="/admin/cust_hist">회원 로그</a>
             </div>
         </div>
 

@@ -1,9 +1,12 @@
 package com.example.greenspringboot.admin.service;
 
+import com.example.greenspringboot.board.dto.BoardHistDto;
+import com.example.greenspringboot.board.entity.BoardHist;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public interface AdminService {
 
@@ -23,4 +26,8 @@ public interface AdminService {
     void commentList(Model m);
 
     boolean commentRemove(Integer cno, HttpSession session);
+
+    void boardHist(Model m);
+
 }
+

@@ -345,10 +345,10 @@
 
             let tmp = "<ul>";
             comments.forEach(function(comment) {
-                console.log(comment);
+                // console.log(comment);
                 // Jackson 규칙으로 cId를 cid로 찍어야 값이 나옴
-                console.log(comment.createdBy);
-                console.log(cId);
+                // console.log(comment.createdBy);
+                // console.log(cId);
 
 
                 let topParentComment = comment;

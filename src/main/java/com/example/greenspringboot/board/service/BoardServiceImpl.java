@@ -86,19 +86,23 @@ public class BoardServiceImpl implements BoardService{
 
 
     private void addBoardHistDto(List<BoardHistDto> boardHistDtoList, BoardDto newData,
-                              String changeCode, String oldValue, String newValue) {
+                                 String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
-            BoardHistDto boardHistDto = new BoardHistDto();
-            boardHistDto.setBno(newData.getBno());
-            boardHistDto.setCId(newData.getCreatedBy());
-            boardHistDto.setBCngCd(changeCode);
-            boardHistDto.setBBf(oldValue);
-            boardHistDto.setBAf(newValue);
-            boardHistDto.setCreatedBy(newData.getCreatedBy());
-            boardHistDtoList.add(boardHistDto);
-        }}
+            BoardHistDto boardHistDto = BoardHistDto.builder()
+                    .bno(newData.getBno())
+                    .cId(newData.getCreatedBy())
+                    .bCngCd(changeCode)
+                    .bBf(oldValue)
+                    .bAf(newValue)
+                    .createdBy(newData.getCreatedBy())
+                    .build();
 
-//    추후 boolean으로 수정
+            boardHistDtoList.add(boardHistDto);
+        }
+    }
+
+
+    //    추후 boolean으로 수정
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer createdBy, Integer bno, BoardDto oldData) {

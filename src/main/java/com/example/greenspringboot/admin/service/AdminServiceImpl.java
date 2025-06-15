@@ -3,7 +3,10 @@ import com.example.greenspringboot.admin.entity.Admin;
 import com.example.greenspringboot.admin.repository.AdminRepository;
 import com.example.greenspringboot.album.repository.AlbumRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.Board;
+import com.example.greenspringboot.board.entity.BoardHist;
+import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.comment.entity.Comment;
@@ -33,6 +36,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+
+    @Autowired
+    private BoardHistRepository boardHistRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -197,6 +204,44 @@ public class AdminServiceImpl implements AdminService {
         comment.setUpdatedByType("admin");
         commentRepository.save(comment);
         return true;
+    }
+
+//    @Override
+//    public List<BoardHistDto> boardHist() {
+//        List<BoardHist> boardHistList = boardHistRepository.findAll();
+//
+//        return boardHistList.stream()
+//                .map(boardHist -> BoardHistDto.builder()
+//                        .bHistNum(boardHist.getBHistNum())
+//                        .bno(boardHist.getBno())
+//                        .cId(boardHist.getCId())
+//                        .bCngCd(boardHist.getBCngCd())
+//                        .bBf(boardHist.getBBf())
+//                        .bAf(boardHist.getBAf())
+//                        .createdAt(boardHist.getCreatedAt())
+//                        .createdBy(boardHist.getCreatedBy())
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
+
+    @Override
+    public void boardHist(Model m) {
+        List<BoardHist> boardHistList = boardHistRepository.findAll();
+
+        List<BoardHistDto> boardHistDtoList = boardHistList.stream()
+                .map(boardHist -> BoardHistDto.builder()
+                        .bHistNum(boardHist.getBHistNum())
+                        .bno(boardHist.getBno())
+                        .cId(boardHist.getCId())
+                        .bCngCd(boardHist.getBCngCd())
+                        .bBf(boardHist.getBBf())
+                        .bAf(boardHist.getBAf())
+                        .createdAt(boardHist.getCreatedAt())
+                        .createdBy(boardHist.getCreatedBy())
+                        .build())
+                .collect(Collectors.toList());
+
+        m.addAttribute("boardHistList", boardHistDtoList);
     }
 
 

@@ -247,4 +247,10 @@ public class AdminController {
         return "redirect:/admin/comment_manage";
     }
 
+
+    @GetMapping("/board_hist")
+    public String boardHistory(Model m){
+        adminService.boardHist(m);
+        return "boardHist";
+    }
 }
