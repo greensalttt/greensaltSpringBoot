@@ -78,6 +78,7 @@
             <th>변경 전</th>
             <th>변경 후</th>
             <th>변경 일시</th>
+            <th>수정자 ID</th>
         </tr>
         </thead>
         <tbody>
@@ -90,6 +91,7 @@
                 <td>${hist.BBf}</td>
                 <td>${hist.BAf}</td>
                 <td><fmt:formatDate value="${hist.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                <td>${hist.createdBy}</td>
             </tr>
         </c:forEach>
         </tbody>
