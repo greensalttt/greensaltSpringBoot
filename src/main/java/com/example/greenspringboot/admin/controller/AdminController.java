@@ -253,4 +253,10 @@ public class AdminController {
         adminService.boardHist(m);
         return "boardHist";
     }
+
+    @GetMapping("/comment_hist")
+    public String commentHistory(Model m){
+        adminService.commentHist(m);
+        return "commentHist";
+    }
 }
