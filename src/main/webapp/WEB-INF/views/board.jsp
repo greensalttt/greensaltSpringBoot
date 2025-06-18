@@ -489,6 +489,7 @@
 
                 // 댓글 수정
                     let selectedCno = null;
+                    <%--let createdBy = ${commentDto.createdBy};--%>
 
                     // 1. 댓글 수정 버튼 클릭 → 모달 열기
                     $("#commentList").on("click", ".modBtn", function () {

@@ -181,6 +181,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
+//    관리자페이지 댓글
     @Override
     public void commentList(Model m) {
         List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc(); // 삭제되지 않은 댓글 전체 조회
@@ -193,6 +194,7 @@ public class AdminServiceImpl implements AdminService {
                             .comment(comment.getComment())
                             .commenter(comment.getCommenter())
                             .createdAt(comment.getCreatedAt())
+                            .createdBy(comment.getCreatedBy())
                             .deleted(comment.getDeleted())
                             .build())
                     .collect(Collectors.toList());
@@ -202,15 +204,6 @@ public class AdminServiceImpl implements AdminService {
             System.out.println("댓글 정보를 찾을 수 없습니다.");
         }
     }
-
-//    @Override
-//    public boolean commentRemove(Integer cno, HttpSession session){
-//        Comment comment = commentRepository.findByCno(cno);
-//        comment.setDeleted(true);
-//        comment.setUpdatedBy("admin");
-//        commentRepository.save(comment);
-//        return true;
-//    }
 
     @Override
     public boolean commentRemove(CommentDto commentDto, Integer cno, HttpSession session){

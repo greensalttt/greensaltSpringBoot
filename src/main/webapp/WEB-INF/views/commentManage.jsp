@@ -93,15 +93,15 @@
             cursor: pointer;
         }
 
-        .back-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 16px;
-            background-color: darkgreen;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
+        /*.back-button {*/
+        /*    display: inline-block;*/
+        /*    margin: 0 auto;*/
+        /*    padding: 10px 16px;*/
+        /*    background-color: darkgreen;*/
+        /*    color: white;*/
+        /*    text-decoration: none;*/
+        /*    border-radius: 6px;*/
+        /*}*/
     </style>
 </head>
 
@@ -162,8 +162,8 @@
             </table>
         </c:if>
     </div>
+<%--    <a href="/admin/page" class="back-button">← 관리자 대시보드로</a>--%>
 </div>
-<a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
 </body>
 
 <script>
