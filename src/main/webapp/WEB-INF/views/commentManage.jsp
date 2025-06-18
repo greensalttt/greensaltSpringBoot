@@ -92,6 +92,16 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            background-color: darkgreen;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
@@ -140,6 +150,9 @@
                         <td class="actions">
                             <form action="/admin/comment_remove" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                                 <input type="hidden" name="cno" value="${commentDto.cno}">
+                                <input type="hidden" name="bno" value="${commentDto.bno}">
+                                <input type="hidden" name="createdBy" value="${commentDto.createdBy}">
+
                                 <button type="submit" class="delete-btn">삭제</button>
                             </form>
                         </td>
@@ -150,6 +163,7 @@
         </c:if>
     </div>
 </div>
+<a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
 </body>
 
 <script>

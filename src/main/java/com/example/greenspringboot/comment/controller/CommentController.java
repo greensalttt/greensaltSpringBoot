@@ -25,7 +25,6 @@ public class CommentController {
     // 댓글을 등록하는 메서드
     @PostMapping("/comments")
     public String write(@RequestBody CommentDto commentDto, Integer bno, HttpSession session) {
-
         Integer cId = (Integer) session.getAttribute("cId");
         commentDto.setCreatedBy((Integer) session.getAttribute("cId"));
         commentDto.setBno(bno);
@@ -33,20 +32,24 @@ public class CommentController {
 
         return "redirect:/board";
     }
+
     // 댓글 수정
+    // JSON body를 요청해서 수정하므로 RequestBody를 사용함(등록과 수정시에만, 삭제는 필요없음)
     @PatchMapping("/comments/{cno}")
     public String modify(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
         commentDto.setCreatedBy((Integer) session.getAttribute("cId"));
-        commentDto.setCno(cno);
         commentService.modify(commentDto, cno);
         return "redirect:/board";
     }
 
-//    댓글 삭제
+
+    //    댓글 삭제
     @DeleteMapping("/comments/{cno}")
-    public String remove(@PathVariable Integer cno) {
-        commentService.remove(cno);
+    public String remove(@PathVariable Integer cno, CommentDto commentDto, HttpSession session) {
+        commentDto.setCreatedBy((Integer) session.getAttribute("cId"));
+        commentService.remove(commentDto, cno);
         return "redirect:/board";
     }
+
 }
 

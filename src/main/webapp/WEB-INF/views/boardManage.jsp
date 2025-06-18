@@ -96,6 +96,16 @@
             cursor: pointer;
         }
 
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            background-color: darkgreen;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
     </style>
 </head>
 
@@ -162,6 +172,7 @@
         </c:if>
     </div>
 </div>
+<a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
 </body>
 
 

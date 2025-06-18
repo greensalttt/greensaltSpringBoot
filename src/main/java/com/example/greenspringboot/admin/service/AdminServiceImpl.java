@@ -9,8 +9,12 @@ import com.example.greenspringboot.board.entity.BoardHist;
 import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.comment.dto.CommentHistDto;
 import com.example.greenspringboot.comment.entity.Comment;
+import com.example.greenspringboot.comment.entity.CommentHist;
+import com.example.greenspringboot.comment.repository.CommentHistRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
+import com.example.greenspringboot.comment.service.CommentService;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
@@ -37,6 +41,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private CommentHistRepository commentHistRepository;
 
     @Autowired
     private BoardHistRepository boardHistRepository;
@@ -49,6 +55,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private PerformanceRepository performanceRepository;
+
+//    @Autowired
+//    private CommentService commentService;
 
 
     @Override
@@ -161,12 +170,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean boardRemove(Integer bno, HttpSession session){
-        Integer aId = (Integer) session.getAttribute("aId");
+//        Integer aId = (Integer) session.getAttribute("aId");
 
         Board board = boardRepository.findByBno(bno);
         board.setDeleted(true);
-        board.setUpdatedBy(aId);
-        board.setUpdatedByType("admin");
+        board.setUpdatedBy("admin");
+//        board.setUpdatedByType("admin");
         boardRepository.save(board);
         return true;
     }
@@ -194,35 +203,46 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    @Override
-    public boolean commentRemove(Integer cno, HttpSession session){
-        Integer aId = (Integer) session.getAttribute("aId");
+//    @Override
+//    public boolean commentRemove(Integer cno, HttpSession session){
+//        Comment comment = commentRepository.findByCno(cno);
+//        comment.setDeleted(true);
+//        comment.setUpdatedBy("admin");
+//        commentRepository.save(comment);
+//        return true;
+//    }
 
+    @Override
+    public boolean commentRemove(CommentDto commentDto, Integer cno, HttpSession session){
         Comment comment = commentRepository.findByCno(cno);
         comment.setDeleted(true);
-        comment.setUpdatedBy(aId);
-        comment.setUpdatedByType("admin");
+        comment.setUpdatedBy("admin");
         commentRepository.save(comment);
+
+        String oldValue = comment.getComment();  // 예를 들어, content 필드를 수정한다고 가정
+        String newValue = "null";  // 수정된 댓글 내용
+        String changeCode = "delete";  // 예를 들어, content 필드를 수정한다고 가정
+        String createdBy = "admin";
+        addCommentHist(commentDto, oldValue, newValue, changeCode, createdBy);
         return true;
     }
 
-//    @Override
-//    public List<BoardHistDto> boardHist() {
-//        List<BoardHist> boardHistList = boardHistRepository.findAll();
-//
-//        return boardHistList.stream()
-//                .map(boardHist -> BoardHistDto.builder()
-//                        .bHistNum(boardHist.getBHistNum())
-//                        .bno(boardHist.getBno())
-//                        .cId(boardHist.getCId())
-//                        .bCngCd(boardHist.getBCngCd())
-//                        .bBf(boardHist.getBBf())
-//                        .bAf(boardHist.getBAf())
-//                        .createdAt(boardHist.getCreatedAt())
-//                        .createdBy(boardHist.getCreatedBy())
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
+    private void addCommentHist(CommentDto commentDto, String oldValue, String newValue, String changeCode, String createdBy) {
+        if (!oldValue.equals(newValue)) {
+            CommentHist commentHist = CommentHist.builder()
+                    .cno(commentDto.getCno())
+                    .bno(commentDto.getBno())
+                    .cId(commentDto.getCreatedBy())
+                    .coCngCd(changeCode)
+                    .coBf(oldValue)
+                    .coAf(newValue)
+                    .createdBy(createdBy)
+                    .build();
+            // 이력 저장
+            commentHistRepository.save(commentHist);
+            System.out.println("코멘트디티오 =" + commentDto);
+        }}
+
 
     @Override
     public void boardHist(Model m) {
@@ -242,6 +262,27 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
 
         m.addAttribute("boardHistList", boardHistDtoList);
+    }
+
+    @Override
+    public void commentHist(Model m) {
+        List<CommentHist> commentHistList = commentHistRepository.findAll();
+
+        List<CommentHistDto> commentHistDtoList = commentHistList.stream()
+                .map(commentHist -> CommentHistDto.builder()
+                        .coHistNum(commentHist.getCoHistNum())
+                        .cno(commentHist.getCno())
+                        .bno(commentHist.getBno())
+                        .cId(commentHist.getCId())
+                        .coCngCd(commentHist.getCoCngCd())
+                        .coBf(commentHist.getCoBf())
+                        .coAf(commentHist.getCoAf())
+                        .createdAt(commentHist.getCreatedAt())
+                        .createdBy(commentHist.getCreatedBy())
+                        .build())
+                .collect(Collectors.toList());
+
+        m.addAttribute("commentHistList", commentHistDtoList);
     }
 
 

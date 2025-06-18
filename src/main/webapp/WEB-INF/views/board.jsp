@@ -525,35 +525,36 @@
                 });
                 });
 
-    $("#commentList").on("click", ".delBtn", function (){
-    let commentElement = $(this).parent(); // 클릭된 버튼의 부모(li 요소)
-    let cno = commentElement.attr("data-cno"); // 댓글의 고유 번호
+                // 삭제
+                    $("#commentList").on("click", ".delBtn", function (){
+                    let commentElement = $(this).parent(); // 클릭된 버튼의 부모(li 요소)
+                    let cno = commentElement.attr("data-cno"); // 댓글의 고유 번호
 
-    if (!confirm("정말로 삭제하시겠습니까?")) {
-    return;
-    }
-    $.ajax({
-    type: 'DELETE',
-    url: '/comments/' + cno + '?bno=' + bno,
-    success: function() {
-    // 댓글 삭제 성공 시 처리
-    alert("삭제에 성공했습니다."); // 성공 메시지를 알림으로 표시
+                    if (!confirm("정말로 삭제하시겠습니까?")) {
+                    return;
+                }
+                    $.ajax({
+                    type: 'DELETE',
+                    url: '/comments/' + cno + '?bno=' + bno,
+                    success: function() {
+                    // 댓글 삭제 성공 시 처리
+                    alert("삭제에 성공했습니다."); // 성공 메시지를 알림으로 표시
 
-    // // 댓글 내용만 "삭제된 댓글입니다"로 변경
-    commentElement.find(".commenter").text("삭제된 댓글입니다");
-    commentElement.find(".comment").text(""); // 댓글 내용 제거
-    commentElement.find(".modBtn, .replyBtn, .delBtn").hide(); // 수정, 답글, 삭제 버튼 숨김
-    //
-    // // 삭제된 상태를 시각적으로 표시하기 위한 클래스 추가 (CSS 적용 가능)
-    commentElement.addClass("deleted");
-    },
-    error: function() {
-    alert("댓글 삭제 중 오류가 발생했습니다.");
-    }
-    });
-    });
-    }
-    });
+                    // // 댓글 내용만 "삭제된 댓글입니다"로 변경
+                    commentElement.find(".commenter").text("삭제된 댓글입니다");
+                    commentElement.find(".comment").text(""); // 댓글 내용 제거
+                    commentElement.find(".modBtn, .replyBtn, .delBtn").hide(); // 수정, 답글, 삭제 버튼 숨김
+                    //
+                    // // 삭제된 상태를 시각적으로 표시하기 위한 클래스 추가 (CSS 적용 가능)
+                    commentElement.addClass("deleted");
+                },
+                    error: function() {
+                    alert("댓글 삭제 중 오류가 발생했습니다.");
+                    }
+                    });
+                    });
+                    }
+                });
     </script>
 
     <script>

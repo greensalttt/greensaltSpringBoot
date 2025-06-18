@@ -2,6 +2,7 @@ package com.example.greenspringboot.admin.controller;
 import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.service.AlbumService;
+import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,7 +231,7 @@ public class AdminController {
     }
 
     @PostMapping("/comment_remove")
-    public String commentRemove(Integer cno, RedirectAttributes msg, HttpSession session){
+    public String commentRemove(CommentDto commentDto, Integer cno, RedirectAttributes msg, HttpSession session){
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -239,7 +240,7 @@ public class AdminController {
             return "redirect:/admin/comment_manage";
         }
 
-        if(!adminService.commentRemove(cno, session)){
+        if(!adminService.commentRemove(commentDto,cno, session)){
             msg.addFlashAttribute("removeFail", "msg");
             return "redirect:/admin/comment_manage";
         }

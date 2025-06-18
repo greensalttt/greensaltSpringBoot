@@ -59,7 +59,7 @@ public class BoardServiceImpl implements BoardService{
                     .content(boardDto.getContent())
                     .writer(custDto.getCNick())
                     .createdBy(boardDto.getCreatedBy())
-                    .updatedBy(boardDto.getCreatedBy())
+//                    .updatedBy(boardDto.getCreatedBy())
                     .build();
             // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
             boardRepository.save(board);
@@ -94,7 +94,7 @@ public class BoardServiceImpl implements BoardService{
                     .bCngCd(changeCode)
                     .bBf(oldValue)
                     .bAf(newValue)
-                    .createdBy(newData.getCreatedBy())
+//                    .createdBy(newData.getCreatedBy())
                     .build();
 
             boardHistDtoList.add(boardHistDto);
