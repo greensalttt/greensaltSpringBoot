@@ -21,14 +21,17 @@ public class CommentHist {
     @Column(name = "co_hist_num", nullable = false)
     private Integer coHistNum;
 
-    @Column(name = "cno", nullable = false)
-    private Integer cno;
-
     @Column(name = "c_id", nullable = false)
     private Integer cId;
 
+    @Column(name = "cno", nullable = false)
+    private Integer cno;
+
     @Column(name = "bno", nullable = false)
     private Integer bno;
+
+    @Column(name = "co_cng_cd", nullable = false)
+    private String coCngCd;
 
     @Column(name = "co_bf", nullable = false)
     private String coBf;
@@ -40,8 +43,8 @@ public class CommentHist {
     @Column(name= "created_at")
     private Date createdAt = new Date();
 
-//    @Builder.Default
+    @Builder.Default
     @Column(name= "created_by")
-    private Integer createdBy;
+    private String createdBy = "user";
 
 }

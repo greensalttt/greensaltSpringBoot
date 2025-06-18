@@ -10,10 +10,11 @@ import java.util.Date;
 public class CommentHistDto {
         private Integer coHistNum;
         private Integer cno;
-        private Integer cId;
         private Integer bno;
+        private Integer cId;
+        private String coCngCd;
         private String coBf;
         private String coAf;
         private Date createdAt;
-        private Integer createdBy;
+        private String createdBy;
     }
