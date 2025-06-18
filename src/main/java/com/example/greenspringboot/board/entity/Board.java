@@ -53,13 +53,13 @@ public class Board {
     @Column(name= "updated_at")
     private Date updatedAt = new Date();
 
-//    @Builder.Default
-    @Column(name= "updated_by")
-    private Integer updatedBy;
-
     @Builder.Default
-    @Column(name = "updated_by_type")
-    private String updatedByType = "user";
+    @Column(name= "updated_by")
+    private String updatedBy = "user";
+
+//    @Builder.Default
+//    @Column(name = "updated_by_type")
+//    private String updatedByType = "user";
 
 
 }

@@ -40,8 +40,9 @@ public class BoardHist {
     @Column(name= "created_at")
     private Date createdAt = new Date();
 
+    @Builder.Default
     @Column(name= "created_by")
-    private Integer createdBy;
+    private String createdBy = "user";
 
 
 }

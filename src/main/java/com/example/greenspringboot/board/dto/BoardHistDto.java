@@ -13,7 +13,7 @@ public class BoardHistDto {
     private String bBf;
     private String bAf;
     private Date createdAt;
-    private Integer createdBy;
+    private String createdBy;
 }
 
 
