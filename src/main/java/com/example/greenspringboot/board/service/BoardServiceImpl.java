@@ -3,12 +3,10 @@ package com.example.greenspringboot.board.service;
 import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.entity.BoardHist;
-import com.example.greenspringboot.board.paging.SearchCondition;
 import com.example.greenspringboot.board.paging.SearchCondition15;
 import com.example.greenspringboot.board.repository.BoardHistRepository;
 import com.example.greenspringboot.board.repository.BoardRepository;
 import com.example.greenspringboot.board.dto.BoardDto;
-import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
@@ -17,10 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,32 +73,45 @@ public class BoardServiceImpl implements BoardService{
 //    레포에 쿼리를 수정하는 메서드가 있을시 트렌젝션 필수
     @Override
     @Transactional
-    public void remove(Integer createdBy, Integer bno){
+    public void remove(Integer createdBy, Integer bno, BoardDto boardDto){
         Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
         board.setDeleted(true);
         commentRepository.deleteByBno(bno);
         boardRepository.save(board);
+
+
+        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
+        String newValue = "null";
+        String changeCode = "DELETE";
+
+//        List<BoardHistDto> boardHistDtoList = new ArrayList<>();
+//
+//        addBoardHistDto(boardHistDtoList, boardDto, oldValue, newValue, changeCode);
+//
+//        for (BoardHistDto boardHistDto : boardHistDtoList) {
+//            BoardHist boardHist = new BoardHist();
+//            boardHist.setBno(boardHistDto.getBno());
+//            boardHist.setCId(boardHistDto.getCId());
+//            boardHist.setBCngCd(boardHistDto.getBCngCd());
+//            boardHist.setBBf(boardHistDto.getBBf());
+//            boardHist.setBAf(boardHistDto.getBAf());
+//            boardHist.setCreatedBy("admin"); // 혹은 boardDto.getCreatedBy()
+//            boardHistRepository.save(boardHist);
+//        }
+
+        BoardHist boardHist = BoardHist.builder()
+                .bno(boardDto.getBno())
+                .cId(boardDto.getCreatedBy())
+                .bCngCd(changeCode)
+                .bBf(oldValue)
+                .bAf(newValue)
+                .build();
+
+        boardHistRepository.save(boardHist);
     }
 
 
-    private void addBoardHistDto(List<BoardHistDto> boardHistDtoList, BoardDto newData,
-                                 String changeCode, String oldValue, String newValue) {
-        if (!oldValue.equals(newValue)) {
-            BoardHistDto boardHistDto = BoardHistDto.builder()
-                    .bno(newData.getBno())
-                    .cId(newData.getCreatedBy())
-                    .bCngCd(changeCode)
-                    .bBf(oldValue)
-                    .bAf(newValue)
-//                    .createdBy(newData.getCreatedBy())
-                    .build();
-
-            boardHistDtoList.add(boardHistDto);
-        }
-    }
-
-
-    //    추후 boolean으로 수정
+    //    추후 boolean으로 수정, 엔티티 dto
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer createdBy, Integer bno, BoardDto oldData) {
@@ -114,28 +123,33 @@ public class BoardServiceImpl implements BoardService{
         // 바뀐 개인정보 저장
         boardRepository.save(board);
 
-        // 변경 이력을 담을 DTO 리스트
         List<BoardHistDto> boardHistDtoList = new ArrayList<>();
 
-        //2개의 필드 변경시 코드 설정
         addBoardHistDto(boardHistDtoList, boardDto, "TITLE", oldData.getTitle(), boardDto.getTitle());
         addBoardHistDto(boardHistDtoList, boardDto, "CONTENT", oldData.getContent(), boardDto.getContent());
 
-        // 변경 이력이 담긴 DTO 리스트를 순회하면서
         for (BoardHistDto boardHistDto : boardHistDtoList) {
-
-//          addBoardHistDto에 설정한 dto를 엔티티로 옮기기
             BoardHist boardHist = new BoardHist();
             boardHist.setBno(boardHistDto.getBno());
             boardHist.setCId(boardHistDto.getCId());
             boardHist.setBCngCd(boardHistDto.getBCngCd());
             boardHist.setBBf(boardHistDto.getBBf());
             boardHist.setBAf(boardHistDto.getBAf());
-            boardHist.setCreatedBy(boardHistDto.getCreatedBy());
-
-
-            // 이력 저장
             boardHistRepository.save(boardHist);
+        }
+    }
+
+    private void addBoardHistDto(List<BoardHistDto> boardHistDtoList, BoardDto newData,
+                                 String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            BoardHistDto boardHistDto = BoardHistDto.builder()
+                    .bno(newData.getBno())
+                    .cId(newData.getCreatedBy())
+                    .bCngCd(changeCode)
+                    .bBf(oldValue)
+                    .bAf(newValue)
+                    .build();
+            boardHistDtoList.add(boardHistDto);
         }
     }
 

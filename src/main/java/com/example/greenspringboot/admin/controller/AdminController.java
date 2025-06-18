@@ -2,6 +2,7 @@ package com.example.greenspringboot.admin.controller;
 import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.service.AlbumService;
+import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -206,7 +209,7 @@ public class AdminController {
     }
 
     @PostMapping("/board_remove")
-    public String boardRemove(Integer bno, RedirectAttributes msg, HttpSession session){
+    public String boardRemove(BoardDto boardDto, Integer bno, RedirectAttributes msg, HttpSession session){
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -215,7 +218,7 @@ public class AdminController {
             return "redirect:/admin/board_manage";
         }
 
-        if(!adminService.boardRemove(bno, session)){
+        if(!adminService.boardRemove(boardDto, bno)){
             msg.addFlashAttribute("removeFail", "msg");
             return "redirect:/admin/board_manage";
         }
@@ -240,7 +243,7 @@ public class AdminController {
             return "redirect:/admin/comment_manage";
         }
 
-        if(!adminService.commentRemove(commentDto,cno, session)){
+        if(!adminService.commentRemove(commentDto,cno)){
             msg.addFlashAttribute("removeFail", "msg");
             return "redirect:/admin/comment_manage";
         }

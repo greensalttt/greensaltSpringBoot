@@ -103,9 +103,9 @@ public class BoardController {
 
     @PostMapping("/remove")
     public String remove(BoardDto boardDto, HttpSession session, Integer bno, RedirectAttributes rattr){
-        Integer cId = (Integer) session.getAttribute("cId");
-        boardDto.setCreatedBy(cId);
-        boardService.remove(cId, bno);
+        Integer createdBy = (Integer) session.getAttribute("cId");
+        boardDto.setCreatedBy(createdBy);
+        boardService.remove(createdBy, bno, boardDto);
         rattr.addFlashAttribute("msg", "DEL_OK");
         return "redirect:/board/list";
     }

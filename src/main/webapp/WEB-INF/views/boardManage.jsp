@@ -7,34 +7,50 @@
 <head>
     <title>boardManage</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            color: black;
-            box-sizing: border-box;
-            text-decoration: none;
-        }
+        /** {*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*    color: black;*/
+        /*    box-sizing: border-box;*/
+        /*    text-decoration: none;*/
+        /*}*/
+
+        /*body {*/
+        /*    background-color: whitesmoke;*/
+        /*    margin: 0 auto;*/
+        /*    max-width: 1130px;*/
+        /*    height: 160px;*/
+        /*    position: relative;*/
+        /*    overflow-x: hidden;*/
+        /*}*/
+
+        /*#wrapper {*/
+        /*    min-height: 100vh;*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*}*/
+
+        /*#boardListContainer {*/
+        /*    padding: 20px;*/
+        /*    flex: 1;*/
+        /*    width: 90%;*/
+        /*    margin: 100px auto 100px auto;*/
+        /*}*/
 
         body {
-            background-color: whitesmoke;
-            margin: 0 auto;
-            max-width: 1130px;
-            height: 160px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        #wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #boardListContainer {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
             padding: 20px;
-            flex: 1;
-            width: 90%;
-            margin: 100px auto 100px auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .domestic {
@@ -110,13 +126,15 @@
 </head>
 
 <body>
-<div id="wrapper">
-    <div id="boardListContainer">
-        <div class="domestic">
-            <span class="cate">
-                <a href="/admin/page">관리자 메인 페이지</a>
-            </span>
-        </div>
+<%--<div id="wrapper">--%>
+    <div class="container">
+<%--        <div class="domestic">--%>
+<%--            <span class="cate">--%>
+<%--                <a href="/admin/page">관리자 메인 페이지</a>--%>
+<%--            </span>--%>
+<%--        </div>--%>
+    <div class="domestic">게시글 관리</div>
+
 
         <c:if test="${empty boardDtos}">
             <div id="noboard">게시글이 없습니다.</div>
@@ -162,6 +180,7 @@
                         <td class="actions">
                             <form action="/admin/board_remove" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                                 <input type="hidden" name="bno" value="${boardDto.bno}">
+                                <input type="hidden" name="createdBy" value="${boardDto.createdBy}">
                                 <button type="submit" class="delete-btn">삭제</button>
                             </form>
                         </td>
@@ -170,9 +189,10 @@
                 </tbody>
             </table>
         </c:if>
+        <a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
     </div>
-</div>
-<a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
+<%--</div>--%>
+
 </body>
 
 

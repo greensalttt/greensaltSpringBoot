@@ -3,36 +3,53 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setTimeZone value="Asia/Seoul" />
 
+
 <head>
     <title>myCommentList</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            color: black;
-            box-sizing: border-box;
-            text-decoration: none;
-        }
+        /** {*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*    color: black;*/
+        /*    box-sizing: border-box;*/
+        /*    text-decoration: none;*/
+        /*}*/
+
+        /*body {*/
+        /*    background-color: whitesmoke;*/
+        /*    margin: 0 auto;*/
+        /*    max-width: 1130px;*/
+        /*    position: relative;*/
+        /*    overflow-x: hidden;*/
+        /*}*/
+
+        /*#wrapper {*/
+        /*    min-height: 100vh;*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*}*/
+
+        /*#commentListContainer {*/
+        /*    padding: 20px;*/
+        /*    flex: 1;*/
+        /*    width: 90%;*/
+        /*    margin: 100px auto 100px auto;*/
+        /*}*/
 
         body {
-            background-color: whitesmoke;
-            margin: 0 auto;
-            max-width: 1130px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        #wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #commentListContainer {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
             padding: 20px;
-            flex: 1;
-            width: 90%;
-            margin: 100px auto 100px auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .domestic {
@@ -93,22 +110,22 @@
             cursor: pointer;
         }
 
-        /*.back-button {*/
-        /*    display: inline-block;*/
-        /*    margin: 0 auto;*/
-        /*    padding: 10px 16px;*/
-        /*    background-color: darkgreen;*/
-        /*    color: white;*/
-        /*    text-decoration: none;*/
-        /*    border-radius: 6px;*/
-        /*}*/
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            background-color: darkgreen;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
 <body>
-<div id="wrapper">
-    <div id="commentListContainer">
-        <div class="domestic">작성 댓글</div>
+<%--<div id="wrapper">--%>
+    <div class="container">
+        <div class="domestic">댓글 관리</div>
 
         <c:if test="${empty commentDtos}">
             <div id="nocomment">댓글이 없습니다.</div>
@@ -161,9 +178,9 @@
                 </tbody>
             </table>
         </c:if>
+        <a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
     </div>
-<%--    <a href="/admin/page" class="back-button">← 관리자 대시보드로</a>--%>
-</div>
+<%--</div>--%>
 </body>
 
 <script>
@@ -177,6 +194,7 @@
         alert("댓글 삭제가 실패했습니다.")
     }
 
+    // 뒤로가기 얼렉창 문제 해결하기
     let remove = "${remove}"
     if(remove==="msg") {
         alert("댓글 삭제가 완료되었습니다.")

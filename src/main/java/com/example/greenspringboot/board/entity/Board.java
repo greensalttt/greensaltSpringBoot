@@ -45,7 +45,6 @@ public class Board {
     @Column(name= "created_at")
     private Date createdAt = new Date();
 
-//    @Builder.Default
     @Column(name= "created_by")
     private Integer createdBy;
 
@@ -56,10 +55,4 @@ public class Board {
     @Builder.Default
     @Column(name= "updated_by")
     private String updatedBy = "user";
-
-//    @Builder.Default
-//    @Column(name = "updated_by_type")
-//    private String updatedByType = "user";
-
-
 }

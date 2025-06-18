@@ -1,5 +1,6 @@
 package com.example.greenspringboot.admin.service;
 
+import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.BoardHist;
 import com.example.greenspringboot.comment.dto.CommentDto;
@@ -22,13 +23,17 @@ public interface AdminService {
 
 //    boolean boardRemove(Integer bno);
 
-    boolean boardRemove(Integer bno, HttpSession session);
+//    boolean boardRemove(Integer bno, HttpSession session);
+
+    boolean boardRemove(BoardDto boardDto, Integer bno);
 
     void commentList(Model m);
 
 //    boolean commentRemove(Integer cno, HttpSession session);
 
-    boolean commentRemove(CommentDto commentDto, Integer cno, HttpSession session);
+//    boolean commentRemove(CommentDto commentDto, Integer cno, HttpSession session);
+
+    boolean commentRemove(CommentDto commentDto, Integer cno);
 
     void boardHist(Model m);
 

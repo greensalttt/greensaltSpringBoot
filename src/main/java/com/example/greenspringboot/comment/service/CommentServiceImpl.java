@@ -78,8 +78,6 @@ public class CommentServiceImpl implements CommentService{
 
         String newValue = comment.getComment();  // 수정된 댓글 내용
         String changeCode = "content";  // 예를 들어, content 필드를 수정한다고 가정
-//        String createdBy = "user";
-
         addCommentHist(commentDto, oldValue, newValue, changeCode);
     }
 
@@ -91,7 +89,7 @@ public class CommentServiceImpl implements CommentService{
 
         String oldValue = comment.getComment();  // 예를 들어, content 필드를 수정한다고 가정
         String newValue = "null";  // 수정된 댓글 내용
-        String changeCode = "delete";  // 예를 들어, content 필드를 수정한다고 가정
+        String changeCode = "DELETE";  // 예를 들어, content 필드를 수정한다고 가정
        addCommentHist(commentDto, oldValue, newValue, changeCode);
     }
 
@@ -99,15 +97,14 @@ public class CommentServiceImpl implements CommentService{
     private void addCommentHist(CommentDto commentDto, String oldValue, String newValue, String changeCode) {
         if (!oldValue.equals(newValue)) {
             CommentHist commentHist = CommentHist.builder()
-                    .cno(commentDto.getCno())   // commentDto에서 cno 값 사용
-                    .bno(commentDto.getBno())   // commentDto에서 bno 값 사용
-                    .cId(commentDto.getCreatedBy())   // commentDto에서 cId 값 사용
+                    .cno(commentDto.getCno())
+                    .bno(commentDto.getBno())
+                    .cId(commentDto.getCreatedBy())
                     .coCngCd(changeCode)
-                    .coBf(oldValue)             // 이전 값
-                    .coAf(newValue)             // 새로운 값
+                    .coBf(oldValue)
+                    .coAf(newValue)
                     .build();
 
-            // 이력 저장
             commentHistRepository.save(commentHist);
         }}
 

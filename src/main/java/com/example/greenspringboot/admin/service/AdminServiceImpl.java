@@ -14,7 +14,6 @@ import com.example.greenspringboot.comment.entity.Comment;
 import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.repository.CommentHistRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
-import com.example.greenspringboot.comment.service.CommentService;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
@@ -143,6 +142,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
+//    관리자 페이지 게시글
     @Override
     public void boardList(Model m) {
         List<Board> boards = boardRepository.findAllByDeletedFalseOrderByBnoDesc(); // 삭제되지 않은 게시글 전체 조회
@@ -169,19 +169,37 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean boardRemove(Integer bno, HttpSession session){
-//        Integer aId = (Integer) session.getAttribute("aId");
-
+    public boolean boardRemove(BoardDto boardDto, Integer bno){
         Board board = boardRepository.findByBno(bno);
         board.setDeleted(true);
         board.setUpdatedBy("admin");
-//        board.setUpdatedByType("admin");
         boardRepository.save(board);
+
+        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
+        String newValue = "null";
+        String changeCode = "DELETE";
+        String createdBy = "admin";
+        addBoardHist(boardDto, oldValue, newValue, changeCode, createdBy);
         return true;
     }
 
+    private void addBoardHist(BoardDto boardDto, String oldValue, String newValue, String changeCode, String createdBy) {
+        if (!oldValue.equals(newValue)) {
+            BoardHist boardHist = BoardHist.builder()
+                    .bno(boardDto.getBno())
+                    .cId(boardDto.getCreatedBy())
+                    .bCngCd(changeCode)
+                    .bBf(oldValue)
+                    .bAf(newValue)
+                    .createdBy(createdBy)
+                    .build();
+            // 이력 저장
+            boardHistRepository.save(boardHist);
+        }}
 
-//    관리자페이지 댓글
+
+
+    //    관리자페이지 댓글
     @Override
     public void commentList(Model m) {
         List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc(); // 삭제되지 않은 댓글 전체 조회
@@ -206,7 +224,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean commentRemove(CommentDto commentDto, Integer cno, HttpSession session){
+    public boolean commentRemove(CommentDto commentDto, Integer cno){
         Comment comment = commentRepository.findByCno(cno);
         comment.setDeleted(true);
         comment.setUpdatedBy("admin");
@@ -214,7 +232,7 @@ public class AdminServiceImpl implements AdminService {
 
         String oldValue = comment.getComment();  // 예를 들어, content 필드를 수정한다고 가정
         String newValue = "null";  // 수정된 댓글 내용
-        String changeCode = "delete";  // 예를 들어, content 필드를 수정한다고 가정
+        String changeCode = "DELETE";  // 예를 들어, content 필드를 수정한다고 가정
         String createdBy = "admin";
         addCommentHist(commentDto, oldValue, newValue, changeCode, createdBy);
         return true;
