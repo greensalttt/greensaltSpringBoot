@@ -294,7 +294,7 @@ public class CustServiceImpl implements CustService {
             custHist.setCCngCd(changeCode);
             custHist.setCBf(oldValue);
             custHist.setCAf(newValue);
-            custHist.setCreatedBy(newData.getCId());
+//            custHist.setCreatedBy(newData.getCId());
             custHistList.add(custHist);
         }
     }
@@ -342,7 +342,7 @@ public class CustServiceImpl implements CustService {
             custHist.setCCngCd("PWD");
             custHist.setCBf(oldPwd.getCPwd());
             custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-            custHist.setCreatedBy(custDto.getCId());
+//            custHist.setCreatedBy(custDto.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -377,7 +377,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             custHist.setCCngCd("PWD");
             custHist.setCBf(oldPwd.getCPwd());
             custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-            custHist.setCreatedBy(custDto.getCId());
+//            custHist.setCreatedBy(custDto.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -420,7 +420,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             custHist.setCCngCd("STAT");
             custHist.setCBf(oldCust.getStatCd());
             custHist.setCAf(cust.getStatCd());
-            custHist.setCreatedBy(cust.getCId());
+//            custHist.setCreatedBy(cust.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 

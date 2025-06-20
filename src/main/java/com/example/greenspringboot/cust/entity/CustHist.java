@@ -21,9 +21,6 @@ public class CustHist {
     @Column(name = "c_hist_num", nullable = false)
     private int cHistNum;
 
-//    @Column(name = "c_id", nullable = false)
-//    private int cId;
-
     @Column(name = "c_cng_cd", nullable = false)
     private String cCngCd;
 
@@ -37,8 +34,8 @@ public class CustHist {
     @Column(name= "created_at")
     private Date createdAt = new Date();
 
-//    @Builder.Default
+    @Builder.Default
     @Column(name= "created_by")
-    private Integer createdBy;
+    private String createdBy = "user";
 
 }
