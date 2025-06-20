@@ -21,22 +21,16 @@ public interface AdminService {
 
     void boardList(Model m);
 
-//    boolean boardRemove(Integer bno);
-
-//    boolean boardRemove(Integer bno, HttpSession session);
-
     boolean boardRemove(BoardDto boardDto, Integer bno);
 
     void commentList(Model m);
-
-//    boolean commentRemove(Integer cno, HttpSession session);
-
-//    boolean commentRemove(CommentDto commentDto, Integer cno, HttpSession session);
 
     boolean commentRemove(CommentDto commentDto, Integer cno);
 
     void boardHist(Model m);
 
     void commentHist(Model m);
+
+    void custHist(Model m);
 }
 

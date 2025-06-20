@@ -21,6 +21,10 @@ public class CustHist {
     @Column(name = "c_hist_num", nullable = false)
     private int cHistNum;
 
+    @Column(name = "c_id", nullable = false)
+    private Integer cId;
+
+
     @Column(name = "c_cng_cd", nullable = false)
     private String cCngCd;
 

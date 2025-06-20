@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setTimeZone value="Asia/Seoul" />
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -36,13 +38,17 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            table-layout: fixed;
         }
 
         th, td {
             padding: 12px;
             border: 1px solid #ddd;
             text-align: center;
+            word-break: break-all;
+            white-space: normal;
         }
+
 
         th {
             background-color: #2c3e50;

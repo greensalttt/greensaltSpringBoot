@@ -15,7 +15,10 @@ import com.example.greenspringboot.comment.entity.CommentHist;
 import com.example.greenspringboot.comment.repository.CommentHistRepository;
 import com.example.greenspringboot.comment.repository.CommentRepository;
 import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustHistDto;
 import com.example.greenspringboot.cust.entity.Cust;
+import com.example.greenspringboot.cust.entity.CustHist;
+import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.performance.repository.PerformanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private CommentHistRepository commentHistRepository;
+
+    @Autowired
+    private CustHistRepository custHistRepository;
 
     @Autowired
     private BoardHistRepository boardHistRepository;
@@ -294,6 +300,25 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
 
         m.addAttribute("commentHistList", commentHistDtoList);
+    }
+
+    @Override
+    public void custHist(Model m) {
+        List<CustHist> custHistList = custHistRepository.findAll();
+
+        List<CustHistDto> custHistDtoList = custHistList.stream()
+                .map(custHist -> CustHistDto.builder()
+                        .cHistNum(custHist.getCHistNum())
+                        .cId(custHist.getCId())
+                        .cCngCd(custHist.getCCngCd())
+                        .cBf(custHist.getCBf())
+                        .cAf(custHist.getCAf())
+                        .createdAt(custHist.getCreatedAt())
+                        .createdBy(custHist.getCreatedBy())
+                        .build())
+                .collect(Collectors.toList());
+
+        m.addAttribute("custHistList", custHistDtoList);
     }
 
 

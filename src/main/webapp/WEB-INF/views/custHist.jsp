@@ -8,7 +8,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>게시글 이력 보기</title>
+    <title>회원 이력 보기</title>
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -49,7 +49,6 @@
             white-space: normal;
         }
 
-
         th {
             background-color: #2c3e50;
             color: white;
@@ -72,14 +71,13 @@
 </head>
 <body>
 <div class="container">
-    <h2>게시글 이력 보기</h2>
+    <h2>회원 이력 보기</h2>
 
     <table>
         <thead>
         <tr>
             <th>이력 번호</th>
-            <th>게시글 번호</th>
-            <th>작성자 ID</th>
+            <th>회원 번호</th>
             <th>변경 코드</th>
             <th>변경 전</th>
             <th>변경 후</th>
@@ -88,14 +86,13 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="hist" items="${boardHistList}">
+        <c:forEach var="hist" items="${custHistList}">
             <tr>
-                <td>${hist.BHistNum}</td>
-                <td>${hist.bno}</td>
+                <td>${hist.CHistNum}</td>
                 <td>${hist.CId}</td>
-                <td>${hist.BCngCd}</td>
-                <td>${hist.BBf}</td>
-                <td>${hist.BAf}</td>
+                <td>${hist.CCngCd}</td>
+                <td>${hist.CBf}</td>
+                <td>${hist.CAf}</td>
                 <td><fmt:formatDate value="${hist.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td>${hist.createdBy}</td>
             </tr>

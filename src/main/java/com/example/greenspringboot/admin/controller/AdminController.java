@@ -263,4 +263,10 @@ public class AdminController {
         adminService.commentHist(m);
         return "commentHist";
     }
+
+    @GetMapping("/cust_hist")
+    public String custHistory(Model m){
+        adminService.custHist(m);
+        return "custHist";
+    }
 }

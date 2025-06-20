@@ -38,7 +38,6 @@ public class CustServiceImpl implements CustService {
     @Autowired
     private JavaMailSender mailSender;
 
-    //    일반 필드는 오토와이어드 필요없음
     private int authNumber;
 
     @Autowired
@@ -287,14 +286,14 @@ public class CustServiceImpl implements CustService {
     }
 
 
-    private void addCustHist(List<CustHist> custHistList, CustDto newData,
+    private void addCustHist(List<CustHist> custHistList, CustDto custDto,
                              String changeCode, String oldValue, String newValue) {
         if (!oldValue.equals(newValue)) {
             CustHist custHist = new CustHist();
+            custHist.setCId(custDto.getCId());
             custHist.setCCngCd(changeCode);
             custHist.setCBf(oldValue);
             custHist.setCAf(newValue);
-//            custHist.setCreatedBy(newData.getCId());
             custHistList.add(custHist);
         }
     }
@@ -342,7 +341,7 @@ public class CustServiceImpl implements CustService {
             custHist.setCCngCd("PWD");
             custHist.setCBf(oldPwd.getCPwd());
             custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-//            custHist.setCreatedBy(custDto.getCId());
+            custHist.setCId(custDto.getCId());
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -377,7 +376,8 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             custHist.setCCngCd("PWD");
             custHist.setCBf(oldPwd.getCPwd());
             custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-//            custHist.setCreatedBy(custDto.getCId());
+            custHist.setCId(custDto.getCId());
+
 
             custHistRepository.save(custHist); // 이력 저장
 
@@ -420,8 +420,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             custHist.setCCngCd("STAT");
             custHist.setCBf(oldCust.getStatCd());
             custHist.setCAf(cust.getStatCd());
-//            custHist.setCreatedBy(cust.getCId());
-
+            custHist.setCId(oldCust.getCId());
             custHistRepository.save(custHist); // 이력 저장
 
             return true;
@@ -496,6 +495,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
 }
 
 
+//마이페이지
     @Override
     public void myBoardList(Model m, Integer createdBy) {
         List<Board> boards = boardRepository.findAllByCreatedByAndDeletedFalseOrderByBnoDesc(createdBy);
@@ -523,6 +523,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
     }
 
 
+//    마이페이지
     @Override
     public void myCommentList(Model m, Integer createdBy) {
         List<Comment> comments = commentRepository.findAllByCreatedByAndDeletedFalseOrderByCnoDesc(createdBy);
@@ -546,7 +547,6 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             System.out.println("댓글 정보를 찾을 수 없습니다.");
         }
     }
-
 
 
 }
