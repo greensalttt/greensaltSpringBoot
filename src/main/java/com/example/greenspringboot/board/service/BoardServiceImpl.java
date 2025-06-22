@@ -1,5 +1,4 @@
 package com.example.greenspringboot.board.service;
-
 import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.Board;
 import com.example.greenspringboot.board.entity.BoardHist;
@@ -54,8 +53,8 @@ public class BoardServiceImpl implements BoardService{
                     .title(boardDto.getTitle())
                     .content(boardDto.getContent())
                     .writer(custDto.getCNick())
+//                    컨트롤러에서 작성자 해결
                     .createdBy(boardDto.getCreatedBy())
-//                    .updatedBy(boardDto.getCreatedBy())
                     .build();
             // Board 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
             boardRepository.save(board);
@@ -83,21 +82,6 @@ public class BoardServiceImpl implements BoardService{
         String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
         String newValue = "null";
         String changeCode = "DELETE";
-
-//        List<BoardHistDto> boardHistDtoList = new ArrayList<>();
-//
-//        addBoardHistDto(boardHistDtoList, boardDto, oldValue, newValue, changeCode);
-//
-//        for (BoardHistDto boardHistDto : boardHistDtoList) {
-//            BoardHist boardHist = new BoardHist();
-//            boardHist.setBno(boardHistDto.getBno());
-//            boardHist.setCId(boardHistDto.getCId());
-//            boardHist.setBCngCd(boardHistDto.getBCngCd());
-//            boardHist.setBBf(boardHistDto.getBBf());
-//            boardHist.setBAf(boardHistDto.getBAf());
-//            boardHist.setCreatedBy("admin"); // 혹은 boardDto.getCreatedBy()
-//            boardHistRepository.save(boardHist);
-//        }
 
         BoardHist boardHist = BoardHist.builder()
                 .bno(boardDto.getBno())

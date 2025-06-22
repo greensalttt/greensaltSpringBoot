@@ -9,7 +9,6 @@ import lombok.Builder;
 //빌더 어노테이션 사용하면 생성자 필요없다
 public class BoardDto {
     private Integer bno;
-//    private Integer cId;
     private String title;
     private String content;
     private String writer;
@@ -20,5 +19,4 @@ public class BoardDto {
     private Integer createdBy;
     private Date updatedAt;
     private String updatedBy;
-//    private String updatedByType;
 }

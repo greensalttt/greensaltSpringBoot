@@ -7,36 +7,6 @@
 <head>
     <title>boardManage</title>
     <style>
-        /** {*/
-        /*    margin: 0;*/
-        /*    padding: 0;*/
-        /*    color: black;*/
-        /*    box-sizing: border-box;*/
-        /*    text-decoration: none;*/
-        /*}*/
-
-        /*body {*/
-        /*    background-color: whitesmoke;*/
-        /*    margin: 0 auto;*/
-        /*    max-width: 1130px;*/
-        /*    height: 160px;*/
-        /*    position: relative;*/
-        /*    overflow-x: hidden;*/
-        /*}*/
-
-        /*#wrapper {*/
-        /*    min-height: 100vh;*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*}*/
-
-        /*#boardListContainer {*/
-        /*    padding: 20px;*/
-        /*    flex: 1;*/
-        /*    width: 90%;*/
-        /*    margin: 100px auto 100px auto;*/
-        /*}*/
-
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #f9f9f9;
@@ -191,7 +161,6 @@
         </c:if>
         <a href="/admin/page" class="back-button">← 관리자 대시보드로</a>
     </div>
-<%--</div>--%>
 
 </body>
 

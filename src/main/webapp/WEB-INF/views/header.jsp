@@ -41,10 +41,9 @@
         <ul>
             <li><a href="<c:url value='/album/list'/>">Album</a></li>
             <li><a onclick="test()">Video</a></li>
-<%--            <li><a onclick="test()">Interview</a></li>--%>
             <li><a href="<c:url value='/performance/list'/>">Performance</a></li>
             <li><a href="<c:url value='/board/list'/>">Open Forum</a></li>
-            <li><a onclick="test()">Help</a></li>
+            <li><a onclick="test()">Notices</a></li>
         </ul>
     </nav>
 

@@ -20,6 +20,9 @@ import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
+import com.example.greenspringboot.notice.dto.NoticeDto;
+import com.example.greenspringboot.notice.entity.Notice;
+import com.example.greenspringboot.notice.repository.NoticeRepository;
 import com.example.greenspringboot.performance.repository.PerformanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -61,8 +64,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PerformanceRepository performanceRepository;
 
-//    @Autowired
-//    private CommentService commentService;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
 
     @Override
@@ -319,6 +322,30 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
 
         m.addAttribute("custHistList", custHistDtoList);
+    }
+
+
+    @Override
+    public void noticeList(Model m) {
+        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc(); // 삭제되지 않은 댓글 전체 조회
+
+        if (!notices.isEmpty()) {
+            List<NoticeDto> noticeDtos = notices.stream()
+                    .map(notice -> NoticeDto.builder()
+                            .nno(notice.getNno())
+                            .title(notice.getTitle())
+                            .content(notice.getContent())
+                            .writer(notice.getWriter())
+                            .createdAt(notice.getCreatedAt())
+                            .createdBy(notice.getCreatedBy())
+                            .deleted(notice.getDeleted())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("noticeDtos", noticeDtos); // 모델에 commentDtos 추가
+        } else {
+            System.out.println("공지사항을 찾을 수 없습니다.");
+        }
     }
 
 

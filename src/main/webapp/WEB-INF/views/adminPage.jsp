@@ -175,6 +175,12 @@
                 <a class="btn" href="/admin/cust_list">회원 목록</a>
                 <a class="btn" href="/admin/cust_hist">회원 로그</a>
             </div>
+
+            <h2>공지사항 관리</h2>
+            <div class="action-buttons">
+                <a class="btn" href="/admin/notice">공지사항 등록</a>
+                <a class="btn" href="/admin/notice_manage">공지사항 관리</a>
+            </div>
         </div>
 
         <div class="chart-container">
@@ -198,6 +204,10 @@
         }
 
         if ("${performanceWrite}" === "msg") {
+            alert("공연 등록에 성공했습니다.");
+        }
+
+        if ("${noticeWrite}" === "msg") {
             alert("공연 등록에 성공했습니다.");
         }
 

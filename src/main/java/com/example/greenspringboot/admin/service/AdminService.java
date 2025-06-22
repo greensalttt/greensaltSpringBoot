@@ -32,5 +32,7 @@ public interface AdminService {
     void commentHist(Model m);
 
     void custHist(Model m);
+
+    void noticeList(Model m);
 }
 

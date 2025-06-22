@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>앨범 등록</title>
+    <title>공지사항 등록</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@
             padding: 0;
         }
 
-        #album {
+        #notice {
             max-width: 700px;
             margin: 100px auto;
             background-color: #fff;
@@ -35,10 +35,7 @@
         }
 
         input[type="text"],
-        input[type="date"],
-        select,
-        textarea,
-        input[type="file"] {
+        textarea {
             width: 100%;
             padding: 10px;
             font-size: 14px;
@@ -63,75 +60,29 @@
             cursor: pointer;
         }
 
-        #preview {
-            margin-top: 10px;
-            width: 100px;
-            height: 100px;
-            display: none;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
-<div id="album">
-    <h2>앨범 등록</h2>
+<div id="notice">
+    <h2>공지사항 등록</h2>
 
-    <form id="albumForm" action="/admin/album_write" method="post" enctype="multipart/form-data">
-
-        <label for="type">유형:</label>
-        <select name="type" id="type" required>
-            <option value="">-- 선택하세요 --</option>
-            <option value="싱글">싱글</option>
-            <option value="EP">EP</option>
-            <option value="정규">정규</option>
-            <option value="믹스테잎">믹스테잎</option>
-        </select>
-
-        <label for="genre">장르:</label>
-        <input type="text" name="genre" id="genre" maxlength="15" required>
-
-        <label for="title">앨범 제목:</label>
+    <form id="noticeForm" action="/admin/notice_write" method="post">
+        
+        <label for="title">제목:</label>
         <input type="text" name="title" id="title" maxlength="30" required>
-
-        <label for="artist">아티스트:</label>
-        <input type="text" name="artist" id="artist" maxlength="20" required>
-
+        
         <label for="content">내용:</label>
         <textarea name="content" id="content" rows="8"></textarea>
-
-        <label for="released">발매일:</label>
-        <input type="date" name="released" id="released" maxlength="10">
-
-        <label for="imgFile">앨범 이미지:</label>
-        <input type="file" name="imgFile" id="imgFile" accept="image/*">
-        <img id="preview" alt="미리보기 이미지"><br>
-
-        <button type="submit">앨범 등록</button>
+        
+        <button type="submit">공지사항 등록</button>
     </form>
 </div>
 
 <script>
-    // 이미지 미리보기
-    document.getElementById('imgFile').addEventListener('change', function (e) {
-        const preview = document.getElementById('preview');
-        const file = e.target.files[0];
-
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                preview.src = event.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.style.display = 'none';
-        }
-    });
 
     // 기본 유효성 검사
-    document.getElementById('albumForm').addEventListener('submit', function (e) {
-        const requiredFields = ['type', 'genre', 'title', 'artist',  'content','released', 'imgFile'];
+    document.getElementById('noticeForm').addEventListener('submit', function (e) {
+        const requiredFields = ['title', 'content'];
         for (let id of requiredFields) {
             const input = document.getElementById(id);
             if (!input.value.trim()) {
@@ -151,7 +102,7 @@
 
     let adminWriteFail = "${adminWriteFail}";
     if (adminWriteFail === "msg") {
-        alert("앨범 등록에 실패했습니다.");
+        alert("공지사항 등록에 실패했습니다.");
     }
 </script>
 </body>

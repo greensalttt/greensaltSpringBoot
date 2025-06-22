@@ -3,7 +3,10 @@ import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.service.AlbumService;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.service.BoardService;
 import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.notice.dto.NoticeDto;
+import com.example.greenspringboot.notice.service.NoticeService;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +30,8 @@ public class AdminController {
     @Autowired
     private AlbumService albumService;
 
-//    @Autowired
-//    private BoardService boardService;
+    @Autowired
+    private NoticeService noticeService;
 
     @Autowired
     private PerformanceService performanceService;
@@ -51,7 +54,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/write")
+    @PostMapping("/album_write")
     public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
 
         Integer aId = (Integer) session.getAttribute("aId");
@@ -268,5 +271,38 @@ public class AdminController {
     public String custHistory(Model m){
         adminService.custHist(m);
         return "custHist";
+    }
+
+
+    @GetMapping("/notice")
+    public String NoticeWritePage(){
+        return "noticeInsertForm";
+    }
+
+
+    @PostMapping("/notice_write")
+    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/notice";
+        }
+
+
+        if (!noticeService.write(noticeDto, session, aId)) {
+            msg.addFlashAttribute("adminWriteFail", "msg");
+            return "redirect:/admin/notice";
+        }
+
+        msg.addFlashAttribute("noticeWrite", "msg");
+        return "redirect:/admin/page";
+    }
+
+    @GetMapping("/notice_manage")
+    public String noticeManage(Model m){
+        adminService.noticeList(m);
+        return "noticeManage";
     }
 }

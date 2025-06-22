@@ -28,7 +28,8 @@ public class Admin {
     @Column(name= "a_login_id")
     private String aLoginId;
 
-    private String a_nick;
+    @Column(name= "a_nick")
+    private String aNick;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @Column(name= "a_pwd")
