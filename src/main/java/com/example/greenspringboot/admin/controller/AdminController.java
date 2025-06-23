@@ -1,6 +1,7 @@
 package com.example.greenspringboot.admin.controller;
 import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
+import com.example.greenspringboot.album.entity.Album;
 import com.example.greenspringboot.album.service.AlbumService;
 import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.service.BoardService;
@@ -305,4 +306,25 @@ public class AdminController {
         adminService.noticeList(m);
         return "noticeManage";
     }
+
+    @PostMapping("/notice_remove")
+    public String noticeRemove(Integer nno, RedirectAttributes msg, HttpSession session){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/notice_manage";
+        }
+
+        if(!noticeService.noticeRemove(nno)){
+            msg.addFlashAttribute("removeFail", "msg");
+            return "redirect:/admin/notice_manage";
+        }
+        msg.addFlashAttribute("remove", "msg");
+        return "redirect:/admin/notice_manage";
+    }
+
+
+
 }

@@ -43,7 +43,7 @@
             <li><a onclick="test()">Video</a></li>
             <li><a href="<c:url value='/performance/list'/>">Performance</a></li>
             <li><a href="<c:url value='/board/list'/>">Open Forum</a></li>
-            <li><a onclick="test()">Notices</a></li>
+            <li><a href="<c:url value='/notice/list'/>">Notice</a></li>
         </ul>
     </nav>
 

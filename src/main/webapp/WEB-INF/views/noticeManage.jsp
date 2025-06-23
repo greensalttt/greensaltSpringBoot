@@ -60,7 +60,7 @@
         .title { width: 35%; text-align: left; }
         .writer { width: 15%; }
         .regdt { width: 15%; }
-        .viewcnt { width: 10%; }
+        /*.viewcnt { width: 10%; }*/
         .actions { width: 10%; }
 
         #nonotice {
@@ -102,10 +102,11 @@
 
 
     <c:if test="${empty noticeDtos}">
-        <div id="nonotice">게시글이 없습니다.</div>
+        <div id="nonotice">공지사항이 없습니다.</div>
     </c:if>
 
     <c:if test="${not empty noticeDtos}">
+
         <table>
             <thead>
             <tr>

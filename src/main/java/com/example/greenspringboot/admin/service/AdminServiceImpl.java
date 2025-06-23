@@ -336,6 +336,7 @@ public class AdminServiceImpl implements AdminService {
                             .title(notice.getTitle())
                             .content(notice.getContent())
                             .writer(notice.getWriter())
+                            .viewCnt(notice.getViewCnt())
                             .createdAt(notice.getCreatedAt())
                             .createdBy(notice.getCreatedBy())
                             .deleted(notice.getDeleted())
