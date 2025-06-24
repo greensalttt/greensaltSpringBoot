@@ -50,10 +50,32 @@ public class BoardController {
         return "boardList";
     }
 
+//    @GetMapping("/write")
+//    public String write(Model m) {
+//        m.addAttribute("mode", "new");
+//        return "board";
+//    }
+//
+//
+//    @PostMapping("/write")
+//    public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
+//
+//        Integer cId = (Integer) session.getAttribute("cId");
+//        boardDto.setCreatedBy((Integer) session.getAttribute("cId"));
+//
+//        try {
+//            boardService.write(boardDto,cId);
+//            rattr.addFlashAttribute("msg", "WRT_OK");
+//            return "redirect:/board/list";
+//        } catch (Exception e) {
+//            m.addAttribute("msg", "WRT_ERR");
+//            return "board";
+//        }
+//    }
+
     @GetMapping("/write")
-    public String write(Model m) {
-        m.addAttribute("mode", "new");
-        return "board";
+    public String write() {
+        return "boardWrite";
     }
 
 
@@ -83,20 +105,33 @@ public class BoardController {
         return "board";
     }
 
-    @PostMapping("/modify")
-    public String modify(BoardDto boardDto, HttpSession session, Board board, Integer bno, RedirectAttributes rattr, Model m){
-        Integer createdBy = (Integer) session.getAttribute("cId");
+    @GetMapping("/modify")
+    public String modifyForm(Model model, Integer bno) {
+        BoardDto boardDto = boardService.read(bno);
+        model.addAttribute("boardDto", boardDto);
+        model.addAttribute("mode", "modify");
+        return "boardWrite"; // boardWrite.jsp를 재사용
+    }
 
-        System.out.println("BoardDto bno: " + boardDto.getBno());
-        System.out.println("Board bno: " + board.getBno());
+
+//    수정시 닉네임 안보이는 문제
+    @PostMapping("/modify")
+    public String modify(BoardDto boardDto, HttpSession session, Integer bno, Model m){
+        Integer createdBy = (Integer) session.getAttribute("cId");
 
         Board oldBoard = boardRepository.findByCreatedByAndBno(createdBy, bno);
         BoardDto oldData = boardService.toDto(oldBoard);
 
+        System.out.println("oldBoard: " + oldBoard);
+        System.out.println("oldData: " + oldData);
+
         boardDto.setCreatedBy(createdBy);
 
         boardService.boardModify(boardDto, createdBy, bno, oldData);
-//        rattr.addFlashAttribute("msg", "MOD_OK");
+
+        BoardDto updatedBoardDto = boardService.read(bno);
+        m.addAttribute("boardDto", updatedBoardDto);
+
         m.addAttribute("msg", "MOD_OK");
         return "board";
     }

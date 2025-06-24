@@ -67,6 +67,7 @@ public class NoticeServiceImpl implements NoticeService {
                     .writer(notice.getWriter())
                     .title(title)
                     .content(content)
+                    .viewCnt(notice.getViewCnt())
                     .createdAt(notice.getCreatedAt())
                     .build();
 

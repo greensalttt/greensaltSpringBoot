@@ -22,14 +22,6 @@
             margin : auto;
         }
 
-        .writing-header {
-            font-size: 15px;
-            position: relative;
-            margin: 20px 0 0 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #323232;
-        }
-
         .boardTitle, textarea {
             width: 100%;
             background: #f8f8f8;
@@ -43,9 +35,6 @@
             resize: none;
         }
 
-        .frm {
-            width: 100%;
-        }
         .btn {
             background-color: rgb(236, 236, 236);
             border: none;
@@ -173,6 +162,50 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px; /* 버튼 사이 간격 */
+            margin-top: 20px;
+        }
+
+        .button-group .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .board-meta {
+            font-size: 13px;
+            color: #777;
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .board-meta p {
+            margin: 0;
+        }
+
+        .board-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+        }
+
+
+        .board-content {
+            min-height: 400px;
+            white-space: pre-wrap;
+        }
+
+        .board-content p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
     </style>
 </head>
 
@@ -191,29 +224,41 @@
 </script>
 
 <div class="container">
-  <p class="writing-header">${mode == "new" ? "글쓰기" : boardDto.writer}</p>
+       <div class="board-title">
+            <h2><c:out value="${boardDto.title}"/></h2>
+        </div>
+
+        <div class="board-meta">
+            <p>
+                <c:out value="${boardDto.writer}"/> |
+                <fmt:formatDate value="${boardDto.createdAt}" pattern="yyyy-MM-dd HH:mm"/> |
+                조회수: <c:out value="${boardDto.viewCnt}"/>
+            </p>
+        </div>
+
+        <div class="board-content" >
+            <p><c:out value="${boardDto.content}"/></p>
+        </div>
+
+        <div class="button-group">
+            <c:if test="${boardDto.createdBy == cId}">
+                <a href="<c:url value='/board/modify?bno=${boardDto.bno}'/>" class="btn">
+                    <i class="fa fa-edit"></i> 수정
+                </a>
+
+                <form id="deleteForm" action="/board/remove" method="post" style="display: inline;">
+                    <input type="hidden" name="bno" value="${boardDto.bno}"/>
+                    <button type="submit" class="btn btn-remove" onclick="return confirm('정말로 삭제하시겠습니까?')">
+                        <i class="fa fa-trash"></i> 삭제
+                    </button>
+                </form>
+            </c:if>
+
+            <a href="<c:url value='/board/list'/>" class="btn btn-list"><i class="fa fa-bars"></i> 목록</a>
+        </div>
 
 
-    <form id="form" class="frm" action="" method="post">
-        <input class="boardTitle" type="hidden" name="bno" value="${boardDto.bno}">
 
-        <input class="boardTitle" name="title" type="text" value="<c:out value = '${boardDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
-        <textarea name="content" rows="20" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value ="${boardDto.content}"/></textarea><br>
-
-        <c:if test="${mode eq 'new'}">
-            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
-        </c:if>
-
-
-        <c:if test="${boardDto.createdBy == cId}">
-            <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
-            <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
-        </c:if>
-        <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
-    </form>
-
-    <!-- 댓글 기능 추가, 읽기 모드일 때만 보이도록 수정 -->
-    <c:if test="${mode ne 'new'}">
     <div class="comment-container" id="commentSection">
 
         <h2>댓글</h2>
@@ -245,7 +290,6 @@
                 });
             </script>
         </c:if>
-    </c:if>
     </div><br><br>
 
     <!-- 댓글 수정용 모달 -->
@@ -265,79 +309,6 @@
     </footer>
 
     <script>
-        // 게시글 관련 스크립트
-        $(document).ready(function(){
-            let formCheck = function() {
-                let form = document.getElementById("form");
-                if(form.title.value=="") {
-                    alert("제목을 입력해 주세요.");
-                    form.title.focus();
-                    return false;
-                }
-
-                if(form.content.value=="") {
-                    alert("내용을 입력해 주세요.");
-                    form.content.focus();
-                    return false;
-                }
-                return true;
-            }
-
-            $("#writeNewBtn").on("click", function(){
-                location.href="<c:url value='/board/write'/>";
-            });
-
-            $("#writeBtn").on("click", function(){
-                let form = $("#form");
-                form.attr("action", "<c:url value='/board/write'/>");
-                form.attr("method", "post");
-
-                if(formCheck())
-                    form.submit();
-            });
-
-            $("#modifyBtn").on("click", function(){
-                $("#commentSection").hide();
-                $("#removeBtn").hide();
-                let form = $("#form");
-                let isReadonly = $("input[name=title]").attr('readonly');
-
-                if(isReadonly=='readonly') {
-                    $(".writing-header").html("게시판 수정");
-                    $("input[name=title]").attr('readonly', false);
-                    $("textarea").attr('readonly', false);
-                    $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
-                    return;
-                }
-
-                form.attr("action", "<c:url value='/board/modify${searchCondition.queryString}'/>");
-                form.attr("method", "post");
-                if(formCheck())
-                    form.submit();
-            });
-
-            $("#removeBtn").on("click", function(){
-                if(!confirm("정말로 삭제하시겠습니까?")) return;
-
-                let form = $("#form");
-                form.attr("action", "<c:url value='/board/remove${searchCondition.queryString}'/>");
-                form.attr("method", "post");
-                form.submit();
-            });
-
-            $("#listBtn").on("click", function(){
-                location.href="<c:url value='/board/list${searchCondition.queryString}'/>";
-            });
-        });
-
-    </script>
-
-    <%--    댓글--%>
-
-
-    <script>
-        // 댓글을 HTML로 변환하는 함수
-
         let toHtml = function (comments) {
 
             // 지금까 콘솔로 값 제대로 들고옴
@@ -345,12 +316,7 @@
 
             let tmp = "<ul>";
             comments.forEach(function(comment) {
-                // console.log(comment);
                 // Jackson 규칙으로 cId를 cid로 찍어야 값이 나옴
-                // console.log(comment.createdBy);
-                // console.log(cId);
-
-
                 let topParentComment = comment;
                 while (topParentComment.parentComment !== null) {
                     topParentComment = topParentComment.parentComment;
@@ -384,12 +350,10 @@
             return tmp + "</ul>";
         };
 
-
-
         // 답글버튼
 
         $(document).ready(function(){
-            if ("${mode}" !== "new") {
+
 
                 $("#commentList").on("click", ".replyBtn", function () {
                     $("#replyForm").appendTo($(this).parent());
@@ -489,7 +453,7 @@
 
                 // 댓글 수정
                     let selectedCno = null;
-                    <%--let createdBy = ${commentDto.createdBy};--%>
+
 
                     // 1. 댓글 수정 버튼 클릭 → 모달 열기
                     $("#commentList").on("click", ".modBtn", function () {
@@ -554,7 +518,7 @@
                     }
                     });
                     });
-                    }
+                    // }
                 });
     </script>
 

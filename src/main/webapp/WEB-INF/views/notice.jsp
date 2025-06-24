@@ -83,7 +83,7 @@
                     <c:otherwise>
                         <fmt:formatDate value="${noticeDto.createdAt}" pattern="yyyy-MM-dd" type="date"/>
                     </c:otherwise>
-                </c:choose>
+                </c:choose> | 조회수 ${noticeDto.viewCnt}
             </p>
         </div>
 
