@@ -189,6 +189,12 @@
     </div>
 </div>
 
+<c:if test="${not empty noticeWrite}">
+    <script>
+        alert("${noticeWrite}");
+    </script>
+</c:if>
+
 <script>
     window.onload = function () {
         if ("${sessionScope.aId}" !== "") {
@@ -207,9 +213,9 @@
             alert("공연 등록에 성공했습니다.");
         }
 
-        if ("${noticeWrite}" === "msg") {
-            alert("공연 등록에 성공했습니다.");
-        }
+        <%--if ("${noticeWrite}" === "msg") {--%>
+        <%--    alert("공지사항 등록에 성공했습니다.");--%>
+        <%--}--%>
 
         // 원형 그래프 렌더링
         const ctx = document.getElementById('donutChart').getContext('2d');

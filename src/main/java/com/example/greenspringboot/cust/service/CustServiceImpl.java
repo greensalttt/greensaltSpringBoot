@@ -142,10 +142,15 @@ public class CustServiceImpl implements CustService {
             return false;
         }
 
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            평문화와 암호화 비밀번호를 비교할 수 있는 메서드
-                if (!encoder.matches(cPwd, cust.getCPwd())) {
-                return false;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+     /*입력한 평문 비밀번호(cPwd)와 DB에 저장된 암호화된 비밀번호(cust.getCPwd())를 비교
+     BCrypt는 단방향 해시 함수이기 때문에 복호화는 불가능
+     matches() 메서드를 통해 입력된 비밀번호를 같은 방식으로 해싱한 후
+     DB에 있는 해시 값과 비교하여 일치 여부를 판단*/
+
+        if (!encoder.matches(cPwd, cust.getCPwd())) {
+        return false;
         }
 
         custRepository.incrementViSitCnt(cEmail); // 방문 수 증가

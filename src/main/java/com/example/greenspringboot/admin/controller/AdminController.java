@@ -281,24 +281,47 @@ public class AdminController {
     }
 
 
+//    @PostMapping("/notice_write")
+//    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
+//
+//        Integer aId = (Integer) session.getAttribute("aId");
+//
+//        if (aId == null || aId != 1) {
+//            msg.addFlashAttribute("testAid", "msg");
+//            return "redirect:/admin/notice";
+//        }
+//
+//
+//        if (!noticeService.write(noticeDto, session, aId)) {
+//            msg.addFlashAttribute("adminWriteFail", "msg");
+//            return "redirect:/admin/notice";
+//        }
+//
+//        msg.addFlashAttribute("noticeWrite", "msg");
+//        return "redirect:/admin/page";
+//    }
+
     @PostMapping("/notice_write")
     public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
 
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
+            msg.addFlashAttribute("testAid", "테스트 아이디는 등록할 수 없습니다.");
             return "redirect:/admin/notice";
         }
 
-
-        if (!noticeService.write(noticeDto, session, aId)) {
-            msg.addFlashAttribute("adminWriteFail", "msg");
+        try {
+            noticeService.write(noticeDto, session, aId);
+            msg.addFlashAttribute("noticeWrite", "공지사항 등록에 성공했습니다.");
+            return "redirect:/admin/page";
+        } catch (IllegalArgumentException e) {
+            msg.addFlashAttribute("adminWriteFail", "관리자 정보 오류: " + e.getMessage());
+            return "redirect:/admin/notice";
+        } catch (Exception e) {
+            msg.addFlashAttribute("adminWriteFail", "공지 작성 실패");
             return "redirect:/admin/notice";
         }
-
-        msg.addFlashAttribute("noticeWrite", "msg");
-        return "redirect:/admin/page";
     }
 
     @GetMapping("/notice_manage")

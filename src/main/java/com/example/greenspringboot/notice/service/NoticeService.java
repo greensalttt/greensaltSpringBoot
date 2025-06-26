@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 
 public interface NoticeService {
-    boolean write(NoticeDto noticeDto, HttpSession session, Integer aId);
+    void write(NoticeDto noticeDto, HttpSession session, Integer aId);
 
     void noticeRead(Integer nno, Model m);
 

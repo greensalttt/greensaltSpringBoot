@@ -21,36 +21,59 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private AdminRepository adminRepository;
 
+//    @Override
+//    public boolean write(NoticeDto noticeDto, HttpSession session, Integer aId) {
+//        try {
+//
+////            나중에 게시판이 이방식으로
+//            Admin admin = adminRepository.findById(aId)
+//            .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
+//
+//            String aNick = admin.getANick();
+//
+//            AdminDto adminDto = AdminDto.builder()
+//                    .aNick(aNick)
+//                    .build();
+//
+//            Notice notice = Notice.builder()
+//                    .nno(noticeDto.getNno())
+//                    .title(noticeDto.getTitle())
+//                    .content(noticeDto.getContent())
+//                    .writer(adminDto.getANick())
+//                    .createdBy(aId)
+//                    .build();
+//
+//            noticeRepository.save(notice);
+//            return true;
+//
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+
     @Override
-    public boolean write(NoticeDto noticeDto, HttpSession session, Integer aId) {
-        try {
+    public void write(NoticeDto noticeDto, HttpSession session, Integer aId) {
+        Admin admin = adminRepository.findById(aId)
+                .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
 
-//            나중에 게시판이 이방식으로
-            Admin admin = adminRepository.findById(aId)
-            .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
+        String aNick = admin.getANick();
 
-            String aNick = admin.getANick();
+        AdminDto adminDto = AdminDto.builder()
+                .aNick(aNick)
+                .build();
 
-            AdminDto adminDto = AdminDto.builder()
-                    .aNick(aNick)
-                    .build();
+        Notice notice = Notice.builder()
+                .nno(noticeDto.getNno())
+                .title(noticeDto.getTitle())
+                .content(noticeDto.getContent())
+                .writer(adminDto.getANick())
+                .createdBy(aId)
+                .build();
 
-            Notice notice = Notice.builder()
-                    .nno(noticeDto.getNno())
-                    .title(noticeDto.getTitle())
-                    .content(noticeDto.getContent())
-                    .writer(adminDto.getANick())
-                    .createdBy(aId)
-                    .build();
-
-            noticeRepository.save(notice);
-            return true;
-
-        } catch(Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        noticeRepository.save(notice);
     }
+
 
     @Transactional
     @Override

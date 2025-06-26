@@ -78,6 +78,20 @@
     </form>
 </div>
 
+<c:if test="${not empty adminWriteFail}">
+    <script>
+        alert("${adminWriteFail}");
+    </script>
+</c:if>
+
+<c:if test="${not empty testAid}">
+    <script>
+        alert("${testAid}");
+    </script>
+</c:if>
+
+
+
 <script>
 
     // 기본 유효성 검사
@@ -95,15 +109,15 @@
     });
 
 
-    let testAid = "${testAid}";
-    if (testAid === "msg") {
-        alert("테스트 아이디는 등록할 수 없습니다.");
-    }
+    <%--let testAid = "${testAid}";--%>
+    <%--if (testAid === "msg") {--%>
+    <%--    alert("테스트 아이디는 등록할 수 없습니다.");--%>
+    <%--}--%>
 
-    let adminWriteFail = "${adminWriteFail}";
-    if (adminWriteFail === "msg") {
-        alert("공지사항 등록에 실패했습니다.");
-    }
+    <%--let adminWriteFail = "${adminWriteFail}";--%>
+    <%--if (adminWriteFail === "msg") {--%>
+    <%--    alert("공지사항 등록에 실패했습니다.");--%>
+    <%--}--%>
 </script>
 </body>
 </html>
