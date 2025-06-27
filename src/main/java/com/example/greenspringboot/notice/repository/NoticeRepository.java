@@ -19,5 +19,5 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
     int incrementViewCnt(@Param("nno") Integer nno);
 
 
-    Notice findByNno(Integer nno);
+//    Notice findByNno(Integer nno);
 }

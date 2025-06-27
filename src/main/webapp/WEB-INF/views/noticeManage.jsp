@@ -158,23 +158,30 @@
 
 </body>
 
+<c:if test="${not empty msg}">
+    <script>
+        alert("${msg}")
+    </script>
+</c:if>
 
-<script>
 
-    let testAid = "${testAid}";
-    if (testAid === "msg") {
-        alert("테스트 아이디는 삭제할 수 없습니다.");
-    }
 
-    let removeFail = "${removeFail}"
-    if(removeFail==="msg") {
-        alert("공지사항 삭제가 실패했습니다.")
-    }
+<%--<script>--%>
 
-    let remove = "${remove}"
-    if(remove==="msg") {
-        alert("공지사랑 삭제가 완료되었습니다.")
-    }
+<%--    let testAid = "${testAid}";--%>
+<%--    if (testAid === "msg") {--%>
+<%--        alert("테스트 아이디는 삭제할 수 없습니다.");--%>
+<%--    }--%>
 
-</script>
+<%--    let removeFail = "${removeFail}"--%>
+<%--    if(removeFail==="msg") {--%>
+<%--        alert("공지사항 삭제가 실패했습니다.")--%>
+<%--    }--%>
+
+<%--    let remove = "${remove}"--%>
+<%--    if(remove==="msg") {--%>
+<%--        alert("공지사랑 삭제가 완료되었습니다.")--%>
+<%--    }--%>
+
+<%--</script>--%>
 

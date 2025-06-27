@@ -78,15 +78,10 @@
     </form>
 </div>
 
-<c:if test="${not empty adminWriteFail}">
-    <script>
-        alert("${adminWriteFail}");
-    </script>
-</c:if>
 
-<c:if test="${not empty testAid}">
+<c:if test="${not empty msg}">
     <script>
-        alert("${testAid}");
+        alert("${msg}")
     </script>
 </c:if>
 

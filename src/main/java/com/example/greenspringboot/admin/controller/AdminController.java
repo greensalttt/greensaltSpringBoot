@@ -1,26 +1,24 @@
 package com.example.greenspringboot.admin.controller;
 import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
-import com.example.greenspringboot.album.entity.Album;
 import com.example.greenspringboot.album.service.AlbumService;
 import com.example.greenspringboot.board.dto.BoardDto;
-import com.example.greenspringboot.board.service.BoardService;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.notice.dto.NoticeDto;
 import com.example.greenspringboot.notice.service.NoticeService;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@Slf4j
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
@@ -275,52 +273,32 @@ public class AdminController {
     }
 
 
-    @GetMapping("/notice")
+    @GetMapping("/notice_write")
     public String NoticeWritePage(){
         return "noticeInsertForm";
     }
 
 
-//    @PostMapping("/notice_write")
-//    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
-//
-//        Integer aId = (Integer) session.getAttribute("aId");
-//
-//        if (aId == null || aId != 1) {
-//            msg.addFlashAttribute("testAid", "msg");
-//            return "redirect:/admin/notice";
-//        }
-//
-//
-//        if (!noticeService.write(noticeDto, session, aId)) {
-//            msg.addFlashAttribute("adminWriteFail", "msg");
-//            return "redirect:/admin/notice";
-//        }
-//
-//        msg.addFlashAttribute("noticeWrite", "msg");
-//        return "redirect:/admin/page";
-//    }
-
+//게시글도 이렇게 변경하기
     @PostMapping("/notice_write")
     public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
 
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "테스트 아이디는 등록할 수 없습니다.");
-            return "redirect:/admin/notice";
+            msg.addFlashAttribute("msg", "테스트 아이디는 등록할 수 없습니다.");
+            return "redirect:/admin/notice_write";
         }
 
+//        변수 하나로 모든 메시지 가능
         try {
             noticeService.write(noticeDto, session, aId);
-            msg.addFlashAttribute("noticeWrite", "공지사항 등록에 성공했습니다.");
+            msg.addFlashAttribute("msg", "공지사항 등록에 성공했습니다.");
             return "redirect:/admin/page";
-        } catch (IllegalArgumentException e) {
-            msg.addFlashAttribute("adminWriteFail", "관리자 정보 오류: " + e.getMessage());
-            return "redirect:/admin/notice";
         } catch (Exception e) {
-            msg.addFlashAttribute("adminWriteFail", "공지 작성 실패");
-            return "redirect:/admin/notice";
+            log.error("공지 작성 실패", e);
+            msg.addFlashAttribute("msg", "공지 작성 실패");
+            return "redirect:/admin/notice_write";
         }
     }
 
@@ -331,23 +309,24 @@ public class AdminController {
     }
 
     @PostMapping("/notice_remove")
-    public String noticeRemove(Integer nno, RedirectAttributes msg, HttpSession session){
+    public String noticeRemove(Integer nno, RedirectAttributes msg, HttpSession session) {
 
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
+            msg.addFlashAttribute("msg", "테스트 아이디는 삭제할 수 없습니다");
             return "redirect:/admin/notice_manage";
         }
 
-        if(!noticeService.noticeRemove(nno)){
-            msg.addFlashAttribute("removeFail", "msg");
+        try {
+            noticeService.noticeRemove(nno);
+            msg.addFlashAttribute("msg", "공지사항 삭제에 성공했습니다");
+            return "redirect:/admin/notice_manage";
+        } catch (Exception e) {
+            log.error("공지 삭제 실패", e);
+            msg.addFlashAttribute("msg", "공지 삭제 실패");
             return "redirect:/admin/notice_manage";
         }
-        msg.addFlashAttribute("remove", "msg");
-        return "redirect:/admin/notice_manage";
     }
-
-
 
 }

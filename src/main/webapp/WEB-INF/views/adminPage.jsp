@@ -178,7 +178,7 @@
 
             <h2>공지사항 관리</h2>
             <div class="action-buttons">
-                <a class="btn" href="/admin/notice">공지사항 등록</a>
+                <a class="btn" href="/admin/notice_write">공지사항 등록</a>
                 <a class="btn" href="/admin/notice_manage">공지사항 관리</a>
             </div>
         </div>
@@ -189,9 +189,10 @@
     </div>
 </div>
 
-<c:if test="${not empty noticeWrite}">
+
+<c:if test="${not empty msg}">
     <script>
-        alert("${noticeWrite}");
+        alert("${msg}")
     </script>
 </c:if>
 

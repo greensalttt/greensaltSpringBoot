@@ -21,41 +21,12 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private AdminRepository adminRepository;
 
-//    @Override
-//    public boolean write(NoticeDto noticeDto, HttpSession session, Integer aId) {
-//        try {
-//
-////            나중에 게시판이 이방식으로
-//            Admin admin = adminRepository.findById(aId)
-//            .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
-//
-//            String aNick = admin.getANick();
-//
-//            AdminDto adminDto = AdminDto.builder()
-//                    .aNick(aNick)
-//                    .build();
-//
-//            Notice notice = Notice.builder()
-//                    .nno(noticeDto.getNno())
-//                    .title(noticeDto.getTitle())
-//                    .content(noticeDto.getContent())
-//                    .writer(adminDto.getANick())
-//                    .createdBy(aId)
-//                    .build();
-//
-//            noticeRepository.save(notice);
-//            return true;
-//
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
 
     @Override
     public void write(NoticeDto noticeDto, HttpSession session, Integer aId) {
         Admin admin = adminRepository.findById(aId)
-                .orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
+//                orElseThrow는 pk로 데이터를 가져올떄 사용
+                .orElseThrow(IllegalArgumentException::new);
 
         String aNick = admin.getANick();
 
@@ -78,7 +49,9 @@ public class NoticeServiceImpl implements NoticeService {
     @Transactional
     @Override
     public void noticeRead(Integer nno, Model m) {
-        Notice notice = noticeRepository.findByNno(nno); // Optional 제거
+        Notice notice = noticeRepository.findById(nno)
+                .orElseThrow(IllegalArgumentException::new);
+
         noticeRepository.incrementViewCnt(nno);
 
         if (notice != null) {
@@ -102,12 +75,15 @@ public class NoticeServiceImpl implements NoticeService {
         }
     }
 
+
     @Override
-    public boolean noticeRemove(Integer nno){
-        Notice notice = noticeRepository.findByNno(nno);
+    public void noticeRemove(Integer nno){
+        Notice notice = noticeRepository.findById(nno)
+                .orElseThrow(IllegalArgumentException::new);
+
         notice.setDeleted(true);
         noticeRepository.save(notice);
-        return true;
     }
+
 
 }

@@ -1,11 +1,8 @@
 package com.example.greenspringboot.cust.controller;
-import com.example.greenspringboot.cust.entity.Cust;
-import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.cust.dto.CustDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Optional;
 
 
 @Controller
@@ -40,7 +32,7 @@ public class MyPageController {
             custService.myPage(cId, model);
             return "myPage";
         }
-        return "errorPageC";
+        return "errorPage";
     }
 
     //    엔티티는 DB 값이 변경될때, DTO는 눈에 보이는 데이터 화면으로 전송할때
@@ -51,7 +43,7 @@ public class MyPageController {
             custService.myPageInfo(cId, model);
             return "myPageInfo";
         }
-        return "errorPageC";
+        return "errorPage";
     }
 
     @PostMapping("/info")
@@ -76,7 +68,7 @@ public class MyPageController {
             custService.myPage(cId, model);
             return "editPwd";
         }
-        return "errorPageC";
+        return "errorPage";
     }
 
     @PostMapping("/editPwd")
