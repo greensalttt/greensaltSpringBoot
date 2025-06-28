@@ -119,6 +119,15 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
+    @Override
+    public boolean albumRemove(Integer ano){
+        Album album = albumRepository.findByAno(ano);
+        album.setDeleted(true);
+        albumRepository.save(album);
+        return true;
+    }
+
+
     public String uploadImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
@@ -140,15 +149,6 @@ public class AlbumServiceImpl implements AlbumService{
         return "/images/" + newFileName;
     }
 
-    @Override
-    public boolean albumRemove(Integer ano){
-        Album album = albumRepository.findByAno(ano);
-        album.setDeleted(true);
-        albumRepository.save(album);
-        return true;
-    }
-
-    //        albumRepository.deleteById(ano);
 
     @Override
     public List<AlbumDto> getSearchResultPage(SearchCondition sc) {

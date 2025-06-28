@@ -11,4 +11,6 @@ public interface NoticeService {
     void noticeRead(Integer nno, Model m);
 
     void noticeRemove(Integer nno);
+
+    void modify(Integer nno, NoticeDto noticeDto);
 }

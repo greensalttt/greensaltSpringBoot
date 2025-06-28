@@ -279,7 +279,6 @@ public class AdminController {
     }
 
 
-//게시글도 이렇게 변경하기
     @PostMapping("/notice_write")
     public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
 
@@ -328,5 +327,33 @@ public class AdminController {
             return "redirect:/admin/notice_manage";
         }
     }
+
+    @GetMapping("/notice_edit")
+    public String noticeEdit(Integer nno, Model m) {
+        noticeService.noticeRead(nno, m);  // 기존 공지사항 데이터 불러오기
+        return "noticeEdit";               // 수정 폼 뷰 반환
+    }
+
+    @PostMapping("/notice_modify")
+    public String noticeModify(NoticeDto noticeDto, Integer nno, HttpSession session, RedirectAttributes msg) {
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("msg", "테스트 아이디는 수정할 수 없습니다.");
+            return "redirect:/admin/notice_edit";
+        }
+
+        try {
+            noticeService.modify(nno, noticeDto);  // 서비스에서 수정 처리
+            msg.addFlashAttribute("msg", "공지사항 수정에 성공했습니다.");
+            return "redirect:/admin/notice_manage";
+        } catch (Exception e) {
+            msg.addFlashAttribute("msg", "공지사항 수정에 실패했습니다.");
+            return "redirect:/admin/notice_edit";
+        }
+    }
+
+
 
 }

@@ -54,26 +54,23 @@ public class NoticeServiceImpl implements NoticeService {
 
         noticeRepository.incrementViewCnt(nno);
 
-        if (notice != null) {
-            String title = notice.getTitle();
-            String content = notice.getContent().replace("\n", "<br/>");
+        String title = notice.getTitle();
+        String content = notice.getContent().replace("\n", "<br/>");
 
-            NoticeDto noticeDto = NoticeDto.builder()
-                    .nno(nno)
-                    .writer(notice.getWriter())
-                    .title(title)
-                    .content(content)
-                    .viewCnt(notice.getViewCnt())
-                    .createdAt(notice.getCreatedAt())
-                    .build();
+        NoticeDto noticeDto = NoticeDto.builder()
+                .nno(nno)
+                .writer(notice.getWriter())
+                .title(title)
+                .content(content)
+                .viewCnt(notice.getViewCnt())
+                .createdAt(notice.getCreatedAt())
+                .build();
 
-            m.addAttribute("noticeDto", noticeDto);
+        m.addAttribute("noticeDto", noticeDto);
 
-            System.out.println("noticeDto:" + noticeDto);
-        } else {
-            System.out.println("공지사항을 찾을 수 없습니다.");
-        }
+        System.out.println("noticeDto:" + noticeDto);
     }
+
 
 
     @Override
@@ -82,6 +79,23 @@ public class NoticeServiceImpl implements NoticeService {
                 .orElseThrow(IllegalArgumentException::new);
 
         notice.setDeleted(true);
+        noticeRepository.save(notice);
+    }
+
+    @Override
+    public void modify(Integer nno, NoticeDto noticeDto) {
+        // 1. 기존 공지사항 조회 (없으면 예외)
+        Notice notice = noticeRepository.findById(nno)
+                .orElseThrow(IllegalArgumentException::new);
+
+        // 2. 수정할 내용 반영
+        notice.setTitle(noticeDto.getTitle());
+        notice.setContent(noticeDto.getContent());
+
+        // 필요하다면 수정자 정보도 업데이트 가능 (예: updatedBy)
+
+        // 3. 저장 (JPA는 트랜잭션 내에서 더티 체킹으로 자동 반영 가능,
+        // 명시적 save도 문제 없음)
         noticeRepository.save(notice);
     }
 

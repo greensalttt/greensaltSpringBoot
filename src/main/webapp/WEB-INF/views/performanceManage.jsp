@@ -122,7 +122,6 @@
             </c:if>
             <c:forEach var="performanceDto" items="${performanceDtos}">
                 <div class="performance-card">
-<%--                    <a href="/performance/read?pno=${performanceDto.pno}">--%>
                         <img src="${performanceDto.img}" alt="${performanceDto.title}" />
                         <div class="info">
                             <p class="artist">${performanceDto.artist}</p>
@@ -130,7 +129,6 @@
                             <p class="date">Date: ${performanceDto.date}</p>
                             <p class="venue">${performanceDto.venue}</p>
                         </div>
-<%--                    </a>--%>
                     <div class="performance-actions">
                         <button onclick="location.href='/admin/performance_edit?pno=${performanceDto.pno}'">수정</button>
                         <form action="/admin/performance_remove" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">

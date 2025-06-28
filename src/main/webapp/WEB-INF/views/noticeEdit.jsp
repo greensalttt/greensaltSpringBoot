@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>공지사항 등록</title>
+    <title>공지사항 수정</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -64,20 +64,21 @@
 </head>
 <body>
 <div id="notice">
-    <h2>공지사항 등록</h2>
+    <h2>공지사항 수정</h2>
 
-    <form id="noticeForm" action="/admin/notice_write" method="post">
-        
+    <form id="noticeForm" action="/admin/notice_modify" method="post">
+        <!-- 수정할 공지사항 번호를 hidden으로 넘겨줘야 함 -->
+        <input type="hidden" name="nno" value="${noticeDto.nno}" />
+
         <label for="title">제목:</label>
-        <input type="text" name="title" id="title" maxlength="30" required>
-        
+        <input type="text" name="title" id="title" maxlength="30" required value="${noticeDto.title}" />
+
         <label for="content">내용:</label>
-        <textarea name="content" id="content" rows="8"></textarea>
-        
-        <button type="submit">공지사항 등록</button>
+        <textarea name="content" id="content" rows="8">${noticeDto.content}</textarea>
+
+        <button type="submit">공지사항 수정</button>
     </form>
 </div>
-
 
 <c:if test="${not empty msg}">
     <script>
@@ -85,10 +86,7 @@
     </script>
 </c:if>
 
-
-
 <script>
-
     document.getElementById('noticeForm').addEventListener('submit', function (e) {
         const titleInput = document.getElementById('title');
         const contentInput = document.getElementById('content');
@@ -110,7 +108,6 @@
             return false;
         }
     });
-
 
 </script>
 </body>

@@ -142,12 +142,18 @@
                     </c:choose>
 
                     <td class="actions">
-                        <form action="/admin/notice_remove" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                        <form action="/admin/notice_edit" method="get" style="display:inline;">
+                            <input type="hidden" name="nno" value="${noticeDto.nno}">
+                            <button type="submit" class="delete-btn">수정</button>
+                        </form>
+
+                        <form action="/admin/notice_remove" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                             <input type="hidden" name="nno" value="${noticeDto.nno}">
                             <input type="hidden" name="createdBy" value="${noticeDto.createdBy}">
                             <button type="submit" class="delete-btn">삭제</button>
                         </form>
                     </td>
+
                 </tr>
             </c:forEach>
             </tbody>
@@ -163,25 +169,4 @@
         alert("${msg}")
     </script>
 </c:if>
-
-
-
-<%--<script>--%>
-
-<%--    let testAid = "${testAid}";--%>
-<%--    if (testAid === "msg") {--%>
-<%--        alert("테스트 아이디는 삭제할 수 없습니다.");--%>
-<%--    }--%>
-
-<%--    let removeFail = "${removeFail}"--%>
-<%--    if(removeFail==="msg") {--%>
-<%--        alert("공지사항 삭제가 실패했습니다.")--%>
-<%--    }--%>
-
-<%--    let remove = "${remove}"--%>
-<%--    if(remove==="msg") {--%>
-<%--        alert("공지사랑 삭제가 완료되었습니다.")--%>
-<%--    }--%>
-
-<%--</script>--%>
 

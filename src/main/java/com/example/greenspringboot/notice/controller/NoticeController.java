@@ -25,12 +25,7 @@ public class NoticeController {
         return "noticeList";
     }
 
-//    @GetMapping("/read")
-//    public String NoticeRead(Integer nno, Model m){
-//        noticeService.noticeRead(nno, m);
-//        return "notice";
-//    }
-
+//    예외처리 표본, 나머지도 다 이렇게 수정해야하는데..
     @GetMapping("/read")
     public String NoticeRead(Integer nno, Model m){
         try {
