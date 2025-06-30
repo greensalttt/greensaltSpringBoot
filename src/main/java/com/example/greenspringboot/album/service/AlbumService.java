@@ -16,9 +16,13 @@ public interface AlbumService {
 
     void albumRead(Integer ano, Model m);
 
-    boolean write(AlbumDto albumDto, HttpSession session);
+//    boolean write(AlbumDto albumDto, HttpSession session);
+//
+//    void write(AlbumDto albumDto, Integer aId);
 
-    boolean albumRemove(Integer ano);
+    void write(AlbumDto albumDto, Integer aId);
+
+    void albumRemove(Integer ano);
 
     // 여러개 게시글 한번에
     List<AlbumDto> toDtoList(List<Album> albumList);
@@ -27,7 +31,7 @@ public interface AlbumService {
 
     int getSearchResultCnt(SearchCondition sc);
 
-    boolean albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException;
+    void albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException;
 
     AlbumDto toDto(Album album);
 

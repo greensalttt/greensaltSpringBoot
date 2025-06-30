@@ -22,11 +22,12 @@ public class NoticeServiceImpl implements NoticeService {
     private AdminRepository adminRepository;
 
 
+
+
     @Override
     public void write(NoticeDto noticeDto, HttpSession session, Integer aId) {
         Admin admin = adminRepository.findById(aId)
-//                orElseThrow는 pk로 데이터를 가져올떄 사용
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new IllegalArgumentException("관리자 데이터 없음"));
 
         String aNick = admin.getANick();
 
@@ -92,10 +93,6 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setTitle(noticeDto.getTitle());
         notice.setContent(noticeDto.getContent());
 
-        // 필요하다면 수정자 정보도 업데이트 가능 (예: updatedBy)
-
-        // 3. 저장 (JPA는 트랜잭션 내에서 더티 체킹으로 자동 반영 가능,
-        // 명시적 save도 문제 없음)
         noticeRepository.save(notice);
     }
 

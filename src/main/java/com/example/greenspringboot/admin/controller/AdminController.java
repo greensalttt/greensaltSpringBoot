@@ -53,8 +53,30 @@ public class AdminController {
     }
 
 
+//    @PostMapping("/album_write")
+//    public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
+//
+//        Integer aId = (Integer) session.getAttribute("aId");
+//
+//        if (aId == null || aId != 1) {
+//            msg.addFlashAttribute("testAid", "msg");
+//            return "redirect:/admin/album";
+//        }
+//
+//
+//        if (!albumService.write(albumDto, session)) {
+//            msg.addFlashAttribute("adminWriteFail", "msg");
+//            return "redirect:/admin/album";
+//        }
+//
+//
+//        msg.addFlashAttribute("adminWrite", "msg");
+//        return "redirect:/admin/page";
+//    }
+
+//    글로벌 예외처리기 사용 예정
     @PostMapping("/album_write")
-    public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
+    public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg) {
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -63,15 +85,13 @@ public class AdminController {
             return "redirect:/admin/album";
         }
 
-
-        if (!albumService.write(albumDto, session)) {
-            msg.addFlashAttribute("adminWriteFail", "msg");
-            return "redirect:/admin/album";
-        }
+        // 예외 발생 시 글로벌 예외 처리기가 처리하므로 따로 try-catch 없음
+        albumService.write(albumDto, aId);
 
         msg.addFlashAttribute("adminWrite", "msg");
         return "redirect:/admin/page";
     }
+
 
 
     @GetMapping("/album_manage")
@@ -128,10 +148,12 @@ public class AdminController {
             return "redirect:/admin/album_manage";
         }
 
-        if(!albumService.albumRemove(ano)){
-            msg.addFlashAttribute("removeFail", "msg");
-            return "redirect:/admin/album_manage";
-        }
+//        if(!albumService.albumRemove(ano)){
+//            msg.addFlashAttribute("removeFail", "msg");
+//            return "redirect:/admin/album_manage";
+//        }
+
+        albumService.albumRemove(ano);
         msg.addFlashAttribute("remove", "msg");
         return "redirect:/admin/album_manage";
     }
@@ -152,10 +174,13 @@ public class AdminController {
             return "redirect:/admin/album_edit";
         }
 
-        if(!albumService.albumModify(albumDto, imgFile, session)){
-            msg.addFlashAttribute("modifyFail", "msg");
-            return "redirect:/admin/album_edit";
-        }
+//        if(!albumService.albumModify(albumDto, imgFile, session)){
+//            msg.addFlashAttribute("modifyFail", "msg");
+//            return "redirect:/admin/album_edit";
+//        }
+
+        albumService.albumModify(albumDto, imgFile, session);
+
         msg.addFlashAttribute("modify", "msg");
         return "redirect:/admin/album_manage";
     }
