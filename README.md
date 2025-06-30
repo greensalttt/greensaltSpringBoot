@@ -7,7 +7,7 @@ https://greensalt.site/
 ## 배포환경
 > Spring Boot + JSP
 
-```yaml
+```
 Packaging: WAR
 Build: Maven
 Deployment: AWS EC2
@@ -23,7 +23,7 @@ SSL: Cloudflare(HTTPS)
 
 > Spring Boot + JSP + JPA
 
-```yaml
+```
 WAS : Embedded Tomcat
 DBMS: MySQL
 VCS: github
@@ -41,7 +41,6 @@ style: 코드 스타일 및 주석 변경
 docs: 문서 수정 (README 등)  
 test: 테스트 코드 관련  
 chore: 기타 변경사항 (빌드, 설정, 삭제 등)
-
 ```
 
 ## Backend Architecture
@@ -107,4 +106,3 @@ chore: 기타 변경사항 (빌드, 설정, 삭제 등)
 #### 공지사항
    + 업로드한 공지사항을 볼 수 있는 리스트
    + 개별 클릭시 공지사항 상세 페이지로 이동
-   
