@@ -49,7 +49,7 @@ chore: 기타 변경사항 (빌드, 설정, 삭제 등)
    + 관리자/회원 권한 체크 및 인증되지 않은 사용자 접근 방지
 
 #### 서비스 레이어에서 Optional의 orElseThrow 활용
-   + 데이터가 없을 경우 즉시 IllegalArgumentException 예외 구현
+   + 데이터가 없을 경우 즉시 IllegalArgumentException 예외 발생
    + 비즈니스 로직 단계에서 무결성 보장과 조기 오류 발견
 
 #### 글로벌 예외 처리기(@ControllerAdvice) 적용
