@@ -142,12 +142,12 @@
                     </c:choose>
 
                     <td class="actions">
-                        <form action="/notice/edit" method="get" style="display:inline;">
+                        <form action="/admin/notice_edit" method="get" style="display:inline;">
                             <input type="hidden" name="nno" value="${noticeDto.nno}">
                             <button type="submit" class="delete-btn">수정</button>
                         </form>
 
-                        <form action="/notice/remove" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                        <form action="/admin/notice_remove" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                             <input type="hidden" name="nno" value="${noticeDto.nno}">
                             <input type="hidden" name="createdBy" value="${noticeDto.createdBy}">
                             <button type="submit" class="delete-btn">삭제</button>

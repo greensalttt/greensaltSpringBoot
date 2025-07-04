@@ -66,7 +66,7 @@
 <div id="notice">
     <h2>공지사항 수정</h2>
 
-    <form id="noticeForm" action="/notice/modify" method="post">
+    <form id="noticeForm" action="/admin_notice_modify" method="post">
         <!-- 수정할 공지사항 번호를 hidden으로 넘겨줘야 함 -->
         <input type="hidden" name="nno" value="${noticeDto.nno}" />
 

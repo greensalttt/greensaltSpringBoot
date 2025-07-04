@@ -35,6 +35,7 @@ public class AdminController {
     @Autowired
     private PerformanceService performanceService;
 
+//    뒤로가기 버튼
     @GetMapping("/page")
     public String adminPage(Model m){
         adminService.adminPage(m);
@@ -47,34 +48,12 @@ public class AdminController {
         return "redirect:/";
     }
 
+//    앨범
     @GetMapping("/album")
     public String writePage(){
         return "albumInsertForm";
     }
 
-
-//    @PostMapping("/album_write")
-//    public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg){
-//
-//        Integer aId = (Integer) session.getAttribute("aId");
-//
-//        if (aId == null || aId != 1) {
-//            msg.addFlashAttribute("testAid", "msg");
-//            return "redirect:/admin/album";
-//        }
-//
-//
-//        if (!albumService.write(albumDto, session)) {
-//            msg.addFlashAttribute("adminWriteFail", "msg");
-//            return "redirect:/admin/album";
-//        }
-//
-//
-//        msg.addFlashAttribute("adminWrite", "msg");
-//        return "redirect:/admin/page";
-//    }
-
-//    글로벌 예외처리기 사용 예정
     @PostMapping("/album_write")
     public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg) {
 
@@ -92,14 +71,50 @@ public class AdminController {
         return "redirect:/admin/page";
     }
 
-
-
     @GetMapping("/album_manage")
     public String albumManage(Model m){
         albumService.albumList(m);
         return "albumManage";
     }
 
+    @PostMapping("/album_remove")
+    public String albumRemove(Integer ano, RedirectAttributes msg, HttpSession session){
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/album_manage";
+        }
+        albumService.albumRemove(ano);
+        msg.addFlashAttribute("remove", "msg");
+        return "redirect:/admin/album_manage";
+    }
+
+    @GetMapping("/album_edit")
+    public String albumEdit(Integer ano, Model m){
+        albumService.albumRead(ano, m);
+        return "albumEdit";
+    }
+
+    @PostMapping("/album_modify")
+    public String albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            msg.addFlashAttribute("testAid", "msg");
+            return "redirect:/admin/album_edit";
+        }
+
+
+        albumService.albumModify(albumDto, imgFile, session);
+
+        msg.addFlashAttribute("modify", "msg");
+        return "redirect:/admin/album_manage";
+    }
+
+    //    공연
     @GetMapping("/performance_manage")
     public String performanceManage(Model m){
         performanceService.performanceList(m);
@@ -129,62 +144,6 @@ public class AdminController {
         msg.addFlashAttribute("performanceWrite", "msg");
         return "redirect:/admin/page";
     }
-
-
-
-    @GetMapping("/cust_list")
-    public String custList(Model m){
-        adminService.custList(m);
-        return "custList";
-    }
-
-    @PostMapping("/album_remove")
-    public String albumRemove(Integer ano, RedirectAttributes msg, HttpSession session){
-
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/album_manage";
-        }
-
-//        if(!albumService.albumRemove(ano)){
-//            msg.addFlashAttribute("removeFail", "msg");
-//            return "redirect:/admin/album_manage";
-//        }
-
-        albumService.albumRemove(ano);
-        msg.addFlashAttribute("remove", "msg");
-        return "redirect:/admin/album_manage";
-    }
-
-    @GetMapping("/album_edit")
-    public String albumEdit(Integer ano, Model m){
-        albumService.albumRead(ano, m);
-        return "albumEdit";
-    }
-
-    @PostMapping("/album_modify")
-    public String albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
-
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/album_edit";
-        }
-
-//        if(!albumService.albumModify(albumDto, imgFile, session)){
-//            msg.addFlashAttribute("modifyFail", "msg");
-//            return "redirect:/admin/album_edit";
-//        }
-
-        albumService.albumModify(albumDto, imgFile, session);
-
-        msg.addFlashAttribute("modify", "msg");
-        return "redirect:/admin/album_manage";
-    }
-
 
     @GetMapping("/performance_edit")
     public String performanceEdit(Integer pno, Model m){
@@ -228,7 +187,7 @@ public class AdminController {
         return "redirect:/admin/performance_manage";
     }
 
-
+//    게시글
     @GetMapping("/board_manage")
     public String boardManage(Model m){
         adminService.boardList(m);
@@ -253,7 +212,28 @@ public class AdminController {
         return "redirect:/admin/board_manage";
     }
 
+    @GetMapping("/board_hist")
+    public String boardHistory(Model m){
+        adminService.boardHist(m);
+        return "boardHist";
+    }
 
+//    회원
+    @GetMapping("/cust_list")
+    public String custList(Model m){
+        adminService.custList(m);
+        return "custList";
+    }
+
+    @GetMapping("/cust_hist")
+    public String custHistory(Model m){
+        adminService.custHist(m);
+        return "custHist";
+    }
+
+
+
+//    댓글
     @GetMapping("/comment_manage")
     public String commentManage(Model m){
         adminService.commentList(m);
@@ -278,107 +258,74 @@ public class AdminController {
         return "redirect:/admin/comment_manage";
     }
 
-
-    @GetMapping("/board_hist")
-    public String boardHistory(Model m){
-        adminService.boardHist(m);
-        return "boardHist";
-    }
-
     @GetMapping("/comment_hist")
     public String commentHistory(Model m){
         adminService.commentHist(m);
         return "commentHist";
     }
 
-    @GetMapping("/cust_hist")
-    public String custHistory(Model m){
-        adminService.custHist(m);
-        return "custHist";
+
+//    공지사항
+    @GetMapping("/notice_write")
+    public String noticeWritePage() {
+        return "noticeInsertForm";
     }
 
-//
-//    @GetMapping("/notice_write")
-//    public String NoticeWritePage(){
-//        return "noticeInsertForm";
-//    }
-//
-//
-//    @PostMapping("/notice_write")
-//    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
-//
-//        Integer aId = (Integer) session.getAttribute("aId");
-//
-//        if (aId == null || aId != 1) {
-//            msg.addFlashAttribute("msg", "테스트 아이디는 등록할 수 없습니다.");
-//            return "redirect:/admin/notice_write";
-//        }
-//
-////        변수 하나로 모든 메시지 가능
-//        try {
-//            noticeService.write(noticeDto, session, aId);
-//            msg.addFlashAttribute("msg", "공지사항 등록에 성공했습니다.");
-//            return "redirect:/admin/page";
-//        } catch (Exception e) {
-//            log.error("공지 작성 실패", e);
-//            msg.addFlashAttribute("msg", "공지 작성 실패");
-//            return "redirect:/admin/notice_write";
-//        }
-//    }
-//
-//    @GetMapping("/notice_manage")
-//    public String noticeManage(Model m){
-//        adminService.noticeList(m);
-//        return "noticeManage";
-//    }
-//
-//    @PostMapping("/notice_remove")
-//    public String noticeRemove(Integer nno, RedirectAttributes msg, HttpSession session) {
-//
-//        Integer aId = (Integer) session.getAttribute("aId");
-//
-//        if (aId == null || aId != 1) {
-//            msg.addFlashAttribute("msg", "테스트 아이디는 삭제할 수 없습니다");
-//            return "redirect:/admin/notice_manage";
-//        }
-//
-//        try {
-//            noticeService.noticeRemove(nno);
-//            msg.addFlashAttribute("msg", "공지사항 삭제에 성공했습니다");
-//            return "redirect:/admin/notice_manage";
-//        } catch (Exception e) {
-//            log.error("공지 삭제 실패", e);
-//            msg.addFlashAttribute("msg", "공지 삭제 실패");
-//            return "redirect:/admin/notice_manage";
-//        }
-//    }
-//
-//    @GetMapping("/notice_edit")
-//    public String noticeEdit(Integer nno, Model m) {
-//        noticeService.noticeRead(nno, m);  // 기존 공지사항 데이터 불러오기
-//        return "noticeEdit";               // 수정 폼 뷰 반환
-//    }
-//
-//    @PostMapping("/notice_modify")
-//    public String noticeModify(NoticeDto noticeDto, Integer nno, HttpSession session, RedirectAttributes msg) {
-//
-//        Integer aId = (Integer) session.getAttribute("aId");
-//
-//        if (aId == null || aId != 1) {
-//            msg.addFlashAttribute("msg", "테스트 아이디는 수정할 수 없습니다.");
-//            return "redirect:/admin/notice_edit";
-//        }
-//
-//        try {
-//            noticeService.modify(nno, noticeDto);  // 서비스에서 수정 처리
-//            msg.addFlashAttribute("msg", "공지사항 수정에 성공했습니다.");
-//            return "redirect:/admin/notice_manage";
-//        } catch (Exception e) {
-//            msg.addFlashAttribute("msg", "공지사항 수정에 실패했습니다.");
-//            return "redirect:/admin/notice_edit";
-//        }
-//    }
+    @PostMapping("/notice_write")
+    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg) {
+        Integer aId = (Integer) session.getAttribute("aId");
 
+        if (aId == null || aId != 1) {
+            throw new IllegalArgumentException("테스트 아이디는 등록할 수 없습니다.");
+        }
+
+        noticeService.write(noticeDto, session, aId);
+
+        msg.addFlashAttribute("msg", "공지사항 등록에 성공했습니다.");
+        return "redirect:/admin/page";
+    }
+
+    @GetMapping("/notice_manage")
+    public String noticeManage(Model m) {
+        adminService.noticeList(m);
+        return "noticeManage";
+    }
+
+    @PostMapping("/notice_remove")
+    public String noticeRemove(Integer nno,
+                               RedirectAttributes msg,
+                               HttpSession session) {
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
+        }
+
+        noticeService.noticeRemove(nno);
+
+        msg.addFlashAttribute("msg", "공지사항 삭제에 성공했습니다.");
+        return "redirect:/admin/notice_manage";
+    }
+
+    @GetMapping("/notice_edit")
+    public String noticeEdit(Integer nno, Model m) {
+        noticeService.noticeRead(nno, m);
+        return "noticeEdit";
+    }
+
+    @PostMapping("/notice_modify")
+    public String noticeModify(NoticeDto noticeDto, Integer nno, HttpSession session, RedirectAttributes msg) {
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            throw new IllegalArgumentException("테스트 아이디는 수정할 수 없습니다.");
+        }
+
+        noticeService.modify(nno, noticeDto);
+
+        msg.addFlashAttribute("msg", "공지사항 수정에 성공했습니다.");
+        return "redirect:/admin/notice_manage";
+    }
 
 
 }

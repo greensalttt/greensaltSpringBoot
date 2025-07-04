@@ -26,9 +26,12 @@ public class GlobalExceptionHandler {
      * - 이 예외를 글로벌 예외처리기에서 잡아 적절한 에러 페이지로 안내
      */
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public String handleIllegalArgumentException(IllegalArgumentException e) {
-        log.error("요청한 데이터가 존재하지 않음 ", e);
-        return "errorPage";
-    }
+
+//      중복 코드 위에 메서드 한개로도 충분
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public String handleIllegalArgumentException(IllegalArgumentException e) {
+//        log.error("예외 발생", e);
+//        return "errorPage";
+//    }
+
 }
