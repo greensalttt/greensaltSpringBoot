@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
-@Slf4j
 @RequestMapping("/notice")
 @Controller
 public class NoticeController {

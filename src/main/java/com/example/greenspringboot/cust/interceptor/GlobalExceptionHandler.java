@@ -1,15 +1,15 @@
 package com.example.greenspringboot.cust.interceptor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+//    private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // 모든 예외 처리
     @ExceptionHandler(Exception.class)

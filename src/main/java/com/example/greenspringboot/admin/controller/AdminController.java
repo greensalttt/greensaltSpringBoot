@@ -8,7 +8,6 @@ import com.example.greenspringboot.notice.dto.NoticeDto;
 import com.example.greenspringboot.notice.service.NoticeService;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@Slf4j
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
@@ -48,65 +46,63 @@ public class AdminController {
         return "redirect:/";
     }
 
-//    앨범
-    @GetMapping("/album")
-    public String writePage(){
-        return "albumInsertForm";
-    }
+// 앨범 등록 페이지
+@GetMapping("/album")
+public String writePage() {
+    return "albumInsertForm";
+}
 
+    // 앨범 등록 처리
     @PostMapping("/album_write")
     public String albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session, RedirectAttributes msg) {
-
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/album";
+            throw new IllegalArgumentException("테스트 아이디는 등록할 수 없습니다.");
         }
 
-        // 예외 발생 시 글로벌 예외 처리기가 처리하므로 따로 try-catch 없음
         albumService.write(albumDto, aId);
 
         msg.addFlashAttribute("adminWrite", "msg");
         return "redirect:/admin/page";
     }
 
+    // 앨범 관리 페이지(리스트)
     @GetMapping("/album_manage")
-    public String albumManage(Model m){
+    public String albumManage(Model m) {
         albumService.albumList(m);
         return "albumManage";
     }
 
+    // 앨범 삭제 처리
     @PostMapping("/album_remove")
-    public String albumRemove(Integer ano, RedirectAttributes msg, HttpSession session){
-
+    public String albumRemove(Integer ano, RedirectAttributes msg, HttpSession session) {
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/album_manage";
+            throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
         }
+
         albumService.albumRemove(ano);
         msg.addFlashAttribute("remove", "msg");
         return "redirect:/admin/album_manage";
     }
 
+    // 앨범 수정 페이지
     @GetMapping("/album_edit")
-    public String albumEdit(Integer ano, Model m){
+    public String albumEdit(Integer ano, Model m) {
         albumService.albumRead(ano, m);
         return "albumEdit";
     }
 
+    // 앨범 수정 처리
     @PostMapping("/album_modify")
     public String albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
-
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/album_edit";
+            throw new IllegalArgumentException("테스트 아이디는 수정할 수 없습니다.");
         }
-
 
         albumService.albumModify(albumDto, imgFile, session);
 
@@ -114,75 +110,75 @@ public class AdminController {
         return "redirect:/admin/album_manage";
     }
 
-    //    공연
+
+    // 공연 관리 페이지
     @GetMapping("/performance_manage")
-    public String performanceManage(Model m){
+    public String performanceManage(Model m) {
         performanceService.performanceList(m);
         return "performanceManage";
     }
 
+    // 공연 등록 페이지
     @GetMapping("/performance")
-    public String performanceWritePage(){
+    public String performanceWritePage() {
         return "performanceInsertForm";
     }
 
+    // 공연 등록 처리
     @PostMapping("/performance_write")
-    public String performanceWrite(@ModelAttribute PerformanceDto performanceDto, HttpSession session, RedirectAttributes msg){
-
+    public String performanceWrite(@ModelAttribute PerformanceDto performanceDto,
+                                   HttpSession session,
+                                   RedirectAttributes msg) {
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/performance";
+            throw new IllegalArgumentException("테스트 아이디는 등록할 수 없습니다.");
         }
 
-        if (!performanceService.write(performanceDto, session)) {
-            msg.addFlashAttribute("performanceWriteFail", "msg");
-            return "redirect:/admin/performance";
-        }
+        performanceService.write(performanceDto, session);
 
         msg.addFlashAttribute("performanceWrite", "msg");
         return "redirect:/admin/page";
     }
 
+    // 공연 수정 페이지
     @GetMapping("/performance_edit")
-    public String performanceEdit(Integer pno, Model m){
+    public String performanceEdit(Integer pno, Model m) {
         performanceService.performanceRead(pno, m);
         return "performanceEdit";
     }
 
+    // 공연 수정 처리
     @PostMapping("/performance_modify")
-    public String performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
-
+    public String performanceModify(PerformanceDto performanceDto,
+                                    MultipartFile imgFile,
+                                    HttpSession session,
+                                    RedirectAttributes msg) throws IOException {
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/performance_edit";
+            throw new IllegalArgumentException("테스트 아이디는 수정할 수 없습니다.");
         }
 
-        if(!performanceService.performanceModify(performanceDto, imgFile, session)){
-            msg.addFlashAttribute("performanceModifyFail", "msg");
-            return "redirect:/admin/performance_edit";
-        }
+        performanceService.performanceModify(performanceDto, imgFile, session);
+
         msg.addFlashAttribute("performanceModify", "msg");
         return "redirect:/admin/performance_manage";
     }
 
+    // 공연 삭제 처리
     @PostMapping("/performance_remove")
-    public String performanceRemove(Integer pno, RedirectAttributes msg,HttpSession session){
-
+    public String performanceRemove(Integer pno,
+                                    RedirectAttributes msg,
+                                    HttpSession session) {
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/performance_manage";
+            throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
         }
 
-        if(!performanceService.performanceRemove(pno)){
-            msg.addFlashAttribute("performanceRemoveFail", "msg");
-            return "redirect:/admin/performance_manage";
-        }
+        performanceService.performanceRemove(pno);
+
         msg.addFlashAttribute("performanceRemove", "msg");
         return "redirect:/admin/performance_manage";
     }
@@ -200,14 +196,9 @@ public class AdminController {
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/board_manage";
+            throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
         }
-
-        if(!adminService.boardRemove(boardDto, bno)){
-            msg.addFlashAttribute("removeFail", "msg");
-            return "redirect:/admin/board_manage";
-        }
+        adminService.boardRemove(boardDto, bno);
         msg.addFlashAttribute("remove", "msg");
         return "redirect:/admin/board_manage";
     }
@@ -246,14 +237,10 @@ public class AdminController {
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
-            msg.addFlashAttribute("testAid", "msg");
-            return "redirect:/admin/comment_manage";
+            throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
         }
 
-        if(!adminService.commentRemove(commentDto,cno)){
-            msg.addFlashAttribute("removeFail", "msg");
-            return "redirect:/admin/comment_manage";
-        }
+        adminService.commentRemove(commentDto,cno);
         msg.addFlashAttribute("remove", "msg");
         return "redirect:/admin/comment_manage";
     }
