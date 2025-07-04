@@ -66,7 +66,7 @@
 <div id="notice">
     <h2>공지사항 등록</h2>
 
-    <form id="noticeForm" action="/admin/notice_write" method="post">
+    <form id="noticeForm" action="/notice/write" method="post">
         
         <label for="title">제목:</label>
         <input type="text" name="title" id="title" maxlength="30" required>

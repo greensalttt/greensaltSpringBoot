@@ -297,87 +297,87 @@ public class AdminController {
         return "custHist";
     }
 
-
-    @GetMapping("/notice_write")
-    public String NoticeWritePage(){
-        return "noticeInsertForm";
-    }
-
-
-    @PostMapping("/notice_write")
-    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
-
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            msg.addFlashAttribute("msg", "테스트 아이디는 등록할 수 없습니다.");
-            return "redirect:/admin/notice_write";
-        }
-
-//        변수 하나로 모든 메시지 가능
-        try {
-            noticeService.write(noticeDto, session, aId);
-            msg.addFlashAttribute("msg", "공지사항 등록에 성공했습니다.");
-            return "redirect:/admin/page";
-        } catch (Exception e) {
-            log.error("공지 작성 실패", e);
-            msg.addFlashAttribute("msg", "공지 작성 실패");
-            return "redirect:/admin/notice_write";
-        }
-    }
-
-    @GetMapping("/notice_manage")
-    public String noticeManage(Model m){
-        adminService.noticeList(m);
-        return "noticeManage";
-    }
-
-    @PostMapping("/notice_remove")
-    public String noticeRemove(Integer nno, RedirectAttributes msg, HttpSession session) {
-
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            msg.addFlashAttribute("msg", "테스트 아이디는 삭제할 수 없습니다");
-            return "redirect:/admin/notice_manage";
-        }
-
-        try {
-            noticeService.noticeRemove(nno);
-            msg.addFlashAttribute("msg", "공지사항 삭제에 성공했습니다");
-            return "redirect:/admin/notice_manage";
-        } catch (Exception e) {
-            log.error("공지 삭제 실패", e);
-            msg.addFlashAttribute("msg", "공지 삭제 실패");
-            return "redirect:/admin/notice_manage";
-        }
-    }
-
-    @GetMapping("/notice_edit")
-    public String noticeEdit(Integer nno, Model m) {
-        noticeService.noticeRead(nno, m);  // 기존 공지사항 데이터 불러오기
-        return "noticeEdit";               // 수정 폼 뷰 반환
-    }
-
-    @PostMapping("/notice_modify")
-    public String noticeModify(NoticeDto noticeDto, Integer nno, HttpSession session, RedirectAttributes msg) {
-
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            msg.addFlashAttribute("msg", "테스트 아이디는 수정할 수 없습니다.");
-            return "redirect:/admin/notice_edit";
-        }
-
-        try {
-            noticeService.modify(nno, noticeDto);  // 서비스에서 수정 처리
-            msg.addFlashAttribute("msg", "공지사항 수정에 성공했습니다.");
-            return "redirect:/admin/notice_manage";
-        } catch (Exception e) {
-            msg.addFlashAttribute("msg", "공지사항 수정에 실패했습니다.");
-            return "redirect:/admin/notice_edit";
-        }
-    }
+//
+//    @GetMapping("/notice_write")
+//    public String NoticeWritePage(){
+//        return "noticeInsertForm";
+//    }
+//
+//
+//    @PostMapping("/notice_write")
+//    public String noticeWrite(@ModelAttribute NoticeDto noticeDto, HttpSession session, RedirectAttributes msg){
+//
+//        Integer aId = (Integer) session.getAttribute("aId");
+//
+//        if (aId == null || aId != 1) {
+//            msg.addFlashAttribute("msg", "테스트 아이디는 등록할 수 없습니다.");
+//            return "redirect:/admin/notice_write";
+//        }
+//
+////        변수 하나로 모든 메시지 가능
+//        try {
+//            noticeService.write(noticeDto, session, aId);
+//            msg.addFlashAttribute("msg", "공지사항 등록에 성공했습니다.");
+//            return "redirect:/admin/page";
+//        } catch (Exception e) {
+//            log.error("공지 작성 실패", e);
+//            msg.addFlashAttribute("msg", "공지 작성 실패");
+//            return "redirect:/admin/notice_write";
+//        }
+//    }
+//
+//    @GetMapping("/notice_manage")
+//    public String noticeManage(Model m){
+//        adminService.noticeList(m);
+//        return "noticeManage";
+//    }
+//
+//    @PostMapping("/notice_remove")
+//    public String noticeRemove(Integer nno, RedirectAttributes msg, HttpSession session) {
+//
+//        Integer aId = (Integer) session.getAttribute("aId");
+//
+//        if (aId == null || aId != 1) {
+//            msg.addFlashAttribute("msg", "테스트 아이디는 삭제할 수 없습니다");
+//            return "redirect:/admin/notice_manage";
+//        }
+//
+//        try {
+//            noticeService.noticeRemove(nno);
+//            msg.addFlashAttribute("msg", "공지사항 삭제에 성공했습니다");
+//            return "redirect:/admin/notice_manage";
+//        } catch (Exception e) {
+//            log.error("공지 삭제 실패", e);
+//            msg.addFlashAttribute("msg", "공지 삭제 실패");
+//            return "redirect:/admin/notice_manage";
+//        }
+//    }
+//
+//    @GetMapping("/notice_edit")
+//    public String noticeEdit(Integer nno, Model m) {
+//        noticeService.noticeRead(nno, m);  // 기존 공지사항 데이터 불러오기
+//        return "noticeEdit";               // 수정 폼 뷰 반환
+//    }
+//
+//    @PostMapping("/notice_modify")
+//    public String noticeModify(NoticeDto noticeDto, Integer nno, HttpSession session, RedirectAttributes msg) {
+//
+//        Integer aId = (Integer) session.getAttribute("aId");
+//
+//        if (aId == null || aId != 1) {
+//            msg.addFlashAttribute("msg", "테스트 아이디는 수정할 수 없습니다.");
+//            return "redirect:/admin/notice_edit";
+//        }
+//
+//        try {
+//            noticeService.modify(nno, noticeDto);  // 서비스에서 수정 처리
+//            msg.addFlashAttribute("msg", "공지사항 수정에 성공했습니다.");
+//            return "redirect:/admin/notice_manage";
+//        } catch (Exception e) {
+//            msg.addFlashAttribute("msg", "공지사항 수정에 실패했습니다.");
+//            return "redirect:/admin/notice_edit";
+//        }
+//    }
 
 
 

@@ -51,7 +51,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void noticeRead(Integer nno, Model m) {
         Notice notice = noticeRepository.findById(nno)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new IllegalArgumentException("공지사항 데이터 없음"));
 
         noticeRepository.incrementViewCnt(nno);
 
@@ -77,8 +77,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void noticeRemove(Integer nno){
         Notice notice = noticeRepository.findById(nno)
-                .orElseThrow(IllegalArgumentException::new);
-
+                .orElseThrow(()-> new IllegalArgumentException("공지사항 데이터 없음"));
         notice.setDeleted(true);
         noticeRepository.save(notice);
     }
@@ -87,7 +86,7 @@ public class NoticeServiceImpl implements NoticeService {
     public void modify(Integer nno, NoticeDto noticeDto) {
         // 1. 기존 공지사항 조회 (없으면 예외)
         Notice notice = noticeRepository.findById(nno)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new IllegalArgumentException("공지사항 데이터 없음"));
 
         // 2. 수정할 내용 반영
         notice.setTitle(noticeDto.getTitle());
@@ -95,6 +94,5 @@ public class NoticeServiceImpl implements NoticeService {
 
         noticeRepository.save(notice);
     }
-
 
 }
