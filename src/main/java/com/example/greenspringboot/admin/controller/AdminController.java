@@ -97,15 +97,15 @@ public String writePage() {
 
     // 앨범 수정 처리
     @PostMapping("/album_modify")
-    public String albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException {
+    public String albumModify(AlbumDto albumDto, Integer ano, MultipartFile imgFile, HttpSession session, RedirectAttributes msg) throws IOException{
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
             throw new IllegalArgumentException("테스트 아이디는 수정할 수 없습니다.");
         }
 
-        albumService.albumModify(albumDto, imgFile, session);
-
+//        albumService.albumModify(albumDto, imgFile, session);
+        albumService.albumModify(albumDto, aId, ano, imgFile, session);
         msg.addFlashAttribute("modify", "msg");
         return "redirect:/admin/album_manage";
     }

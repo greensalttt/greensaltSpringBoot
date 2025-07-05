@@ -31,12 +31,15 @@ public interface AlbumService {
 
     int getSearchResultCnt(SearchCondition sc);
 
-    void albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException;
+//    void albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException;
+
+    void albumModify(AlbumDto albumDto, Integer aId, Integer ano, MultipartFile imgFile, HttpSession session) throws IOException;
+
 
     AlbumDto toDto(Album album);
 
 
-    void toEntity(Album album, AlbumDto albumDto, MultipartFile imgFile)  throws IOException;
+    void toEntity(Album album, AlbumDto albumDto, MultipartFile imgFile) throws IOException;
 
 
 

@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -57,129 +59,11 @@ public class AlbumServiceImpl implements AlbumService{
             System.out.println("앨범 정보를 찾을 수 없습니다.");
         }
     }
-//
-//    @Override
-//    public void albumRead(Integer ano, Model m) {
-//        Album album = albumRepository.findByAno(ano); // Optional 제거
-//
-//        if (album != null) {
-//            Integer aano = album.getAno();
-//            String type = album.getType();
-//            String genre = album.getGenre();
-//            String title = album.getTitle();
-//            String artist = album.getArtist();
-//            String released = album.getReleased();
-//            String content = album.getContent().replace("\n", "<br/>");
-//            String img = album.getImg();
-//
-//            AlbumDto albumDto = AlbumDto.builder()
-//                    .ano(aano)
-//                    .type(type)
-//                    .genre(genre)
-//                    .title(title)
-//                    .artist(artist)
-//                    .released(released)
-//                    .content(content)
-//                    .img(img)
-//                    .build();
-//
-//            m.addAttribute("albumDto", albumDto);
-//
-//            System.out.println("albumDto:" + albumDto);
-//        } else {
-//            System.out.println("앨범 정보를 찾을 수 없습니다.");
-//        }
-//    }
-//
-//
-//    @Override
-//    public boolean write(AlbumDto albumDto, HttpSession session) {
-//        try {
-//
-//            MultipartFile file = albumDto.getImgFile();
-//            String img = uploadImage(file);
-//
-//            albumDto.setImg(img); // 이미지 경로를 저장할 img 필드에 넣음
-//            albumDto.setCreatedBy((Integer) session.getAttribute("aId"));
-//
-//            Album album = Album.builder()
-//                    .ano(albumDto.getAno())
-//                    .type(albumDto.getType())
-//                    .genre(albumDto.getGenre())
-//                    .title(albumDto.getTitle())
-//                    .artist(albumDto.getArtist())
-//                    .content(albumDto.getContent())
-//                    .released(albumDto.getReleased())
-//                    .img(albumDto.getImg())
-//                    .createdBy(albumDto.getCreatedBy())
-//                    .updatedBy(albumDto.getCreatedBy())
-//                    .build();
-//
-//            albumRepository.save(album);
-//            return true;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-//
-//    @Override
-//    public boolean albumRemove(Integer ano){
-//        Album album = albumRepository.findByAno(ano);
-//        album.setDeleted(true);
-//        albumRepository.save(album);
-//        return true;
-//    }
-//
-//
-//    @Override
-//    public boolean albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException {
-//        // 기존 앨범 가져오기
-//        Optional<Album> optionalAlbum = albumRepository.findById(albumDto.getAno());
-//        if (optionalAlbum.isPresent()) {
-//            Album oldAlbum = optionalAlbum.get();
-//            AlbumDto oldData = toDto(oldAlbum);
-//
-////                이력에는 수정한 사람의 관리자 아이디가 입력
-//            Integer modifierAId = (Integer) session.getAttribute("aId");
-//
-//            // 이미지 변경 안 했으면 이전 값 유지
-//            if (imgFile == null || imgFile.isEmpty()) {
-//                albumDto.setImg(oldData.getImg());
-//            }
-//
-//            toEntity(oldAlbum, albumDto, imgFile);
-//            albumRepository.save(oldAlbum);
-//
-//            // 변경 이력을 담을 DTO 리스트
-//            List<AlbumHist> albumHistList = new ArrayList<>();
-//            // 기존에 작성된 2개 필드 변경 이력 추가
-//
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "IMG", oldData.getImg(), albumDto.getImg());
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "TITLE", oldData.getTitle(), albumDto.getTitle());
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "ARTIST", oldData.getArtist(), albumDto.getArtist());
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "TYPE", oldData.getType(), albumDto.getType());
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "GENRE", oldData.getGenre(), albumDto.getGenre());
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "RELEASED", oldData.getReleased(), albumDto.getReleased());
-//            addAlbumHist(albumHistList, albumDto.getAno(), modifierAId, "CONTENT", oldData.getContent(), albumDto.getContent());
-//
-//
-//
-//            // 변경 이력이 담긴 DTO 리스트를 순회하면서
-//            for (AlbumHist albumHist : albumHistList) {
-//                albumHistRepository.save(albumHist);
-//            }
-//            return true;
-//
-//        }
-//        return false;
-//    }
 
     @Override
     public void albumRead(Integer ano, Model m) {
         Album album = albumRepository.findById(ano)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
 
         String content = album.getContent().replace("\n", "<br/>");
         AlbumDto albumDto = AlbumDto.builder()
@@ -195,30 +79,6 @@ public class AlbumServiceImpl implements AlbumService{
 
         m.addAttribute("albumDto", albumDto);
     }
-
-//    @Override
-//    public void write(AlbumDto albumDto, Integer aId) {
-//        String img;
-//        try {
-//            img = uploadImage(albumDto.getImgFile());
-//        } catch (IOException e) {
-//            throw new IllegalArgumentException("이미지 업로드 실패", e);
-//        }
-//
-//        Album album = Album.builder()
-//                .type(albumDto.getType())
-//                .genre(albumDto.getGenre())
-//                .title(albumDto.getTitle())
-//                .artist(albumDto.getArtist())
-//                .content(albumDto.getContent())
-//                .released(albumDto.getReleased())
-//                .img(img)
-//                .createdBy(aId)
-//                .updatedBy(aId)
-//                .build();
-//
-//        albumRepository.save(album);
-//    }
 
     @Override
     public void write(AlbumDto albumDto, Integer aId) {
@@ -248,69 +108,11 @@ public class AlbumServiceImpl implements AlbumService{
         albumRepository.save(album);
     }
 
-
-    @Override
-    public void albumRemove(Integer ano) {
-        Album album = albumRepository.findById(ano)
-                .orElseThrow(IllegalArgumentException::new);
-
-        album.setDeleted(true);
-        albumRepository.save(album);
-    }
-
-    @Override
-    public void albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException {
-        Album album = albumRepository.findById(albumDto.getAno())
-                .orElseThrow(IllegalArgumentException::new);
-
-        Integer modifierAId = (Integer) session.getAttribute("aId");
-        if (modifierAId == null) {
-            throw new IllegalArgumentException();
-        }
-
-        if (imgFile != null && !imgFile.isEmpty()) {
-            String img = uploadImage(imgFile);
-            albumDto.setImg(img);
-            album.setImg(img);
-        }
-
-        album.setType(albumDto.getType());
-        album.setGenre(albumDto.getGenre());
-        album.setTitle(albumDto.getTitle());
-        album.setArtist(albumDto.getArtist());
-        album.setReleased(albumDto.getReleased());
-        album.setContent(albumDto.getContent());
-        album.setUpdatedBy(modifierAId);
-
-        albumRepository.save(album);
-
-        // (히스토리 저장 로직은 동일하게 유지)
-    }
-
-
-    private void addAlbumHist(List<AlbumHist> albumHistList, Integer ano, Integer modifierAId,
-                              String changeCode, String oldValue, String newValue) {
-        if (!oldValue.equals(newValue)) {
-            AlbumHist albumHist = new AlbumHist();
-            albumHist.setAno(ano);
-            albumHist.setACngCd(changeCode);
-            albumHist.setABf(oldValue);
-            albumHist.setAAf(newValue);
-            albumHist.setCreatedBy(modifierAId);
-            albumHistList.add(albumHist);
-
-            System.out.println(">>> 변경 감지: " + changeCode + " / old: " + oldValue + " / new: " + newValue);
-        }
-    }
-
-
-
-
     public String uploadImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
-//        String uploadDir = "C:/album/";
-        String uploadDir = "/home/ubuntu/album/";
+        String uploadDir = "C:/album/";
+//        String uploadDir = "/home/ubuntu/album/";
 
         File dir = new File(uploadDir);
         if (!dir.exists()) {
@@ -327,6 +129,68 @@ public class AlbumServiceImpl implements AlbumService{
         return "/images/" + newFileName;
     }
 
+
+
+    @Override
+    public void albumRemove(Integer ano) {
+        Album album = albumRepository.findById(ano)
+                .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
+
+        album.setDeleted(true);
+        albumRepository.save(album);
+    }
+
+    @Override
+    public void albumModify(AlbumDto albumDto, Integer aId, Integer ano,  MultipartFile imgFile, HttpSession session) throws IOException{
+        // 기존 앨범 가져오기 (예외 처리 방식 개선)
+        Album oldAlbum = albumRepository.findById(ano)
+                .orElseThrow(() -> new IllegalArgumentException("해당 앨범이 존재하지 않습니다"));
+
+        AlbumDto oldData = toDto(oldAlbum);
+
+        adminRepository.findById(aId)
+                .orElseThrow(() -> new IllegalArgumentException("관리자 정보 없음"));
+
+
+        // 이미지 변경 안 했으면 이전 값 유지
+        if (imgFile == null || imgFile.isEmpty()) {
+            albumDto.setImg(oldData.getImg());
+        }
+
+        // 기존 엔티티에 새 값 반영
+        toEntity(oldAlbum, albumDto, imgFile);
+        albumRepository.save(oldAlbum);
+
+        // 변경 이력 저장
+        List<AlbumHist> albumHistList = new ArrayList<>();
+        addAlbumHist(albumHistList, ano, aId, "IMG", oldData.getImg(), albumDto.getImg());
+        addAlbumHist(albumHistList, ano, aId, "TITLE", oldData.getTitle(), albumDto.getTitle());
+        addAlbumHist(albumHistList, ano, aId, "ARTIST", oldData.getArtist(), albumDto.getArtist());
+        addAlbumHist(albumHistList, ano, aId, "TYPE", oldData.getType(), albumDto.getType());
+        addAlbumHist(albumHistList, ano, aId, "GENRE", oldData.getGenre(), albumDto.getGenre());
+        addAlbumHist(albumHistList, ano, aId, "RELEASED", oldData.getReleased(), albumDto.getReleased());
+        addAlbumHist(albumHistList, ano, aId, "CONTENT", oldData.getContent(), albumDto.getContent());
+
+        for (AlbumHist albumHist : albumHistList) {
+            albumHistRepository.save(albumHist);
+        }
+    }
+
+
+    private void addAlbumHist(List<AlbumHist> albumHistList, Integer ano, Integer aId,
+                              String changeCode, String oldValue, String newValue) {
+        if (!oldValue.equals(newValue)) {
+            AlbumHist albumHist = new AlbumHist();
+            albumHist.setAno(ano);
+            albumHist.setACngCd(changeCode);
+            albumHist.setABf(oldValue);
+            albumHist.setAAf(newValue);
+            albumHist.setCreatedBy(aId);
+            albumHistList.add(albumHist);
+
+            System.out.println(">>> 변경 감지: " + changeCode + " / old: " + oldValue + " / new: " + newValue);
+        }
+    }
 
     @Override
     public List<AlbumDto> getSearchResultPage(SearchCondition sc) {
@@ -406,7 +270,7 @@ public class AlbumServiceImpl implements AlbumService{
 
 
     @Override
-    public void toEntity(Album album, AlbumDto albumDto, MultipartFile imgFile)  throws IOException{
+    public void toEntity(Album album, AlbumDto albumDto, MultipartFile imgFile) throws IOException {
 
         if (albumDto.getTitle() != null) {
             album.setTitle(albumDto.getTitle());
