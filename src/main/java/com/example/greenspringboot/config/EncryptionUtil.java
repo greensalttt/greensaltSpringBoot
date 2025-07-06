@@ -1,11 +1,10 @@
-package com.example.greenspringboot.cust.securityutils;
-
+package com.example.greenspringboot.config;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 
-//이메일 쿠키로 저장할떄 암호화
+//이메일 쿠키로 저장할때 암호화
 public class EncryptionUtil {
     private static final String ALGORITHM = "AES";
     private static final String KEY = "1234567890123456"; // 16바이트 비밀 키

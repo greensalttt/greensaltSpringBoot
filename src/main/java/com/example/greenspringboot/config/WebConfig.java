@@ -1,4 +1,4 @@
-package com.example.greenspringboot.cust.interceptor;
+package com.example.greenspringboot.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

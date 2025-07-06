@@ -1,6 +1,6 @@
 package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.admin.service.AdminService;
-import com.example.greenspringboot.cust.securityutils.EncryptionUtil;
+import com.example.greenspringboot.config.EncryptionUtil;
 import com.example.greenspringboot.cust.service.CustService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
