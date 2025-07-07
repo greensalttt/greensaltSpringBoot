@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -148,7 +149,8 @@
             <a href="<c:url value='/album/list'/>"> ❯</a>
         </h1>
         </div>
-        <ul>
+<%--        <ul>--%>
+        <ul class="album-list">
             <c:if test="${not empty albumDtos}">
                 <c:forEach begin="0" end="5" var="i">
                     <c:choose>
