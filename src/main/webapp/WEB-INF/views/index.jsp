@@ -18,9 +18,7 @@
     <jsp:include page="header.jsp"/>
 </header>
 
-<div id="content">
     <section id="main_section">
-
         <div class="miniHeader">
         <h1 class="week">Performance</h1>
         <h1 class="more">
@@ -168,9 +166,7 @@
 
                         <c:otherwise>
                             <li class="one">
-                                <div>
-                                    <img alt="No Album" />
-                                </div>
+                            <p style="color: gray; font-size: 14px;">비어 있음</p>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -180,19 +176,15 @@
             <c:if test="${empty albumDtos}">
                 <c:forEach begin="0" end="5" var="i">
                     <li class="one">
-                        <div>
-                            <img alt="No Album" />
-                        </div>
+                        <p style="color: gray; font-size: 14px;">비어 있음</p>
                     </li>
                 </c:forEach>
-            </c:if></ul>
+            </c:if>
+
+        </ul>
     </div>
-
-
-
         </div>
     </section>
-</div>
 
 
 <footer>

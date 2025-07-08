@@ -5,13 +5,9 @@
     box-sizing: border-box;
 }
 
-#content {
-    display: flex;
+#main_section {
     margin-top: 100px;
     margin-bottom: 100px;
-    justify-content: space-between;
-    text-align: center;
-
 }
 
 img {
@@ -158,65 +154,32 @@ img {
 }
 
 
-
-/*앨범*/
 .three {
     font-size: 12px;
     margin-top: 5px;
 }
 
-/*#cdBox {*/
-/*    display: grid;*/
-/*    position: relative;*/
-/*    font-size: 13px;*/
-/*    box-sizing: border-box;*/
-/*    width: 48%;*/
-/*}*/
-
-/*.one {*/
-/*    position: relative;*/
-/*    overflow: hidden;*/
-/*    border-radius: 4px;*/
-/*    width: 177px;*/
-/*    height: 177px;*/
-/*    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);*/
-/*    display: inline-block;*/
-/*}*/
-
-
-/*.img-container img {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    object-fit: cover;*/
-/*}*/
-
-/* 앨범 전체 래퍼 */
 #cdBox {
     width: 49%;
-    /*margin-left: 10px;*/
-
 }
 
-/* 그리드 설정을 ul에 적용해야 함 */
 #cdBox .album-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 항상 3칸 고정 */
-    gap: 10px;
+    gap: 5px;
     padding: 0;
     list-style: none;
 }
 
-/* 앨범 카드 */
 #cdBox .album-list .one {
-    width: 100%;      /* 그리드 셀에 맞춤 */
-    aspect-ratio: 1/1; /* 정사각형 유지 (지원 안 되면 height: auto로) */
+    width: 100%;
+    aspect-ratio: 1/1;
     overflow: hidden;
     border-radius: 4px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     position: relative;
 }
 
-/* 이미지 */
 .img-container img {
     width: 100%;
     height: 100%;
@@ -244,7 +207,7 @@ img {
 
 .albumHeader{
     display: flex;
-    justify-content: space-between; /* 좌우 정렬 */
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
@@ -340,62 +303,4 @@ img {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-}
-
-/* 모바일 기준, 화면 너비 768px 이하일 때 적용 */
-@media screen and (max-width: 768px) {
-    #content {
-        flex-direction: column;
-        margin-top: 60px;
-        margin-bottom: 60px;
-    }
-
-    .album-video-wrap {
-        flex-direction: column;
-    }
-
-    .video-box,
-    #cdBox {
-        width: 100%;
-    }
-
-    #god {
-        flex-direction: column;
-    }
-
-    .card2 {
-        width: 100%;
-        height: auto;
-    }
-
-    .mySlides2 {
-        height: auto;
-    }
-
-    .one {
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-    }
-
-    .overlay-title {
-        font-size: 14px;
-    }
-
-    .prev2,
-    .next2 {
-        top: 85%;
-    }
-
-    .miniHeader,
-    .albumHeader {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .more {
-        margin-left: 0;
-        margin-top: 5px;
-    }
-
 }
