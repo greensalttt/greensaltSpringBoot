@@ -46,19 +46,17 @@ public class MyPageController {
         return "errorPage";
     }
 
+//    @ModelAttribute: JSP 폼의 name 속성과 DTO 필드를 자동으로 연결해주는 어노테이션
     @PostMapping("/info")
-    public String myPageInfo(HttpSession session, @ModelAttribute CustDto custDto, RedirectAttributes rattr) {
-
+    public String myPageInfo(HttpSession session, @ModelAttribute CustDto custDto, RedirectAttributes msg) {
         Integer cId = (Integer) session.getAttribute("cId");
-        boolean updateResult = custService.custModify(cId, custDto);
 
-        if (updateResult) {
-            rattr.addFlashAttribute("msg", "CMOD_OK");
-        } else {
-            rattr.addFlashAttribute("msg", "CUSTOMER_NOT_FOUND");
-        }
+        custService.custModify(cId, custDto);
+        msg.addFlashAttribute("msg", "CMOD_OK");
+
         return "redirect:/mypage/list";
     }
+
 
 
     @GetMapping("/editPwd")
@@ -92,6 +90,7 @@ public class MyPageController {
 
         return "redirect:/"; // 성공 시, 로그아웃 후 홈페이지로 리다이렉트
     }
+
 
 
     @PostMapping("/drop")

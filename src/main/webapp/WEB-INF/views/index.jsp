@@ -48,9 +48,11 @@
                 <c:if test="${fn:length(performanceDtos) < 4}">
                     <c:forEach begin="1" end="${4 - fn:length(performanceDtos)}" var="i">
                         <div class="card2">
-                            <div class="container3" style="text-align:center; padding-top: 150px;">
-                                <p style="color:gray;">비어 있음</p>
-                            </div>
+<%--                            <div class="container3" style="text-align:center; padding-top: 150px;">--%>
+<%--                                <p style="color:gray;">비어 있음</p>--%>
+<%--                            </div>--%>
+            <p style="color: gray; font-size: 14px; text-align:center; padding-top: 200px;">비어 있음</p>
+
                         </div>
                     </c:forEach>
                 </c:if>
@@ -59,9 +61,10 @@
             <c:if test="${empty performanceDtos}">
                 <c:forEach begin="1" end="4" var="i">
                     <div class="card2">
-                        <div class="container3" style="text-align:center; padding-top: 150px;">
-                            <p style="color:gray;">비어 있음</p>
-                        </div>
+<%--                        <div class="container3" style="text-align:center; padding-top: 150px;">--%>
+<%--                            <p style="color:gray;">비어 있음</p>--%>
+<%--                        </div>--%>
+             <p style="color: gray; font-size: 14px; text-align:center; padding-top: 200px;">비어 있음</p>
                     </div>
                 </c:forEach>
             </c:if>
@@ -166,7 +169,7 @@
 
                         <c:otherwise>
                             <li class="one">
-                            <p style="color: gray; font-size: 14px;">비어 있음</p>
+                            <p style="color: gray; font-size: 14px; text-align:center; padding-top: 80px;">비어 있음</p>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -176,7 +179,7 @@
             <c:if test="${empty albumDtos}">
                 <c:forEach begin="0" end="5" var="i">
                     <li class="one">
-                        <p style="color: gray; font-size: 14px;">비어 있음</p>
+                        <p style="color: gray; font-size: 14px; text-align:center; padding-top: 80px;">비어 있음</p>
                     </li>
                 </c:forEach>
             </c:if>

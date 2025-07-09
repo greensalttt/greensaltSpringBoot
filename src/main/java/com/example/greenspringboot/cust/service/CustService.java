@@ -2,12 +2,10 @@ package com.example.greenspringboot.cust.service;
 
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.dto.CustDto;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public interface CustService {
     String emailCheck(String cEmail);
@@ -51,7 +49,7 @@ public interface CustService {
     void myPage(Integer cId, Model model);
      void myPageInfo(int cId, Model model);
 
-    boolean custModify(int cId, CustDto custDto);
+    void custModify(int cId, CustDto custDto);
 
 
     void myBoardList(Model m, Integer createdBy);

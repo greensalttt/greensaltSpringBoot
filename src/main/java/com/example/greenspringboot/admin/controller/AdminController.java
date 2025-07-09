@@ -103,8 +103,6 @@ public String writePage() {
         if (aId == null || aId != 1) {
             throw new IllegalArgumentException("테스트 아이디는 수정할 수 없습니다.");
         }
-
-//        albumService.albumModify(albumDto, imgFile, session);
         albumService.albumModify(albumDto, aId, ano, imgFile, session);
         msg.addFlashAttribute("modify", "msg");
         return "redirect:/admin/album_manage";

@@ -46,7 +46,7 @@ public class CustServiceImpl implements CustService {
     @Autowired
     private CommentRepository commentRepository;
 
-////            AjAX emailCode의 응답이랑 서비스 리턴값이랑 서로 일치해야됨
+    ////            AjAX emailCode의 응답이랑 서비스 리턴값이랑 서로 일치해야됨
     @Override
     public String emailCheck(String cEmail) {
         if (!custRepository.existsBycEmail(cEmail)) {
@@ -75,7 +75,6 @@ public class CustServiceImpl implements CustService {
         authNumber = 100000 + r.nextInt(900000);
         System.out.println("서비스에서 받아온 인증번호 : " + authNumber);
     }
-
 
 
     private void sendEmail(String toMail, String subject, String content) throws Exception {
@@ -132,7 +131,7 @@ public class CustServiceImpl implements CustService {
 
         System.out.println("로그인 이메일 값: " + cEmail); // 이메일 값 찍어보기
 
-            Cust cust = custRepository.findBycEmail(cEmail);
+        Cust cust = custRepository.findBycEmail(cEmail);
 
         if (cust == null) {
             return false; // 이메일 없으면 로그인 실패 처리
@@ -143,14 +142,9 @@ public class CustServiceImpl implements CustService {
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-     /*입력한 평문 비밀번호(cPwd)와 DB에 저장된 암호화된 비밀번호(cust.getCPwd())를 비교
-     BCrypt는 단방향 해시 함수이기 때문에 복호화는 불가능
-     matches() 메서드를 통해 입력된 비밀번호를 같은 방식으로 해싱한 후
-     DB에 있는 해시 값과 비교하여 일치 여부를 판단*/
-
+     /* BCrypt는 복호화가 불가능한 단방향 해시로, 입력값을 해싱해 DB값과 비교하는 방식*/
         if (!encoder.matches(cPwd, cust.getCPwd())) {
-        return false;
+            return false;
         }
 
         custRepository.incrementViSitCnt(cEmail); // 방문 수 증가
@@ -162,11 +156,11 @@ public class CustServiceImpl implements CustService {
                 .build();  // 필요한 데이터만 DTO로 추출
 
         HttpSession session = request.getSession();
-            session.setAttribute("cId", custDto.getCId());
+        session.setAttribute("cId", custDto.getCId());
         return true;
     }
 
-//    로그인이 안된채로 이메일 인증만을 통해서 cId 세션에 저장시키기
+    //    로그인이 안된채로 이메일 인증만을 통해서 cId 세션에 저장시키기
     @Override
     public Boolean forgotPwdCId(String cEmail, HttpServletRequest request) {
 
@@ -194,100 +188,79 @@ public class CustServiceImpl implements CustService {
 
     @Override
     public void myPage(Integer cId, Model model) {
-        Optional<Cust> optionalCust = custRepository.findById(cId);
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
 
-        if (optionalCust.isPresent()) {
-            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+        String cNick = cust.getCNick();
+        Date createdAt = cust.getCreatedAt();
+        Long visitCnt = cust.getVisitCnt();
+        Long boardCount = boardRepository.countByCreatedByAndDeletedFalse(cId);
+        Long commentCount = commentRepository.countByCreatedByAndDeletedFalse(cId);
 
-            String cNick = cust.getCNick();
-            Date createdAt = cust.getCreatedAt();
-            Long visitCnt = cust.getVisitCnt();
-            Long boardCount = boardRepository.countByCreatedByAndDeletedFalse(cId);
-            Long commentCount = commentRepository.countByCreatedByAndDeletedFalse(cId);
+        CustDto custDto = CustDto.builder()
+                .cNick(cNick)
+                .visitCnt(visitCnt)
+                .createdAt(createdAt)
+                .boardCount(boardCount)
+                .commentCount(commentCount)
+                .build();
 
-            CustDto custDto = CustDto.builder()
-                    .cNick(cNick)
-                    .visitCnt(visitCnt)
-                    .createdAt(createdAt)
-                    .boardCount(boardCount)
-                    .commentCount(commentCount)
-                    .build();
+        model.addAttribute("custDto", custDto);
 
-            model.addAttribute("custDto", custDto);
+        System.out.println("custDto:" + custDto);
+    }
 
-            System.out.println("custDto:" + custDto);
 
-        } else {
-            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
-            System.out.println("고객 정보를 찾을 수 없습니다.");
-        }
+    @Override
+    public void myPageInfo(int cId, Model model) {
+
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
+
+
+        String cEmail = cust.getCEmail();
+        String cNick = cust.getCNick();
+        String cZip = cust.getCZip();
+        String cRoadA = cust.getCRoadA();
+        String cJibunA = cust.getCJibunA();
+        String cDetA = cust.getCDetA();
+        Date createdAt = cust.getCreatedAt();
+        long visitCnt = cust.getVisitCnt();
+
+        CustDto custDto = CustDto.builder()
+                .cEmail(cEmail)
+                .cNick(cNick)
+                .cZip(cZip)
+                .cRoadA(cRoadA)
+                .cJibunA(cJibunA)
+                .cDetA(cDetA)
+                .visitCnt(visitCnt)
+                .createdAt(createdAt)
+                .build();
+        model.addAttribute("custDto", custDto);
+
+        System.out.println("custDto:" + custDto);
     }
 
     @Override
-    public void myPageInfo(int cId, Model model){
+    public void custModify(int cId, CustDto custDto) {
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
 
-        Optional<Cust> optionalCust = custRepository.findById(cId);
+        CustDto oldData = toDto(cust);
+        toEntity(cust, custDto);
+        custRepository.save(cust);
 
-        if (optionalCust.isPresent()) {
-            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
-
-            String cEmail = cust.getCEmail();
-            String cNick = cust.getCNick();
-            String cZip = cust.getCZip();
-            String cRoadA = cust.getCRoadA();
-            String cJibunA = cust.getCJibunA();
-            String cDetA = cust.getCDetA();
-            Date createdAt = cust.getCreatedAt();
-            long visitCnt = cust.getVisitCnt();
-
-            CustDto custDto = CustDto.builder()
-                    .cEmail(cEmail)
-                    .cNick(cNick)
-                    .cZip(cZip)
-                    .cRoadA(cRoadA)
-                    .cJibunA(cJibunA)
-                    .cDetA(cDetA)
-                    .visitCnt(visitCnt)
-                    .createdAt(createdAt)
-                    .build();
-            model.addAttribute("custDto", custDto);
-
-            System.out.println("custDto:" + custDto);
-
-        } else {
-            // Cust가 없을 경우의 처리 (예: 에러 메시지나 기본값 설정 등)
-            System.out.println("고객 정보를 찾을 수 없습니다.");
+        // 변경 이력 기록
+        List<CustHist> custHistList = new ArrayList<>();
+        addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
+        addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
+        addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
+        addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
+        // 이력 저장
+        for (CustHist custHist : custHistList) {
+            custHistRepository.save(custHist);
         }
-    }
-
-    @Override
-    public boolean custModify(int cId, CustDto custDto) {
-        Optional<Cust> optionalCust = custRepository.findById(cId);
-        if (optionalCust.isPresent()) {
-            Cust oldCust = optionalCust.get();
-            CustDto oldData = toDto(oldCust);
-
-            // ID 세팅
-            custDto.setCId(cId);
-
-            // 수정된 정보로 엔티티 덮어쓰기 및 저장
-            toEntity(oldCust, custDto);
-            custRepository.save(oldCust);
-
-            // 변경 이력 기록
-            List<CustHist> custHistList = new ArrayList<>();
-            addCustHist(custHistList, custDto, "ZIP", oldData.getCZip(), custDto.getCZip());
-            addCustHist(custHistList, custDto, "ROAD", oldData.getCRoadA(), custDto.getCRoadA());
-            addCustHist(custHistList, custDto, "JIBUN", oldData.getCJibunA(), custDto.getCJibunA());
-            addCustHist(custHistList, custDto, "DET", oldData.getCDetA(), custDto.getCDetA());
-      // 이력 저장
-            for (CustHist custHist : custHistList) {
-                custHistRepository.save(custHist);
-            }
-
-            return true;
-        }
-        return false;
     }
 
 
@@ -322,49 +295,46 @@ public class CustServiceImpl implements CustService {
     @Override
     public boolean pwdChange(int cId, CustDto custDto, String curPwd) {
 
-        // 고객 정보 조회
-        // Optional을 사용하면 내부에서 null 체크 생략 가능 > 자동 null 체크
-        Optional<Cust> optionalCust = custRepository.findById(cId);
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
 
-        if (optionalCust.isPresent()) {
-            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
-            CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
 
-            // 현재 비밀번호와 입력한 비밀번호 비교
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
-                return false; // 비밀번호 불일치
-            }
-
-            // 비밀번호 변경
-            custDto.setCId(cId);
-            toPwdEntity(cust, custDto);
-            custRepository.save(cust); // 비밀번호 업데이트
-
-            // 이력 기록
-            CustHist custHist = new CustHist();
-            custHist.setCCngCd("PWD");
-            custHist.setCBf(oldPwd.getCPwd());
-            custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
-            custHist.setCId(custDto.getCId());
-
-            custHistRepository.save(custHist); // 이력 저장
-
-            return true; // 성공적으로 비밀번호 변경
-        } else {
-            System.out.println("고객 정보를 찾을 수 없습니다");
-            return false; // 고객을 찾을 수 없으면 실패
+        CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
+        // 현재 비밀번호와 입력한 비밀번호 비교
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(curPwd, oldPwd.getCPwd())) {
+            return false; // 비밀번호 불일치
         }
+
+        // 비밀번호 변경
+
+        toPwdEntity(cust, custDto);
+        custRepository.save(cust); // 비밀번호 업데이트
+
+        // 이력 기록
+        CustHist custHist = new CustHist();
+        custHist.setCCngCd("PWD");
+        custHist.setCBf(oldPwd.getCPwd());
+        custHist.setCAf(pwdEncrypt(custDto.getCPwd()));
+        custHist.setCId(custDto.getCId());
+
+        custHistRepository.save(custHist); // 이력 저장
+        return true; // 성공적으로 비밀번호 변경
+
     }
 
-@Transactional
-@Override
-public boolean forgotPwdChange(int cId, CustDto custDto) {
-    // 고객 정보 조회
-    Optional<Cust> optionalCust = custRepository.findById(cId);
+    @Transactional
+    @Override
+    public boolean forgotPwdChange(int cId, CustDto custDto) {
+        // 고객 정보 조회
+//    Optional<Cust> optionalCust = custRepository.findById(cId);
+//    if (optionalCust.isPresent()) {
+//        Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
 
-    if (optionalCust.isPresent()) {
-        Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
+
+
         CustDto oldPwd = toPwdDto(cust); // 기존 비밀번호 DTO로 변환
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -391,48 +361,38 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             System.out.println("새 비밀번호가 기존 비밀번호와 같습니다.");
             return false; // 실패: 새 비밀번호가 기존 비밀번호와 같으면 변경하지 않음
         }
-    } else {
-        System.out.println("고객 정보를 찾을 수 없습니다");
-        return false; // 고객을 찾을 수 없으면 실패
+
     }
-}
 
     @Transactional
     @Override
-    public boolean custDrop(int cId, String dropPwd){
+    public boolean custDrop(int cId, String dropPwd) {
 
-        // 고객 정보 조회
-        // Optional을 사용하면 내부에서 null 체크 생략 가능 > 자동 null 체크
-        Optional<Cust> optionalCust = custRepository.findById(cId);
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
 
-        if (optionalCust.isPresent()) {
-            Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
-            CustDto oldCust = toPwdDto2(cust); // 기존 비밀번호 DTO로 변환
+        CustDto oldCust = toPwdDto2(cust); // 기존 비밀번호 DTO로 변환
 
-            // 현재 비밀번호와 입력한 비밀번호 비교
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(dropPwd, oldCust.getCPwd())) {
-                System.out.println("비밀번호가 불일치합니다.");
-                return false; // 비밀번호 불일치
-            }
-
-            // 회원 코드 변경
-            cust.setStatCd("D");
-            custRepository.save(cust); //  업데이트
-
-            // 이력 기록
-            CustHist custHist = new CustHist();
-            custHist.setCCngCd("STAT");
-            custHist.setCBf(oldCust.getStatCd());
-            custHist.setCAf(cust.getStatCd());
-            custHist.setCId(oldCust.getCId());
-            custHistRepository.save(custHist); // 이력 저장
-
-            return true;
-        } else {
-            System.out.println("고객 정보를 찾을 수 없습니다");
-            return false;
+        // 현재 비밀번호와 입력한 비밀번호 비교
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(dropPwd, oldCust.getCPwd())) {
+            System.out.println("비밀번호가 불일치합니다.");
+            return false; // 비밀번호 불일치
         }
+
+        // 회원 코드 변경
+        cust.setStatCd("D");
+        custRepository.save(cust); //  업데이트
+
+        // 이력 기록
+        CustHist custHist = new CustHist();
+        custHist.setCCngCd("STAT");
+        custHist.setCBf(oldCust.getStatCd());
+        custHist.setCAf(cust.getStatCd());
+        custHist.setCId(oldCust.getCId());
+        custHistRepository.save(custHist); // 이력 저장
+
+        return true;
     }
 
 
@@ -480,8 +440,8 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
     @Override
     public CustDto toPwdDto(Cust cust) {
         return CustDto.builder()
-        .cPwd(cust.getCPwd())
-        .build(); // 빌더를 사용해 객체 생성
+                .cPwd(cust.getCPwd())
+                .build(); // 빌더를 사용해 객체 생성
     }
 
     @Override
@@ -495,12 +455,12 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
 
     @Override
     public Cust toPwdEntity(Cust cust, CustDto custDto) {
-    cust.setCPwd(pwdEncrypt(custDto.getCPwd())); // custDto의 비밀번호를 암호화하여 cust 객체에 설정
-    return cust;
-}
+        cust.setCPwd(pwdEncrypt(custDto.getCPwd())); // custDto의 비밀번호를 암호화하여 cust 객체에 설정
+        return cust;
+    }
 
 
-//마이페이지
+    //마이페이지
     @Override
     public void myBoardList(Model m, Integer createdBy) {
         List<Board> boards = boardRepository.findAllByCreatedByAndDeletedFalseOrderByBnoDesc(createdBy);
@@ -528,7 +488,7 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
     }
 
 
-//    마이페이지
+    //    마이페이지
     @Override
     public void myCommentList(Model m, Integer createdBy) {
         List<Comment> comments = commentRepository.findAllByCreatedByAndDeletedFalseOrderByCnoDesc(createdBy);
@@ -552,6 +512,4 @@ public boolean forgotPwdChange(int cId, CustDto custDto) {
             System.out.println("댓글 정보를 찾을 수 없습니다.");
         }
     }
-
-
 }
