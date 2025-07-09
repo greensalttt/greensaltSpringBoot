@@ -291,6 +291,8 @@ public class CustServiceImpl implements CustService {
         }
     }
 
+
+    //    실패도 하나의 형식일 경우에는 boolean, 실수로 비밀번호를 틀릴 수 있기 때문에
     @Transactional
     @Override
     public boolean pwdChange(int cId, CustDto custDto, String curPwd) {
