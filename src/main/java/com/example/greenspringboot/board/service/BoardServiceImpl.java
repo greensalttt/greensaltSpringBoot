@@ -82,20 +82,21 @@ public class BoardServiceImpl implements BoardService{
         String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
         String newValue = "null";
         String changeCode = "DELETE";
+        String user = "user";
 
-        BoardHist boardHist = BoardHist.builder()
-                .bno(boardDto.getBno())
-                .cId(boardDto.getCreatedBy())
-                .bCngCd(changeCode)
-                .bBf(oldValue)
-                .bAf(newValue)
-                .build();
+//        BoardHist boardHist = BoardHist.builder()
+//                .bno(boardDto.getBno())
+//                .cId(boardDto.getCreatedBy())
+//                .bCngCd(changeCode)
+//                .bBf(oldValue)
+//                .bAf(newValue)
+//                .build();
+//
+//        boardHistRepository.save(boardHist);
+        addBoardHist(boardDto, oldValue, newValue, changeCode, user);
 
-        boardHistRepository.save(boardHist);
     }
 
-
-    //    추후 boolean으로 수정, 엔티티 dto
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer createdBy, Integer bno, BoardDto oldData) {
@@ -136,6 +137,36 @@ public class BoardServiceImpl implements BoardService{
             boardHistDtoList.add(boardHistDto);
         }
     }
+
+    @Override
+    public boolean boardRemove(BoardDto boardDto, Integer bno){
+        Board board = boardRepository.findByBno(bno);
+        board.setDeleted(true);
+        board.setUpdatedBy("admin");
+        boardRepository.save(board);
+
+        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
+        String newValue = "null";
+        String changeCode = "DELETE";
+        String createdBy = "admin";
+        addBoardHist(boardDto, oldValue, newValue, changeCode, createdBy);
+        return true;
+    }
+
+    private void addBoardHist(BoardDto boardDto, String oldValue, String newValue, String changeCode, String createdBy) {
+        if (!oldValue.equals(newValue)) {
+            BoardHist boardHist = BoardHist.builder()
+                    .bno(boardDto.getBno())
+                    .cId(boardDto.getCreatedBy())
+                    .bCngCd(changeCode)
+                    .bBf(oldValue)
+                    .bAf(newValue)
+                    .createdBy(createdBy)
+                    .build();
+            // 이력 저장
+            boardHistRepository.save(boardHist);
+        }}
+
 
     @Override
     public void toEntity(Board board, BoardDto boardDto) {

@@ -21,8 +21,6 @@ public interface AdminService {
 
     void boardList(Model m);
 
-    boolean boardRemove(BoardDto boardDto, Integer bno);
-
     void commentList(Model m);
 
     boolean commentRemove(CommentDto commentDto, Integer cno);

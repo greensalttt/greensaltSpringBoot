@@ -29,9 +29,6 @@ public interface CustService {
 
     boolean forgotPwdChange(int cId, CustDto custDto);
 
-
-//    void updateSession(HttpSession session, CustDto custDto);
-
     boolean custDrop(int cId, String dropPwd);
 
 

@@ -177,36 +177,6 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    @Override
-    public boolean boardRemove(BoardDto boardDto, Integer bno){
-        Board board = boardRepository.findByBno(bno);
-        board.setDeleted(true);
-        board.setUpdatedBy("admin");
-        boardRepository.save(board);
-
-        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
-        String newValue = "null";
-        String changeCode = "DELETE";
-        String createdBy = "admin";
-        addBoardHist(boardDto, oldValue, newValue, changeCode, createdBy);
-        return true;
-    }
-
-    private void addBoardHist(BoardDto boardDto, String oldValue, String newValue, String changeCode, String createdBy) {
-        if (!oldValue.equals(newValue)) {
-            BoardHist boardHist = BoardHist.builder()
-                    .bno(boardDto.getBno())
-                    .cId(boardDto.getCreatedBy())
-                    .bCngCd(changeCode)
-                    .bBf(oldValue)
-                    .bAf(newValue)
-                    .createdBy(createdBy)
-                    .build();
-            // 이력 저장
-            boardHistRepository.save(boardHist);
-        }}
-
-
 
     //    관리자페이지 댓글
     @Override

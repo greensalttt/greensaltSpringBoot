@@ -3,6 +3,7 @@ import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.service.AlbumService;
 import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.service.BoardService;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.notice.dto.NoticeDto;
 import com.example.greenspringboot.notice.service.NoticeService;
@@ -23,6 +24,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private AlbumService albumService;
@@ -196,7 +200,7 @@ public String writePage() {
         if (aId == null || aId != 1) {
             throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
         }
-        adminService.boardRemove(boardDto, bno);
+        boardService.boardRemove(boardDto, bno);
         msg.addFlashAttribute("remove", "msg");
         return "redirect:/admin/board_manage";
     }

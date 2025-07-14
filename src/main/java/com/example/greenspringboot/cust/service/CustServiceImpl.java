@@ -80,10 +80,10 @@ public class CustServiceImpl implements CustService {
     private void sendEmail(String toMail, String subject, String content) throws Exception {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-        helper.setFrom("homerunball46g@gmail.com"); // 상수 사용
+        helper.setFrom("homerunball46g@gmail.com");
         helper.setTo(toMail);
         helper.setSubject(subject);
-        helper.setText(content, true); // HTML 형식으로 설정
+        helper.setText(content, true);
         mailSender.send(message);
     }
 
@@ -125,6 +125,7 @@ public class CustServiceImpl implements CustService {
         return false;
     }
 
+//    로그인 실패시 예외처리해서 에러페이지로 이동하는게 아닌 boolean 타입으로 흐름을 계속 이어나가야한다
     @Transactional
     @Override
     public Boolean login(String cEmail, String cPwd, HttpServletRequest request) {
@@ -165,7 +166,6 @@ public class CustServiceImpl implements CustService {
     public Boolean forgotPwdCId(String cEmail, HttpServletRequest request) {
 
         System.out.println("이메일 값: " + cEmail); // 이메일 값 찍어보기
-
 
         Cust cust = custRepository.findBycEmail(cEmail);
 
@@ -216,7 +216,6 @@ public class CustServiceImpl implements CustService {
 
         Cust cust = custRepository.findById(cId)
                 .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));
-
 
         String cEmail = cust.getCEmail();
         String cNick = cust.getCNick();
@@ -329,9 +328,6 @@ public class CustServiceImpl implements CustService {
     @Override
     public boolean forgotPwdChange(int cId, CustDto custDto) {
         // 고객 정보 조회
-//    Optional<Cust> optionalCust = custRepository.findById(cId);
-//    if (optionalCust.isPresent()) {
-//        Cust cust = optionalCust.get(); // 고객 객체를 꺼냄
 
         Cust cust = custRepository.findById(cId)
                 .orElseThrow(() -> new IllegalArgumentException("고객 정보를 찾을 수 없습니다."));

@@ -22,6 +22,8 @@ public interface BoardService {
 
     void boardModify(BoardDto boardDto, Integer cId, Integer bno, BoardDto oldData);
 
+    boolean boardRemove(BoardDto boardDto, Integer bno);
+
     void toEntity(Board board, BoardDto boardDto);
 
     List<BoardDto> toDto(List<Board> boardList);
