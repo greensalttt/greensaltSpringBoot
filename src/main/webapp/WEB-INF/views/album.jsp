@@ -25,7 +25,6 @@
             padding: 20px;
             flex: 1;
             text-align: center;
-
         }
 
         .album-image {

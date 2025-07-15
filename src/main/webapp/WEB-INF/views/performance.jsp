@@ -2,105 +2,122 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-    <link rel="stylesheet" href="<c:url value="/css/header.css"/>">
-    <link rel="stylesheet" href="<c:url value="/css/footer.css"/>">
-
-
-    <title>performancePage</title>
+    <meta charset="UTF-8">
+    <title>공연 상세 페이지</title>
+    <link rel="stylesheet" href="<c:url value='/css/header.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/footer.css'/>">
 
     <style>
-
-        #wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
         #performancePageContainer {
-            margin-top: 200px;
-            padding: 20px;
-            flex: 1;
-            text-align: center;
-
+            margin: 200px auto 0 auto;
+            width: 70%;
+            display: flex;
+            justify-content: center;
         }
 
-        .performance-image {
-            margin-bottom: 20px;
-        }
 
         .performance-image img {
-            width: 300px;
-            height: 400px;
+            width: 320px;
+            height: 460px;
             object-fit: cover;
             border-radius: 10px;
+            border: 1px solid #ddd;
         }
 
         .performance-info {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            margin-left: 135px;
+            justify-content: space-between;
+            height: 460px;
+            /*font-size: 16px;*/
+            margin-left: 200px;
         }
 
-        .performance-info p {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            width: 300px;
+        .subTitle{
+            font-size: 20px;
+            margin-bottom: 50px;
         }
 
+        .sub p{
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .btn-book {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 0;
+            text-align: center;
+            background-color: #0056b3;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
 
         .performance-content {
-            margin-top: 77px;
-            margin-bottom: 100px;
-            text-align: left;
+            width: 70%;
+            margin: 40px auto 100px auto;
         }
 
         .performance-content h3 {
-            font-size: 14px;
-            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 8px;
+            color: #222;
         }
 
         .performance-content p {
             font-size: 15px;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #444;
         }
     </style>
-
 </head>
+
 <body>
+<header>
+    <jsp:include page="header.jsp"/>
+</header>
 
-<div id="wrapper">
-    <header>
-        <jsp:include page="header.jsp"/>
-    </header>
-
-
-    <div id="performancePageContainer">
+<div id="performancePageContainer">
         <div class="performance-image">
-            <img src="${performanceDto.img}" alt="앨범 이미지">
+            <img src="${performanceDto.img}" alt="공연 이미지">
         </div>
 
-        <div class="performance-info">
-            <p><strong>아티스트:</strong>&nbsp;${performanceDto.artist}</p>
-            <p><strong>공연제목:</strong>&nbsp;${performanceDto.title}</p>
-            <p><strong>공연시간:</strong>&nbsp;${performanceDto.duration}</p>
-            <p><strong>관람연령:</strong>&nbsp;${performanceDto.rating}</p>
-            <p><strong>장소:</strong>&nbsp;${performanceDto.venue}</p>
-            <p><strong>장르:</strong>&nbsp;${performanceDto.genre}</p>
-            <p><strong>날짜:</strong>&nbsp;${performanceDto.date}</p>
+    <div class="performance-info">
+        <div class="info-texts">
+            <div class="subTitle">
+            <p>${performanceDto.title}</p>
+            <p>${performanceDto.artist}</p>
+            </div>
+            <div class="sub">
+            <p>공연 시간: ${performanceDto.duration}</p>
+            <p>관람 연령: ${performanceDto.rating}</p>
+            <p>장소: ${performanceDto.venue}</p>
+            <p>장르: ${performanceDto.genre}</p>
+            <p>날짜: ${performanceDto.date}</p>
+            <p>가격: 70000원</p>
+            </div>
         </div>
-
-        <div class="performance-content">
-            <h3>공연 소개</h3>
-            <p>${performanceDto.content}</p>
-        </div>
+        <a href="#" class="btn-book">예매하기</a>
     </div>
 
-
-    <footer>
-        <jsp:include page="footer.jsp"/>
-    </footer>
 </div>
+
+<div class="performance-content">
+    <h3>공연 소개</h3>
+    <p>${performanceDto.content}</p>
+</div>
+
+<footer>
+    <jsp:include page="footer.jsp"/>
+</footer>
 </body>
+
