@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
@@ -40,7 +41,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Board findByBno(Integer bno);
 
-    Board findByCreatedByAndBno(Integer createdBy, Integer bno);
+    Optional<Board> findByCreatedByAndBno(Integer createdBy, Integer bno);
 
     // 게시글 조회 시 조회수(view_cnt) 1 증가
     @Modifying

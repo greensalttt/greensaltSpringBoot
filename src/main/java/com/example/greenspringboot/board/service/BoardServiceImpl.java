@@ -69,39 +69,12 @@ public class BoardServiceImpl implements BoardService{
         return toDto(board);
     }
 
-//    레포에 쿼리를 수정하는 메서드가 있을시 트렌젝션 필수
-    @Override
-    @Transactional
-    public void remove(Integer createdBy, Integer bno, BoardDto boardDto){
-        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
-        board.setDeleted(true);
-        commentRepository.deleteByBno(bno);
-        boardRepository.save(board);
-
-
-        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
-        String newValue = "null";
-        String changeCode = "DELETE";
-        String user = "user";
-
-//        BoardHist boardHist = BoardHist.builder()
-//                .bno(boardDto.getBno())
-//                .cId(boardDto.getCreatedBy())
-//                .bCngCd(changeCode)
-//                .bBf(oldValue)
-//                .bAf(newValue)
-//                .build();
-//
-//        boardHistRepository.save(boardHist);
-        addBoardHist(boardDto, oldValue, newValue, changeCode, user);
-
-    }
-
     @Transactional
     @Override
     public void boardModify(BoardDto boardDto, Integer createdBy, Integer bno, BoardDto oldData) {
 
-        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
+     Board board = boardRepository.findByCreatedByAndBno(createdBy, bno)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
         // 기존 dto를 엔티티로 변환
         toEntity(board, boardDto);
@@ -138,8 +111,30 @@ public class BoardServiceImpl implements BoardService{
         }
     }
 
+    //    레포에 쿼리를 수정하는 메서드가 있을시 트렌젝션 필수
     @Override
-    public boolean boardRemove(BoardDto boardDto, Integer bno){
+    @Transactional
+    public void remove(Integer createdBy, Integer bno, BoardDto boardDto){
+//        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
+
+        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+
+        board.setDeleted(true);
+        commentRepository.deleteByBno(bno);
+        boardRepository.save(board);
+
+
+        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
+        String newValue = "null";
+        String changeCode = "DELETE";
+        String user = "user";
+        addBoardHist(boardDto, oldValue, newValue, changeCode, user);
+    }
+
+    @Override
+    public boolean adminRemove(BoardDto boardDto, Integer bno){
         Board board = boardRepository.findByBno(bno);
         board.setDeleted(true);
         board.setUpdatedBy("admin");

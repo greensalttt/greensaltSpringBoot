@@ -200,7 +200,7 @@ public String writePage() {
         if (aId == null || aId != 1) {
             throw new IllegalArgumentException("테스트 아이디는 삭제할 수 없습니다.");
         }
-        boardService.boardRemove(boardDto, bno);
+        boardService.adminRemove(boardDto, bno);
         msg.addFlashAttribute("remove", "msg");
         return "redirect:/admin/board_manage";
     }

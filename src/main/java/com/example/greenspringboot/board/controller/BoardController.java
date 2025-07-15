@@ -50,29 +50,6 @@ public class BoardController {
         return "boardList";
     }
 
-//    @GetMapping("/write")
-//    public String write(Model m) {
-//        m.addAttribute("mode", "new");
-//        return "board";
-//    }
-//
-//
-//    @PostMapping("/write")
-//    public String write(BoardDto boardDto, Model m, RedirectAttributes rattr, HttpSession session) {
-//
-//        Integer cId = (Integer) session.getAttribute("cId");
-//        boardDto.setCreatedBy((Integer) session.getAttribute("cId"));
-//
-//        try {
-//            boardService.write(boardDto,cId);
-//            rattr.addFlashAttribute("msg", "WRT_OK");
-//            return "redirect:/board/list";
-//        } catch (Exception e) {
-//            m.addAttribute("msg", "WRT_ERR");
-//            return "board";
-//        }
-//    }
-
     @GetMapping("/write")
     public String write() {
         return "boardWrite";
@@ -110,7 +87,7 @@ public class BoardController {
         BoardDto boardDto = boardService.read(bno);
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("mode", "modify");
-        return "boardWrite"; // boardWrite.jsp를 재사용
+        return "boardWrite";
     }
 
 
@@ -119,14 +96,8 @@ public class BoardController {
     public String modify(BoardDto boardDto, HttpSession session, Integer bno, Model m){
         Integer createdBy = (Integer) session.getAttribute("cId");
 
-        Board oldBoard = boardRepository.findByCreatedByAndBno(createdBy, bno);
-        BoardDto oldData = boardService.toDto(oldBoard);
-
-        System.out.println("oldBoard: " + oldBoard);
-        System.out.println("oldData: " + oldData);
-
+        BoardDto oldData = boardService.read(bno);
         boardDto.setCreatedBy(createdBy);
-
         boardService.boardModify(boardDto, createdBy, bno, oldData);
 
         BoardDto updatedBoardDto = boardService.read(bno);
