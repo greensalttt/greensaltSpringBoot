@@ -1,0 +1,18 @@
+package com.example.greenspringboot.reservation.dto;
+import lombok.Builder;
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+@Builder
+public class ReservationDto {
+    private Integer rno;
+    private Integer pno;
+    private Integer ticketCount;
+    private Integer totalPrice;
+    private String status;
+    private LocalDateTime createdAt;
+    private Integer createdBy;
+    private LocalDateTime updatedAt;
+    private Integer updatedBy;
+}

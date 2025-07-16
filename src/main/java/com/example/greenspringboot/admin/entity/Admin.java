@@ -22,40 +22,40 @@ public class Admin {
 
     @Id
     @NotBlank(message = "아이디를 입력해주세요.")
-    @Column(name= "a_id", nullable = false)
+    @Column(name = "a_id", nullable = false)
     private Integer aId;
 
-    @Column(name= "a_login_id")
+    @Column(name = "a_login_id")
     private String aLoginId;
 
-    @Column(name= "a_nick")
+    @Column(name = "a_nick")
     private String aNick;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
-    @Column(name= "a_pwd")
+    @Column(name = "a_pwd")
     private String aPwd;
 
     @Builder.Default
     private Date login_dt = new Date();
 
     @Builder.Default
-    @Column(name= "visit_cnt")
+    @Column(name = "visit_cnt")
     private int visitCnt = 0;
 
     @Builder.Default
-    @Column(name= "created_at")
+    @Column(name = "created_at")
     private Date createdAt = new Date();
 
-//    @Builder.Default
-    @Column(name= "created_by")
+    //    @Builder.Default
+    @Column(name = "created_by")
     private Integer createdBy;
 
     @Builder.Default
-    @Column(name= "updated_at")
+    @Column(name = "updated_at")
     private Date updatedAt = new Date();
 
-//    @Builder.Default
-    @Column(name= "updated_by")
+    //    @Builder.Default
+    @Column(name = "updated_by")
     private Integer updatedBy;
 
 
