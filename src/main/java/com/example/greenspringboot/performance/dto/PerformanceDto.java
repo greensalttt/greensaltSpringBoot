@@ -21,6 +21,7 @@ public class PerformanceDto {
     private String content;
     private MultipartFile imgFile;
     private String img;
+    private Integer price;
     private Boolean deleted;
     private Date createdAt;
     private Integer createdBy;

@@ -122,6 +122,9 @@
 
                     <label for="date">공연 날짜:</label>
                     <input type="date" name="date" id="date" value="${performanceDto.date}" maxlength="10">
+
+                    <label for="price">가격:</label>
+                    <input type="text" name="price" id="price" value="${performanceDto.price}" maxlength="10">
                 </div>
 
                 <div class="performance-content">
@@ -152,22 +155,39 @@
         }
     });
 
-    function validateForm() {
-        const fields = ["title", "artist", "duration", "rating", "venue", "genre", "date"];
-        for (let field of fields) {
-            const value = document.querySelector(`input[name="${field}"]`).value.trim();
-            if (!value) {
-                alert(`${field}을(를) 입력해주세요.`);
+    <%--function validateForm() {--%>
+    <%--    const fields = ["title", "artist", "duration", "rating", "venue", "genre", "date", "price"];--%>
+    <%--    for (let field of fields) {--%>
+    <%--        const value = document.querySelector(`input[name="${field}"]`).value.trim();--%>
+    <%--        if (!value) {--%>
+    <%--            alert(`${field}을(를) 입력해주세요.`);--%>
+    <%--            return false;--%>
+    <%--        }--%>
+    <%--    }--%>
+    <%--    const content = document.querySelector("textarea[name='content']").value.trim();--%>
+    <%--    if (!content) {--%>
+    <%--        alert("공연 소개를 입력해주세요.");--%>
+    <%--        return false;--%>
+    <%--    }--%>
+    <%--    return true;--%>
+    <%--}--%>
+
+
+    // 기본 유효성 검사
+    document.getElementById('performanceForm').addEventListener('submit', function (e) {
+        const requiredFields = [ 'title', 'artist', 'genre',
+            'venue', 'duration', 'rating', 'date', 'price',
+            'content', 'imgFile'];
+        for (let id of requiredFields) {
+            const input = document.getElementById(id);
+            if (!input.value.trim()) {
+                alert(`${input.previousElementSibling.innerText} 항목을 입력해주세요.`);
+                input.focus();
+                e.preventDefault();
                 return false;
             }
         }
-        const content = document.querySelector("textarea[name='content']").value.trim();
-        if (!content) {
-            alert("공연 소개를 입력해주세요.");
-            return false;
-        }
-        return true;
-    }
+    });
 
     let performanceModifyFail = "${performanceModifyFail}";
     if (performanceModifyFail === "msg") {

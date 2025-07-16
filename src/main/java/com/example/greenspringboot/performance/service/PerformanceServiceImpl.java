@@ -29,46 +29,6 @@ public class PerformanceServiceImpl implements PerformanceService{
     @Autowired
     private PerformanceHistRepository performanceHistRepository;
 
-//    @Override
-//    public void performanceRead(Integer pno, Model m) {
-//        Optional<Performance> optionalPerformance = performanceRepository.findByPno(pno);
-//
-//        if (optionalPerformance.isPresent()) {
-//            Performance performance = optionalPerformance.get();
-//
-//            Integer ppno = performance.getPno();
-//            String title = performance.getTitle();
-//            String artist = performance.getArtist();
-//            String genre = performance.getGenre();
-//            String venue = performance.getVenue();
-//            String duration = performance.getDuration();
-//            String rating = performance.getRating();
-//            String date = performance.getDate();
-//            String content = performance.getContent() != null ? performance.getContent().replace("\n", "<br/>") : null;
-//            String img = performance.getImg();
-//
-//            PerformanceDto performanceDto = PerformanceDto.builder()
-//                    .pno(ppno)
-//                    .title(title)
-//                    .artist(artist)
-//                    .genre(genre)
-//                    .venue(venue)
-//                    .duration(duration)
-//                    .rating(rating)
-//                    .date(date)
-//                    .content(content)
-//                    .img(img)
-//                    .build();
-//
-//            m.addAttribute("performanceDto", performanceDto);
-//
-//            System.out.println("performanceDto:" + performanceDto);
-//
-//        } else {
-//            System.out.println("공연 정보를 찾을 수 없습니다.");
-//        }
-//    }
-
     @Override
     public void performanceRead(Integer pno, Model m) {
         Performance performance = performanceRepository.findByPno(pno); // Optional 제거
@@ -84,6 +44,7 @@ public class PerformanceServiceImpl implements PerformanceService{
             String date = performance.getDate();
             String content = performance.getContent() != null ? performance.getContent().replace("\n", "<br/>") : null;
             String img = performance.getImg();
+            Integer price = performance.getPrice();
 
             PerformanceDto performanceDto = PerformanceDto.builder()
                     .pno(ppno)
@@ -96,6 +57,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .date(date)
                     .content(content)
                     .img(img)
+                    .price(price)
                     .build();
 
             m.addAttribute("performanceDto", performanceDto);
@@ -127,6 +89,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .date(performanceDto.getDate())
                     .content(performanceDto.getContent())
                     .img(performanceDto.getImg())
+                    .price(performanceDto.getPrice())
                     .createdBy(performanceDto.getCreatedBy())
                     .updatedBy(performanceDto.getCreatedBy())
                     .build();
@@ -217,6 +180,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                         .date(performance.getDate())
                         .content(performance.getContent())
                         .img(performance.getImg())
+                        .price(performance.getPrice())
                         .deleted(performance.getDeleted())
                         .createdAt(performance.getCreatedAt())
                         .build())
@@ -275,13 +239,14 @@ public class PerformanceServiceImpl implements PerformanceService{
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "IMG", oldData.getImg(), performanceDto.getImg());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "TITLE", oldData.getTitle(), performanceDto.getTitle());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "ARTIST", oldData.getArtist(), performanceDto.getArtist());
-//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "REGION", oldData.getRegion(), performanceDto.getRegion());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "GENRE", oldData.getGenre(), performanceDto.getGenre());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "VENUE", oldData.getVenue(), performanceDto.getVenue());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "DURATION", oldData.getDuration(), performanceDto.getDuration());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "RATING", oldData.getRating(), performanceDto.getRating());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "DATE", oldData.getDate(), performanceDto.getDate());
             addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "CONTENT", oldData.getContent(), performanceDto.getContent());
+            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "PRICE", String.valueOf(oldData.getPrice()), String.valueOf(performanceDto.getPrice()));
+
 
 
 
@@ -324,6 +289,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                 .date(performance.getDate())
                 .content(performance.getContent())
                 .img(performance.getImg())
+                .price(performance.getPrice())
                 .deleted(performance.getDeleted())
                 .createdAt(performance.getCreatedAt())
                 .createdBy(performance.getCreatedBy())
@@ -359,8 +325,11 @@ public class PerformanceServiceImpl implements PerformanceService{
         }
         if (imgFile != null && !imgFile.isEmpty()) {
             String img = uploadImage(imgFile);
-            performanceDto.setImg(img);     // DTO 반영 (optional: 이력 확인용)
-            performance.setImg(img);        // 엔티티 반영 (DB 저장용)
+            performanceDto.setImg(img);
+            performance.setImg(img);
+        }
+        if (performanceDto.getPrice() != null) {
+            performance.setPrice(performanceDto.getPrice());
         }
         if (performanceDto.getDeleted() != null) {
             performance.setDeleted(performanceDto.getDeleted());

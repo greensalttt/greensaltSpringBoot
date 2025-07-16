@@ -39,6 +39,8 @@ public class Performance {
 
     private String img;
 
+    private Integer price;
+
     @Builder.Default
     private Boolean deleted = false;
 

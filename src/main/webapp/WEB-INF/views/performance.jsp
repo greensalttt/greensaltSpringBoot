@@ -15,7 +15,6 @@
             justify-content: center;
         }
 
-
         .performance-image img {
             width: 320px;
             height: 460px;
@@ -30,7 +29,6 @@
             flex-direction: column;
             justify-content: space-between;
             height: 460px;
-            /*font-size: 16px;*/
             margin-left: 200px;
         }
 
@@ -103,7 +101,7 @@
             <p>장소: ${performanceDto.venue}</p>
             <p>장르: ${performanceDto.genre}</p>
             <p>날짜: ${performanceDto.date}</p>
-            <p>가격: 70000원</p>
+            <p>가격: ${performanceDto.price}원</p>
             </div>
         </div>
         <a href="#" class="btn-book">예매하기</a>

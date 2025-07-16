@@ -108,6 +108,9 @@
         <label for="date">공연 날짜:</label>
         <input type="date" name="date" id="date" maxlength="10" required>
 
+        <label for="price">가격:</label>
+        <input type="text" name="price" id="price" maxlength="10" required>
+
         <label for="content">공연 설명:</label>
         <textarea name="content" id="content" rows="6"></textarea>
 
@@ -140,7 +143,7 @@
     // 기본 유효성 검사
     document.getElementById('performanceForm').addEventListener('submit', function (e) {
         const requiredFields = [ 'title', 'artist', 'genre',
-            'venue', 'duration', 'rating', 'date',
+            'venue', 'duration', 'rating', 'date', 'price',
             'content', 'imgFile'];
         for (let id of requiredFields) {
             const input = document.getElementById(id);
