@@ -10,6 +10,7 @@
     <title>공지사항</title>
 
     <style>
+        /*스크롤 안생길시 푸터 위로 올라오는거 방지*/
         #wrapper {
             min-height: 100vh;
             display: flex;
