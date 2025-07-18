@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,32 +23,23 @@ public class MyPageController {
     private CustService custService;
 
     @GetMapping("/list")
-    public String myPage(HttpSession session, Model model) {
-        Integer cId = (Integer) session.getAttribute("cId");
-        if(cId != null) {
-            custService.myPage(cId, model);
-            return "myPage";
-        }
-        return "errorPage";
+    public String myPage(@SessionAttribute("cId") Integer cId, Model model) {
+        custService.myPage(cId, model);
+        return "myPage";
     }
+
 
     //    엔티티는 DB 값이 변경될때, DTO는 눈에 보이는 데이터 화면으로 전송할때
     @GetMapping("/info")
-    public String myPageInfo(HttpSession session, Model model) {
-        Integer cId = (Integer) session.getAttribute("cId");
-        if(cId != null) {
+    public String myPageInfo(@SessionAttribute("cId") Integer cId, Model model) {
+//        Integer cId = (Integer) session.getAttribute("cId");
             custService.myPageInfo(cId, model);
             return "myPageInfo";
-        }
-        return "errorPage";
     }
 
-//    @ModelAttribute: JSP 폼의 name 속성과 DTO 필드를 자동으로 연결해주는 어노테이션
     @PostMapping("/info")
-    public String myPageInfo(HttpSession session, @ModelAttribute CustDto custDto, RedirectAttributes msg) {
-        Integer cId = (Integer) session.getAttribute("cId");
-
-        custService.custModify(cId, custDto);
+    public String myPageInfo(@SessionAttribute("cId") Integer cId, CustDto custDto, RedirectAttributes msg) {
+      custService.custModify(cId, custDto);
         msg.addFlashAttribute("msg", "CMOD_OK");
 
         return "redirect:/mypage/list";
@@ -60,21 +48,18 @@ public class MyPageController {
 
 
     @GetMapping("/editPwd")
-    public String editPwd(HttpSession session, Model model) {
-        Integer cId = (Integer) session.getAttribute("cId");
-        if(cId != null) {
+    public String editPwd(@SessionAttribute("cId") Integer cId, Model model) {
+//        Integer cId = (Integer) session.getAttribute("cId");
             custService.myPage(cId, model);
             return "editPwd";
-        }
-        return "errorPage";
     }
 
     @PostMapping("/editPwd")
-    public String editPwd(CustDto custDto, HttpServletRequest request, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
-        HttpSession session = request.getSession();
+    public String editPwd(@SessionAttribute("cId") Integer cId, CustDto custDto, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
+//        HttpSession session = request.getSession();
 
         // 로그인할때 저장한 cId 세션을 변수로 저장
-        int cId = (int) session.getAttribute("cId");
+//        int cId = (int) session.getAttribute("cId");
 
         // 비밀번호 변경을 위한 서비스 호출
         boolean passwordChanged = custService.pwdChange(cId, custDto, curPwd);
@@ -94,11 +79,11 @@ public class MyPageController {
 
 
     @PostMapping("/drop")
-    public String custDrop(HttpServletRequest request, HttpSession sessionLogout, String dropPwd, RedirectAttributes msg) {
-        HttpSession session = request.getSession();
-
-        // 로그인할때 저장한 cId 세션을 변수로 저장
-        int cId = (int) session.getAttribute("cId");
+    public String custDrop(@SessionAttribute("cId") Integer cId, HttpSession sessionLogout, String dropPwd, RedirectAttributes msg) {
+//        HttpSession session = request.getSession();
+//
+//        // 로그인할때 저장한 cId 세션을 변수로 저장
+//        Integer cId = (Integer) session.getAttribute("cId");
 
         // 비밀번호 변경을 위한 서비스 호출
         boolean passwordChanged = custService.custDrop(cId,dropPwd);
@@ -118,21 +103,21 @@ public class MyPageController {
 
 
     @GetMapping("/myBoardList")
-    public String myBoardList(Model m, HttpSession session){
+    public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
 
-        Integer createdBy = (Integer) session.getAttribute("cId");
-        custService.myPage(createdBy, m);
-        custService.myBoardList(m, createdBy);
+//        Integer cId = (Integer) session.getAttribute("cId");
+        custService.myPage(cId, m);
+        custService.myBoardList(m, cId);
         return "myBoardList";
     }
 
 
     @GetMapping("/myCommentList")
-    public String myCommentList(Model m, HttpSession session){
+    public String myCommentList(Model m, @SessionAttribute("cId") Integer cId){
 
-        Integer createdBy = (Integer) session.getAttribute("cId");
-        custService.myPage(createdBy, m);
-        custService.myCommentList(m, createdBy);
+//        Integer cId = (Integer) session.getAttribute("cId");
+        custService.myPage(cId, m);
+        custService.myCommentList(m, cId);
         return "myCommentList";
     }
 }
