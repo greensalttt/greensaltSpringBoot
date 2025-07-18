@@ -1,21 +1,21 @@
-package com.example.greenspringboot.reservation.entity;
+package com.example.greenspringboot.order.entity;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "reservation")
+@Table(name = "order")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Reservation {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rno")
-    private Integer rno;  // 예매 번호 (PK)
+    @Column(name = "ono")
+    private Integer ono;  // 예매 번호 (PK)
 
     @Column(name = "pno", nullable = false)
     private Integer pno;  // 공연 번호 (FK)

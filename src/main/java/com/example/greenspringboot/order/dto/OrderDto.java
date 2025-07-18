@@ -1,12 +1,12 @@
-package com.example.greenspringboot.reservation.dto;
+package com.example.greenspringboot.order.dto;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ReservationDto {
-    private Integer rno;
+public class OrderDto {
+    private Integer ono;
     private Integer pno;
     private Integer ticketCount;
     private Integer totalPrice;
