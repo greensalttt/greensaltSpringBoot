@@ -15,10 +15,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ono")
-    private Integer ono;  // 예매 번호 (PK)
+    private Integer ono;
 
     @Column(name = "pno", nullable = false)
-    private Integer pno;  // 공연 번호 (FK)
+    private Integer pno;
+
+    @Column(name = "buyer_name", nullable = false)
+    private String buyerName;
 
     @Column(name = "ticket_count", nullable = false)
     @Builder.Default
