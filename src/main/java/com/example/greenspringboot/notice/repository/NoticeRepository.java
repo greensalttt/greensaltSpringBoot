@@ -13,11 +13,8 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
 
     List<Notice> findAllByDeletedFalseOrderByNnoDesc();
 
-
     @Modifying
     @Query("UPDATE Notice SET viewCnt = viewCnt + 1 WHERE nno = :nno")
     int incrementViewCnt(@Param("nno") Integer nno);
 
-
-//    Notice findByNno(Integer nno);
 }

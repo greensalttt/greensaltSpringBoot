@@ -10,16 +10,9 @@ import java.util.Optional;
 
 public interface PerformanceRepository extends JpaRepository<Performance, Integer> {
 
-//    List<Performance> findAllByOrderByPnoDesc();
 List<Performance> findAllByDeletedFalseOrderByPnoDesc();
 
-
-//    Optional<Performance> findByPno(Integer pno);
-
     Long countByDeletedFalse();
-
-    Performance findByPno(Integer pno);
-
 
     List<Performance> findByTitleContainingAndDeletedFalse(String keyword, Sort sort);
 

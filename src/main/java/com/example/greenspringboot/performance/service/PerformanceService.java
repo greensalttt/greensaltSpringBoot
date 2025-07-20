@@ -32,4 +32,6 @@ public interface PerformanceService {
     void toEntity(Performance performance, PerformanceDto performanceDto, MultipartFile imgFile) throws IOException;
 
     boolean performanceRemove(Integer pno);
+
+    int getPriceByPno(Integer pno);
 }

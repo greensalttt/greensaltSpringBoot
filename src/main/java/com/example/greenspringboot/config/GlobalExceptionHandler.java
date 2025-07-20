@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-//    private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
     // 모든 예외 처리
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e) {
@@ -25,13 +23,5 @@ public class GlobalExceptionHandler {
      * - 서비스 레이어에서 orElseThrow를 사용해 데이터가 없을 경우 IllegalArgumentException 예외 발생
      * - 이 예외를 글로벌 예외처리기에서 잡아 적절한 에러 페이지로 안내
      */
-
-
-//      중복 코드 위에 메서드 한개로도 충분
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public String handleIllegalArgumentException(IllegalArgumentException e) {
-//        log.error("예외 발생", e);
-//        return "errorPage";
-//    }
 
 }

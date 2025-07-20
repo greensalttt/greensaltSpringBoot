@@ -104,7 +104,8 @@
             <p>가격: ${performanceDto.price}원</p>
             </div>
         </div>
-        <a href="/payment/page" class="btn-book">예매하기</a>
+        <a href="/order?pno=${performanceDto.pno}" class="btn-book">예매하기</a>
+
     </div>
 
 </div>

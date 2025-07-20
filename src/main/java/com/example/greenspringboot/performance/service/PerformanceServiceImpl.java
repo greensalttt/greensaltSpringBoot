@@ -31,9 +31,13 @@ public class PerformanceServiceImpl implements PerformanceService{
 
     @Override
     public void performanceRead(Integer pno, Model m) {
-        Performance performance = performanceRepository.findByPno(pno); // Optional 제거
+//        Performance performance = performanceRepository.findByPno(pno);
 
-        if (performance != null) {
+        Performance performance = performanceRepository.findById(pno)
+                .orElseThrow(()-> new IllegalArgumentException("공연 데이터 없음"));
+
+
+//        if (performance != null) {
             Integer ppno = performance.getPno();
             String title = performance.getTitle();
             String artist = performance.getArtist();
@@ -63,9 +67,10 @@ public class PerformanceServiceImpl implements PerformanceService{
             m.addAttribute("performanceDto", performanceDto);
 
             System.out.println("performanceDto:" + performanceDto);
-        } else {
-            System.out.println("공연 정보를 찾을 수 없습니다.");
-        }
+
+//        } else {
+//            System.out.println("공연 정보를 찾을 수 없습니다.");
+//        }
     }
 
 
@@ -340,11 +345,19 @@ public class PerformanceServiceImpl implements PerformanceService{
 
     @Override
     public boolean performanceRemove(Integer pno){
-        Performance performance = performanceRepository.findByPno(pno);
+        Performance performance = performanceRepository.findById(pno)
+                .orElseThrow(()-> new IllegalArgumentException("공연 데이터 없음"));
+
         performance.setDeleted(true);
         performanceRepository.save(performance);
         return true;
     }
 
+    @Override
+    public int getPriceByPno(Integer pno) {
+        Performance performance = performanceRepository.findById(pno)
+                .orElseThrow(() -> new IllegalArgumentException("공연을 찾을 수 없습니다."));
+        return performance.getPrice();
+    }
 
 }
