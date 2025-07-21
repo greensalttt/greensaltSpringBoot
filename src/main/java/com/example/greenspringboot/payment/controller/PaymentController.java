@@ -100,7 +100,7 @@ public class PaymentController {
                 m.addAttribute("orderDto", orderConfirm);
 //                m.addAttribute("performanceDto", performanceDto);
                 // 4. 주문 저장
-                orderService.saveOrder(orderDto, orderId, cId);
+//                orderService.saveOrder(orderDto, orderId, cId);
 
                 // 5. 완료 페이지
 //                model.addAttribute("message", "결제 성공!");

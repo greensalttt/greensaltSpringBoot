@@ -40,6 +40,8 @@ public class OrderController {
         OrderDto orderConfirm = orderService.orderConfirm(orderDto);
         PerformanceDto performanceDto = orderService.orderPage(pno);
 
+        orderService.saveOrder(orderDto, cId);
+
         m.addAttribute("orderDto", orderConfirm);
         m.addAttribute("performanceDto", performanceDto);
 

@@ -10,6 +10,8 @@ import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -43,19 +45,41 @@ public class OrderServiceImpl implements OrderService {
         return orderDto;
     }
 
+//    @Override
+//    public void saveOrder(OrderDto orderDto, String orderId, Integer cId) {
+//        Order order = Order.builder()
+//                .orderId(orderId)
+//                .pno(orderDto.getPno())
+//                .orderName(orderDto.getOrderName())
+//                .ticketCount(orderDto.getTicketCount())
+//                .totalPrice(orderDto.getTotalPrice())
+//                .createdBy(cId)
+//                .updatedBy(cId)
+//                .build();
+//
+//        orderRepository.save(order);
+//    }
+
     @Override
-    public void saveOrder(OrderDto orderDto, String orderId, Integer cId) {
+    public Order saveOrder(OrderDto orderDto, Integer cId) {
+
+        String orderId = "order-" + System.currentTimeMillis();
+
         Order order = Order.builder()
-                .orderId(orderId)
                 .pno(orderDto.getPno())
+                .orderId(orderId)
                 .orderName(orderDto.getOrderName())
                 .ticketCount(orderDto.getTicketCount())
                 .totalPrice(orderDto.getTotalPrice())
+                .status("pending")  // 기본 결제 대기 상태
+                .createdAt(LocalDateTime.now())
                 .createdBy(cId)
+                .updatedAt(LocalDateTime.now())
                 .updatedBy(cId)
                 .build();
 
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
+
 
 }
