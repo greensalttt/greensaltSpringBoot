@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,9 +33,9 @@ public class Order {
     @Column(name = "total_price", nullable = false)
     private Integer totalPrice;  // 총 가격
 
-    @Column(name = "status", length = 10)
+    @Column(name = "status", nullable = false)
     @Builder.Default
-    private String status = "reserved";  // 예매 상태 ('reserved', 'cancelled' 등)
+    private String status = "pending";
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Builder.Default
