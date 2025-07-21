@@ -34,18 +34,6 @@ public class OrderController {
     }
 
 
-
-//    @PostMapping("/payment")
-//    public String paymentPage(@ModelAttribute OrderDto orderDto, Model model) {
-//
-//        orderService.orderConfirm(orderDto);
-//
-//        model.addAttribute("orderDto", orderDto);
-//        return "payment";
-//    }
-
-
-
     @PostMapping("/payment")
     public String paymentPage(@SessionAttribute("cId") Integer cId, @ModelAttribute OrderDto orderDto, Model m, Integer pno) {
 

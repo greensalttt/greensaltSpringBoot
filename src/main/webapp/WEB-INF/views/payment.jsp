@@ -53,12 +53,12 @@
             border-radius: 6px;
         }
 
-        #totalPrice {
-            display: block;
-            margin-top: 5px;
-            font-size: 18px;
-            font-weight: bold;
-        }
+        /*#totalPrice {*/
+        /*    display: block;*/
+        /*    margin-top: 5px;*/
+        /*    font-size: 18px;*/
+        /*    font-weight: bold;*/
+        /*}*/
 
         .submit-btn {
             margin-top: 30px;
@@ -93,7 +93,7 @@
     <div id="paymentContainer">
         <h2>결제 정보 확인</h2>
 
-        <form action="<c:url value='/payment/submit'/>" method="post">
+        <form action="/payment/submit/" method="post">
             <input type="hidden" name="pno" value="${orderDto.pno}"/>
 
             <div class="form-group">
@@ -123,9 +123,11 @@
                 </select>
             </div>
 
+
             <div class="submit-btn">
-                <button type="submit">결제하기</button>
+                <button type="button" onclick="requestTossPayment()">결제하기</button>
             </div>
+
         </form>
     </div>
 
@@ -136,3 +138,28 @@
 
 </body>
 
+<script src="https://js.tosspayments.com/v1/payment"></script>
+
+<script>
+    function requestTossPayment() {
+        const tossPayments = TossPayments("test_ck_4yKeq5bgrpXkYXZmgWZ0rGX0lzW6");
+
+        tossPayments.requestPayment('카드', {
+            amount: ${orderDto.totalPrice}, // 결제 금액
+            orderId: 'order-' + new Date().getTime(), // 유니크한 주문번호
+
+            orderName: '${performanceDto.title}', // 공연 제목
+            customerName: '${orderDto.buyerName}',
+            successUrl: location.origin + '/payment/success',
+            failUrl: location.origin + '/payment/fail'
+        })
+            .catch(function (error) {
+                if (error.code === 'USER_CANCEL') {
+                    alert('결제를 취소했어요.');
+                } else {
+                    alert('결제 중 오류가 발생했어요.');
+                    console.error(error);
+                }
+            });
+    }
+</script>

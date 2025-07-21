@@ -1,6 +1,8 @@
 package com.example.greenspringboot.order.service;
 
 import com.example.greenspringboot.order.dto.OrderDto;
+import com.example.greenspringboot.order.entity.Order;
+import com.example.greenspringboot.order.repository.OrderRepository;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.entity.Performance;
 import com.example.greenspringboot.performance.repository.PerformanceRepository;
@@ -15,22 +17,10 @@ public class OrderServiceImpl implements OrderService {
     private PerformanceRepository performanceRepository;
 
     @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
     private PerformanceService performanceService;
-
-//    @Override
-//    public void orderPage(Integer pno, Model m){
-//        Performance performance =  performanceRepository.findById(pno)
-//                .orElseThrow(()-> new IllegalArgumentException("공연 데이터 없음"));
-//
-//        PerformanceDto performanceDto = PerformanceDto.builder()
-//                .pno(performance.getPno())
-//                .title(performance.getTitle())
-//                .price(performance.getPrice())
-//                .build();
-//
-//        m.addAttribute("performanceDto", performanceDto);
-//    }
-
 
     @Override
     public PerformanceDto orderPage(Integer pno){
@@ -43,7 +33,6 @@ public class OrderServiceImpl implements OrderService {
                 .price(performance.getPrice())
                 .build();
 
-//        m.addAttribute("performanceDto", performanceDto);
     }
     @Override
     public OrderDto orderConfirm(OrderDto orderDto) {
@@ -54,5 +43,19 @@ public class OrderServiceImpl implements OrderService {
         return orderDto;
     }
 
+    @Override
+    public void saveOrder(OrderDto orderDto, String orderId, Integer cId) {
+        Order order = Order.builder()
+                .orderId(orderId)
+                .pno(orderDto.getPno())
+                .buyerName(orderDto.getBuyerName())
+                .ticketCount(orderDto.getTicketCount())
+                .totalPrice(orderDto.getTotalPrice())
+                .createdBy(cId)
+                .updatedBy(cId)
+                .build();
+
+        orderRepository.save(order);
+    }
 
 }

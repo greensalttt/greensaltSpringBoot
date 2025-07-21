@@ -11,5 +11,7 @@ public interface OrderService {
 
     OrderDto orderConfirm(OrderDto orderDto);
 
+    void saveOrder(OrderDto orderDto, String orderId, Integer userId);
+
 //    PerformanceDto orderPage(Integer pno);
 }

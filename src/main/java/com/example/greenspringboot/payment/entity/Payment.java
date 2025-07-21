@@ -16,11 +16,14 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
-    private Integer paymentId;
+    @Column(name = "payment_no")
+    private Integer paymentNo;
 
-    @Column(name = "rno", nullable = false)
-    private Integer rno;
+    @Column(name = "ono", nullable = false)
+    private Integer ono;
+
+    @Column(name ="payment_key", nullable = false)
+    private String paymentKey;
 
     @Column(name = "payment_method", nullable = false)
     private String paymentMethod;

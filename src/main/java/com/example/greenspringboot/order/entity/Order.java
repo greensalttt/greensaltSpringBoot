@@ -20,6 +20,9 @@ public class Order {
     @Column(name = "pno", nullable = false)
     private Integer pno;
 
+    @Column(name ="order_id", nullable = false)
+    private String orderId;
+
     @Column(name = "buyer_name", nullable = false)
     private String buyerName;
 
