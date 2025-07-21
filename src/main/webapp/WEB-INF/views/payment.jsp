@@ -103,7 +103,7 @@
 
             <div class="form-group">
                 <label class="form-label">주문자 이름</label>
-                <span>${orderDto.buyerName}</span>
+                <span>${orderDto.orderName}</span>
             </div>
 
             <div class="form-group">
@@ -146,10 +146,9 @@
 
         tossPayments.requestPayment('카드', {
             amount: ${orderDto.totalPrice}, // 결제 금액
-            orderId: 'order-' + new Date().getTime(), // 유니크한 주문번호
-
-            orderName: '${performanceDto.title}', // 공연 제목
-            customerName: '${orderDto.buyerName}',
+            // orderId: 'order-' + new Date().getTime(), // 유니크한 주문번호
+            orderId: '${orderDto.orderId}',
+            orderName: '${orderDto.orderName}',
             successUrl: location.origin + '/payment/success',
             failUrl: location.origin + '/payment/fail'
         })

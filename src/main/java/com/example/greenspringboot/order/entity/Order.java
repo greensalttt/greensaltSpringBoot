@@ -23,8 +23,8 @@ public class Order {
     @Column(name ="order_id", nullable = false)
     private String orderId;
 
-    @Column(name = "buyer_name", nullable = false)
-    private String buyerName;
+    @Column(name = "order_name", nullable = false)
+    private String orderName;
 
     @Column(name = "ticket_count", nullable = false)
     @Builder.Default

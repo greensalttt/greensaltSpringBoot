@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = Order.builder()
                 .orderId(orderId)
                 .pno(orderDto.getPno())
-                .buyerName(orderDto.getBuyerName())
+                .orderName(orderDto.getOrderName())
                 .ticketCount(orderDto.getTicketCount())
                 .totalPrice(orderDto.getTotalPrice())
                 .createdBy(cId)
