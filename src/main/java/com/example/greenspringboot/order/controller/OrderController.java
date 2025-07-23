@@ -13,18 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-//@RequestMapping("/order")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    private PerformanceService performanceService;
-
-    @Autowired
-    private PaymentService paymentService;
-
 
     @GetMapping("/order")
     private String order(@SessionAttribute("cId") Integer cId, Integer pno, Model m){
@@ -37,10 +29,8 @@ public class OrderController {
     @PostMapping("/payment")
     public String paymentPage(@SessionAttribute("cId") Integer cId, @ModelAttribute OrderDto orderDto, Model m, Integer pno) {
 
-        OrderDto orderConfirm = orderService.orderConfirm(orderDto);
+        OrderDto orderConfirm = orderService.saveOrder(orderDto, cId);
         PerformanceDto performanceDto = orderService.orderPage(pno);
-
-        orderService.saveOrder(orderDto, cId);
 
         m.addAttribute("orderDto", orderConfirm);
         m.addAttribute("performanceDto", performanceDto);

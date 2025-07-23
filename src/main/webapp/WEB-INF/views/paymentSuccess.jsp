@@ -64,7 +64,7 @@
 
     <div class="btn-group">
         <a href="/" class="btn">홈으로 돌아가기</a>
-        <a href="/mypage" class="btn">예매 확인하기</a>
+        <a href="/mypage/reservationList" class="btn">예매 확인하기</a>
     </div>
 </div>
 

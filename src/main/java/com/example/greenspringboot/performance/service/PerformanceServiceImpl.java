@@ -108,11 +108,12 @@ public class PerformanceServiceImpl implements PerformanceService{
         }
     }
 
+    // 배포시 수정
     public String uploadImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
-        String uploadDir = "C:/performance/";
-//        String uploadDir = "/home/ubuntu/performance/";
+//        String uploadDir = "C:/performance/";
+        String uploadDir = "/home/ubuntu/performance/";
 
         File dir = new File(uploadDir);
         if (!dir.exists()) {

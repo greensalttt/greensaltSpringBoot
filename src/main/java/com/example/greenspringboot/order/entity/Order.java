@@ -1,4 +1,6 @@
 package com.example.greenspringboot.order.entity;
+import com.example.greenspringboot.payment.entity.Payment;
+import com.example.greenspringboot.performance.entity.Performance;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,8 +25,8 @@ public class Order {
     @Column(name ="order_id", nullable = false)
     private String orderId;
 
-    @Column(name = "order_name", nullable = false)
-    private String orderName;
+    @Column(name = "orderer_name", nullable = false)
+    private String ordererName;
 
     @Column(name = "ticket_count", nullable = false)
     @Builder.Default
@@ -39,15 +41,26 @@ public class Order {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();  // 생성 시간
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "created_by", nullable = false)
-    private Integer createdBy;  // 예매한 유저 ID
+    private Integer createdBy;
 
     @Column(name = "updated_at", nullable = false)
     @Builder.Default
-    private LocalDateTime updatedAt = LocalDateTime.now();  // 마지막 수정 시간
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "updated_by", nullable = false)
-    private Integer updatedBy;  // 수정한 유저 ID
+    private Integer updatedBy;
+
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ono", insertable = false, updatable = false)
+    private Payment payment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pno", insertable = false, updatable = false)
+    private Performance performance;
+
+
 }

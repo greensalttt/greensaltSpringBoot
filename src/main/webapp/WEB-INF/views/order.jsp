@@ -100,8 +100,8 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="buyerName">주문자 이름</label>
-                <input type="text" id="buyerName" name="orderName" placeholder="주문자 이름을 입력하세요" required />
+                <label class="form-label" for="ordererName">주문자 이름</label>
+                <input type="text" id="ordererName" name="ordererName" placeholder="주문자 이름을 입력하세요" required />
             </div>
 
             <div class="form-group">

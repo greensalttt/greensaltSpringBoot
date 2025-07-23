@@ -9,7 +9,7 @@ public class OrderDto {
     private Integer ono;
     private Integer pno;
     private String orderId;
-    private String orderName;
+    private String ordererName;
     private Integer ticketCount;
     private Integer totalPrice;
     private String status;

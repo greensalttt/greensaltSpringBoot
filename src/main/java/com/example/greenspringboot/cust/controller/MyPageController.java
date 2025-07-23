@@ -1,6 +1,8 @@
 package com.example.greenspringboot.cust.controller;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.order.dto.MyReservationDto;
+import com.example.greenspringboot.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -21,6 +23,9 @@ public class MyPageController {
 //    서비스에서 만든 메서드를 사용할려면 오토와이어드 어노테이션 필수
     @Autowired
     private CustService custService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/list")
     public String myPage(@SessionAttribute("cId") Integer cId, Model model) {
@@ -102,7 +107,7 @@ public class MyPageController {
     }
 
 
-    @GetMapping("/myBoardList")
+    @GetMapping("/BoardList")
     public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
 
 //        Integer cId = (Integer) session.getAttribute("cId");
@@ -112,14 +117,38 @@ public class MyPageController {
     }
 
 
-    @GetMapping("/myCommentList")
+    @GetMapping("/CommentList")
     public String myCommentList(Model m, @SessionAttribute("cId") Integer cId){
 
-//        Integer cId = (Integer) session.getAttribute("cId");
         custService.myPage(cId, m);
         custService.myCommentList(m, cId);
         return "myCommentList";
     }
+
+
+
+//    @GetMapping("/reservation")
+//    public String myReservation(Model m, @SessionAttribute("cId") Integer cId){
+//
+//        return "myCommentList";
+//    }
+
+    @GetMapping("/reservationList")
+    public String myReservation(Model m, @SessionAttribute("cId") Integer cId) {
+
+        custService.myPage(cId, m);
+        // 서비스에서 예매 리스트 조회
+        List<MyReservationDto> reservationDtos = orderService.findMyReservations(cId);
+        System.out.println("reservationDtos 값 확인: " + reservationDtos);
+
+        // 모델에 담아서 JSP에 전달
+        m.addAttribute("reservationDtos", reservationDtos);
+
+        return "myReservationList";
+    }
+
+
+
 }
 
 

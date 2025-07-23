@@ -1,9 +1,12 @@
 package com.example.greenspringboot.payment.entity;
 
+import com.example.greenspringboot.order.entity.Order;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "payment")
@@ -37,7 +40,7 @@ public class Payment {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Date createdAt = new Date();
 
     @Column(name = "created_by", nullable = false)
     private Integer createdBy;
@@ -48,4 +51,6 @@ public class Payment {
 
     @Column(name = "updated_by", nullable = false)
     private Integer updatedBy;
+
+
 }

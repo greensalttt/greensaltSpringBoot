@@ -1,5 +1,6 @@
 package com.example.greenspringboot.order.service;
 
+import com.example.greenspringboot.order.dto.MyReservationDto;
 import com.example.greenspringboot.order.dto.OrderDto;
 import com.example.greenspringboot.order.entity.Order;
 import com.example.greenspringboot.order.repository.OrderRepository;
@@ -9,8 +10,10 @@ import com.example.greenspringboot.performance.repository.PerformanceRepository;
 import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -36,50 +39,52 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
     }
+
     @Override
-    public OrderDto orderConfirm(OrderDto orderDto) {
+    public OrderDto saveOrder(OrderDto orderDto, Integer cId) {
         int price = performanceService.getPriceByPno(orderDto.getPno());
         int total = price * orderDto.getTicketCount();
 
         orderDto.setTotalPrice(total);
-        return orderDto;
-    }
-
-//    @Override
-//    public void saveOrder(OrderDto orderDto, String orderId, Integer cId) {
-//        Order order = Order.builder()
-//                .orderId(orderId)
-//                .pno(orderDto.getPno())
-//                .orderName(orderDto.getOrderName())
-//                .ticketCount(orderDto.getTicketCount())
-//                .totalPrice(orderDto.getTotalPrice())
-//                .createdBy(cId)
-//                .updatedBy(cId)
-//                .build();
-//
-//        orderRepository.save(order);
-//    }
-
-    @Override
-    public Order saveOrder(OrderDto orderDto, Integer cId) {
 
         String orderId = "order-" + System.currentTimeMillis();
 
         Order order = Order.builder()
                 .pno(orderDto.getPno())
                 .orderId(orderId)
-                .orderName(orderDto.getOrderName())
+                .ordererName(orderDto.getOrdererName())
                 .ticketCount(orderDto.getTicketCount())
-                .totalPrice(orderDto.getTotalPrice())
-                .status("pending")  // 기본 결제 대기 상태
+                .totalPrice(total)
+                .status("pending")
                 .createdAt(LocalDateTime.now())
                 .createdBy(cId)
                 .updatedAt(LocalDateTime.now())
                 .updatedBy(cId)
                 .build();
 
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        // 저장 후 Entity → DTO 변환
+        return OrderDto.builder()
+                .pno(savedOrder.getPno())
+                .orderId(savedOrder.getOrderId())
+                .ordererName(savedOrder.getOrdererName())
+                .ticketCount(savedOrder.getTicketCount())
+                .totalPrice(savedOrder.getTotalPrice())
+                .build();
     }
 
+    @Transactional
+    @Override
+    public void deleteOrders() {
+        LocalDateTime threshold = LocalDateTime.now().minusMinutes(10);
+        orderRepository.cleanUpOrders("pending", threshold);
+    }
+
+
+    @Override
+    public List<MyReservationDto> findMyReservations(Integer cId) {
+        return orderRepository.findMyReservations(cId);
+    }
 
 }

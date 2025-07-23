@@ -3,10 +3,14 @@ import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.repository.CustRepository;
 import com.example.greenspringboot.cust.service.CustService;
+import com.example.greenspringboot.order.dto.MyReservationDto;
+import com.example.greenspringboot.order.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,6 +22,8 @@ public class CustRepositoryTest {
 
     @Autowired private CustService custService;
 
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Test
     public void crudTest() {
@@ -73,4 +79,18 @@ public class CustRepositoryTest {
         assertTrue(encoder.matches(raw, hash));
     }
 
+
+    @Test
+    public void testFindMyReservations() {
+        Integer cId = 5; // 실제 존재하는 cId로 테스트
+
+        List<MyReservationDto> list = orderRepository.findMyReservations(cId);
+
+        System.out.println("==== 예매 내역 수: " + list.size());
+        for (MyReservationDto dto : list) {
+            System.out.println(dto);
+        }
+
+        assertFalse(list.isEmpty(), "예매 내역이 존재해야 합니다.");
+    }
 }

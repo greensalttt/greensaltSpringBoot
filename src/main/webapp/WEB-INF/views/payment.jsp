@@ -53,13 +53,6 @@
             border-radius: 6px;
         }
 
-        /*#totalPrice {*/
-        /*    display: block;*/
-        /*    margin-top: 5px;*/
-        /*    font-size: 18px;*/
-        /*    font-weight: bold;*/
-        /*}*/
-
         .submit-btn {
             margin-top: 30px;
             text-align: center;
@@ -103,7 +96,7 @@
 
             <div class="form-group">
                 <label class="form-label">주문자 이름</label>
-                <span>${orderDto.orderName}</span>
+                <span>${orderDto.ordererName}</span>
             </div>
 
             <div class="form-group">
@@ -118,11 +111,11 @@
 
             <div class="form-group">
                 <label class="form-label">결제 방법</label>
-                <select name="paymentMethod" required>
-                    <option value="toss">토스 페이</option>
+
+                <select id="paymentMethod">
+                    <option value="토스 페이먼츠 테스트 통합 결제">토스 페이먼츠 테스트 통합 결제</option>
                 </select>
             </div>
-
 
             <div class="submit-btn">
                 <button type="button" onclick="requestTossPayment()">결제하기</button>
@@ -144,11 +137,10 @@
     function requestTossPayment() {
         const tossPayments = TossPayments("test_ck_4yKeq5bgrpXkYXZmgWZ0rGX0lzW6");
 
-        tossPayments.requestPayment('카드', {
-            amount: ${orderDto.totalPrice}, // 결제 금액
-            // orderId: 'order-' + new Date().getTime(), // 유니크한 주문번호
+        tossPayments.requestPayment('NORMAL', {
+            amount: ${orderDto.totalPrice},
             orderId: '${orderDto.orderId}',
-            orderName: '${orderDto.orderName}',
+            orderName: '${performanceDto.title}}',
             successUrl: location.origin + '/payment/success',
             failUrl: location.origin + '/payment/fail'
         })

@@ -43,7 +43,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Optional<Board> findByCreatedByAndBno(Integer createdBy, Integer bno);
 
-    // 게시글 조회 시 조회수(view_cnt) 1 증가
+    // 게시글 조회 시 조회수(view_cnt) 1 증가, 데이터가 변하니까 모디파이 어노테이션
     @Modifying
     @Query("UPDATE Board SET viewCnt = viewCnt + 1 WHERE bno = :bno")
     int incrementViewCnt(@Param("bno") Integer bno);
