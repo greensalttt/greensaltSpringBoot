@@ -9,14 +9,14 @@
 
     <title>예매 확인</title>
     <style>
-        body {
-            background-color: whitesmoke;
-            margin: 0 auto;
-            max-width: 1130px;
-            position: relative;
-            overflow-x: hidden;
-            font-family: 'Segoe UI', sans-serif;
-        }
+        /*body {*/
+        /*    background-color: whitesmoke;*/
+        /*    margin: 0 auto;*/
+        /*    max-width: 1130px;*/
+        /*    position: relative;*/
+        /*    overflow-x: hidden;*/
+        /*    font-family: 'Segoe UI', sans-serif;*/
+        /*}*/
 
         #wrapper {
             min-height: 100vh;

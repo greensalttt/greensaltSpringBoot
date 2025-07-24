@@ -23,7 +23,7 @@
         }
 
         h2 {
-            color: #2d8fdd;
+            /*color: #2d8fdd;*/
             font-size: 28px;
             margin-bottom: 16px;
         }
@@ -59,7 +59,7 @@
 <body>
 
 <div class="container">
-    <h2>✅ 결제가 성공했습니다!</h2>
+    <h2>결제가 성공했습니다!</h2>
     <p>감사합니다. 예매가 정상적으로 완료되었습니다.</p>
 
     <div class="btn-group">
