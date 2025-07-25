@@ -54,13 +54,14 @@ public class Order {
     private Integer updatedBy;
 
 
+    // 1:1 관계는 주인 불분명해서 경로 기반 조인 불가, 직접 조인 필요 (1주문에는 1결제)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ono", insertable = false, updatable = false)
     private Payment payment;
 
+    // 다대일 관계는 현재 엔티티가 주인이라 경로 기반 조인 가능 (1공연에는 다수 주문 가능)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pno", insertable = false, updatable = false)
     private Performance performance;
-
 
 }
