@@ -55,9 +55,4 @@ public class Comment {
     @Column(name= "updated_by")
     private String updatedBy = "user";
 
-//    @Builder.Default
-//    @Column(name = "updated_by_type")
-//    private String updatedByType = "user";
-
-
 }

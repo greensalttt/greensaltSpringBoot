@@ -37,7 +37,6 @@ public class MyPageController {
     //    엔티티는 DB 값이 변경될때, DTO는 눈에 보이는 데이터 화면으로 전송할때
     @GetMapping("/info")
     public String myPageInfo(@SessionAttribute("cId") Integer cId, Model model) {
-//        Integer cId = (Integer) session.getAttribute("cId");
             custService.myPageInfo(cId, model);
             return "myPageInfo";
     }
@@ -54,17 +53,12 @@ public class MyPageController {
 
     @GetMapping("/editPwd")
     public String editPwd(@SessionAttribute("cId") Integer cId, Model model) {
-//        Integer cId = (Integer) session.getAttribute("cId");
             custService.myPage(cId, model);
             return "editPwd";
     }
 
     @PostMapping("/editPwd")
     public String editPwd(@SessionAttribute("cId") Integer cId, CustDto custDto, HttpSession sessionLogout, String curPwd, RedirectAttributes msg) {
-//        HttpSession session = request.getSession();
-
-        // 로그인할때 저장한 cId 세션을 변수로 저장
-//        int cId = (int) session.getAttribute("cId");
 
         // 비밀번호 변경을 위한 서비스 호출
         boolean passwordChanged = custService.pwdChange(cId, custDto, curPwd);
@@ -85,10 +79,6 @@ public class MyPageController {
 
     @PostMapping("/drop")
     public String custDrop(@SessionAttribute("cId") Integer cId, HttpSession sessionLogout, String dropPwd, RedirectAttributes msg) {
-//        HttpSession session = request.getSession();
-//
-//        // 로그인할때 저장한 cId 세션을 변수로 저장
-//        Integer cId = (Integer) session.getAttribute("cId");
 
         // 비밀번호 변경을 위한 서비스 호출
         boolean passwordChanged = custService.custDrop(cId,dropPwd);
@@ -110,7 +100,6 @@ public class MyPageController {
     @GetMapping("/BoardList")
     public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
 
-//        Integer cId = (Integer) session.getAttribute("cId");
         custService.myPage(cId, m);
         custService.myBoardList(m, cId);
         return "myBoardList";
@@ -125,13 +114,6 @@ public class MyPageController {
         return "myCommentList";
     }
 
-
-
-//    @GetMapping("/reservation")
-//    public String myReservation(Model m, @SessionAttribute("cId") Integer cId){
-//
-//        return "myCommentList";
-//    }
 
     @GetMapping("/reservationList")
     public String myReservation(Model m, @SessionAttribute("cId") Integer cId) {

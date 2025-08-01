@@ -496,7 +496,6 @@ public class CustServiceImpl implements CustService {
                     .map(comment -> CommentDto.builder()
                             .cno(comment.getCno())
                             .bno(comment.getBno())
-//                            .parentComment(comment.getParentComment())
                             .comment(comment.getComment())
                             .commenter(comment.getCommenter())
                             .deleted(comment.getDeleted())
