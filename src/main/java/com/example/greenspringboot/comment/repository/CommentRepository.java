@@ -19,8 +19,12 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     ORDER BY c.cno ASC는 댓글을 오름차순으로, 부모 댓글을 먼저 나오게 하며 대댓글은 그 아래에 나오는 방식으로 댓글 트리 구조를 형성
 */
-    @Query("SELECT c FROM Comment c WHERE c.bno = :bno AND c.deleted = false ORDER BY COALESCE(c.parentComment.cno, c.cno), c.cno ASC")
+//    @Query("SELECT c FROM Comment c WHERE c.bno = :bno AND c.deleted = false ORDER BY COALESCE(c.parentComment.cno, c.cno), c.cno ASC")
+//    List<Comment> findAllCommentsWithReplies(Integer bno);
+
+    @Query("SELECT c FROM Comment c WHERE c.bno = :bno AND c.deleted = false ORDER BY COALESCE(c.pcno, c.cno), c.cno ASC")
     List<Comment> findAllCommentsWithReplies(Integer bno);
+
 
 
     Comment findByCno(Integer cno);

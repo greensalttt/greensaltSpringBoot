@@ -303,6 +303,8 @@
         </div>
     </div>
 
+</div>
+
 
     <footer>
         <jsp:include page="footer.jsp"/>
@@ -317,19 +319,36 @@
             let tmp = "<ul>";
             comments.forEach(function(comment) {
                 // Jackson 규칙으로 cId를 cid로 찍어야 값이 나옴
-                let topParentComment = comment;
-                while (topParentComment.parentComment !== null) {
-                    topParentComment = topParentComment.parentComment;
-                }
+
+                // let topParentComment = comment;
+                // while (topParentComment.parentComment !== null) {
+                //     topParentComment = topParentComment.parentComment;
+                // }
+                //
+                // tmp += '<li data-cno="' + comment.cno + '"';
+                // tmp += ' data-parentComment="' + topParentComment.cno + '"';
+                // tmp += ' data-bno="' + comment.bno + '"';
+                // tmp += ' data-comment="' + comment.comment + '"';
+                // tmp += ' data-commenter="' + comment.commenter + '"';
+                // tmp += '>';
+                //
+                // if (comment.parentComment != null) tmp += 'ㄴ';
+
+
+                // 부모 댓글이 있으면 해당 번호, 없으면 자기 번호
+                let topParentCno = comment.pcno !== null ? comment.pcno : comment.cno;
+
 
                 tmp += '<li data-cno="' + comment.cno + '"';
-                tmp += ' data-parentComment="' + topParentComment.cno + '"';
+                tmp += ' data-parentComment="' + topParentCno + '"';
                 tmp += ' data-bno="' + comment.bno + '"';
                 tmp += ' data-comment="' + comment.comment + '"';
                 tmp += ' data-commenter="' + comment.commenter + '"';
                 tmp += '>';
 
-                if (comment.parentComment != null) tmp += 'ㄴ';
+                if (comment.pcno != null) tmp += 'ㄴ';
+
+
 
                 tmp += '<span class="commenter">' + comment.commenter + '=' + '</span>';
                 tmp += '<span class="comment">' + comment.comment + '</span>';
@@ -518,7 +537,6 @@
                     }
                     });
                     });
-                    // }
                 });
     </script>
 

@@ -33,40 +33,69 @@ public class CommentServiceImpl implements CommentService{
     }
 
 
+//    @Override
+//    public void write(CommentDto commentDto, Integer cId) {
+//        Comment parentComment = null;
+//        if (commentDto.getPcno() != null) {
+//            parentComment = commentRepository.findById(commentDto.getPcno()).orElse(null);
+//        }
+//
+//        Optional<Cust> optionalCust = custRepository.findById(cId);
+//
+//        if (optionalCust.isPresent()) {
+//            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+//
+//            String cNick = cust.getCNick();
+//
+//            CustDto custDto = CustDto.builder()
+//                    .cNick(cNick)
+//                    .build();
+//
+//            // comment 엔티티 빌드
+//            Comment comment = Comment.builder()
+//                    .bno(commentDto.getBno())
+//                    .parentComment(parentComment)  // parentComment가 null일 수도 있음
+//                    .comment(commentDto.getComment())
+//                    .commenter(custDto.getCNick())
+//                    .createdBy(commentDto.getCreatedBy())
+//                    .build();
+//
+//            // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
+//            commentRepository.save(comment);
+//
+//            System.out.println("commentDto:" + commentDto);
+//        }
+//    }
+
     @Override
     public void write(CommentDto commentDto, Integer cId) {
-        Comment parentComment = null;
+        Integer pcno = null;
+
+        // 1. 부모 댓글 번호 확인 및 존재 검증
         if (commentDto.getPcno() != null) {
-            parentComment = commentRepository.findById(commentDto.getPcno()).orElse(null);
+            Comment parentComment = commentRepository.findById(commentDto.getPcno())
+                    .orElseThrow(() -> new IllegalArgumentException("부모 댓글이 존재하지 않습니다."));
+            pcno = parentComment.getCno();
         }
 
-        Optional<Cust> optionalCust = custRepository.findById(cId);
+        // 2. 사용자 정보 조회 (없으면 예외)
+        Cust cust = custRepository.findById(cId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자 정보를 찾을 수 없습니다."));
 
-        if (optionalCust.isPresent()) {
-            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
+        // 3. 댓글 엔티티 생성 및 저장
+        Comment comment = Comment.builder()
+                .bno(commentDto.getBno())
+                .pcno(pcno)
+                .comment(commentDto.getComment())
+                .commenter(cust.getCNick())
+                .createdBy(commentDto.getCreatedBy())
+                .build();
 
-            String cNick = cust.getCNick();
+        commentRepository.save(comment);
 
-            CustDto custDto = CustDto.builder()
-                    .cNick(cNick)
-                    .build();
-
-            // comment 엔티티 빌드
-            Comment comment = Comment.builder()
-                    .bno(commentDto.getBno())
-                    .parentComment(parentComment)  // parentComment가 null일 수도 있음
-                    .comment(commentDto.getComment())
-                    .commenter(custDto.getCNick())
-                    .createdBy(commentDto.getCreatedBy())
-//                    .updatedBy(commentDto.getCreatedBy())
-                    .build();
-
-            // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
-            commentRepository.save(comment);
-
-            System.out.println("commentDto:" + commentDto);
-        }
+        System.out.println("commentDto:" + commentDto);
     }
+
 
 
     @Override
