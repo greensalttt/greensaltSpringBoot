@@ -35,14 +35,14 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     Long countByDeletedFalse();
 
-    List<Comment> findAllByCreatedByAndDeletedFalseOrderByCnoDesc(Integer createdBy);
+//    List<Comment> findAllByCreatedByAndDeletedFalseOrderByCnoDesc(Integer createdBy);
 
-//    @Query("SELECT new com.example.greenspringboot.comment.dto.CommentDto(" +
-//            "c.cno, c.bno, c.pcno, c.comment, c.commenter, c.deleted, c.createdAt, c.createdBy, c.updatedAt, c.updatedBy) " +
-//            "FROM Comment c " +
-//            "WHERE c.createdBy = :createdBy AND c.deleted = false " +
-//            "ORDER BY c.cno DESC")
-//    List<CommentDto> findCommentDtosByCreatedBy(@Param("createdBy") Integer createdBy);
+    @Query("SELECT new com.example.greenspringboot.comment.dto.CommentDto(" +
+            "c.cno, c.bno, c.pcno, c.comment, c.commenter, c.deleted, c.createdAt, c.createdBy, c.updatedAt, c.updatedBy) " +
+            "FROM Comment c " +
+            "WHERE c.createdBy = :createdBy AND c.deleted = false " +
+            "ORDER BY c.cno DESC")
+    List<CommentDto> findMyCommentList(@Param("createdBy") Integer createdBy);
 
 
     List<Comment> findAllByDeletedFalseOrderByCnoDesc();

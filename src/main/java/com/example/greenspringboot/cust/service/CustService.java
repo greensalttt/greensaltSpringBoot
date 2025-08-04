@@ -1,11 +1,13 @@
 package com.example.greenspringboot.cust.service;
 
+import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.dto.CustDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public interface CustService {
     String emailCheck(String cEmail);
@@ -51,5 +53,7 @@ public interface CustService {
 
     void myBoardList(Model m, Integer createdBy);
 
-    void myCommentList(Model m, Integer createdBy);
+//    void myCommentList(Model m, Integer createdBy);
+
+    List<CommentDto> findMyCommentList(Integer cId);
 }

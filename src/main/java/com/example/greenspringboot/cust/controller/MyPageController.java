@@ -1,4 +1,5 @@
 package com.example.greenspringboot.cust.controller;
+import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.order.dto.MyReservationDto;
@@ -106,11 +107,29 @@ public class MyPageController {
     }
 
 
+//    @GetMapping("/CommentList")
+//    public String myCommentList(Model m, @SessionAttribute("cId") Integer cId){
+//
+//        custService.myPage(cId, m);
+//
+//        custService.myCommentList(m, cId);
+//        return "myCommentList";
+//    }
+
+
+
     @GetMapping("/CommentList")
     public String myCommentList(Model m, @SessionAttribute("cId") Integer cId){
 
         custService.myPage(cId, m);
-        custService.myCommentList(m, cId);
+
+
+        List<CommentDto> commentDtos = custService.findMyCommentList(cId);
+        System.out.println("commentDtos 값 확인: " + commentDtos);
+
+        // 모델에 담아서 JSP에 전달
+        m.addAttribute("commentDtos", commentDtos);
+
         return "myCommentList";
     }
 
