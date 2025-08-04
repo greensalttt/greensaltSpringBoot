@@ -39,7 +39,7 @@ fix: 버그 수정
 refactor: 기능 변경 없이 구조 개선
 docs: 주석 처리 및 문서 수정  
 test: 테스트 코드 관련  
-chore: 기타 변경사항 (빌드, 설정, 삭제 등)
+chore: 기타 변경사항 (빌드, 설정, 삭제, 버그 추적 등)
 ```
 
 ## Backend Architecture
