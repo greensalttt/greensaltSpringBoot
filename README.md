@@ -1,6 +1,6 @@
 ![home](https://github.com/user-attachments/assets/1e7758ab-546d-46cb-8f6b-417bd3ba2a98)
 
-## 음악 커뮤니티 녹색소금
+## 음악 커뮤니티 및 공연 예매 사이트 녹색소금
 
 https://greensalt.site/
 
