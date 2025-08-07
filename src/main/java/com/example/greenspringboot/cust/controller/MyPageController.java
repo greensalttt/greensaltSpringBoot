@@ -107,17 +107,6 @@ public class MyPageController {
     }
 
 
-//    @GetMapping("/CommentList")
-//    public String myCommentList(Model m, @SessionAttribute("cId") Integer cId){
-//
-//        custService.myPage(cId, m);
-//
-//        custService.myCommentList(m, cId);
-//        return "myCommentList";
-//    }
-
-
-
     @GetMapping("/CommentList")
     public String myCommentList(Model m, @SessionAttribute("cId") Integer cId){
 

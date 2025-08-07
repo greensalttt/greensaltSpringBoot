@@ -53,7 +53,6 @@ public interface CustService {
 
     void myBoardList(Model m, Integer createdBy);
 
-//    void myCommentList(Model m, Integer createdBy);
 
     List<CommentDto> findMyCommentList(Integer cId);
 }

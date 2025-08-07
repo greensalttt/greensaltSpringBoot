@@ -485,30 +485,6 @@ public class CustServiceImpl implements CustService {
     }
 
 
-    //    마이페이지
-//    @Override
-//    public void myCommentList(Model m, Integer createdBy) {
-//        List<Comment> comments = commentRepository.findAllByCreatedByAndDeletedFalseOrderByCnoDesc(createdBy);
-//
-//        if (!comments.isEmpty()) {
-//            List<CommentDto> commentDtos = comments.stream()
-//                    .map(comment -> CommentDto.builder()
-//                            .cno(comment.getCno())
-//                            .bno(comment.getBno())
-//                            .comment(comment.getComment())
-//                            .commenter(comment.getCommenter())
-//                            .deleted(comment.getDeleted())
-//                            .createdAt(comment.getCreatedAt())
-//                            .createdBy(comment.getCreatedBy())
-//                            .build())
-//                    .collect(Collectors.toList());
-//
-//            m.addAttribute("commentDtos", commentDtos);
-//        } else {
-//            System.out.println("댓글 정보를 찾을 수 없습니다.");
-//        }
-//    }
-
     @Override
     public List<CommentDto> findMyCommentList(Integer createdBy) {
         return commentRepository.findMyCommentList(createdBy);
