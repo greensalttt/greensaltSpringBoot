@@ -1,11 +1,14 @@
 package com.example.greenspringboot.board.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.Date;
 import lombok.Builder;
 
 @Data
 @Builder
+@AllArgsConstructor
+
 //빌더 어노테이션 사용하면 생성자 필요없다
 public class BoardDto {
     private Integer bno;

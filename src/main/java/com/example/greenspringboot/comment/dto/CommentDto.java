@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Date;
 @Data
 @Builder
-@ToString
+//@ToString
 @AllArgsConstructor
 public class CommentDto {
     private Integer cno;
