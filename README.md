@@ -11,9 +11,9 @@ https://greensalt.site/
 Packaging: WAR
 Build: Maven
 Deployment: AWS EC2
-Deployment Method: PuTTY + FileZilla
+Deployment Method: Docker
 OS: Ubuntu(Linux)
-WAS: External Tomcat
+WAS: Tomcat 9(Docker container)
 DBMS: MySQL(AppPaaS)
 SSL: Cloudflare(HTTPS)
 ```
