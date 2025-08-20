@@ -1,5 +1,7 @@
 package com.example.greenspringboot.board.repository;
+import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.entity.Board;
+import com.example.greenspringboot.comment.dto.CommentDto;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -55,7 +57,25 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     List<Board> findAllByDeletedFalseOrderByBnoDesc();
 
-    List<Board> findAllByCreatedByAndDeletedFalseOrderByBnoDesc(Integer createdBy);
+//    List<Board> findAllByCreatedByAndDeletedFalseOrderByBnoDesc(Integer createdBy);
+
+//    @Query("SELECT new com.example.greenspringboot.board.dto.BoardDto(" +
+//            "b.bno, b.title, b.content, b.writer, b.viewCnt, b.commentCnt, b.deleted, b.createdAt, b.createdBy) " +
+//            "FROM Board b " +
+//            "WHERE b.createdBy = :createdBy AND b.deleted = false " +
+//            "ORDER BY b.bno DESC")
+//    List<BoardDto> findMyBoardList(@Param("createdBy") Integer createdBy);
+
+    @Query("SELECT new com.example.greenspringboot.board.dto.BoardDto(" +
+            "b.bno, b.title, b.content, b.writer, b.viewCnt, b.commentCnt, " +
+            "b.deleted, b.createdAt, b.createdBy, b.updatedAt, b.updatedBy) " +
+            "FROM Board b " +
+            "WHERE b.createdBy = :createdBy AND b.deleted = false " +
+            "ORDER BY b.bno DESC")
+    List<BoardDto> findMyBoardList(@Param("createdBy") Integer createdBy);
+
+
+
 
 }
 
