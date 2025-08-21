@@ -1,4 +1,5 @@
 package com.example.greenspringboot.cust.controller;
+import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.cust.dto.CustDto;
@@ -98,11 +99,25 @@ public class MyPageController {
     }
 
 
+//    @GetMapping("/BoardList")
+//    public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
+//
+//        custService.myPage(cId, m);
+//        custService.myBoardList(m, cId);
+//        return "myBoardList";
+//    }
+
     @GetMapping("/BoardList")
     public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
 
         custService.myPage(cId, m);
-        custService.myBoardList(m, cId);
+
+        List<BoardDto> boardDtos = custService.findMyBoardList(cId);
+        System.out.println("boardDtos 값 확인: " + boardDtos);
+
+        // 모델에 담아서 JSP에 전달
+        m.addAttribute("boardDtos", boardDtos);
+
         return "myBoardList";
     }
 

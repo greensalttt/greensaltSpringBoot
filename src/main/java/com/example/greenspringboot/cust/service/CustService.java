@@ -1,5 +1,6 @@
 package com.example.greenspringboot.cust.service;
 
+import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.dto.CustDto;
@@ -51,8 +52,10 @@ public interface CustService {
     void custModify(int cId, CustDto custDto);
 
 
-    void myBoardList(Model m, Integer createdBy);
+//    void myBoardList(Model m, Integer createdBy);
 
+
+    List<BoardDto> findMyBoardList(Integer createdBy);
 
     List<CommentDto> findMyCommentList(Integer cId);
 }
