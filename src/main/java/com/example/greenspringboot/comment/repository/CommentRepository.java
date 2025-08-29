@@ -34,6 +34,10 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     Long countByDeletedFalse();
 
 
+    // JPQL에서 FROM 절은 엔티티(Comment)를 기준으로 데이터를 가져오고,
+    // SELECT 절에서는 해당 엔티티의 일부 필드를 사용해
+    // CommentDto 객체를 new 키워드로 직접 생성함
+    // 즉, 엔티티를 직접 반환하지 않고 DTO로 가볍게 변환하여 리턴
     @Query("SELECT new com.example.greenspringboot.comment.dto.CommentDto(" +
             "c.cno, c.bno, c.pcno, c.comment, c.commenter, c.deleted, c.createdAt, c.createdBy, c.updatedAt, c.updatedBy) " +
             "FROM Comment c " +
