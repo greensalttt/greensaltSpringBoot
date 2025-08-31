@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 
+// 예외 유형에 따라 더 세분화 시키기
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
