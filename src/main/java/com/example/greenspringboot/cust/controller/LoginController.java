@@ -102,7 +102,6 @@ public class LoginController {
                 idcookie.setHttpOnly(true); // JavaScript에서 접근 불가
                 response.addCookie(idcookie);
 
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -123,4 +122,19 @@ public class LoginController {
         adminService.adminPage(m);
         return "adminPage";
     }
+
+    //    뒤로가기 버튼
+    @GetMapping("/admin/page")
+    public String adminPage(Model m){
+        adminService.adminPage(m);
+        return "adminPage";
+    }
+
+    @PostMapping("/admin/logout")
+    public String adminLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
 }

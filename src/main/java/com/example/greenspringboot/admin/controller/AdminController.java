@@ -38,17 +38,17 @@ public class AdminController {
     private PerformanceService performanceService;
 
 //    뒤로가기 버튼
-    @GetMapping("/page")
-    public String adminPage(Model m){
-        adminService.adminPage(m);
-        return "adminPage";
-    }
+//    @GetMapping("/page")
+//    public String adminPage(Model m){
+//        adminService.adminPage(m);
+//        return "adminPage";
+//    }
 
-    @PostMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
+//    @PostMapping("/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();
+//        return "redirect:/";
+//    }
 
 // 앨범 등록 페이지
 @GetMapping("/album")
