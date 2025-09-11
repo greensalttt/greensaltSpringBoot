@@ -27,7 +27,11 @@ public class LoginController {
     @Autowired
     private AdminService adminService;
 
-//    쿠키에 있는 이메일이 암호화로 저장되기 때문에 다시 불러오기 위해 복호화 시켜 모델로 전달
+    @Autowired
+    private EncryptionUtil encryptionUtil;
+
+
+    //    쿠키에 있는 이메일이 암호화로 저장되기 때문에 다시 불러오기 위해 복호화 시켜 모델로 전달
     @GetMapping("/login")
     public String login(
             @CookieValue(value = "cEmail", defaultValue = "") String encryptedEmail,
@@ -38,7 +42,7 @@ public class LoginController {
         String decryptedEmail = "";
         try {
             if (!encryptedEmail.isEmpty()) {
-                decryptedEmail = EncryptionUtil.decrypt(encryptedEmail); // 이메일 복호화
+                decryptedEmail = encryptionUtil.decrypt(encryptedEmail); // 이메일 복호화
                 System.out.println("복호화된 이메일: " + decryptedEmail);
             }
         } catch (Exception e) {
@@ -91,7 +95,7 @@ public class LoginController {
                 System.out.println("암호화전 이메일: " + cEmail);
 
                 // 이메일 암호화
-                String encryptedEmail = EncryptionUtil.encrypt(cEmail);
+                String encryptedEmail = encryptionUtil.encrypt(cEmail);
 
                 System.out.println("암호화 이메일: " + encryptedEmail);
 
