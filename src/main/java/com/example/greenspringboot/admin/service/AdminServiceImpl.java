@@ -83,21 +83,20 @@ public class AdminServiceImpl implements AdminService {
                 return false;
             }
 
-            HttpSession session = request.getSession();
-            session.setAttribute("aId", admin.getAId());
+//            HttpSession session = request.getSession();
+//            session.setAttribute("aId", admin.getAId());
 
-            long custCount = custRepository.count();
-            long boardCount = boardRepository.count();
-            long commentCount = commentRepository.count();
-            long albumCount = albumRepository.count();
-
-            model.addAttribute("custCount", custCount);
-            model.addAttribute("boardCount", boardCount);
-            model.addAttribute("commentCount", commentCount);
-            model.addAttribute("albumCount", albumCount);
+//            long custCount = custRepository.count();
+//            long boardCount = boardRepository.count();
+//            long commentCount = commentRepository.count();
+//            long albumCount = albumRepository.count();
+//
+//            model.addAttribute("custCount", custCount);
+//            model.addAttribute("boardCount", boardCount);
+//            model.addAttribute("commentCount", commentCount);
+//            model.addAttribute("albumCount", albumCount);
 
             return true;
-
     }
 
     @Override

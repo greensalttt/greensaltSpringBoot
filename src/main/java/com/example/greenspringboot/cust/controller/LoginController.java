@@ -43,7 +43,7 @@ public class LoginController {
         try {
             if (!encryptedEmail.isEmpty()) {
                 decryptedEmail = encryptionUtil.decrypt(encryptedEmail); // 이메일 복호화
-                System.out.println("복호화된 이메일: " + decryptedEmail);
+                System.out.println("쿠키에 저장된 복호화 이메일: " + decryptedEmail);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,27 +117,37 @@ public class LoginController {
         return "redirect:" + toURL;
     }
 
-    @PostMapping("/adminlogin")
-    public String login(String aLoginId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model m) {
-        if (!adminService.adminLogin(aLoginId, aPwd, request, m)) {
-            msg.addFlashAttribute("adminLoginFail", "msg");
-            return "redirect:/login";
-        }
-        adminService.adminPage(m);
-        return "adminPage";
-    }
 
     //    뒤로가기 버튼
-    @GetMapping("/admin/page")
-    public String adminPage(Model m){
-        adminService.adminPage(m);
-        return "adminPage";
-    }
+//    @GetMapping("/admin/page")
+//    public String adminPage(Model m){
+//        adminService.adminPage(m);
+//        return "adminPage";
+//    }
+//
+//    @PostMapping("/admin/logout")
+//    public String adminLogout(HttpSession session) {
+//        session.invalidate();
+//        return "redirect:/";
+//    }
 
-    @PostMapping("/admin/logout")
-    public String adminLogout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
+    //    @PostMapping("/adminlogin")
+//    public String login(String aLoginId, String aPwd, HttpServletRequest request,  RedirectAttributes msg, Model m) {
+//        if (!adminService.adminLogin(aLoginId, aPwd, request, m)) {
+//            msg.addFlashAttribute("adminLoginFail", "msg");
+//            return "redirect:/login";
+//        }
+//        adminService.adminPage(m);
+//        return "adminPage";
+//    }
+
+    @PostMapping("/adminlogin")
+    public String login(String aLoginId, String aPwd, HttpServletRequest request, RedirectAttributes msg, Model m) {
+        if (!adminService.adminLogin(aLoginId, aPwd, request, m)) {
+            msg.addFlashAttribute("adminLoginFail", "msg");
+            return "redirect:/login";  // 로그인 실패 시 로그인 페이지로
+        }
+        return "redirect:/admin";  // 로그인 성공 시 Vue 대시보드로 이동
     }
 
 
