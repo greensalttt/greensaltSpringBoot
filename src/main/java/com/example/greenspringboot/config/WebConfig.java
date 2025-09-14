@@ -17,6 +17,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private CustInterceptor custInterceptor;
 
+
+    @Autowired
+    private AdminInterceptor adminInterceptor;
+
     //      로컬용 4개 수정해야댐 앨범, 공연 서비스 + 앱파스 디비, 웹콘피크
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -29,52 +33,24 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(custInterceptor)
                 .addPathPatterns("/mypage/**","/board/write", "/order/**", "/payment/**");
+
+        registry.addInterceptor(adminInterceptor)
+                .addPathPatterns("/admin/**");
     }
-
-
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        // Vue history 모드 라우팅 지원
-//        registry.addViewController("/admin/dashboard")
-//                .setViewName("forward:/admin/dashboard/index.html");
-//
-//        registry.addViewController("/admin/dashboard/{path:^(?!js|css|img|favicon\\.ico).*$}")
-//                .setViewName("forward:/admin/dashboard/index.html");
-//
-//        registry.addViewController("/admin/dashboard/{path:^(?!js|css|img|favicon\\.ico).*$}/**")
-//                .setViewName("forward:/admin/dashboard/index.html");
-//    }
-
 
 
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("/images/**")
 //                .addResourceLocations("file:/home/ubuntu/album/", "file:/home/ubuntu/performance/");
-//    }
-
-
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(custInterceptor)
-//                .addPathPatterns("/mypage/**","/board/write", "/order/**", "/payment/**");
 //
-////        registry.addInterceptor(adminInterceptor)
-////                .addPathPatterns("/admin/**")
-////                .excludePathPatterns(
-////                        "/admin/dashboard/index.html",
-////                        "/admin/dashboard/js/**",
-////                        "/admin/dashboard/css/**",
-////                        "/admin/dashboard/img/**",
-////                        "/admin/dashboard/favicon.ico"
-////                );
-//
+//        registry.addResourceHandler("/admin/**")
+//                .addResourceLocations("classpath:/static/admin/")
+//                .resourceChain(true);
 //    }
-
 
 }
