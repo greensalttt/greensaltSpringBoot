@@ -31,7 +31,9 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,39 +88,48 @@ public class AdminServiceImpl implements AdminService {
             HttpSession session = request.getSession();
             session.setAttribute("aId", admin.getAId());
 
-            long custCount = custRepository.count();
-            long boardCount = boardRepository.count();
-            long commentCount = commentRepository.count();
-            long albumCount = albumRepository.count();
-
-            model.addAttribute("custCount", custCount);
-            model.addAttribute("boardCount", boardCount);
-            model.addAttribute("commentCount", commentCount);
-            model.addAttribute("albumCount", albumCount);
-
             return true;
     }
 
     @Override
-    public void adminPage(Model m){
+    public Map<String, Long> getAdminStats() {
+
         long custCount = custRepository.countByStatCd("M");
         long boardCount = boardRepository.countByDeletedFalse();
         long commentCount = commentRepository.countByDeletedFalse();
         long albumCount = albumRepository.countByDeletedFalse();
         long performanceCount = performanceRepository.countByDeletedFalse();
 
+        Map<String, Long> stats = new HashMap<>();
+        stats.put("custCount", custCount);
+        stats.put("boardCount", boardCount);
+        stats.put("commentCount", commentCount);
+        stats.put("albumCount", albumCount);
+        stats.put("performanceCount", performanceCount);
 
-        m.addAttribute("custCount", custCount);
-        m.addAttribute("boardCount", boardCount);
-        m.addAttribute("commentCount", commentCount);
-        m.addAttribute("albumCount", albumCount);
-        m.addAttribute("performanceCount", performanceCount);
-
-
-        System.out.println("회원수:" + custCount);
-        System.out.println("게시글수:" + boardCount);
+        return stats;
     }
 
+//    @Override
+//    public void adminPage(Model m){
+//        long custCount = custRepository.countByStatCd("M");
+//        long boardCount = boardRepository.countByDeletedFalse();
+//        long commentCount = commentRepository.countByDeletedFalse();
+//        long albumCount = albumRepository.countByDeletedFalse();
+//        long performanceCount = performanceRepository.countByDeletedFalse();
+//
+//
+//        m.addAttribute("custCount", custCount);
+//        m.addAttribute("boardCount", boardCount);
+//        m.addAttribute("commentCount", commentCount);
+//        m.addAttribute("albumCount", albumCount);
+//        m.addAttribute("performanceCount", performanceCount);
+//
+//
+//        System.out.println("회원수:" + custCount);
+//        System.out.println("게시글수:" + boardCount);
+//    }
+//
 
     @Override
     public void custList(Model m){
@@ -317,6 +328,5 @@ public class AdminServiceImpl implements AdminService {
             System.out.println("공지사항을 찾을 수 없습니다.");
         }
     }
-
 
 }

@@ -9,13 +9,16 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface AdminService {
 
 
     Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model);
 
-    void adminPage(Model model);
+//    void adminPage(Model model);
+
+    Map<String, Long> getAdminStats();
 
     void custList(Model m);
 
