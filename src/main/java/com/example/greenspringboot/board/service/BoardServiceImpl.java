@@ -115,8 +115,6 @@ public class BoardServiceImpl implements BoardService{
     @Override
     @Transactional
     public void remove(Integer createdBy, Integer bno, BoardDto boardDto){
-//        Board board = boardRepository.findByCreatedByAndBno(createdBy, bno);
-
         Board board = boardRepository.findByCreatedByAndBno(createdBy, bno)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 

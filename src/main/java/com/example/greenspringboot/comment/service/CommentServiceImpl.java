@@ -32,41 +32,6 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.findAllCommentsWithReplies(bno);
     }
 
-
-//    @Override
-//    public void write(CommentDto commentDto, Integer cId) {
-//        Comment parentComment = null;
-//        if (commentDto.getPcno() != null) {
-//            parentComment = commentRepository.findById(commentDto.getPcno()).orElse(null);
-//        }
-//
-//        Optional<Cust> optionalCust = custRepository.findById(cId);
-//
-//        if (optionalCust.isPresent()) {
-//            Cust cust = optionalCust.get(); // Optional에서 실제 Cust 객체를 꺼냄
-//
-//            String cNick = cust.getCNick();
-//
-//            CustDto custDto = CustDto.builder()
-//                    .cNick(cNick)
-//                    .build();
-//
-//            // comment 엔티티 빌드
-//            Comment comment = Comment.builder()
-//                    .bno(commentDto.getBno())
-//                    .parentComment(parentComment)  // parentComment가 null일 수도 있음
-//                    .comment(commentDto.getComment())
-//                    .commenter(custDto.getCNick())
-//                    .createdBy(commentDto.getCreatedBy())
-//                    .build();
-//
-//            // comment 엔티티 저장, 레포 메서드의 매개변수는 항상 엔티티만 가능
-//            commentRepository.save(comment);
-//
-//            System.out.println("commentDto:" + commentDto);
-//        }
-//    }
-
     @Override
     public void write(CommentDto commentDto, Integer cId) {
         Integer pcno = null;
