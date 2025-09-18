@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id
+//    오토이크리먼트 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ono")
     private Integer ono;
@@ -55,6 +56,7 @@ public class Order {
 
 
     // 1:1 관계는 주인 불분명해서 경로 기반 조인 불가, 직접 조인 필요 (1주문에는 1결제)
+    // 지연로딩
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ono", insertable = false, updatable = false)
     private Payment payment;

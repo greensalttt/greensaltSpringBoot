@@ -1,4 +1,6 @@
-//package com.example.greenspringboot.admin.controller;
+import com.example.greenspringboot.album.dto.AlbumDto;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;//package com.example.greenspringboot.admin.controller;
 //import com.example.greenspringboot.admin.service.AdminService;
 //import com.example.greenspringboot.album.dto.AlbumDto;
 //import com.example.greenspringboot.album.service.AlbumService;
