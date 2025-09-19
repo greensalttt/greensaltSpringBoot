@@ -16,10 +16,6 @@ public interface AlbumService {
 
     void albumRead(Integer ano, Model m);
 
-//    boolean write(AlbumDto albumDto, HttpSession session);
-//
-//    void write(AlbumDto albumDto, Integer aId);
-
     void write(AlbumDto albumDto, Integer aId);
 
     void albumRemove(Integer ano);
@@ -31,17 +27,11 @@ public interface AlbumService {
 
     int getSearchResultCnt(SearchCondition sc);
 
-//    void albumModify(AlbumDto albumDto, MultipartFile imgFile, HttpSession session) throws IOException;
-
     void albumModify(AlbumDto albumDto, Integer aId, Integer ano, MultipartFile imgFile, HttpSession session) throws IOException;
-
 
     AlbumDto toDto(Album album);
 
-
     void toEntity(Album album, AlbumDto albumDto, MultipartFile imgFile) throws IOException;
 
-
-
-
-    }
+    List<AlbumDto> getAllAlbums();
+}

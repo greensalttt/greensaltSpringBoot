@@ -16,7 +16,7 @@ public class SpaForwardController {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @RequestMapping(value = { "/admin", "/admin/album" })
+    @RequestMapping(value = { "/admin", "/admin/album", "/admin/album/manage" })
     public ResponseEntity<Resource> forwardDashboard(HttpServletRequest request) throws IOException {
         String uri = request.getRequestURI();
         System.out.println("👉 요청 URI: " + uri);

@@ -37,7 +37,7 @@ public class AlbumServiceImpl implements AlbumService{
 
 
 
-    //    관리자에서 수정할때 앨범 목록 가져오기, 인덱스 화면에서 보여주기
+    //    인덱스 화면에서 보여주기
     @Override
     public void albumList(Model m) {
         List<Album> albums = albumRepository.findAllByDeletedFalseOrderByAnoDesc(); // 모든 앨범 목록을 조회
@@ -59,6 +59,24 @@ public class AlbumServiceImpl implements AlbumService{
             System.out.println("앨범 정보를 찾을 수 없습니다.");
         }
     }
+
+//    관리자에서 수정할때 앨범 목록 가져오기
+    public List<AlbumDto> getAllAlbums() {
+        List<Album> albums = albumRepository.findAllByDeletedFalseOrderByAnoDesc();
+
+
+
+        return albums.stream()
+                .map(album -> AlbumDto.builder()
+                        .ano(album.getAno())
+                        .title(album.getTitle())
+                        .artist(album.getArtist())
+                        .released(album.getReleased())
+                        .img(album.getImg())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public void albumRead(Integer ano, Model m) {

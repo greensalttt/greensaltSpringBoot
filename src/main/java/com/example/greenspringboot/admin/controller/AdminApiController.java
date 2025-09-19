@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -48,6 +49,14 @@ public class AdminApiController {
         albumService.write(albumDto, aId);
         return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("/albums")
+    public ResponseEntity<?> getAlbumList() {
+        List<AlbumDto> albumList = albumService.getAllAlbums(); // 메서드명은 상황에 맞게
+        return ResponseEntity.ok(albumList);
+    }
+
 
 }
 

@@ -1,4 +1,6 @@
 import com.example.greenspringboot.album.dto.AlbumDto;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;//package com.example.greenspringboot.admin.controller;
 //import com.example.greenspringboot.admin.service.AdminService;
@@ -68,7 +70,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;//package 
 //        albumService.albumList(m);
 //        return "albumManage";
 //    }
-//
+
 //    // 앨범 삭제 처리
 //    @PostMapping("/album_remove")
 //    public String albumRemove(Integer ano, RedirectAttributes msg, HttpSession session) {
