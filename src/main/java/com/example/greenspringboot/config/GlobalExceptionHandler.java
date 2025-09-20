@@ -1,8 +1,13 @@
 package com.example.greenspringboot.config;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /*
  * 옵셔널 객체 예외처리 설명:
@@ -12,32 +17,54 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * - 이 예외를 글로벌 예외처리기에서 잡아 적절한 에러 페이지로 안내
  */
 
-
-// 로그 기록 어노테이션
 @Slf4j
-// 트라이캣치 없어도 전역 예외처리 가능 어노테이션
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // IllegalArgumentException 처리
+//    옵셔널 객체 예외 메서드
     @ExceptionHandler(IllegalArgumentException.class)
-    public String handleIllegalArgument(IllegalArgumentException e) {
+    public Object handleIllegalArgument(IllegalArgumentException e, HttpServletRequest request) {
         log.warn("잘못된 요청 예외 발생: {}", e.getMessage());
-        return "errorPage";
+
+        String uri = request.getRequestURI();
+
+        if (uri.startsWith("/api/")) {
+            // API 호출이면 JSON 응답
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "잘못된 요청", "message", e.getMessage()));
+        } else {
+            // 일반 페이지 요청이면 errorPage 뷰 반환
+            return "errorPage";
+        }
     }
 
-    // NullPointerException 처리
+//    널체크 메서드
     @ExceptionHandler(NullPointerException.class)
-    public String handleNullPointerException(NullPointerException e) {
+    public Object handleNullPointerException(NullPointerException e, HttpServletRequest request) {
         log.error("널 포인터 예외 발생", e);
-        return "errorPage";
+
+        String uri = request.getRequestURI();
+
+        if (uri.startsWith("/api/")) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "내부 서버 오류", "message", e.getMessage()));
+        } else {
+            return "errorPage";
+        }
     }
 
-    // 그 외 모든 예외 처리
+//    나머지 예외
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception e) {
+    public Object handleException(Exception e, HttpServletRequest request) {
         log.error("예외 발생: ", e);
-        return "errorPage";
+
+        String uri = request.getRequestURI();
+
+        if (uri.startsWith("/api/")) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "서버 오류", "message", e.getMessage()));
+        } else {
+            return "errorPage";
+        }
     }
 }
-
