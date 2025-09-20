@@ -13,9 +13,11 @@ import java.util.List;
 
 public interface PerformanceService {
 
-    boolean write(PerformanceDto performanceDto, HttpSession session);
+//    boolean write(PerformanceDto performanceDto, HttpSession session);
 
     void performanceRead(Integer pno, Model m);
+
+    void write(PerformanceDto performanceDto, Integer aId);
 
     List<PerformanceDto> getSearchResultPage(SearchCondition12 sc);
 

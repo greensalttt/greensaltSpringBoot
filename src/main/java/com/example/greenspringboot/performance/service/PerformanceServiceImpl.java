@@ -1,4 +1,5 @@
 package com.example.greenspringboot.performance.service;
+import com.example.greenspringboot.admin.repository.AdminRepository;
 import com.example.greenspringboot.board.paging.SearchCondition12;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.entity.Performance;
@@ -25,19 +26,18 @@ public class PerformanceServiceImpl implements PerformanceService{
     @Autowired
     private PerformanceRepository performanceRepository;
 
+    @Autowired
+    private AdminRepository adminRepository;
 
     @Autowired
     private PerformanceHistRepository performanceHistRepository;
 
     @Override
     public void performanceRead(Integer pno, Model m) {
-//        Performance performance = performanceRepository.findByPno(pno);
 
         Performance performance = performanceRepository.findById(pno)
                 .orElseThrow(()-> new IllegalArgumentException("공연 데이터 없음"));
 
-
-//        if (performance != null) {
             Integer ppno = performance.getPno();
             String title = performance.getTitle();
             String artist = performance.getArtist();
@@ -67,22 +67,21 @@ public class PerformanceServiceImpl implements PerformanceService{
             m.addAttribute("performanceDto", performanceDto);
 
             System.out.println("performanceDto:" + performanceDto);
-
-//        } else {
-//            System.out.println("공연 정보를 찾을 수 없습니다.");
-//        }
     }
 
 
     @Override
-    public boolean write(PerformanceDto performanceDto, HttpSession session) {
+    public void write(PerformanceDto performanceDto, Integer aId) {
+
+        adminRepository.findById(aId)
+                .orElseThrow(() -> new IllegalArgumentException("관리자 정보 없음"));
+
+        String img;
         try {
-
-            MultipartFile file = performanceDto.getImgFile();
-            String img = uploadImage(file);
-
-            performanceDto.setImg(img); // 이미지 경로를 저장할 img 필드에 넣음
-            performanceDto.setCreatedBy((Integer) session.getAttribute("aId"));
+            img = uploadImage(performanceDto.getImgFile());
+        } catch (IOException e) {
+            throw new IllegalArgumentException("이미지 업로드 실패", e);
+        }
 
             Performance performance = Performance.builder()
                     .title(performanceDto.getTitle())
@@ -94,19 +93,15 @@ public class PerformanceServiceImpl implements PerformanceService{
                     .date(performanceDto.getDate())
                     .content(performanceDto.getContent())
                     .img(performanceDto.getImg())
+                    .img(img)
                     .price(performanceDto.getPrice())
-                    .createdBy(performanceDto.getCreatedBy())
-                    .updatedBy(performanceDto.getCreatedBy())
+                    .createdBy(aId)
+                    .updatedBy(aId)
                     .build();
 
             performanceRepository.save(performance);
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
+
 
     // 배포시 수정
     public String uploadImage(MultipartFile file) throws IOException {
