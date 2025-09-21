@@ -64,8 +64,6 @@ public class AlbumServiceImpl implements AlbumService{
     public List<AlbumDto> getAllAlbums() {
         List<Album> albums = albumRepository.findAllByDeletedFalseOrderByAnoDesc();
 
-
-
         return albums.stream()
                 .map(album -> AlbumDto.builder()
                         .ano(album.getAno())

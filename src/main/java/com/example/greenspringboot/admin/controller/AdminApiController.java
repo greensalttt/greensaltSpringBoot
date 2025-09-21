@@ -79,5 +79,13 @@ public class AdminApiController {
         return ResponseEntity.ok().build();
     }
 
+    //    공연 리스트 가져오기
+    @GetMapping("/performances")
+    public ResponseEntity<?> getPerformanceList() {
+        List<PerformanceDto> performanceList = performanceService.getAllPerformances();
+        return ResponseEntity.ok(performanceList);
+    }
+
+
 }
 

@@ -13,8 +13,6 @@ import java.util.List;
 
 public interface PerformanceService {
 
-//    boolean write(PerformanceDto performanceDto, HttpSession session);
-
     void performanceRead(Integer pno, Model m);
 
     void write(PerformanceDto performanceDto, Integer aId);
@@ -36,4 +34,6 @@ public interface PerformanceService {
     boolean performanceRemove(Integer pno);
 
     int getPriceByPno(Integer pno);
+
+    List<PerformanceDto> getAllPerformances();
 }

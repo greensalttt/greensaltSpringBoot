@@ -1,5 +1,7 @@
 package com.example.greenspringboot.performance.service;
 import com.example.greenspringboot.admin.repository.AdminRepository;
+import com.example.greenspringboot.album.dto.AlbumDto;
+import com.example.greenspringboot.album.entity.Album;
 import com.example.greenspringboot.board.paging.SearchCondition12;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.entity.Performance;
@@ -188,7 +190,7 @@ public class PerformanceServiceImpl implements PerformanceService{
                 .collect(Collectors.toList());
     }
 
-//    관리자에서 수정할때 공연 목록 가져오기, 인덱스 화면에서 보여주기
+//   인덱스 화면에서 보여주기
     @Override
     public void performanceList(Model m) {
         List<Performance> performances = performanceRepository.findAllByDeletedFalseOrderByPnoDesc(); // 모든 앨범 목록을 조회
@@ -209,6 +211,22 @@ public class PerformanceServiceImpl implements PerformanceService{
         } else {
             System.out.println("공연 정보를 찾을 수 없습니다.");
         }
+    }
+
+    //    관리자에서 수정할때 앨범 목록 가져오기
+    public List<PerformanceDto> getAllPerformances() {
+        List<Performance> performances = performanceRepository.findAllByDeletedFalseOrderByPnoDesc();
+
+        return performances.stream()
+                .map(performance -> PerformanceDto.builder()
+                        .pno(performance.getPno())
+                        .title(performance.getTitle())
+                        .artist(performance.getArtist())
+                        .img(performance.getImg())
+                        .date(performance.getDate())
+                        .venue(performance.getVenue())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 
