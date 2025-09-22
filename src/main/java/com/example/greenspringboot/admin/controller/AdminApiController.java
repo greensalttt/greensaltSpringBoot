@@ -86,6 +86,12 @@ public class AdminApiController {
         return ResponseEntity.ok(performanceList);
     }
 
+    @GetMapping("/album/{ano}")
+    public ResponseEntity<?> getAlbum(@PathVariable Integer ano) {
+        AlbumDto albumDto = albumService.albumRead(ano);
+        return ResponseEntity.ok(albumDto);
+    }
+
 
 }
 

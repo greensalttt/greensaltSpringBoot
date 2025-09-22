@@ -14,7 +14,9 @@ public interface AlbumService {
 
     void albumList(Model m);
 
-    void albumRead(Integer ano, Model m);
+//    void albumRead(Integer ano, Model m);
+
+    AlbumDto albumRead(Integer ano);
 
     void write(AlbumDto albumDto, Integer aId);
 

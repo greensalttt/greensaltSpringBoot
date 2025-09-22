@@ -1,5 +1,4 @@
 package com.example.greenspringboot.album.service;
-import com.example.greenspringboot.admin.entity.Admin;
 import com.example.greenspringboot.admin.repository.AdminRepository;
 import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.entity.Album;
@@ -18,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -76,25 +74,43 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
 
+//    @Override
+//    public void albumRead(Integer ano, Model m) {
+//        Album album = albumRepository.findById(ano)
+//                .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
+//
+//        String content = album.getContent().replace("\n", "<br/>");
+//        AlbumDto albumDto = AlbumDto.builder()
+//                .ano(album.getAno())
+//                .type(album.getType())
+//                .genre(album.getGenre())
+//                .title(album.getTitle())
+//                .artist(album.getArtist())
+//                .released(album.getReleased())
+//                .content(content)
+//                .img(album.getImg())
+//                .build();
+//
+//        m.addAttribute("albumDto", albumDto);
+//    }
+
     @Override
-    public void albumRead(Integer ano, Model m) {
+    public AlbumDto albumRead(Integer ano) {
         Album album = albumRepository.findById(ano)
                 .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
 
-        String content = album.getContent().replace("\n", "<br/>");
-        AlbumDto albumDto = AlbumDto.builder()
+        return AlbumDto.builder()
                 .ano(album.getAno())
                 .type(album.getType())
                 .genre(album.getGenre())
                 .title(album.getTitle())
                 .artist(album.getArtist())
                 .released(album.getReleased())
-                .content(content)
+                .content(album.getContent())
                 .img(album.getImg())
                 .build();
-
-        m.addAttribute("albumDto", albumDto);
     }
+
 
     @Override
     public void write(AlbumDto albumDto, Integer aId) {
