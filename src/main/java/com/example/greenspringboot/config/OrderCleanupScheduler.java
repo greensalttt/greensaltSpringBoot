@@ -12,9 +12,9 @@ public class OrderCleanupScheduler {
     private OrderService orderService;
 
 
-    @Scheduled(fixedRate = 1800000) // 30분마다 실행
+    @Scheduled(fixedRate = 600000) // 10분마다 실행
     public void deleteOrders() {
         orderService.deleteOrders();
-        System.out.println("[스케줄러] 30분 경과된 미결제 주문 삭제: " + LocalDateTime.now());
+        System.out.println("[스케줄러] 10분 경과된 미결제 주문 삭제: " + LocalDateTime.now());
     }
 }

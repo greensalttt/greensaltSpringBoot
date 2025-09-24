@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,29 +72,30 @@ public class AlbumServiceImpl implements AlbumService{
                 .collect(Collectors.toList());
     }
 
-
-//    @Override
-//    public void albumRead(Integer ano, Model m) {
-//        Album album = albumRepository.findById(ano)
-//                .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
-//
-//        String content = album.getContent().replace("\n", "<br/>");
-//        AlbumDto albumDto = AlbumDto.builder()
-//                .ano(album.getAno())
-//                .type(album.getType())
-//                .genre(album.getGenre())
-//                .title(album.getTitle())
-//                .artist(album.getArtist())
-//                .released(album.getReleased())
-//                .content(content)
-//                .img(album.getImg())
-//                .build();
-//
-//        m.addAttribute("albumDto", albumDto);
-//    }
-
+//일반 앨범 상세페이지
     @Override
-    public AlbumDto albumRead(Integer ano) {
+    public void albumRead(Integer ano, Model m) {
+        Album album = albumRepository.findById(ano)
+                .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
+
+        String content = album.getContent().replace("\n", "<br/>");
+        AlbumDto albumDto = AlbumDto.builder()
+                .ano(album.getAno())
+                .type(album.getType())
+                .genre(album.getGenre())
+                .title(album.getTitle())
+                .artist(album.getArtist())
+                .released(album.getReleased())
+                .content(content)
+                .img(album.getImg())
+                .build();
+
+        m.addAttribute("albumDto", albumDto);
+    }
+
+//    관리자 페이지 앨범수정
+    @Override
+    public AlbumDto albumEditRead(Integer ano) {
         Album album = albumRepository.findById(ano)
                 .orElseThrow(() -> new IllegalArgumentException("앨범 정보 없음"));
 
@@ -174,7 +174,7 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public void albumModify(AlbumDto albumDto, Integer aId, Integer ano,  MultipartFile imgFile, HttpSession session) throws IOException{
+    public void albumModify(AlbumDto albumDto, Integer aId, Integer ano, MultipartFile imgFile) throws IOException{
         // 기존 앨범 가져오기 (예외 처리 방식 개선)
         Album oldAlbum = albumRepository.findById(ano)
                 .orElseThrow(() -> new IllegalArgumentException("해당 앨범이 존재하지 않습니다"));

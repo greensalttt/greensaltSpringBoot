@@ -2,7 +2,10 @@ import com.example.greenspringboot.album.dto.AlbumDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;//package com.example.greenspringboot.admin.controller;
+
+import javax.servlet.http.HttpSession;
 //import com.example.greenspringboot.admin.service.AdminService;
 //import com.example.greenspringboot.album.dto.AlbumDto;
 //import com.example.greenspringboot.album.service.AlbumService;

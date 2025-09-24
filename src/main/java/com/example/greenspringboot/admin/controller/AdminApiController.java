@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +63,48 @@ public class AdminApiController {
         return ResponseEntity.ok(albumList);
     }
 
+    @GetMapping("/album/{ano}/edit")
+    public ResponseEntity<?> getAlbum(@PathVariable Integer ano) {
+        AlbumDto albumDto = albumService.albumEditRead(ano);
+        return ResponseEntity.ok(albumDto);
+    }
+
+    @PutMapping("/album/{ano}/edit")
+    public ResponseEntity<?> albumModify(@PathVariable Integer ano, @ModelAttribute AlbumDto albumDto, MultipartFile imgFile, HttpSession session)throws IOException {
+
+        //        Vue 개발 환경일때 아니면 주석처리하기
+        session.setAttribute("aId", 1);
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("수정 권한이 없습니다.");
+        }
+
+        albumService.albumModify(albumDto, aId, ano, imgFile);
+        return ResponseEntity.ok("앨범 수정 완료");
+    }
+
+
+    @DeleteMapping("/album/{ano}/remove")
+    public ResponseEntity<?> albumRemove(@PathVariable Integer ano, HttpSession session) {
+
+        System.out.println("삭제 요청 들어옴, ano=" + ano);
+        // Vue 개발 환경일때 아니면 주석처리
+        session.setAttribute("aId", 1);
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("삭제 권한이 없습니다.");
+        }
+
+        albumService.albumRemove(ano);
+        return ResponseEntity.ok("앨범 삭제 완료");
+    }
+
+
     @PostMapping("/performance/write")
     public ResponseEntity<?> performanceWrite(@ModelAttribute PerformanceDto performanceDto, HttpSession session) {
 
@@ -84,12 +126,6 @@ public class AdminApiController {
     public ResponseEntity<?> getPerformanceList() {
         List<PerformanceDto> performanceList = performanceService.getAllPerformances();
         return ResponseEntity.ok(performanceList);
-    }
-
-    @GetMapping("/album/{ano}")
-    public ResponseEntity<?> getAlbum(@PathVariable Integer ano) {
-        AlbumDto albumDto = albumService.albumRead(ano);
-        return ResponseEntity.ok(albumDto);
     }
 
 

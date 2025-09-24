@@ -14,9 +14,11 @@ public interface AlbumService {
 
     void albumList(Model m);
 
-//    void albumRead(Integer ano, Model m);
 
-    AlbumDto albumRead(Integer ano);
+    AlbumDto albumEditRead(Integer ano);
+
+    //일반 앨범 상세페이지
+    void albumRead(Integer ano, Model m);
 
     void write(AlbumDto albumDto, Integer aId);
 
@@ -29,7 +31,7 @@ public interface AlbumService {
 
     int getSearchResultCnt(SearchCondition sc);
 
-    void albumModify(AlbumDto albumDto, Integer aId, Integer ano, MultipartFile imgFile, HttpSession session) throws IOException;
+    void albumModify(AlbumDto albumDto, Integer aId, Integer ano, MultipartFile imgFile) throws IOException;
 
     AlbumDto toDto(Album album);
 

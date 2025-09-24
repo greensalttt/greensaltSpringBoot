@@ -33,8 +33,7 @@ public class PaymentController {
             @SessionAttribute("cId") Integer cId,
             @RequestParam String paymentKey,
             @RequestParam String orderId,
-            @RequestParam Integer amount,
-            Model model
+            @RequestParam Integer amount
     ) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
