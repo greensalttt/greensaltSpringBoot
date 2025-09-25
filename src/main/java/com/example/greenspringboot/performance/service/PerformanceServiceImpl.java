@@ -1,7 +1,5 @@
 package com.example.greenspringboot.performance.service;
 import com.example.greenspringboot.admin.repository.AdminRepository;
-import com.example.greenspringboot.album.dto.AlbumDto;
-import com.example.greenspringboot.album.entity.Album;
 import com.example.greenspringboot.board.paging.SearchCondition12;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.entity.Performance;
@@ -13,12 +11,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpSession;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -70,6 +67,27 @@ public class PerformanceServiceImpl implements PerformanceService{
 
             System.out.println("performanceDto:" + performanceDto);
     }
+
+    @Override
+    public PerformanceDto performanceEditRead(Integer pno) {
+        Performance performance = performanceRepository.findById(pno)
+                .orElseThrow(() -> new IllegalArgumentException("공연 정보 없음"));
+
+        return PerformanceDto.builder()
+                .pno(performance.getPno())
+                .title(performance.getTitle())
+                .artist(performance.getArtist())
+                .genre(performance.getGenre())
+                .venue(performance.getVenue())
+                .duration(performance.getDuration())
+                .rating(performance.getRating())
+                .date(performance.getDate())
+                .content(performance.getContent())
+                .img(performance.getImg())
+                .price(performance.getPrice())
+                .build();
+    }
+
 
 
     @Override
@@ -231,52 +249,90 @@ public class PerformanceServiceImpl implements PerformanceService{
 
 
 
+//
+//    @Override
+//    public boolean performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session) throws IOException {
+//        // 기존 앨범 가져오기
+//        Optional<Performance> optionalPerformance = performanceRepository.findById(performanceDto.getPno());
+//        if (optionalPerformance.isPresent()) {
+//            Performance oldPerformance = optionalPerformance.get();
+//            PerformanceDto oldData = toDto(oldPerformance);
+//
+////                이력에는 수정한 사람의 관리자 아이디가 입력
+//            Integer modifierAId = (Integer) session.getAttribute("aId");
+//
+//            // 이미지 변경 안 했으면 이전 값 유지
+//            if (imgFile == null || imgFile.isEmpty()) {
+//                performanceDto.setImg(oldData.getImg());
+//            }
+//
+//            toEntity(oldPerformance, performanceDto, imgFile);
+//            performanceRepository.save(oldPerformance);
+//
+//            // 변경 이력을 담을 DTO 리스트
+//            List<PerformanceHist> performanceHistList = new ArrayList<>();
+//            // 기존에 작성된 2개 필드 변경 이력 추가
+//
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "IMG", oldData.getImg(), performanceDto.getImg());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "TITLE", oldData.getTitle(), performanceDto.getTitle());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "ARTIST", oldData.getArtist(), performanceDto.getArtist());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "GENRE", oldData.getGenre(), performanceDto.getGenre());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "VENUE", oldData.getVenue(), performanceDto.getVenue());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "DURATION", oldData.getDuration(), performanceDto.getDuration());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "RATING", oldData.getRating(), performanceDto.getRating());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "DATE", oldData.getDate(), performanceDto.getDate());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "CONTENT", oldData.getContent(), performanceDto.getContent());
+//            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "PRICE", String.valueOf(oldData.getPrice()), String.valueOf(performanceDto.getPrice()));
+//
+//
+//            // 변경 이력이 담긴 DTO 리스트를 순회하면서
+//            for (PerformanceHist performanceHist : performanceHistList) {
+//                performanceHistRepository.save(performanceHist);
+//            }
+//            return true;
+//
+//        }
+//        return false;
+//    }
+//
 
     @Override
-    public boolean performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session) throws IOException {
-        // 기존 앨범 가져오기
-        Optional<Performance> optionalPerformance = performanceRepository.findById(performanceDto.getPno());
-        if (optionalPerformance.isPresent()) {
-            Performance oldPerformance = optionalPerformance.get();
-            PerformanceDto oldData = toDto(oldPerformance);
+    public void performanceModify(PerformanceDto performanceDto, Integer aId, Integer pno, MultipartFile imgFile) throws IOException {
+        // 기존 공연 조회
+        Performance oldPerformance = performanceRepository.findById(pno)
+                .orElseThrow(() -> new IllegalArgumentException("해당 공연이 존재하지 않습니다"));
 
-//                이력에는 수정한 사람의 관리자 아이디가 입력
-            Integer modifierAId = (Integer) session.getAttribute("aId");
+        PerformanceDto oldData = toDto(oldPerformance);
 
-            // 이미지 변경 안 했으면 이전 값 유지
-            if (imgFile == null || imgFile.isEmpty()) {
-                performanceDto.setImg(oldData.getImg());
-            }
+        // 관리자 존재 확인
+        adminRepository.findById(aId)
+                .orElseThrow(() -> new IllegalArgumentException("관리자 정보 없음"));
 
-            toEntity(oldPerformance, performanceDto, imgFile);
-            performanceRepository.save(oldPerformance);
-
-            // 변경 이력을 담을 DTO 리스트
-            List<PerformanceHist> performanceHistList = new ArrayList<>();
-            // 기존에 작성된 2개 필드 변경 이력 추가
-
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "IMG", oldData.getImg(), performanceDto.getImg());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "TITLE", oldData.getTitle(), performanceDto.getTitle());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "ARTIST", oldData.getArtist(), performanceDto.getArtist());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "GENRE", oldData.getGenre(), performanceDto.getGenre());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "VENUE", oldData.getVenue(), performanceDto.getVenue());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "DURATION", oldData.getDuration(), performanceDto.getDuration());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "RATING", oldData.getRating(), performanceDto.getRating());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "DATE", oldData.getDate(), performanceDto.getDate());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "CONTENT", oldData.getContent(), performanceDto.getContent());
-            addPerformanceHist(performanceHistList, performanceDto.getPno(), modifierAId, "PRICE", String.valueOf(oldData.getPrice()), String.valueOf(performanceDto.getPrice()));
-
-
-
-
-            // 변경 이력이 담긴 DTO 리스트를 순회하면서
-            for (PerformanceHist performanceHist : performanceHistList) {
-                performanceHistRepository.save(performanceHist);
-            }
-            return true;
-
+        // 이미지 변경이 없으면 기존 이미지 유지
+        if (imgFile == null || imgFile.isEmpty()) {
+            performanceDto.setImg(oldData.getImg());
         }
-        return false;
+
+        // 기존 엔티티에 새 값 반영
+        toEntity(oldPerformance, performanceDto, imgFile);
+        performanceRepository.save(oldPerformance);
+
+        // 변경 이력 저장
+        List<PerformanceHist> performanceHistList = new ArrayList<>();
+        addPerformanceHist(performanceHistList, pno, aId, "IMG", oldData.getImg(), performanceDto.getImg());
+        addPerformanceHist(performanceHistList, pno, aId, "TITLE", oldData.getTitle(), performanceDto.getTitle());
+        addPerformanceHist(performanceHistList, pno, aId, "ARTIST", oldData.getArtist(), performanceDto.getArtist());
+        addPerformanceHist(performanceHistList, pno, aId, "GENRE", oldData.getGenre(), performanceDto.getGenre());
+        addPerformanceHist(performanceHistList, pno, aId, "VENUE", oldData.getVenue(), performanceDto.getVenue());
+        addPerformanceHist(performanceHistList, pno, aId, "DURATION", oldData.getDuration(), performanceDto.getDuration());
+        addPerformanceHist(performanceHistList, pno, aId, "RATING", oldData.getRating(), performanceDto.getRating());
+        addPerformanceHist(performanceHistList, pno, aId, "DATE", oldData.getDate(), performanceDto.getDate());
+        addPerformanceHist(performanceHistList, pno, aId, "PRICE", String.valueOf(oldData.getPrice()), String.valueOf(performanceDto.getPrice()));
+        addPerformanceHist(performanceHistList, pno, aId, "CONTENT", oldData.getContent(), performanceDto.getContent());
+
+        for (PerformanceHist performanceHist : performanceHistList) {
+            performanceHistRepository.save(performanceHist);
+        }
     }
 
 

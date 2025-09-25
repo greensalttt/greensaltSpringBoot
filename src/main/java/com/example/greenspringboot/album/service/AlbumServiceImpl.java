@@ -93,7 +93,7 @@ public class AlbumServiceImpl implements AlbumService{
         m.addAttribute("albumDto", albumDto);
     }
 
-//    관리자 페이지 앨범수정
+//    관리자 페이지 앨범 수정 페이지
     @Override
     public AlbumDto albumEditRead(Integer ano) {
         Album album = albumRepository.findById(ano)

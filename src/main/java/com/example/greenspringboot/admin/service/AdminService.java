@@ -4,6 +4,10 @@ import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.board.entity.BoardHist;
 import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.comment.dto.CommentHistDto;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustHistDto;
+import com.example.greenspringboot.notice.dto.NoticeDto;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,24 +20,27 @@ public interface AdminService {
 
     Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model);
 
-//    void adminPage(Model model);
-
     Map<String, Long> getAdminStats();
 
-    void custList(Model m);
+    List<BoardDto> boardList();
 
-    void boardList(Model m);
+    boolean adminRemove(Integer bno);
 
-    void commentList(Model m);
+
+    List<CommentDto> commentList();
 
     boolean commentRemove(CommentDto commentDto, Integer cno);
 
-    void boardHist(Model m);
+//    void boardHist(Model m);
 
-    void commentHist(Model m);
+    List<BoardHistDto> boardHist();
 
-    void custHist(Model m);
+    List<CommentHistDto> commentHist();
 
-    void noticeList(Model m);
+    List<CustHistDto> custHist();
+
+    List<CustDto> custList();
+
+//    List<NoticeDto> noticeList();
 }
 

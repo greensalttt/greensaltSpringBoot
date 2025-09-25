@@ -8,12 +8,13 @@ import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.comment.dto.CommentHistDto;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.dto.CustHistDto;
+import com.example.greenspringboot.notice.dto.NoticeDto;
+import com.example.greenspringboot.notice.service.NoticeService;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
@@ -34,6 +35,9 @@ public class AdminApiController {
     @Autowired
     private PerformanceService performanceService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     @GetMapping("/admin")
     public ResponseEntity<Map<String, Long>> getAdminStats() {
         Map<String, Long> stats = adminService.getAdminStats();
@@ -50,7 +54,7 @@ public class AdminApiController {
     public ResponseEntity<?> albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session) {
 
 //        Vue 개발 환경일때 아니면 주석처리하기
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -80,7 +84,7 @@ public class AdminApiController {
     public ResponseEntity<?> albumModify(@PathVariable Integer ano, @ModelAttribute AlbumDto albumDto, MultipartFile imgFile, HttpSession session)throws IOException {
 
         //        Vue 개발 환경일때 아니면 주석처리하기
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -97,9 +101,8 @@ public class AdminApiController {
     @DeleteMapping("/album/{ano}/remove")
     public ResponseEntity<?> albumRemove(@PathVariable Integer ano, HttpSession session) {
 
-        System.out.println("삭제 요청 들어옴, ano=" + ano);
         // Vue 개발 환경일때 아니면 주석처리
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
@@ -116,7 +119,8 @@ public class AdminApiController {
     public ResponseEntity<?> performanceWrite(@ModelAttribute PerformanceDto performanceDto, HttpSession session) {
 
 //        Vue 개발 환경일때 아니면 주석처리하기
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
+
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -149,7 +153,7 @@ public class AdminApiController {
                                                MultipartFile imgFile,
                                                HttpSession session) throws IOException {
         // Vue 개발 환경일 경우, 임시 aId 세팅
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
@@ -165,7 +169,7 @@ public class AdminApiController {
     @DeleteMapping("/performance/{pno}/remove")
     public ResponseEntity<?> performanceRemove(@PathVariable Integer pno, HttpSession session) {
         // Vue 개발 환경일 경우, 임시 aId 세팅
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
         Integer aId = (Integer) session.getAttribute("aId");
 
         if (aId == null || aId != 1) {
@@ -186,7 +190,7 @@ public class AdminApiController {
     @DeleteMapping("/board/{bno}/remove")
     public ResponseEntity<?> boardRemove(@PathVariable Integer bno, HttpSession session) {
 
-        session.setAttribute("aId", 1);
+//        session.setAttribute("aId", 1);
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -215,8 +219,7 @@ public class AdminApiController {
     // 댓글 삭제
     @DeleteMapping("/comments/{cno}/remove")
     public ResponseEntity<String> commentRemove(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
-        session.setAttribute("aId", 1);
-
+//        session.setAttribute("aId", 1);
 
         Integer aId = (Integer) session.getAttribute("aId");
 
@@ -235,6 +238,22 @@ public class AdminApiController {
         List<CommentHistDto> commentHistList = adminService.commentHist(); // Model 제거된 버전 사용
         return ResponseEntity.ok(commentHistList);
     }
+
+
+    // 회원 전체 조회 (관리용)
+    @GetMapping("/cust/list")
+    public ResponseEntity<List<CustDto>> custList() {
+        List<CustDto> custList = adminService.custList(); // Model 없이 List 반환하도록 서비스 수정 필요
+        return ResponseEntity.ok(custList);
+    }
+
+    // 회원 이력 조회
+    @GetMapping("/cust/hist")
+    public ResponseEntity<List<CustHistDto>> custHistory() {
+        List<CustHistDto> custHistList = adminService.custHist(); // Model 없이 List 반환하도록 서비스 수정 필요
+        return ResponseEntity.ok(custHistList);
+    }
+
 
 
 }

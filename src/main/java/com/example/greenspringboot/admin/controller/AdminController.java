@@ -1,6 +1,10 @@
 import com.example.greenspringboot.album.dto.AlbumDto;
+import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.notice.dto.NoticeDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;//package com.example.greenspringboot.admin.controller;

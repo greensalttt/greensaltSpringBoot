@@ -15,6 +15,8 @@ public interface PerformanceService {
 
     void performanceRead(Integer pno, Model m);
 
+    PerformanceDto performanceEditRead(Integer pno);
+
     void write(PerformanceDto performanceDto, Integer aId);
 
     List<PerformanceDto> getSearchResultPage(SearchCondition12 sc);
@@ -25,7 +27,9 @@ public interface PerformanceService {
 
     void performanceList(Model m);
 
-    boolean performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session) throws IOException;
+//    boolean performanceModify(PerformanceDto performanceDto, MultipartFile imgFile, HttpSession session) throws IOException;
+
+    void performanceModify(PerformanceDto performanceDto, Integer aId, Integer pno, MultipartFile imgFile) throws IOException;
 
     PerformanceDto toDto(Performance performance);
 

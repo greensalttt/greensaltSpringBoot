@@ -131,103 +131,228 @@ public class AdminServiceImpl implements AdminService {
 //    }
 //
 
-    @Override
-    public void custList(Model m){
-    List<Cust> custs = custRepository.findAll();
-
-        if (!custs.isEmpty()) {
-            List<CustDto> custDtos = custs.stream()
-                    .map(cust -> CustDto.builder()
-                            .cId(cust.getCId())
-                            .statCd(cust.getStatCd())
-                            .cEmail(cust.getCEmail())
-                            .cNick(cust.getCNick())
-                            .cZip(cust.getCZip())
-                            .cRoadA(cust.getCRoadA())
-                            .cJibunA(cust.getCJibunA())
-                            .cDetA(cust.getCDetA())
-                            .loginDt(cust.getLoginDt())
-                            .createdAt(cust.getCreatedAt())
-                            .build())
-                    .collect(Collectors.toList());
-
-            m.addAttribute("custDtos", custDtos);
-            System.out.println("custDtos:" + custDtos);
-
-
-        } else {
-            System.out.println("회원 정보를 찾을 수 없습니다.");
-        }
-    }
+//    @Override
+//    public void custList(Model m){
+//    List<Cust> custs = custRepository.findAll();
+//
+//        if (!custs.isEmpty()) {
+//            List<CustDto> custDtos = custs.stream()
+//                    .map(cust -> CustDto.builder()
+//                            .cId(cust.getCId())
+//                            .statCd(cust.getStatCd())
+//                            .cEmail(cust.getCEmail())
+//                            .cNick(cust.getCNick())
+//                            .cZip(cust.getCZip())
+//                            .cRoadA(cust.getCRoadA())
+//                            .cJibunA(cust.getCJibunA())
+//                            .cDetA(cust.getCDetA())
+//                            .loginDt(cust.getLoginDt())
+//                            .createdAt(cust.getCreatedAt())
+//                            .build())
+//                    .collect(Collectors.toList());
+//
+//            m.addAttribute("custDtos", custDtos);
+//            System.out.println("custDtos:" + custDtos);
+//
+//
+//        } else {
+//            System.out.println("회원 정보를 찾을 수 없습니다.");
+//        }
+//    }
 
 
 //    관리자 페이지 게시글
+//    @Override
+//    public void boardList(Model m) {
+//        List<Board> boards = boardRepository.findAllByDeletedFalseOrderByBnoDesc(); // 삭제되지 않은 게시글 전체 조회
+//
+//        if (!boards.isEmpty()) {
+//            List<BoardDto> boardDtos = boards.stream()
+//                    .map(board -> BoardDto.builder()
+//                            .bno(board.getBno())
+//                            .title(board.getTitle())
+//                            .content(board.getContent())
+//                            .writer(board.getWriter())
+//                            .viewCnt(board.getViewCnt())
+//                            .commentCnt(board.getCommentCnt())
+//                            .deleted(board.getDeleted())
+//                            .createdAt(board.getCreatedAt())
+//                            .createdBy(board.getCreatedBy())
+//                            .build())
+//                    .collect(Collectors.toList());
+//
+//            m.addAttribute("boardDtos", boardDtos); // 모델에 boardDtos 추가
+//        } else {
+//            System.out.println("게시판 정보를 찾을 수 없습니다.");
+//        }
+//    }
+
     @Override
-    public void boardList(Model m) {
-        List<Board> boards = boardRepository.findAllByDeletedFalseOrderByBnoDesc(); // 삭제되지 않은 게시글 전체 조회
+    public List<BoardDto> boardList() {
+        List<Board> boards = boardRepository.findAllByDeletedFalseOrderByBnoDesc();
 
-        if (!boards.isEmpty()) {
-            List<BoardDto> boardDtos = boards.stream()
-                    .map(board -> BoardDto.builder()
-                            .bno(board.getBno())
-                            .title(board.getTitle())
-                            .content(board.getContent())
-                            .writer(board.getWriter())
-                            .viewCnt(board.getViewCnt())
-                            .commentCnt(board.getCommentCnt())
-                            .deleted(board.getDeleted())
-                            .createdAt(board.getCreatedAt())
-                            .createdBy(board.getCreatedBy())
-                            .build())
-                    .collect(Collectors.toList());
-
-            m.addAttribute("boardDtos", boardDtos); // 모델에 boardDtos 추가
-        } else {
-            System.out.println("게시판 정보를 찾을 수 없습니다.");
-        }
+        return boards.stream()
+                .map(board -> BoardDto.builder()
+                        .bno(board.getBno())
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .writer(board.getWriter())
+                        .viewCnt(board.getViewCnt())
+                        .commentCnt(board.getCommentCnt())
+                        .deleted(board.getDeleted())
+                        .createdAt(board.getCreatedAt())
+                        .createdBy(board.getCreatedBy())
+                        .build())
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public boolean adminRemove(Integer bno) {
+        Board board = boardRepository.findByBno(bno);
+
+        board.setDeleted(true);
+        board.setUpdatedBy("admin");
+        boardRepository.save(board);
+
+        Integer boardCreatedBy = board.getCreatedBy();
+        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
+        String newValue = "null";
+        String changeCode = "DELETE";
+        String createdBy = "admin";
+
+        if (!oldValue.equals(newValue)) {
+            BoardHist boardHist = BoardHist.builder()
+                    .bno(board.getBno())
+                    .cId(boardCreatedBy) // 여기 중요!
+                    .bCngCd(changeCode)
+                    .bBf(oldValue)
+                    .bAf(newValue)
+                    .createdBy(createdBy)
+                    .build();
+
+            boardHistRepository.save(boardHist);
+        }
+
+        return true;
+    }
+
+
+//    @Override
+//    public boolean adminRemove(BoardDto boardDto, Integer bno){
+//        Board board = boardRepository.findByBno(bno);
+//        board.setDeleted(true);
+//        board.setUpdatedBy("admin");
+//        boardRepository.save(board);
+//
+//        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
+//        String newValue = "null";
+//        String changeCode = "DELETE";
+//        String createdBy = "admin";
+//
+//
+//        if (!oldValue.equals(newValue)) {
+//            BoardHist boardHist = BoardHist.builder()
+//                    .bno(boardDto.getBno())
+//                    .cId(boardDto.getCreatedBy())
+//                    .bCngCd(changeCode)
+//                    .bBf(oldValue)
+//                    .bAf(newValue)
+//                    .createdBy(createdBy)
+//                    .build();
+//            boardHistRepository.save(boardHist);
+//        }
+//
+//        return true;
+//    }
+//
 
 
     //    관리자페이지 댓글
+//    @Override
+//    public void commentList(Model m) {
+//        List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc(); // 삭제되지 않은 댓글 전체 조회
+//
+//        if (!comments.isEmpty()) {
+//            List<CommentDto> commentDtos = comments.stream()
+//                    .map(comment -> CommentDto.builder()
+//                            .cno(comment.getCno())
+//                            .bno(comment.getBno())
+//                            .comment(comment.getComment())
+//                            .commenter(comment.getCommenter())
+//                            .createdAt(comment.getCreatedAt())
+//                            .createdBy(comment.getCreatedBy())
+//                            .deleted(comment.getDeleted())
+//                            .build())
+//                    .collect(Collectors.toList());
+//
+//            m.addAttribute("commentDtos", commentDtos); // 모델에 commentDtos 추가
+//        } else {
+//            System.out.println("댓글 정보를 찾을 수 없습니다.");
+//        }
+//    }
+
     @Override
-    public void commentList(Model m) {
-        List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc(); // 삭제되지 않은 댓글 전체 조회
+    public List<CommentDto> commentList() {
+        List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc();
 
-        if (!comments.isEmpty()) {
-            List<CommentDto> commentDtos = comments.stream()
-                    .map(comment -> CommentDto.builder()
-                            .cno(comment.getCno())
-                            .bno(comment.getBno())
-                            .comment(comment.getComment())
-                            .commenter(comment.getCommenter())
-                            .createdAt(comment.getCreatedAt())
-                            .createdBy(comment.getCreatedBy())
-                            .deleted(comment.getDeleted())
-                            .build())
-                    .collect(Collectors.toList());
-
-            m.addAttribute("commentDtos", commentDtos); // 모델에 commentDtos 추가
-        } else {
-            System.out.println("댓글 정보를 찾을 수 없습니다.");
-        }
+        return comments.stream()
+                .map(comment -> CommentDto.builder()
+                        .cno(comment.getCno())
+                        .bno(comment.getBno())
+                        .comment(comment.getComment())
+                        .commenter(comment.getCommenter())
+                        .createdAt(comment.getCreatedAt())
+                        .createdBy(comment.getCreatedBy())
+                        .deleted(comment.getDeleted())
+                        .build())
+                .collect(Collectors.toList());
     }
 
+
+//    @Override
+//    public boolean commentRemove(CommentDto commentDto, Integer cno){
+//        Comment comment = commentRepository.findByCno(cno);
+//        comment.setDeleted(true);
+//        comment.setUpdatedBy("admin");
+//        commentRepository.save(comment);
+//
+//        String oldValue = comment.getComment();  // 예를 들어, content 필드를 수정한다고 가정
+//        String newValue = "null";  // 수정된 댓글 내용
+//        String changeCode = "DELETE";  // 예를 들어, content 필드를 수정한다고 가정
+//        String createdBy = "admin";
+//        addCommentHist(commentDto, oldValue, newValue, changeCode, createdBy);
+//        return true;
+//    }
+//
+//    private void addCommentHist(CommentDto commentDto, String oldValue, String newValue, String changeCode, String createdBy) {
+//        if (!oldValue.equals(newValue)) {
+//            CommentHist commentHist = CommentHist.builder()
+//                    .cno(commentDto.getCno())
+//                    .bno(commentDto.getBno())
+//                    .cId(commentDto.getCreatedBy())
+//                    .coCngCd(changeCode)
+//                    .coBf(oldValue)
+//                    .coAf(newValue)
+//                    .createdBy(createdBy)
+//                    .build();
+//            // 이력 저장
+//            commentHistRepository.save(commentHist);
+//            System.out.println("코멘트디티오 =" + commentDto);
+//        }}
+
+
     @Override
-    public boolean commentRemove(CommentDto commentDto, Integer cno){
+    public boolean commentRemove(CommentDto commentDto, Integer cno) {
         Comment comment = commentRepository.findByCno(cno);
         comment.setDeleted(true);
         comment.setUpdatedBy("admin");
         commentRepository.save(comment);
 
-        String oldValue = comment.getComment();  // 예를 들어, content 필드를 수정한다고 가정
-        String newValue = "null";  // 수정된 댓글 내용
-        String changeCode = "DELETE";  // 예를 들어, content 필드를 수정한다고 가정
+        String oldValue = comment.getComment();   // 기존 댓글 내용
+        String newValue = "null";                 // 삭제된 상태를 나타내는 값
+        String changeCode = "DELETE";             // 변경 코드
         String createdBy = "admin";
-        addCommentHist(commentDto, oldValue, newValue, changeCode, createdBy);
-        return true;
-    }
 
-    private void addCommentHist(CommentDto commentDto, String oldValue, String newValue, String changeCode, String createdBy) {
         if (!oldValue.equals(newValue)) {
             CommentHist commentHist = CommentHist.builder()
                     .cno(commentDto.getCno())
@@ -238,17 +363,19 @@ public class AdminServiceImpl implements AdminService {
                     .coAf(newValue)
                     .createdBy(createdBy)
                     .build();
-            // 이력 저장
             commentHistRepository.save(commentHist);
-            System.out.println("코멘트디티오 =" + commentDto);
-        }}
+            System.out.println("코멘트디티오 = " + commentDto);
+        }
+
+        return true;
+    }
 
 
     @Override
-    public void boardHist(Model m) {
+    public List<BoardHistDto> boardHist() {
         List<BoardHist> boardHistList = boardHistRepository.findAll();
 
-        List<BoardHistDto> boardHistDtoList = boardHistList.stream()
+        return boardHistList.stream()
                 .map(boardHist -> BoardHistDto.builder()
                         .bHistNum(boardHist.getBHistNum())
                         .bno(boardHist.getBno())
@@ -260,15 +387,13 @@ public class AdminServiceImpl implements AdminService {
                         .createdBy(boardHist.getCreatedBy())
                         .build())
                 .collect(Collectors.toList());
-
-        m.addAttribute("boardHistList", boardHistDtoList);
     }
 
     @Override
-    public void commentHist(Model m) {
+    public List<CommentHistDto> commentHist() {
         List<CommentHist> commentHistList = commentHistRepository.findAll();
 
-        List<CommentHistDto> commentHistDtoList = commentHistList.stream()
+        return commentHistList.stream()
                 .map(commentHist -> CommentHistDto.builder()
                         .coHistNum(commentHist.getCoHistNum())
                         .cno(commentHist.getCno())
@@ -281,15 +406,13 @@ public class AdminServiceImpl implements AdminService {
                         .createdBy(commentHist.getCreatedBy())
                         .build())
                 .collect(Collectors.toList());
-
-        m.addAttribute("commentHistList", commentHistDtoList);
     }
 
     @Override
-    public void custHist(Model m) {
+    public List<CustHistDto> custHist() {
         List<CustHist> custHistList = custHistRepository.findAll();
 
-        List<CustHistDto> custHistDtoList = custHistList.stream()
+        return custHistList.stream()
                 .map(custHist -> CustHistDto.builder()
                         .cHistNum(custHist.getCHistNum())
                         .cId(custHist.getCId())
@@ -300,33 +423,113 @@ public class AdminServiceImpl implements AdminService {
                         .createdBy(custHist.getCreatedBy())
                         .build())
                 .collect(Collectors.toList());
-
-        m.addAttribute("custHistList", custHistDtoList);
     }
-
 
     @Override
-    public void noticeList(Model m) {
-        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc(); // 삭제되지 않은 댓글 전체 조회
+    public List<CustDto> custList() {
+        List<Cust> custs = custRepository.findAll();
 
-        if (!notices.isEmpty()) {
-            List<NoticeDto> noticeDtos = notices.stream()
-                    .map(notice -> NoticeDto.builder()
-                            .nno(notice.getNno())
-                            .title(notice.getTitle())
-                            .content(notice.getContent())
-                            .writer(notice.getWriter())
-                            .viewCnt(notice.getViewCnt())
-                            .createdAt(notice.getCreatedAt())
-                            .createdBy(notice.getCreatedBy())
-                            .deleted(notice.getDeleted())
-                            .build())
-                    .collect(Collectors.toList());
-
-            m.addAttribute("noticeDtos", noticeDtos); // 모델에 commentDtos 추가
-        } else {
-            System.out.println("공지사항을 찾을 수 없습니다.");
-        }
+        return custs.stream()
+                .map(cust -> CustDto.builder()
+                        .cId(cust.getCId())
+                        .statCd(cust.getStatCd())
+                        .cEmail(cust.getCEmail())
+                        .cNick(cust.getCNick())
+                        .cZip(cust.getCZip())
+                        .cRoadA(cust.getCRoadA())
+                        .cJibunA(cust.getCJibunA())
+                        .cDetA(cust.getCDetA())
+                        .loginDt(cust.getLoginDt())
+                        .createdAt(cust.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
     }
+
+//
+//    @Override
+//    public List<NoticeDto> noticeList() {
+//        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc();
+//
+//        return notices.stream()
+//                .map(notice -> NoticeDto.builder()
+//                        .nno(notice.getNno())
+//                        .title(notice.getTitle())
+//                        .content(notice.getContent())
+//                        .writer(notice.getWriter())
+//                        .viewCnt(notice.getViewCnt())
+//                        .createdAt(notice.getCreatedAt())
+//                        .createdBy(notice.getCreatedBy())
+//                        .deleted(notice.getDeleted())
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
+
+
+
+
+//    @Override
+//    public void commentHist(Model m) {
+//        List<CommentHist> commentHistList = commentHistRepository.findAll();
+//
+//        List<CommentHistDto> commentHistDtoList = commentHistList.stream()
+//                .map(commentHist -> CommentHistDto.builder()
+//                        .coHistNum(commentHist.getCoHistNum())
+//                        .cno(commentHist.getCno())
+//                        .bno(commentHist.getBno())
+//                        .cId(commentHist.getCId())
+//                        .coCngCd(commentHist.getCoCngCd())
+//                        .coBf(commentHist.getCoBf())
+//                        .coAf(commentHist.getCoAf())
+//                        .createdAt(commentHist.getCreatedAt())
+//                        .createdBy(commentHist.getCreatedBy())
+//                        .build())
+//                .collect(Collectors.toList());
+//
+//        m.addAttribute("commentHistList", commentHistDtoList);
+//    }
+//
+//    @Override
+//    public void custHist(Model m) {
+//        List<CustHist> custHistList = custHistRepository.findAll();
+//
+//        List<CustHistDto> custHistDtoList = custHistList.stream()
+//                .map(custHist -> CustHistDto.builder()
+//                        .cHistNum(custHist.getCHistNum())
+//                        .cId(custHist.getCId())
+//                        .cCngCd(custHist.getCCngCd())
+//                        .cBf(custHist.getCBf())
+//                        .cAf(custHist.getCAf())
+//                        .createdAt(custHist.getCreatedAt())
+//                        .createdBy(custHist.getCreatedBy())
+//                        .build())
+//                .collect(Collectors.toList());
+//
+//        m.addAttribute("custHistList", custHistDtoList);
+//    }
+//
+//
+//    @Override
+//    public void noticeList(Model m) {
+//        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc();
+//
+//        if (!notices.isEmpty()) {
+//            List<NoticeDto> noticeDtos = notices.stream()
+//                    .map(notice -> NoticeDto.builder()
+//                            .nno(notice.getNno())
+//                            .title(notice.getTitle())
+//                            .content(notice.getContent())
+//                            .writer(notice.getWriter())
+//                            .viewCnt(notice.getViewCnt())
+//                            .createdAt(notice.getCreatedAt())
+//                            .createdBy(notice.getCreatedBy())
+//                            .deleted(notice.getDeleted())
+//                            .build())
+//                    .collect(Collectors.toList());
+//
+//            m.addAttribute("noticeDtos", noticeDtos); // 모델에 commentDtos 추가
+//        } else {
+//            System.out.println("공지사항을 찾을 수 없습니다.");
+//        }
+//    }
 
 }

@@ -16,8 +16,11 @@ public class SpaForwardController {
     @Autowired
     private ResourceLoader resourceLoader;
 
-//    API가 아닌 Vue 경로만 설정
-    @RequestMapping(value = { "/admin", "/admin/album", "/admin/album/manage", "/admin/performance" })
+//    API가 아닌 Vue 경로만 설정, 8080으로 접속할때 다 처리해야함
+    @RequestMapping(value = { "/admin", "/admin/album","/admin/album/manage", "/admin/performance",
+            "/admin/performance/manage","/admin/board/manage", "/admin/board/hist"
+            , "/admin/comment/manage", "/admin/comment/hist", "/admin/notice", "/admin/notice/manage"
+            , "/admin/cust/list", "/admin/cust/hist"})
     public ResponseEntity<Resource> forwardDashboard(HttpServletRequest request) throws IOException {
         String uri = request.getRequestURI();
         System.out.println("👉 요청 URI: " + uri);
