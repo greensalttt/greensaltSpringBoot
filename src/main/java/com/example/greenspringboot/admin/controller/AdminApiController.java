@@ -2,11 +2,18 @@ package com.example.greenspringboot.admin.controller;
 import com.example.greenspringboot.admin.service.AdminService;
 import com.example.greenspringboot.album.dto.AlbumDto;
 import com.example.greenspringboot.album.service.AlbumService;
+import com.example.greenspringboot.board.dto.BoardDto;
+import com.example.greenspringboot.board.dto.BoardHistDto;
+import com.example.greenspringboot.comment.dto.CommentDto;
+import com.example.greenspringboot.comment.dto.CommentHistDto;
+import com.example.greenspringboot.cust.dto.CustDto;
+import com.example.greenspringboot.cust.dto.CustHistDto;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
@@ -128,6 +135,108 @@ public class AdminApiController {
         return ResponseEntity.ok(performanceList);
     }
 
+    // 공연 상세 조회
+    @GetMapping("/performance/{pno}/edit")
+    public ResponseEntity<?> getPerformance(@PathVariable Integer pno) {
+        PerformanceDto performanceDto = performanceService.performanceEditRead(pno);
+        return ResponseEntity.ok(performanceDto);
+    }
+
+    // 공연 수정
+    @PutMapping("/performance/{pno}/edit")
+    public ResponseEntity<?> performanceModify(@PathVariable Integer pno,
+                                               @ModelAttribute PerformanceDto performanceDto,
+                                               MultipartFile imgFile,
+                                               HttpSession session) throws IOException {
+        // Vue 개발 환경일 경우, 임시 aId 세팅
+        session.setAttribute("aId", 1);
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("수정 권한이 없습니다.");
+        }
+
+        performanceService.performanceModify(performanceDto, aId, pno, imgFile);
+        return ResponseEntity.ok("공연 수정 완료");
+    }
+
+    // 공연 삭제
+    @DeleteMapping("/performance/{pno}/remove")
+    public ResponseEntity<?> performanceRemove(@PathVariable Integer pno, HttpSession session) {
+        // Vue 개발 환경일 경우, 임시 aId 세팅
+        session.setAttribute("aId", 1);
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("삭제 권한이 없습니다.");
+        }
+
+        performanceService.performanceRemove(pno);
+        return ResponseEntity.ok("공연 삭제 완료");
+    }
+
+    @GetMapping("/board/manage")
+    public ResponseEntity<?> boardManage(){
+        List<BoardDto> boardDtoList = adminService.boardList();
+        return ResponseEntity.ok(boardDtoList);
+    }
+
+    @DeleteMapping("/board/{bno}/remove")
+    public ResponseEntity<?> boardRemove(@PathVariable Integer bno, HttpSession session) {
+
+        session.setAttribute("aId", 1);
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("테스트 아이디는 삭제할 수 없습니다.");
+        }
+
+        adminService.adminRemove(bno);
+        return ResponseEntity.ok("게시글 삭제 완료");
+    }
+
+    @GetMapping("/board/hist")
+    public ResponseEntity<List<BoardHistDto>> boardHistories() {
+        List<BoardHistDto> boardHistDto = adminService.boardHist();
+        return ResponseEntity.ok(boardHistDto);
+    }
+
+    // 댓글 전체 조회 (관리용)
+    @GetMapping("/comments/manage")
+    public ResponseEntity<List<CommentDto>> commentManage() {
+        List<CommentDto> commentDtoList = adminService.commentList();
+        return ResponseEntity.ok(commentDtoList);
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/comments/{cno}/remove")
+    public ResponseEntity<String> commentRemove(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
+        session.setAttribute("aId", 1);
+
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("테스트 아이디는 삭제할 수 없습니다.");
+        }
+
+        adminService.commentRemove(commentDto, cno);
+        return ResponseEntity.ok("댓글 삭제 완료");
+    }
+
+    // 댓글 히스토리 조회
+    @GetMapping("/comments/hist")
+    public ResponseEntity<List<CommentHistDto>> commentHistory() {
+        List<CommentHistDto> commentHistList = adminService.commentHist(); // Model 제거된 버전 사용
+        return ResponseEntity.ok(commentHistList);
+    }
+
 
 }
+
 
