@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -46,7 +48,7 @@ public class NoticeServiceImpl implements NoticeService {
         noticeRepository.save(notice);
     }
 
-
+//  회원들이 읽는거
     @Transactional
     @Override
     public void noticeRead(Integer nno, Model m) {
@@ -72,6 +74,28 @@ public class NoticeServiceImpl implements NoticeService {
         System.out.println("noticeDto:" + noticeDto);
     }
 
+    @Transactional
+    @Override
+    public NoticeDto noticeEditRead(Integer nno) {
+        Notice notice = noticeRepository.findById(nno)
+                .orElseThrow(() -> new IllegalArgumentException("공지사항 데이터 없음"));
+
+        noticeRepository.incrementViewCnt(nno);
+
+        // 내용에서 줄바꿈을 <br/>로 변경
+        String content = notice.getContent().replace("\n", "<br/>");
+
+        return NoticeDto.builder()
+                .nno(nno)
+                .writer(notice.getWriter())
+                .title(notice.getTitle())
+                .content(content)
+                .viewCnt(notice.getViewCnt())
+                .createdAt(notice.getCreatedAt())
+                .build();
+    }
+
+
 
 
     @Override
@@ -93,6 +117,48 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setContent(noticeDto.getContent());
 
         noticeRepository.save(notice);
+    }
+
+    @Override
+    public List<NoticeDto> noticeList() {
+        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc();
+
+        return notices.stream()
+                .map(notice -> NoticeDto.builder()
+                        .nno(notice.getNno())
+                        .title(notice.getTitle())
+                        .content(notice.getContent())
+                        .writer(notice.getWriter())
+                        .viewCnt(notice.getViewCnt())
+                        .createdAt(notice.getCreatedAt())
+                        .createdBy(notice.getCreatedBy())
+                        .deleted(notice.getDeleted())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void noticeList(Model m) {
+        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc();
+
+        if (!notices.isEmpty()) {
+            List<NoticeDto> noticeDtos = notices.stream()
+                    .map(notice -> NoticeDto.builder()
+                            .nno(notice.getNno())
+                            .title(notice.getTitle())
+                            .content(notice.getContent())
+                            .writer(notice.getWriter())
+                            .viewCnt(notice.getViewCnt())
+                            .createdAt(notice.getCreatedAt())
+                            .createdBy(notice.getCreatedBy())
+                            .deleted(notice.getDeleted())
+                            .build())
+                    .collect(Collectors.toList());
+
+            m.addAttribute("noticeDtos", noticeDtos); // 모델에 commentDtos 추가
+        } else {
+            System.out.println("공지사항을 찾을 수 없습니다.");
+        }
     }
 
 }

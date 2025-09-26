@@ -21,14 +21,14 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    @Autowired
-    private AdminService adminService;
+//    @Autowired
+//    private AdminService adminService;
 
 //    고객 입장에서
 
     @GetMapping("/list")
     public String NoticeList(Model m) {
-        adminService.noticeList(m);
+        noticeService.noticeList(m);
         return "noticeList";
     }
 

@@ -254,6 +254,64 @@ public class AdminApiController {
         return ResponseEntity.ok(custHistList);
     }
 
+    @PostMapping("/notice/write")
+    public ResponseEntity<?> noticeWrite(@RequestBody NoticeDto noticeDto, HttpSession session) {
+//        session.setAttribute("aId", 1); // Vue 개발 시 테스트용
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("등록 권한이 없습니다.");
+        }
+
+        noticeService.write(noticeDto, session, aId);
+        return ResponseEntity.ok("공지사항 등록 완료");
+    }
+
+    @GetMapping("/notice/manage")
+    public ResponseEntity<List<NoticeDto>> noticeManage() {
+        List<NoticeDto> noticeList = noticeService.noticeList(); // 서비스 수정 필요
+        return ResponseEntity.ok(noticeList);
+    }
+
+    @DeleteMapping("/notice/{nno}/remove")
+    public ResponseEntity<?> noticeRemove(@PathVariable Integer nno, HttpSession session) {
+//        session.setAttribute("aId", 1); // Vue 개발 시 테스트용
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("삭제 권한이 없습니다.");
+        }
+
+        noticeService.noticeRemove(nno);
+        return ResponseEntity.ok("공지사항 삭제 완료");
+    }
+
+    @GetMapping("/notice/{nno}/edit")
+    public ResponseEntity<NoticeDto> getNotice(@PathVariable Integer nno) {
+        NoticeDto noticeDto = noticeService.noticeEditRead(nno); // 서비스에서 NoticeDto 반환하도록 수정
+        return ResponseEntity.ok(noticeDto);
+    }
+
+    @PutMapping("/notice/{nno}/edit")
+    public ResponseEntity<?> noticeModify(@PathVariable Integer nno,
+                                          @RequestBody NoticeDto noticeDto,
+                                          HttpSession session) {
+//        session.setAttribute("aId", 1); // Vue 개발 시 테스트용
+
+        Integer aId = (Integer) session.getAttribute("aId");
+
+        if (aId == null || aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("수정 권한이 없습니다.");
+        }
+
+        noticeService.modify(nno, noticeDto);
+        return ResponseEntity.ok("공지사항 수정 완료");
+    }
 
 
 }
