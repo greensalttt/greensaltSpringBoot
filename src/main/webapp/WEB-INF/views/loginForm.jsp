@@ -72,11 +72,11 @@
             color: #000;
         }
 
-        #loginDiv, #adminLoginDiv, #pwdDiv, #adminPwdDiv {
+        #loginDiv, #pwdDiv{
             position: relative;
         }
 
-        #loginImg, #adminLoginImg {
+        #loginImg{
             position: absolute;
             left: 8px;
             top: 40%;
@@ -87,7 +87,7 @@
         }
 
 
-        #pwdImg, #adminPwdImg {
+        #pwdImg {
             position: absolute;
             left: 8px;
             top: 35%;
@@ -97,11 +97,11 @@
             pointer-events: none;
         }
 
-        #cEmail, #cPwd, #adminId, #adminPwd {
+        #cEmail, #cPwd{
             padding-left: 45px;
         }
 
-        #login, #adminLogin {
+        #login{
             position: relative;
             width: 100%;
             height: 50px;
@@ -124,7 +124,7 @@
         }
 
         #login:hover {
-            background-color: seagreen; /* 마우스를 갖다 대면 배경색 변경 */
+            background-color: seagreen;
         }
 
         #login:after {
@@ -140,9 +140,9 @@
             transition: all 1.5s
         }
 
-        #title, #adminTitle{
-            margin-top: 30px;
-            margin-bottom: 30px;
+        #title{
+            margin-top: 20px;
+            margin-bottom: 40px;
         }
 
         #emailLabel {
@@ -151,33 +151,24 @@
             color: black;
         }
 
-        #tabContainer{
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
+        /*#adminLoginBtn {*/
+        /*    width: 100%;*/
+        /*    height: 50px;*/
+        /*    margin-top: 10px;*/
+        /*    padding: 10px;*/
+        /*    border: none;*/
+        /*    cursor: pointer;*/
+        /*    border-radius: 5px;*/
+        /*    background-color: gray;*/
+        /*    color: whitesmoke;*/
+        /*    font-size: 15px;*/
+        /*    transition: 0.3s;*/
+        /*}*/
 
-        .tabButton {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 1px solid darkgreen;
-            background-color: white;
-            cursor: pointer;
-            font-weight: bold;
-            color: darkgreen;
-            transition: 0.3s;
-        }
+        /*#adminLoginBtn:hover {*/
+        /*    background-color: dimgray;*/
+        /*}*/
 
-        .tabButton.active {
-            background-color: darkgreen;
-            color: white;
-        }
-
-        #login:active:after {
-            padding: 0;
-            margin: 0;
-            opacity: 1;
-            transition: 0s
-        }
 
     </style>
 </head>
@@ -189,13 +180,6 @@
 </header>
 
 <div id="loginform">
-
-    <div id="tabContainer">
-        <button type="button" id="custTab" class="tabButton active" onclick="switchTab('cust')">회원 로그인</button>
-        <button type="button" id="adminTab" class="tabButton" onclick="switchTab('admin')">관리자 로그인</button>
-    </div>
-
-<%--    회원 로그인폼--%>
     <form id="custLoginForm" action="/login" method="post" onsubmit="return">
         <h1 id="title" >Green Salt</h1>
 
@@ -224,27 +208,11 @@
                 <a id="forgot" href="/forgotPwd">비밀번호 찾기</a> <a id="regi" href="/register/add">회원가입 </a>
             </div><br>
         </div>
+
+<%--        <a href="/admin/login" id="adminLoginBtn">관리자 로그인</a>--%>
+
     </form>
 
-    <!-- 관리자 로그인 폼 -->
-    <form id="adminLoginForm" action="/adminlogin" method="post" style="display: none;">
-        <h1 id="adminTitle">관리자 로그인</h1>
-
-        <div class="container">
-            <div id="adminLoginDiv">
-                <input id="adminId" name="aLoginId" class="special-class" type="text" maxlength="30"
-                       placeholder="admin" required>
-                <img id="adminLoginImg" src="https://cdn-icons-png.flaticon.com/128/4663/4663997.png">
-            </div>
-
-            <div id="adminPwdDiv">
-                <input id="adminPwd" class="special-class" type="password" name="aPwd" maxlength="15" placeholder="비밀번호" required>
-                <img id="adminPwdImg" src="https://cdn-icons-png.flaticon.com/128/747/747305.png">
-            </div><br>
-
-            <button type="submit" id="adminLogin">로그인</button><br>
-        </div>
-    </form>
 </div>
 
 <footer>
@@ -252,26 +220,6 @@
 </footer>
 
 <script>
-
-    function switchTab(tab) {
-        const custForm = document.getElementById("custLoginForm");
-        const adminForm = document.getElementById("adminLoginForm");
-        const custTab = document.getElementById("custTab");
-        const adminTab = document.getElementById("adminTab");
-
-        if (tab === "cust") {
-            custForm.style.display = "block";
-            adminForm.style.display = "none";
-            custTab.classList.add("active");
-            adminTab.classList.remove("active");
-        } else {
-            custForm.style.display = "none";
-            adminForm.style.display = "block";
-            custTab.classList.remove("active");
-            adminTab.classList.add("active");
-        }
-    }
-
     let signUpClear = "${signUpClear}"
     if(signUpClear==="msg") {
         alert("회원가입이 되셨습니다.");
@@ -281,12 +229,6 @@
     if(loginFail==="msg") {
         alert("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
     }
-
-    let adminLoginFail = "${adminLoginFail}"
-    if(adminLoginFail==="msg") {
-        alert("관리자 아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-    }
-
 
 </script>
 

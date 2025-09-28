@@ -33,6 +33,7 @@
         <c:if test="${sessionScope.cId == null}">
             <a href="<c:url value='/login'/>">Login</a>
         </c:if>
+        <a href="/admin/login">Admin</a>
         <a href="/mypage/list">My Page</a>
     </div>
 </div>
@@ -53,7 +54,7 @@
     document.getElementById('custIconImg').addEventListener('click', function (event) {
         var links = document.getElementById('links');
         links.classList.toggle('show');
-        event.stopPropagation(); // 이벤트 전파 중지
+        event.stopPropagation();
     });
 
     document.addEventListener('click', function (event) {

@@ -107,7 +107,7 @@ h1 {
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
-    height: 70px;
+    height: 110px;
     width: 80px;
 }
 

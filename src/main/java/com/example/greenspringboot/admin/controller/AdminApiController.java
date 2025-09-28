@@ -6,6 +6,7 @@ import com.example.greenspringboot.board.dto.BoardDto;
 import com.example.greenspringboot.board.dto.BoardHistDto;
 import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.comment.dto.CommentHistDto;
+import com.example.greenspringboot.config.JwtUtil;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.cust.dto.CustHistDto;
 import com.example.greenspringboot.notice.dto.NoticeDto;
@@ -37,6 +38,45 @@ public class AdminApiController {
 
     @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/admin/login")
+    public ResponseEntity<?> apiAdminLogin(@RequestBody Map<String, String> loginData) {
+        String aLoginId = loginData.get("aLoginId");
+        String aPwd = loginData.get("aPwd");
+
+        Integer adminId = adminService.adminLogin(aLoginId, aPwd);
+
+        if (adminId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다."));
+        }
+
+        String token = jwtUtil.generateToken(adminId); // ✅ 토큰 생성
+
+        return ResponseEntity.ok(Map.of(
+                "message", "로그인 성공",
+                "token", token
+        ));
+    }
+
+
+//    @PostMapping("/admin/login")
+//    public ResponseEntity<?> apiAdminLogin(@RequestBody Map<String, String> loginData) {
+//        String aLoginId = loginData.get("aLoginId");
+//        String aPwd = loginData.get("aPwd");
+//
+//        boolean success = adminService.adminLogin(aLoginId, aPwd);
+//
+//        if (!success) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                    .body("로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
+//        }
+//
+//        return ResponseEntity.ok("로그인 성공");
+//    }
 
     @GetMapping("/admin")
     public ResponseEntity<Map<String, Long>> getAdminStats() {
