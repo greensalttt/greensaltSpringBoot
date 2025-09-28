@@ -61,33 +61,16 @@ public class AdminApiController {
                 "token", token
         ));
     }
-
-
-//    @PostMapping("/admin/login")
-//    public ResponseEntity<?> apiAdminLogin(@RequestBody Map<String, String> loginData) {
-//        String aLoginId = loginData.get("aLoginId");
-//        String aPwd = loginData.get("aPwd");
-//
-//        boolean success = adminService.adminLogin(aLoginId, aPwd);
-//
-//        if (!success) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-//                    .body("로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
-//        }
-//
-//        return ResponseEntity.ok("로그인 성공");
+//    @PostMapping("/admin/logout")
+//    public ResponseEntity<String> logout(HttpSession session) {
+//        session.invalidate();
+//        return ResponseEntity.ok().build();
 //    }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/dashboard")
     public ResponseEntity<Map<String, Long>> getAdminStats() {
         Map<String, Long> stats = adminService.getAdminStats();
         return ResponseEntity.ok(stats);
-    }
-
-    @PostMapping("/admin/logout")
-    public ResponseEntity<String> logout(HttpSession session) {
-        session.invalidate();
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/album/write")

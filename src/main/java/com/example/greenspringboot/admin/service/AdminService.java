@@ -18,7 +18,10 @@ import java.util.Map;
 public interface AdminService {
 
 
-    Boolean adminLogin(String aId, String aPwd, HttpServletRequest request, Model model);
+
+//    Boolean adminLogin(String aLoginId, String aPwd);
+    Integer adminLogin(String aLoginId, String aPwd);
+
 
     Map<String, Long> getAdminStats();
 
@@ -31,7 +34,6 @@ public interface AdminService {
 
     boolean commentRemove(CommentDto commentDto, Integer cno);
 
-//    void boardHist(Model m);
 
     List<BoardHistDto> boardHist();
 
@@ -41,6 +43,5 @@ public interface AdminService {
 
     List<CustDto> custList();
 
-//    List<NoticeDto> noticeList();
 }
 

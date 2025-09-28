@@ -20,17 +20,11 @@ import com.example.greenspringboot.cust.entity.Cust;
 import com.example.greenspringboot.cust.entity.CustHist;
 import com.example.greenspringboot.cust.repository.CustHistRepository;
 import com.example.greenspringboot.cust.repository.CustRepository;
-import com.example.greenspringboot.notice.dto.NoticeDto;
-import com.example.greenspringboot.notice.entity.Notice;
-import com.example.greenspringboot.notice.repository.NoticeRepository;
 import com.example.greenspringboot.performance.repository.PerformanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,30 +60,58 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PerformanceRepository performanceRepository;
 
-    @Autowired
-    private NoticeRepository noticeRepository;
 
+//    @Override
+//    public Boolean adminLogin(String aLoginId, String aPwd, HttpServletRequest request, Model model) {
+//        System.out.println("관리자 로그인 아이디: " + aLoginId);
+//
+//        Admin admin = adminRepository.findByaLoginId(aLoginId);
+//
+//        if (admin == null) {
+//            return false;
+//        }
+//
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//            if (!encoder.matches(aPwd, admin.getAPwd())) {
+//                return false;
+//            }
+//
+//            HttpSession session = request.getSession();
+//            session.setAttribute("aId", admin.getAId());
+//
+//            return true;
+//    }
 
+//    @Override
+//    public Boolean adminLogin(String aLoginId, String aPwd) {
+//        System.out.println("관리자 로그인 아이디: " + aLoginId);
+//
+//        Admin admin = adminRepository.findByaLoginId(aLoginId);
+//
+//        if (admin == null) {
+//            return false;
+//        }
+//
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        if (!encoder.matches(aPwd, admin.getAPwd())) {
+//            return false;
+//        }
+//        return true;
+//    }
+
+    // adminId 리턴하도록 수정
     @Override
-    public Boolean adminLogin(String aLoginId, String aPwd, HttpServletRequest request, Model model) {
-        System.out.println("관리자 로그인 아이디: " + aLoginId);
-
+    public Integer adminLogin(String aLoginId, String aPwd) {
         Admin admin = adminRepository.findByaLoginId(aLoginId);
+        if (admin == null) return null;
 
-        if (admin == null) {
-            return false;
-        }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(aPwd, admin.getAPwd())) return null;
 
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(aPwd, admin.getAPwd())) {
-                return false;
-            }
-
-            HttpSession session = request.getSession();
-            session.setAttribute("aId", admin.getAId());
-
-            return true;
+        return admin.getAId(); // 로그인 성공 시 adminId 반환
     }
+
+
 
     @Override
     public Map<String, Long> getAdminStats() {
@@ -109,83 +131,6 @@ public class AdminServiceImpl implements AdminService {
 
         return stats;
     }
-
-//    @Override
-//    public void adminPage(Model m){
-//        long custCount = custRepository.countByStatCd("M");
-//        long boardCount = boardRepository.countByDeletedFalse();
-//        long commentCount = commentRepository.countByDeletedFalse();
-//        long albumCount = albumRepository.countByDeletedFalse();
-//        long performanceCount = performanceRepository.countByDeletedFalse();
-//
-//
-//        m.addAttribute("custCount", custCount);
-//        m.addAttribute("boardCount", boardCount);
-//        m.addAttribute("commentCount", commentCount);
-//        m.addAttribute("albumCount", albumCount);
-//        m.addAttribute("performanceCount", performanceCount);
-//
-//
-//        System.out.println("회원수:" + custCount);
-//        System.out.println("게시글수:" + boardCount);
-//    }
-//
-
-//    @Override
-//    public void custList(Model m){
-//    List<Cust> custs = custRepository.findAll();
-//
-//        if (!custs.isEmpty()) {
-//            List<CustDto> custDtos = custs.stream()
-//                    .map(cust -> CustDto.builder()
-//                            .cId(cust.getCId())
-//                            .statCd(cust.getStatCd())
-//                            .cEmail(cust.getCEmail())
-//                            .cNick(cust.getCNick())
-//                            .cZip(cust.getCZip())
-//                            .cRoadA(cust.getCRoadA())
-//                            .cJibunA(cust.getCJibunA())
-//                            .cDetA(cust.getCDetA())
-//                            .loginDt(cust.getLoginDt())
-//                            .createdAt(cust.getCreatedAt())
-//                            .build())
-//                    .collect(Collectors.toList());
-//
-//            m.addAttribute("custDtos", custDtos);
-//            System.out.println("custDtos:" + custDtos);
-//
-//
-//        } else {
-//            System.out.println("회원 정보를 찾을 수 없습니다.");
-//        }
-//    }
-
-
-//    관리자 페이지 게시글
-//    @Override
-//    public void boardList(Model m) {
-//        List<Board> boards = boardRepository.findAllByDeletedFalseOrderByBnoDesc(); // 삭제되지 않은 게시글 전체 조회
-//
-//        if (!boards.isEmpty()) {
-//            List<BoardDto> boardDtos = boards.stream()
-//                    .map(board -> BoardDto.builder()
-//                            .bno(board.getBno())
-//                            .title(board.getTitle())
-//                            .content(board.getContent())
-//                            .writer(board.getWriter())
-//                            .viewCnt(board.getViewCnt())
-//                            .commentCnt(board.getCommentCnt())
-//                            .deleted(board.getDeleted())
-//                            .createdAt(board.getCreatedAt())
-//                            .createdBy(board.getCreatedBy())
-//                            .build())
-//                    .collect(Collectors.toList());
-//
-//            m.addAttribute("boardDtos", boardDtos); // 모델에 boardDtos 추가
-//        } else {
-//            System.out.println("게시판 정보를 찾을 수 없습니다.");
-//        }
-//    }
 
     @Override
     public List<BoardDto> boardList() {
@@ -237,60 +182,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
-//    @Override
-//    public boolean adminRemove(BoardDto boardDto, Integer bno){
-//        Board board = boardRepository.findByBno(bno);
-//        board.setDeleted(true);
-//        board.setUpdatedBy("admin");
-//        boardRepository.save(board);
-//
-//        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
-//        String newValue = "null";
-//        String changeCode = "DELETE";
-//        String createdBy = "admin";
-//
-//
-//        if (!oldValue.equals(newValue)) {
-//            BoardHist boardHist = BoardHist.builder()
-//                    .bno(boardDto.getBno())
-//                    .cId(boardDto.getCreatedBy())
-//                    .bCngCd(changeCode)
-//                    .bBf(oldValue)
-//                    .bAf(newValue)
-//                    .createdBy(createdBy)
-//                    .build();
-//            boardHistRepository.save(boardHist);
-//        }
-//
-//        return true;
-//    }
-//
-
-
-    //    관리자페이지 댓글
-//    @Override
-//    public void commentList(Model m) {
-//        List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc(); // 삭제되지 않은 댓글 전체 조회
-//
-//        if (!comments.isEmpty()) {
-//            List<CommentDto> commentDtos = comments.stream()
-//                    .map(comment -> CommentDto.builder()
-//                            .cno(comment.getCno())
-//                            .bno(comment.getBno())
-//                            .comment(comment.getComment())
-//                            .commenter(comment.getCommenter())
-//                            .createdAt(comment.getCreatedAt())
-//                            .createdBy(comment.getCreatedBy())
-//                            .deleted(comment.getDeleted())
-//                            .build())
-//                    .collect(Collectors.toList());
-//
-//            m.addAttribute("commentDtos", commentDtos); // 모델에 commentDtos 추가
-//        } else {
-//            System.out.println("댓글 정보를 찾을 수 없습니다.");
-//        }
-//    }
-
     @Override
     public List<CommentDto> commentList() {
         List<Comment> comments = commentRepository.findAllByDeletedFalseOrderByCnoDesc();
@@ -307,38 +198,6 @@ public class AdminServiceImpl implements AdminService {
                         .build())
                 .collect(Collectors.toList());
     }
-
-
-//    @Override
-//    public boolean commentRemove(CommentDto commentDto, Integer cno){
-//        Comment comment = commentRepository.findByCno(cno);
-//        comment.setDeleted(true);
-//        comment.setUpdatedBy("admin");
-//        commentRepository.save(comment);
-//
-//        String oldValue = comment.getComment();  // 예를 들어, content 필드를 수정한다고 가정
-//        String newValue = "null";  // 수정된 댓글 내용
-//        String changeCode = "DELETE";  // 예를 들어, content 필드를 수정한다고 가정
-//        String createdBy = "admin";
-//        addCommentHist(commentDto, oldValue, newValue, changeCode, createdBy);
-//        return true;
-//    }
-//
-//    private void addCommentHist(CommentDto commentDto, String oldValue, String newValue, String changeCode, String createdBy) {
-//        if (!oldValue.equals(newValue)) {
-//            CommentHist commentHist = CommentHist.builder()
-//                    .cno(commentDto.getCno())
-//                    .bno(commentDto.getBno())
-//                    .cId(commentDto.getCreatedBy())
-//                    .coCngCd(changeCode)
-//                    .coBf(oldValue)
-//                    .coAf(newValue)
-//                    .createdBy(createdBy)
-//                    .build();
-//            // 이력 저장
-//            commentHistRepository.save(commentHist);
-//            System.out.println("코멘트디티오 =" + commentDto);
-//        }}
 
 
     @Override
@@ -444,92 +303,5 @@ public class AdminServiceImpl implements AdminService {
                         .build())
                 .collect(Collectors.toList());
     }
-
-//
-//    @Override
-//    public List<NoticeDto> noticeList() {
-//        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc();
-//
-//        return notices.stream()
-//                .map(notice -> NoticeDto.builder()
-//                        .nno(notice.getNno())
-//                        .title(notice.getTitle())
-//                        .content(notice.getContent())
-//                        .writer(notice.getWriter())
-//                        .viewCnt(notice.getViewCnt())
-//                        .createdAt(notice.getCreatedAt())
-//                        .createdBy(notice.getCreatedBy())
-//                        .deleted(notice.getDeleted())
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
-
-
-
-
-//    @Override
-//    public void commentHist(Model m) {
-//        List<CommentHist> commentHistList = commentHistRepository.findAll();
-//
-//        List<CommentHistDto> commentHistDtoList = commentHistList.stream()
-//                .map(commentHist -> CommentHistDto.builder()
-//                        .coHistNum(commentHist.getCoHistNum())
-//                        .cno(commentHist.getCno())
-//                        .bno(commentHist.getBno())
-//                        .cId(commentHist.getCId())
-//                        .coCngCd(commentHist.getCoCngCd())
-//                        .coBf(commentHist.getCoBf())
-//                        .coAf(commentHist.getCoAf())
-//                        .createdAt(commentHist.getCreatedAt())
-//                        .createdBy(commentHist.getCreatedBy())
-//                        .build())
-//                .collect(Collectors.toList());
-//
-//        m.addAttribute("commentHistList", commentHistDtoList);
-//    }
-//
-//    @Override
-//    public void custHist(Model m) {
-//        List<CustHist> custHistList = custHistRepository.findAll();
-//
-//        List<CustHistDto> custHistDtoList = custHistList.stream()
-//                .map(custHist -> CustHistDto.builder()
-//                        .cHistNum(custHist.getCHistNum())
-//                        .cId(custHist.getCId())
-//                        .cCngCd(custHist.getCCngCd())
-//                        .cBf(custHist.getCBf())
-//                        .cAf(custHist.getCAf())
-//                        .createdAt(custHist.getCreatedAt())
-//                        .createdBy(custHist.getCreatedBy())
-//                        .build())
-//                .collect(Collectors.toList());
-//
-//        m.addAttribute("custHistList", custHistDtoList);
-//    }
-//
-//
-//    @Override
-//    public void noticeList(Model m) {
-//        List<Notice> notices = noticeRepository.findAllByDeletedFalseOrderByNnoDesc();
-//
-//        if (!notices.isEmpty()) {
-//            List<NoticeDto> noticeDtos = notices.stream()
-//                    .map(notice -> NoticeDto.builder()
-//                            .nno(notice.getNno())
-//                            .title(notice.getTitle())
-//                            .content(notice.getContent())
-//                            .writer(notice.getWriter())
-//                            .viewCnt(notice.getViewCnt())
-//                            .createdAt(notice.getCreatedAt())
-//                            .createdBy(notice.getCreatedBy())
-//                            .deleted(notice.getDeleted())
-//                            .build())
-//                    .collect(Collectors.toList());
-//
-//            m.addAttribute("noticeDtos", noticeDtos); // 모델에 commentDtos 추가
-//        } else {
-//            System.out.println("공지사항을 찾을 수 없습니다.");
-//        }
-//    }
 
 }
