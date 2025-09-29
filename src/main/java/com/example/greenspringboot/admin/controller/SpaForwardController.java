@@ -21,6 +21,7 @@ public class SpaForwardController {
             "/admin/performance/manage","/admin/board/manage", "/admin/board/hist"
             , "/admin/comment/manage", "/admin/comment/hist", "/admin/notice", "/admin/notice/manage"
             , "/admin/cust/list", "/admin/cust/hist"})
+
     public ResponseEntity<Resource> forwardDashboard(HttpServletRequest request) throws IOException {
         String uri = request.getRequestURI();
         System.out.println("👉 요청 URI: " + uri);
@@ -43,3 +44,5 @@ public class SpaForwardController {
                 .body(resource);
     }
 }
+
+

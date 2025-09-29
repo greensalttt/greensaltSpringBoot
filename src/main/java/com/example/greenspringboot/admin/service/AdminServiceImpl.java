@@ -61,44 +61,6 @@ public class AdminServiceImpl implements AdminService {
     private PerformanceRepository performanceRepository;
 
 
-//    @Override
-//    public Boolean adminLogin(String aLoginId, String aPwd, HttpServletRequest request, Model model) {
-//        System.out.println("관리자 로그인 아이디: " + aLoginId);
-//
-//        Admin admin = adminRepository.findByaLoginId(aLoginId);
-//
-//        if (admin == null) {
-//            return false;
-//        }
-//
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            if (!encoder.matches(aPwd, admin.getAPwd())) {
-//                return false;
-//            }
-//
-//            HttpSession session = request.getSession();
-//            session.setAttribute("aId", admin.getAId());
-//
-//            return true;
-//    }
-
-//    @Override
-//    public Boolean adminLogin(String aLoginId, String aPwd) {
-//        System.out.println("관리자 로그인 아이디: " + aLoginId);
-//
-//        Admin admin = adminRepository.findByaLoginId(aLoginId);
-//
-//        if (admin == null) {
-//            return false;
-//        }
-//
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        if (!encoder.matches(aPwd, admin.getAPwd())) {
-//            return false;
-//        }
-//        return true;
-//    }
-
     // adminId 리턴하도록 수정
     @Override
     public Integer adminLogin(String aLoginId, String aPwd) {

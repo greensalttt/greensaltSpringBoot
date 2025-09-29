@@ -18,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +60,6 @@ public class AdminApiController {
                 "token", token
         ));
     }
-//    @PostMapping("/admin/logout")
-//    public ResponseEntity<String> logout(HttpSession session) {
-//        session.invalidate();
-//        return ResponseEntity.ok().build();
-//    }
 
     @GetMapping("/admin/dashboard")
     public ResponseEntity<Map<String, Long>> getAdminStats() {
@@ -74,23 +68,21 @@ public class AdminApiController {
     }
 
     @PostMapping("/album/write")
-    public ResponseEntity<?> albumWrite(@ModelAttribute AlbumDto albumDto, HttpSession session) {
+    public ResponseEntity<?> albumWrite(@ModelAttribute AlbumDto albumDto,
+                                        @RequestHeader("Authorization") String authHeader) {
 
-//        Vue 개발 환경일때 아니면 주석처리하기
-//        session.setAttribute("aId", 1);
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("테스트 아이디는 등록할 수 없습니다.");
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 등록할 수 없습니다.");
         }
+
         albumService.write(albumDto, aId);
         return ResponseEntity.ok().build();
     }
 
-
-//    앨범 리스트 가져오기
+    //    앨범 리스트 가져오기
     @GetMapping("/albums")
     public ResponseEntity<?> getAlbumList() {
         List<AlbumDto> albumList = albumService.getAllAlbums();
@@ -104,14 +96,15 @@ public class AdminApiController {
     }
 
     @PutMapping("/album/{ano}/edit")
-    public ResponseEntity<?> albumModify(@PathVariable Integer ano, @ModelAttribute AlbumDto albumDto, MultipartFile imgFile, HttpSession session)throws IOException {
+    public ResponseEntity<?> albumModify(@PathVariable Integer ano,
+                                         @ModelAttribute AlbumDto albumDto,
+                                         @RequestParam("imgFile") MultipartFile imgFile,
+                                         @RequestHeader("Authorization") String authHeader) throws IOException {
 
-        //        Vue 개발 환경일때 아니면 주석처리하기
-//        session.setAttribute("aId", 1);
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
+        if (aId != 1) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("수정 권한이 없습니다.");
         }
@@ -120,17 +113,15 @@ public class AdminApiController {
         return ResponseEntity.ok("앨범 수정 완료");
     }
 
-
     @DeleteMapping("/album/{ano}/remove")
-    public ResponseEntity<?> albumRemove(@PathVariable Integer ano, HttpSession session) {
+    public ResponseEntity<?> albumRemove(@PathVariable Integer ano, @RequestHeader("Authorization") String authHeader) {
 
-        // Vue 개발 환경일때 아니면 주석처리
-//        session.setAttribute("aId", 1);
-        Integer aId = (Integer) session.getAttribute("aId");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        if (aId == null || aId != 1) {
+        if (aId != 1) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("삭제 권한이 없습니다.");
+                    .body("수정 권한이 없습니다.");
         }
 
         albumService.albumRemove(ano);
@@ -139,17 +130,14 @@ public class AdminApiController {
 
 
     @PostMapping("/performance/write")
-    public ResponseEntity<?> performanceWrite(@ModelAttribute PerformanceDto performanceDto, HttpSession session) {
+    public ResponseEntity<?> performanceWrite(@ModelAttribute PerformanceDto performanceDto, @RequestHeader("Authorization") String authHeader) {
 
-//        Vue 개발 환경일때 아니면 주석처리하기
-//        session.setAttribute("aId", 1);
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
+        if (aId != 1) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("테스트 아이디는 등록할 수 없습니다.");
+                    .body("수정 권한이 없습니다.");
         }
         performanceService.write(performanceDto, aId);
         return ResponseEntity.ok().build();
@@ -174,14 +162,13 @@ public class AdminApiController {
     public ResponseEntity<?> performanceModify(@PathVariable Integer pno,
                                                @ModelAttribute PerformanceDto performanceDto,
                                                MultipartFile imgFile,
-                                               HttpSession session) throws IOException {
-        // Vue 개발 환경일 경우, 임시 aId 세팅
-//        session.setAttribute("aId", 1);
-        Integer aId = (Integer) session.getAttribute("aId");
+                                               @RequestHeader("Authorization") String authHeader) throws IOException {
 
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("수정 권한이 없습니다.");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
+
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 등록할 수 없습니다.");
         }
 
         performanceService.performanceModify(performanceDto, aId, pno, imgFile);
@@ -190,14 +177,13 @@ public class AdminApiController {
 
     // 공연 삭제
     @DeleteMapping("/performance/{pno}/remove")
-    public ResponseEntity<?> performanceRemove(@PathVariable Integer pno, HttpSession session) {
-        // Vue 개발 환경일 경우, 임시 aId 세팅
-//        session.setAttribute("aId", 1);
-        Integer aId = (Integer) session.getAttribute("aId");
+    public ResponseEntity<?> performanceRemove(@PathVariable Integer pno, @RequestHeader("Authorization") String authHeader) {
 
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("삭제 권한이 없습니다.");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
+
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 삭제할 수 없습니다.");
         }
 
         performanceService.performanceRemove(pno);
@@ -211,17 +197,14 @@ public class AdminApiController {
     }
 
     @DeleteMapping("/board/{bno}/remove")
-    public ResponseEntity<?> boardRemove(@PathVariable Integer bno, HttpSession session) {
+    public ResponseEntity<?> boardRemove(@PathVariable Integer bno, @RequestHeader("Authorization") String authHeader) {
 
-//        session.setAttribute("aId", 1);
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        Integer aId = (Integer) session.getAttribute("aId");
-
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("테스트 아이디는 삭제할 수 없습니다.");
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 등록할 수 없습니다.");
         }
-
         adminService.adminRemove(bno);
         return ResponseEntity.ok("게시글 삭제 완료");
     }
@@ -241,16 +224,15 @@ public class AdminApiController {
 
     // 댓글 삭제
     @DeleteMapping("/comments/{cno}/remove")
-    public ResponseEntity<String> commentRemove(@PathVariable Integer cno, @RequestBody CommentDto commentDto, HttpSession session) {
+    public ResponseEntity<String> commentRemove(@PathVariable Integer cno, @RequestBody CommentDto commentDto, @RequestHeader("Authorization") String authHeader) {
 //        session.setAttribute("aId", 1);
 
-        Integer aId = (Integer) session.getAttribute("aId");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("테스트 아이디는 삭제할 수 없습니다.");
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 등록할 수 없습니다.");
         }
-
         adminService.commentRemove(commentDto, cno);
         return ResponseEntity.ok("댓글 삭제 완료");
     }
@@ -258,7 +240,7 @@ public class AdminApiController {
     // 댓글 히스토리 조회
     @GetMapping("/comments/hist")
     public ResponseEntity<List<CommentHistDto>> commentHistory() {
-        List<CommentHistDto> commentHistList = adminService.commentHist(); // Model 제거된 버전 사용
+        List<CommentHistDto> commentHistList = adminService.commentHist();
         return ResponseEntity.ok(commentHistList);
     }
 
@@ -266,29 +248,28 @@ public class AdminApiController {
     // 회원 전체 조회 (관리용)
     @GetMapping("/cust/list")
     public ResponseEntity<List<CustDto>> custList() {
-        List<CustDto> custList = adminService.custList(); // Model 없이 List 반환하도록 서비스 수정 필요
+        List<CustDto> custList = adminService.custList();
         return ResponseEntity.ok(custList);
     }
 
     // 회원 이력 조회
     @GetMapping("/cust/hist")
     public ResponseEntity<List<CustHistDto>> custHistory() {
-        List<CustHistDto> custHistList = adminService.custHist(); // Model 없이 List 반환하도록 서비스 수정 필요
+        List<CustHistDto> custHistList = adminService.custHist();
         return ResponseEntity.ok(custHistList);
     }
 
     @PostMapping("/notice/write")
-    public ResponseEntity<?> noticeWrite(@RequestBody NoticeDto noticeDto, HttpSession session) {
-//        session.setAttribute("aId", 1); // Vue 개발 시 테스트용
+    public ResponseEntity<?> noticeWrite(@RequestBody NoticeDto noticeDto, @RequestHeader("Authorization") String authHeader) {
 
-        Integer aId = (Integer) session.getAttribute("aId");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("등록 권한이 없습니다.");
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 삭제할 수 없습니다.");
         }
 
-        noticeService.write(noticeDto, session, aId);
+        noticeService.write(noticeDto, aId);
         return ResponseEntity.ok("공지사항 등록 완료");
     }
 
@@ -299,14 +280,13 @@ public class AdminApiController {
     }
 
     @DeleteMapping("/notice/{nno}/remove")
-    public ResponseEntity<?> noticeRemove(@PathVariable Integer nno, HttpSession session) {
-//        session.setAttribute("aId", 1); // Vue 개발 시 테스트용
+    public ResponseEntity<?> noticeRemove(@PathVariable Integer nno, @RequestHeader("Authorization") String authHeader) {
 
-        Integer aId = (Integer) session.getAttribute("aId");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("삭제 권한이 없습니다.");
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 삭제할 수 없습니다.");
         }
 
         noticeService.noticeRemove(nno);
@@ -320,18 +300,15 @@ public class AdminApiController {
     }
 
     @PutMapping("/notice/{nno}/edit")
-    public ResponseEntity<?> noticeModify(@PathVariable Integer nno,
-                                          @RequestBody NoticeDto noticeDto,
-                                          HttpSession session) {
-//        session.setAttribute("aId", 1); // Vue 개발 시 테스트용
+    public ResponseEntity<?> noticeModify(@PathVariable Integer nno, @RequestBody NoticeDto noticeDto,
+                                          @RequestHeader("Authorization") String authHeader) {
 
-        Integer aId = (Integer) session.getAttribute("aId");
+        String token = authHeader.replace("Bearer ", "");
+        Integer aId = jwtUtil.validateTokenAndGetAdminId(token);
 
-        if (aId == null || aId != 1) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("수정 권한이 없습니다.");
+        if (aId != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("테스트 계정은 등록할 수 없습니다.");
         }
-
         noticeService.modify(nno, noticeDto);
         return ResponseEntity.ok("공지사항 수정 완료");
     }

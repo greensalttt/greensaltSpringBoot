@@ -23,11 +23,8 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private AdminRepository adminRepository;
 
-
-
-
     @Override
-    public void write(NoticeDto noticeDto, HttpSession session, Integer aId) {
+    public void write(NoticeDto noticeDto, Integer aId) {
         Admin admin = adminRepository.findById(aId)
                 .orElseThrow(()-> new IllegalArgumentException("관리자 데이터 없음"));
 

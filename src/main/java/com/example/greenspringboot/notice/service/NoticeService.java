@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface NoticeService {
-    void write(NoticeDto noticeDto, HttpSession session, Integer aId);
+    void write(NoticeDto noticeDto, Integer aId);
 
     void noticeRead(Integer nno, Model m);
 
