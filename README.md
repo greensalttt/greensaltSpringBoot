@@ -5,7 +5,6 @@
 https://greensalt.site/
 
 ## 배포환경
-> Spring Boot + JSP
 
 ```
 Packaging: WAR
@@ -21,7 +20,7 @@ SSL: Cloudflare(HTTPS)
 
 ## 개발환경
 
-> Spring Boot + JSP + JPA
+> Spring Boot + JSP + Vue + JPA
 
 ```
 WAS : Embedded Tomcat
@@ -44,9 +43,14 @@ chore: 기타 변경사항 (빌드, 설정, 삭제, 버그 추적 등)
 
 ## Backend Architecture
 
-#### 세션 기반 인증 및 접근 제어
+#### 사용자 웹 화면 세션 기반 인증 및 접근 제어
    + Interceptor를 통해 인증 및 권한 체크 수행
-   + 로그인 시 사용자 고유번호를 세션에 저장하여 인증 상태 유지
+   + 회원 로그인 시 사용자 고유번호를 세션에 저장하여 인증 상태 유지
+
+#### 관리자 페이지 JWT 기반 인증 및 RESTful API 연동
+   + 관리자 로그인 시 JWT 발급 및 로컬 스토리지 저장
+   + axios 요청 시 토큰을 헤더에 포함하여 서버에서 검증 및 권한 확인
+   + Vue.js SPA 구조와의 통신을 위해 RESTful API를 설계 및 구현
 
 #### 서비스 레이어에서 Optional의 orElseThrow 활용
    + 데이터가 없을 경우 즉시 IllegalArgumentException 예외 발생
@@ -72,13 +76,14 @@ chore: 기타 변경사항 (빌드, 설정, 삭제, 버그 추적 등)
    + 카카오 API를 활용하여 주소 찾기
    + Security를 활용하여 비밀번호 해시화
 
-#### 로그인
-   + 회원, 관리자 로그인 구분
-   + 세션을 활용한 비밀번호 찾기 
+#### 회원 로그인
+   + 세션을 통한 로그인 권한 및 비밀번호 찾기 
    + Cookie를 활용한 이메일 저장 체크박스
      + 암호화된 이메일을 쿠키에 저장, 재로그인 시 복호화하여 로그인 폼에 표시
 
 #### 관리자페이지
+   + Vue.js와 RESTful API 기반으로 개발
+   + JWT 기반 인증 및 토큰을 통한 권한 검증 방식으로 구현
    + 회원 목록과 개인정보 변경 이력 확인
    + 앨범, 공연, 공지사항 업로드 및 수정과 삭제
    + 규칙에 맞지 않는 회원의 게시글, 댓글 삭제
