@@ -20,7 +20,7 @@ SSL: Cloudflare(HTTPS)
 
 ## 개발환경
 
-> Spring Boot + JSP + Vue + JPA
+> Spring Boot + JSP + Vue.js + JPA
 
 ```
 WAS : Embedded Tomcat
