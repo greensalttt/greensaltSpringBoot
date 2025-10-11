@@ -15,20 +15,12 @@ public class WebConfig implements WebMvcConfigurer {
     private CustInterceptor custInterceptor;
 
     //      로컬용 4개 수정해야댐 앨범, 공연 서비스 + 앱파스 디비, 웹콘피크
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/images/**")
-//                .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
-//
-//        registry.addResourceHandler("/admin/**")
-//                .addResourceLocations("classpath:/static/admin/")
-//                .resourceChain(true);
-//    }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:/home/ubuntu/album/", "file:/home/ubuntu/performance/");
+//                .addResourceLocations("file:/home/ubuntu/album/", "file:/home/ubuntu/performance/");
+                .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
+
 
         registry.addResourceHandler("/admin/**")
                 .addResourceLocations("classpath:/static/admin/")

@@ -33,7 +33,6 @@ public class GlobalExceptionHandler {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", "잘못된 요청", "message", e.getMessage()));
         } else {
-            // 일반 페이지 요청이면 errorPage 뷰 반환
             return "errorPage";
         }
     }
