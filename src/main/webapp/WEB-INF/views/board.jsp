@@ -320,27 +320,11 @@
             comments.forEach(function(comment) {
                 // Jackson 규칙으로 cId를 cid로 찍어야 값이 나옴
 
-                // let topParentComment = comment;
-                // while (topParentComment.parentComment !== null) {
-                //     topParentComment = topParentComment.parentComment;
-                // }
-                //
-                // tmp += '<li data-cno="' + comment.cno + '"';
-                // tmp += ' data-parentComment="' + topParentComment.cno + '"';
-                // tmp += ' data-bno="' + comment.bno + '"';
-                // tmp += ' data-comment="' + comment.comment + '"';
-                // tmp += ' data-commenter="' + comment.commenter + '"';
-                // tmp += '>';
-                //
-                // if (comment.parentComment != null) tmp += 'ㄴ';
-
-
                 // 부모 댓글이 있으면 해당 번호, 없으면 자기 번호
-                let topParentCno = comment.pcno !== null ? comment.pcno : comment.cno;
-
+                let pcno = comment.pcno !== null ? comment.pcno : comment.cno;
 
                 tmp += '<li data-cno="' + comment.cno + '"';
-                tmp += ' data-parentComment="' + topParentCno + '"';
+                tmp += ' data-pcno="' + pcno + '"';
                 tmp += ' data-bno="' + comment.bno + '"';
                 tmp += ' data-comment="' + comment.comment + '"';
                 tmp += ' data-commenter="' + comment.commenter + '"';
@@ -370,15 +354,13 @@
         };
 
         // 답글버튼
-
         $(document).ready(function(){
-
 
                 $("#commentList").on("click", ".replyBtn", function () {
                     $("#replyForm").appendTo($(this).parent());
                     $("#replyForm").css("display", "block");
                     let parentLi = $(this).parent();
-                    console.log("parentLi:", parentLi.attr("data-parentComment"));
+                    // console.log("parentLi:", parentLi.attr("data-parentComment"));
 
 
                     // 데이터 속성에서 댓글자(commenter)와 댓글 내용(comment) 가져오기
@@ -392,9 +374,9 @@
 
                 $("#wrtRepBtn").click(function () {
                     let comment = $("input[name=replyComment]").val();
-                    let parentComment = $("#replyForm").parent().attr("data-parentComment");
+                    let pcno = $("#replyForm").parent().attr("data-pcno");
 
-                    console.log("parentComment:", parentComment);
+                    console.log("pcno:", pcno);
 
                     if (comment.trim() == '') {
                         alert("답글을 입력해 주세요.");
@@ -405,7 +387,7 @@
                         type: 'POST',
                         url: '/comments?bno=' + bno,
                         headers: {"content-type": "application/json"},
-                        data: JSON.stringify({bno: bno, comment: comment, pcno: parentComment}),
+                        data: JSON.stringify({bno: bno, comment: comment, pcno: pcno}),
                         success: function () {
                             alert("답글이 등록되었습니다");
                             showList(bno);
