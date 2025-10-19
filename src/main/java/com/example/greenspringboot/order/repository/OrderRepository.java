@@ -30,6 +30,14 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "WHERE o.status = 'paid' AND o.createdBy = :cId")
     List<MyReservationDto> findMyReservations(@Param("cId") Integer cId);
 
+    @Query("SELECT new com.example.greenspringboot.order.dto.PendingOrderDto(" +
+            "o.ono, o.orderId, p.pno, p.title, p.artist, p.venue, p.date, o.ordererName, o.ticketCount, o.totalPrice, o.status) " +
+            "FROM Order o " +
+            "LEFT JOIN o.performance p " +
+            "WHERE o.status = 'pending' AND o.createdBy = :cId")
+    List<MyReservationDto> findPendingOrders(@Param("cId") Integer cId);
+
+
 
 
 
