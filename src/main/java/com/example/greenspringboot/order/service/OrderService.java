@@ -2,6 +2,7 @@ package com.example.greenspringboot.order.service;
 
 import com.example.greenspringboot.order.dto.MyReservationDto;
 import com.example.greenspringboot.order.dto.OrderDto;
+import com.example.greenspringboot.order.dto.PendingOrderDto;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ public interface OrderService {
     @Transactional
     void deletePendingOrders();
 
-    List<MyReservationDto> findMyReservations(Integer cId);
+    List<MyReservationDto> getMyReservations(Integer cId);
 
+    List<PendingOrderDto> getPendingOrders(Integer cId);
 }

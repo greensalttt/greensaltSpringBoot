@@ -143,7 +143,7 @@ public class MyPageController {
 
         custService.myPage(cId, m);
         // 서비스에서 예매 리스트 조회
-        List<MyReservationDto> reservationDtos = orderService.findMyReservations(cId);
+        List<MyReservationDto> reservationDtos = orderService.getMyReservations(cId);
         System.out.println("reservationDtos 값 확인: " + reservationDtos);
 
         // 모델에 담아서 JSP에 전달

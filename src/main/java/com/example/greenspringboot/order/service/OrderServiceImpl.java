@@ -2,6 +2,7 @@ package com.example.greenspringboot.order.service;
 
 import com.example.greenspringboot.order.dto.MyReservationDto;
 import com.example.greenspringboot.order.dto.OrderDto;
+import com.example.greenspringboot.order.dto.PendingOrderDto;
 import com.example.greenspringboot.order.entity.Order;
 import com.example.greenspringboot.order.repository.OrderRepository;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
@@ -85,8 +86,13 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<MyReservationDto> findMyReservations(Integer cId) {
+    public List<MyReservationDto> getMyReservations(Integer cId) {
         return orderRepository.findMyReservations(cId);
+    }
+
+    @Override
+    public List<PendingOrderDto> getPendingOrders(Integer cId) {
+        return orderRepository.findPendingOrders(cId);
     }
 
 }

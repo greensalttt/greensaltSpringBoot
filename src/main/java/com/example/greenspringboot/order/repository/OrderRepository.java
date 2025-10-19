@@ -1,6 +1,7 @@
 package com.example.greenspringboot.order.repository;
 
 import com.example.greenspringboot.order.dto.MyReservationDto;
+import com.example.greenspringboot.order.dto.PendingOrderDto;
 import com.example.greenspringboot.order.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,7 +36,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "FROM Order o " +
             "LEFT JOIN o.performance p " +
             "WHERE o.status = 'pending' AND o.createdBy = :cId")
-    List<MyReservationDto> findPendingOrders(@Param("cId") Integer cId);
+    List<PendingOrderDto> findPendingOrders(@Param("cId") Integer cId);
 
 
 
