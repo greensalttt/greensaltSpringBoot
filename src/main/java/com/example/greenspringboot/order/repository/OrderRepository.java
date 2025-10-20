@@ -16,11 +16,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     Optional<Order> findByOrderId(String orderId);
 
-    // 지정된 상태의 주문 중, 생성 시간이 기준 시간보다 이전인 항목 삭제
+    // 지정된 상태의 주문 중, 생성 시간이 기준 시간보다 이전이면 주문 상태 무효
     @Modifying
-    @Query("DELETE FROM Order o WHERE o.status = :status AND o.createdAt < :time")
-    void cleanUpOrders(@Param("status") String status, @Param("time") LocalDateTime time);
-
+    @Query("UPDATE Order o SET o.status = 'expired' WHERE o.status = :status AND o.createdAt < :time")
+    void expirePendingOrders(@Param("status") String status, @Param("time") LocalDateTime time);
 
 
     @Query("SELECT new com.example.greenspringboot.order.dto.MyReservationDto(" +
@@ -37,9 +36,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "LEFT JOIN o.performance p " +
             "WHERE o.status = 'pending' AND o.createdBy = :cId")
     List<PendingOrderDto> findPendingOrders(@Param("cId") Integer cId);
-
-
-
 
 
 }
