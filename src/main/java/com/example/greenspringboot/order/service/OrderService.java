@@ -14,8 +14,11 @@ public interface OrderService {
 
     OrderDto saveOrder(OrderDto orderDto, Integer cId);
 
+//    @Transactional
+//    void deletePendingOrders();
+
     @Transactional
-    void deletePendingOrders();
+    void expirePendingOrders();
 
     List<MyReservationDto> getMyReservations(Integer cId);
 

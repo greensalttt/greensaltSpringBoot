@@ -77,12 +77,20 @@ public class OrderServiceImpl implements OrderService {
 
 
     // 현재 시간 기준 10분 이상 지난 '미결제' 주문 삭제
+//    @Transactional
+//    @Override
+//    public void deletePendingOrders() {
+//        LocalDateTime threshold = LocalDateTime.now().minusMinutes(10);
+//        orderRepository.cleanUpOrders("pending", threshold);
+//    }
+
     @Transactional
     @Override
-    public void deletePendingOrders() {
+    public void expirePendingOrders() {
         LocalDateTime threshold = LocalDateTime.now().minusMinutes(10);
-        orderRepository.cleanUpOrders("pending", threshold);
+        orderRepository.expirePendingOrders("pending", threshold);
     }
+
 
 
     @Override
