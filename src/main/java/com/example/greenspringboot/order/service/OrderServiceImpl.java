@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -76,14 +77,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    // 현재 시간 기준 10분 이상 지난 '미결제' 주문 삭제
-//    @Transactional
-//    @Override
-//    public void deletePendingOrders() {
-//        LocalDateTime threshold = LocalDateTime.now().minusMinutes(10);
-//        orderRepository.cleanUpOrders("pending", threshold);
-//    }
-
+    // 현재 시간 기준 10분 이상 지난 '미결제' 주문 만료로 변경
     @Transactional
     @Override
     public void expirePendingOrders() {
@@ -96,11 +90,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<MyReservationDto> getMyReservations(Integer cId) {
         return orderRepository.findMyReservations(cId);
-    }
-
-    @Override
-    public List<PendingOrderDto> getPendingOrders(Integer cId) {
-        return orderRepository.findPendingOrders(cId);
     }
 
 }

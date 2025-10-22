@@ -11,11 +11,6 @@ public class OrderCleanupScheduler {
     @Autowired
     private OrderService orderService;
 
-//    @Scheduled(fixedRate = 600000) // 10분 마다 실행
-//    public void deletePendingOrders() {
-//        orderService.deletePendingOrders();
-//        System.out.println("10분 경과된 미결제 주문 삭제: " + LocalDateTime.now());
-//    }
 
     @Scheduled(fixedRate = 600000) // 10분마다
     public void expireOldOrders() {
