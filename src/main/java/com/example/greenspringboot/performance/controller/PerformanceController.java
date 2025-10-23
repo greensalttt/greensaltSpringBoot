@@ -46,13 +46,10 @@ public class PerformanceController {
         return "performanceList";
     }
 
-
-
     @GetMapping("/read")
     public String PerformanceRead(Integer pno, Model m){
         performanceService.performanceRead(pno, m);
         return "performance";
     }
-
 
 }

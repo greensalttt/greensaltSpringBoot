@@ -2,6 +2,8 @@ package com.example.greenspringboot.order.dto;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Data
 @Builder
@@ -17,4 +19,18 @@ public class OrderDto {
     private Integer createdBy;
     private LocalDateTime updatedAt;
     private Integer updatedBy;
+
+
+    public Date getCreatedAtAsDate() {
+        if (createdAt == null) return null;
+        return Date.from(createdAt.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public Date getUpdatedAtAsDate() {
+        if (updatedAt == null) return null;
+        return Date.from(updatedAt.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+
 }
+

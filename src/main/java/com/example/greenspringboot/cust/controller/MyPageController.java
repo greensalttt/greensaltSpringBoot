@@ -4,6 +4,9 @@ import com.example.greenspringboot.comment.dto.CommentDto;
 import com.example.greenspringboot.cust.service.CustService;
 import com.example.greenspringboot.cust.dto.CustDto;
 import com.example.greenspringboot.order.dto.MyReservationDto;
+import com.example.greenspringboot.order.dto.OrderDto;
+import com.example.greenspringboot.order.dto.PendingOrderDto;
+import com.example.greenspringboot.order.entity.Order;
 import com.example.greenspringboot.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +155,20 @@ public class MyPageController {
         return "myReservationList";
     }
 
+    @GetMapping("/orderList")
+    public String myOrderList(Model m, @SessionAttribute("cId") Integer cId) {
 
+        custService.myPage(cId, m);
+        // 서비스에서 예매 리스트 조회
+        List<OrderDto> myOrders = orderService.getMyOrders(cId);
+
+        System.out.println("myOrders 값 확인: " + myOrders);
+
+        // 모델에 담아서 JSP에 전달
+        m.addAttribute("myOrders", myOrders);
+
+        return "myOrderList";
+    }
 
 }
 

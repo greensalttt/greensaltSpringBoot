@@ -1,6 +1,8 @@
 package com.example.greenspringboot.order.controller;
 
+import com.example.greenspringboot.order.dto.MyReservationDto;
 import com.example.greenspringboot.order.dto.OrderDto;
+import com.example.greenspringboot.order.dto.PendingOrderDto;
 import com.example.greenspringboot.order.service.OrderService;
 import com.example.greenspringboot.payment.service.PaymentService;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -37,7 +40,5 @@ public class OrderController {
 
         return "payment";
     }
-
-
 
 }

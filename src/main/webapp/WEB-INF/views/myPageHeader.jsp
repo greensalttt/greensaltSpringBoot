@@ -103,6 +103,10 @@
         </div>
 
         <div class="sp">
+            <span><a class="none" href="/mypage/orderList">주문 내역</a></span>
+        </div>
+
+        <div class="sp">
             <span><a class="none" href="/mypage/reservationList">예매 확인</a></span>
         </div>
 

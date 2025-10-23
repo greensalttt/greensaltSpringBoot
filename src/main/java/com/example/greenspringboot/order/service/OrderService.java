@@ -19,4 +19,5 @@ public interface OrderService {
 
     List<MyReservationDto> getMyReservations(Integer cId);
 
+    List<OrderDto> getMyOrders(Integer cId);
 }

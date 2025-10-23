@@ -39,7 +39,6 @@ public class OrderServiceImpl implements OrderService {
                 .title(performance.getTitle())
                 .price(performance.getPrice())
                 .build();
-
     }
 
     @Override
@@ -85,11 +84,31 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.expirePendingOrders("pending", threshold);
     }
 
-
-
     @Override
     public List<MyReservationDto> getMyReservations(Integer cId) {
         return orderRepository.findMyReservations(cId);
     }
 
+    @Override
+    public List<OrderDto> getMyOrders(Integer cId) {
+
+        List<Order> orders = orderRepository.findByCreatedByOrderByOnoDesc(cId);
+
+        return orders.stream()
+                .map(order -> OrderDto.builder()
+                        .ono(order.getOno())
+                        .pno(order.getPerformance().getPno())
+                        .orderId(order.getOrderId())
+                        .ordererName(order.getOrdererName())
+                        .ticketCount(order.getTicketCount())
+                        .totalPrice(order.getTotalPrice())
+                        .status(order.getStatus())
+                        .createdAt(order.getCreatedAt())
+                        .createdBy(order.getCreatedBy())
+                        .updatedAt(order.getUpdatedAt())
+                        .updatedBy(order.getUpdatedBy())
+                        .build()
+                )
+                .collect(Collectors.toList());
+    }
 }
