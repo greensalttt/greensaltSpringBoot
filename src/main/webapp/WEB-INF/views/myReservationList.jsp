@@ -142,19 +142,18 @@
         </c:if>
 
         <c:if test="${not empty reservationDtos}">
-<%--            <div style="margin-bottom: 10px; font-weight: bold; color: #555;">--%>
-<%--                ※ 결제가 완료된 내역만 보여집니다.--%>
-<%--            </div>--%>
 
             <c:forEach var="dto" items="${reservationDtos}">
                 <div class="reservation-card">
                     <div class="card-info">
                         <div><a href="/performance/read?pno=${dto.pno}">${dto.title}</a></div>
                         <div>${dto.artist}</div>
-                        <div>${dto.venue}</div>
-                        <div>${dto.date}</div>
+                        <div>장소: ${dto.venue}</div>
                         <div>수량: ${dto.ticketCount}매</div>
+                        <div>공연 날짜: ${dto.date}</div>
                         <div>결제 금액: <fmt:formatNumber value="${dto.totalPrice}" type="number"/>원</div>
+                        <div>결제 날짜: <fmt:formatDate value='${dto.createdAt}' pattern='yyyy-MM-dd'/></div>
+
                     </div>
                     <div>
                         <button class="detail-button open-modal"

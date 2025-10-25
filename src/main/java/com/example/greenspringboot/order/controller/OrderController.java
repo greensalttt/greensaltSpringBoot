@@ -29,6 +29,7 @@ public class OrderController {
     }
 
 
+//    주문 페이지에서 결제하기 버튼
     @PostMapping("/payment")
     public String paymentPage(@SessionAttribute("cId") Integer cId, @ModelAttribute OrderDto orderDto, Model m, Integer pno) {
 
@@ -40,5 +41,21 @@ public class OrderController {
 
         return "payment";
     }
+
+    @GetMapping("/payment")
+    public String paymentPageFromOrder(@RequestParam String orderId, Model m, @SessionAttribute("cId") Integer cId) {
+        // 주문 정보 불러오기
+        OrderDto orderDto = orderService.getOrderByOrderId(orderId);
+
+        // 공연 정보도 불러오기
+        PerformanceDto performanceDto = orderService.orderPage(orderDto.getPno());
+
+        m.addAttribute("orderDto", orderDto);
+        m.addAttribute("performanceDto", performanceDto);
+
+        return "payment";
+    }
+
+
 
 }

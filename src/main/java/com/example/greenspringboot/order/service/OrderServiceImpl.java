@@ -2,7 +2,6 @@ package com.example.greenspringboot.order.service;
 
 import com.example.greenspringboot.order.dto.MyReservationDto;
 import com.example.greenspringboot.order.dto.OrderDto;
-import com.example.greenspringboot.order.dto.PendingOrderDto;
 import com.example.greenspringboot.order.entity.Order;
 import com.example.greenspringboot.order.repository.OrderRepository;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
@@ -89,6 +88,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findMyReservations(cId);
     }
 
+//    내 모든 주문
     @Override
     public List<OrderDto> getMyOrders(Integer cId) {
 
@@ -111,4 +111,26 @@ public class OrderServiceImpl implements OrderService {
                 )
                 .collect(Collectors.toList());
     }
+
+//    단일 주문
+    @Override
+    public OrderDto getOrderByOrderId(String orderId) {
+        Order order = orderRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 없습니다"));
+
+        return OrderDto.builder()
+                .ono(order.getOno())
+                .pno(order.getPno())
+                .orderId(order.getOrderId())
+                .ordererName(order.getOrdererName())
+                .ticketCount(order.getTicketCount())
+                .totalPrice(order.getTotalPrice())
+                .status(order.getStatus())
+                .createdAt(order.getCreatedAt())
+                .createdBy(order.getCreatedBy())
+                .updatedAt(order.getUpdatedAt())
+                .updatedBy(order.getUpdatedBy())
+                .build();
+    }
+
 }

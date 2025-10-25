@@ -23,14 +23,16 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("UPDATE Order o SET o.status = 'expired' WHERE o.status = :status AND o.createdAt < :time")
     void expirePendingOrders(@Param("status") String status, @Param("time") LocalDateTime time);
 
-
     @Query("SELECT new com.example.greenspringboot.order.dto.MyReservationDto(" +
-            "o.ono, o.orderId, p.pno, p.title, p.artist, p.venue, p.date, o.ordererName, o.ticketCount, o.totalPrice, pay.paymentMethod, pay.createdAt, o.status) " +
+            "o.ono, o.orderId, p.pno, p.title, p.artist, p.venue, p.date, " +
+            "o.ordererName, o.ticketCount, o.totalPrice, pay.paymentMethod, pay.createdAt, o.status) " +
             "FROM Order o " +
             "LEFT JOIN Payment pay ON o.ono = pay.ono " +
             "LEFT JOIN o.performance p " +
-            "WHERE o.status = 'paid' AND o.createdBy = :cId")
+            "WHERE o.status = 'paid' AND o.createdBy = :cId " +
+            "ORDER BY pay.createdAt DESC")
     List<MyReservationDto> findMyReservations(@Param("cId") Integer cId);
+
 
 
 }
