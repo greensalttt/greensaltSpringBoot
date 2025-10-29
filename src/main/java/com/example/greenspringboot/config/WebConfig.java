@@ -14,12 +14,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private CustInterceptor custInterceptor;
 
-    //      로컬용 4개 수정해야댐 앨범, 공연 서비스 + 앱파스 디비, 웹콘피크
+    //      로컬용 5개 수정해야댐 앨범, 공연 서비스 + 앱파스 디비, 웹콘피크, vue에서도 수정
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-//                .addResourceLocations("file:/home/ubuntu/album/", "file:/home/ubuntu/performance/");
-                .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
+                .addResourceLocations("file:/home/ubuntu/greensalt/album/", "file:/home/ubuntu/greensalt/performance/");
+//                .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
 
 
         registry.addResourceHandler("/admin/**")
