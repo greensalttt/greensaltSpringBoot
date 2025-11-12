@@ -18,8 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:/home/ubuntu/greensalt/album/", "file:/home/ubuntu/greensalt/performance/");
-//                .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
+//                .addResourceLocations("file:/home/ubuntu/greensalt/album/", "file:/home/ubuntu/greensalt/performance/");
+                .addResourceLocations("file:///C:/album/", "file:///C:/performance/");
 
 
         registry.addResourceHandler("/admin/**")

@@ -25,9 +25,6 @@ public class LoginController {
     private CustService custService;
 
     @Autowired
-    private AdminService adminService;
-
-    @Autowired
     private EncryptionUtil encryptionUtil;
 
 
@@ -116,15 +113,5 @@ public class LoginController {
         }
         return "redirect:" + toURL;
     }
-
-//    @PostMapping("/adminlogin")
-//    public String login(String aLoginId, String aPwd, HttpServletRequest request, RedirectAttributes msg, Model m) {
-//        if (!adminService.adminLogin(aLoginId, aPwd, request, m)) {
-//            msg.addFlashAttribute("adminLoginFail", "msg");
-//            return "redirect:/login";  // 로그인 실패 시 로그인 페이지로
-//        }
-//        return "redirect:/admin";  // 로그인 성공 시 Vue 대시보드로 이동
-//    }
-
 
 }

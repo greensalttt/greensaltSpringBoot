@@ -127,8 +127,8 @@ public class PerformanceServiceImpl implements PerformanceService{
     public String uploadImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
-//        String uploadDir = "C:/performance/";
-        String uploadDir = "/home/ubuntu/greensalt/performance/";
+        String uploadDir = "C:/performance/";
+//        String uploadDir = "/home/ubuntu/greensalt/performance/";
 
         File dir = new File(uploadDir);
         if (!dir.exists()) {
