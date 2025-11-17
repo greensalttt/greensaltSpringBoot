@@ -22,4 +22,7 @@ public interface OrderService {
     List<OrderDto> getMyOrders(Integer cId);
 
     OrderDto getOrderByOrderId(String orderId);
+
+    @Transactional
+    void cancelOrder(Integer ono, Integer cId);
 }

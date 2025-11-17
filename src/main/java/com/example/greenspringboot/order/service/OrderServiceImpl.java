@@ -4,6 +4,8 @@ import com.example.greenspringboot.order.dto.MyReservationDto;
 import com.example.greenspringboot.order.dto.OrderDto;
 import com.example.greenspringboot.order.entity.Order;
 import com.example.greenspringboot.order.repository.OrderRepository;
+import com.example.greenspringboot.payment.entity.Payment;
+import com.example.greenspringboot.payment.repository.PaymentRepository;
 import com.example.greenspringboot.performance.dto.PerformanceDto;
 import com.example.greenspringboot.performance.entity.Performance;
 import com.example.greenspringboot.performance.repository.PerformanceRepository;
@@ -27,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PerformanceService performanceService;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     public PerformanceDto orderPage(Integer pno){
@@ -132,5 +137,32 @@ public class OrderServiceImpl implements OrderService {
                 .updatedBy(order.getUpdatedBy())
                 .build();
     }
+
+
+
+
+    @Override
+    @Transactional
+    public void cancelOrder(Integer ono, Integer cId) {
+
+        Order order = orderRepository.findById(ono)
+                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 없습니다"));
+
+        order.setStatus("canceled");       // 상태 변경
+        order.setUpdatedAt(LocalDateTime.now());
+        order.setUpdatedBy(cId);
+
+        Payment payment = paymentRepository.findByOno(ono)
+                .orElseThrow(() -> new IllegalArgumentException("결제 정보가 없습니다"));
+
+            payment.setPaymentStatus("canceled");
+            payment.setUpdatedAt(LocalDateTime.now());
+            payment.setUpdatedBy(cId);
+
+        orderRepository.save(order);
+        paymentRepository.save(payment);
+    }
+
+
 
 }
