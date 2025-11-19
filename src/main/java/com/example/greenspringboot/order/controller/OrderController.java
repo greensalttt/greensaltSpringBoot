@@ -57,5 +57,12 @@ public class OrderController {
     }
 
 
+    @PostMapping("/order/cancel")
+    public String cancelOrder(@RequestParam Integer ono,
+                              @RequestParam Integer cId) {
+        orderService.cancelOrder(ono, cId);
+        return "redirect:/mypage/orderList";
+    }
+
 
 }

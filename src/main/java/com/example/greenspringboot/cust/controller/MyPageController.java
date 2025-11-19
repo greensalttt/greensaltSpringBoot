@@ -102,14 +102,6 @@ public class MyPageController {
     }
 
 
-//    @GetMapping("/BoardList")
-//    public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
-//
-//        custService.myPage(cId, m);
-//        custService.myBoardList(m, cId);
-//        return "myBoardList";
-//    }
-
     @GetMapping("/BoardList")
     public String myBoardList(Model m, @SessionAttribute("cId") Integer cId){
 
@@ -140,6 +132,21 @@ public class MyPageController {
         return "myCommentList";
     }
 
+    @GetMapping("/orderList")
+    public String myOrderList(Model m, @SessionAttribute("cId") Integer cId) {
+
+        custService.myPage(cId, m);
+        // 서비스에서 예매 리스트 조회
+        List<OrderDto> myOrders = orderService.getMyOrders(cId);
+
+        System.out.println("myOrders 값 확인: " + myOrders);
+
+        // 모델에 담아서 JSP에 전달
+        m.addAttribute("myOrders", myOrders);
+
+        return "myOrderList";
+    }
+
 
     @GetMapping("/reservationList")
     public String myReservation(Model m, @SessionAttribute("cId") Integer cId) {
@@ -155,20 +162,6 @@ public class MyPageController {
         return "myReservationList";
     }
 
-    @GetMapping("/orderList")
-    public String myOrderList(Model m, @SessionAttribute("cId") Integer cId) {
-
-        custService.myPage(cId, m);
-        // 서비스에서 예매 리스트 조회
-        List<OrderDto> myOrders = orderService.getMyOrders(cId);
-
-        System.out.println("myOrders 값 확인: " + myOrders);
-
-        // 모델에 담아서 JSP에 전달
-        m.addAttribute("myOrders", myOrders);
-
-        return "myOrderList";
-    }
 
 }
 
