@@ -76,44 +76,50 @@
 <div id="wrapper">
     <div id="orderContainer">
 
-<div class="container">
-    <h2 style="margin: 40px 0 20px 0;">나의 주문 내역</h2>
+        <div class="container">
+            <h2 style="margin: 40px 0 20px 0;">나의 주문 내역</h2>
 
-    <c:if test="${empty myOrders}">
-        <div id="noOrder">주문 내역이 없습니다.</div>
-    </c:if>
+            <c:if test="${empty myOrders}">
+                <div id="noOrder">주문 내역이 없습니다.</div>
+            </c:if>
 
-    <c:if test="${not empty myOrders}">
-        <c:forEach var="dto" items="${myOrders}">
-            <div class="order-card">
-                <div class="order-header">주문번호: ${dto.orderId}</div>
-                <div class="order-detail">주문자명: ${dto.ordererName}</div>
-                <div class="order-detail">티켓 수량: ${dto.ticketCount}매</div>
-                <div class="order-detail">총 결제 금액: <fmt:formatNumber value="${dto.totalPrice}" type="number"/>원</div>
-                <div class="order-detail">주문일: <fmt:formatDate value="${dto.createdAtAsDate}" pattern="yyyy-MM-dd HH:mm"/></div>
-                <div class="order-detail">
-                    상태:
-                    <span class="order-status status-${dto.status}">
+            <c:if test="${not empty myOrders}">
+                <c:forEach var="orderDto" items="${myOrders}">
+                    <div class="order-card">
+                        <div class="order-header">주문번호: ${orderDto.orderId}</div>
+                        <div class="order-detail">주문자명: ${orderDto.ordererName}</div>
+                        <div class="order-detail">티켓 수량: ${orderDto.ticketCount}매</div>
+                        <div class="order-detail">총 결제 금액: <fmt:formatNumber value="${orderDto.totalPrice}" type="number"/>원</div>
+                        <div class="order-detail">주문일: <fmt:formatDate value="${orderDto.createdAtAsDate}" pattern="yyyy-MM-dd HH:mm"/></div>
+                        <div class="order-detail">
+                            상태:
+                            <span class="order-status status-${orderDto.status}">
                         <c:choose>
-<%--                            <c:when test="${dto.status == 'pending'}">대기중</c:when>--%>
+                            <c:when test="${orderDto.status == 'pending'}">
+                                <a href="/payment?orderId=${orderDto.orderId}" class="order-status status-pending">대기중</a>
 
-                            <c:when test="${dto.status == 'pending'}">
-                                <a href="/payment?orderId=${dto.orderId}" class="order-status status-pending">대기중</a>
+                                <form action="/order/cancel" method="post" style="display:inline;">
+                                    <input type="hidden" name="ono" value="${orderDto.orderId}">
+                                    <input type="hidden" name="cId" value="${orderDto.customerId}">
+                                    <button type="submit" style="padding:2px 6px; font-size:12px; margin-left:5px;">취소</button>
+                                </form>
+
                             </c:when>
-                            <c:when test="${dto.status == 'paid'}">결제완료</c:when>
-                            <c:when test="${dto.status == 'expired'}">만료됨</c:when>
-                            <c:otherwise>${dto.status}</c:otherwise>
+                            <c:when test="${orderDto.status == 'paid'}">결제완료</c:when>
+                            <c:when test="${orderDto.status == 'expired'}">만료됨</c:when>
+                            <c:when test="${orderDto.status == 'canceled'}">취소됨</c:when>
+                            <c:otherwise>${orderDto.status}</c:otherwise>
                         </c:choose>
                     </span>
-                </div>
-            </div>
-        </c:forEach>
-    </c:if>
-</div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:if>
+        </div>
     </div>
 
-<footer>
-    <jsp:include page="footer.jsp"/>
-</footer>
+    <footer>
+        <jsp:include page="footer.jsp"/>
+    </footer>
 </div>
 </body>
