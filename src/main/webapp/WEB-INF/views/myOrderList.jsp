@@ -95,17 +95,35 @@
                             상태:
                             <span class="order-status status-${orderDto.status}">
                         <c:choose>
-                            <c:when test="${orderDto.status == 'pending'}">
-                                <a href="/payment?orderId=${orderDto.orderId}" class="order-status status-pending">대기중</a>
+<%--                            <c:when test="${orderDto.status == 'pending'}">--%>
+<%--                                <a href="/payment?orderId=${orderDto.orderId}" class="order-status status-pending">대기중</a>--%>
 
-                                <form action="/order/cancel" method="post" style="display:inline;">
-                                    <input type="hidden" name="ono" value="${orderDto.orderId}">
-                                    <input type="hidden" name="cId" value="${orderDto.customerId}">
-                                    <button type="submit" style="padding:2px 6px; font-size:12px; margin-left:5px;">취소</button>
-                                </form>
+<%--                                <form action="/order/cancel" method="post" style="display:inline;">--%>
+<%--                                    <input type="hidden" name="ono" value="${orderDto.ono}">--%>
+<%--                                    <input type="hidden" name="createdBy" value="${orderDto.createdBy}">--%>
+<%--                                    <button type="submit" style="padding:2px 6px; font-size:12px; margin-left:5px;">취소</button>--%>
+<%--                                </form>--%>
+
+<%--                            </c:when>--%>
+
+                            <c:when test="${orderDto.status == 'pending' or orderDto.status == 'paid'}">
+
+                            <span class="order-status status-${orderDto.status}">
+                                <c:choose>
+                                    <c:when test="${orderDto.status == 'pending'}">대기중</c:when>
+                                    <c:when test="${orderDto.status == 'paid'}">결제완료</c:when>
+                                </c:choose>
+                            </span>
+
+                            <form action="/order/cancel" method="post" style="display:inline;">
+                                <input type="hidden" name="ono" value="${orderDto.ono}">
+                                <input type="hidden" name="createdBy" value="${orderDto.createdBy}">
+                                <button type="submit" style="padding:2px 6px; font-size:12px; margin-left:5px;">취소</button>
+                            </form>
 
                             </c:when>
-                            <c:when test="${orderDto.status == 'paid'}">결제완료</c:when>
+
+<%--                            <c:when test="${orderDto.status == 'paid'}">결제완료</c:when>--%>
                             <c:when test="${orderDto.status == 'expired'}">만료됨</c:when>
                             <c:when test="${orderDto.status == 'canceled'}">취소됨</c:when>
                             <c:otherwise>${orderDto.status}</c:otherwise>
