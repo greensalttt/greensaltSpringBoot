@@ -131,20 +131,6 @@ public class BoardServiceImpl implements BoardService{
         addBoardHist(boardDto, oldValue, newValue, changeCode, user);
     }
 
-//    @Override
-//    public boolean adminRemove(BoardDto boardDto, Integer bno){
-//        Board board = boardRepository.findByBno(bno);
-//        board.setDeleted(true);
-//        board.setUpdatedBy("admin");
-//        boardRepository.save(board);
-//
-//        String oldValue = "제목: " + board.getTitle() + "\n내용: " + board.getContent();
-//        String newValue = "null";
-//        String changeCode = "DELETE";
-//        String createdBy = "admin";
-//        addBoardHist(boardDto, oldValue, newValue, changeCode, createdBy);
-//        return true;
-//    }
 
     private void addBoardHist(BoardDto boardDto, String oldValue, String newValue, String changeCode, String createdBy) {
         if (!oldValue.equals(newValue)) {

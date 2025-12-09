@@ -11,7 +11,7 @@ public class JwtUtil {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // 256비트 시크릿키 자동 생성
     private final long expirationMs = 1000 * 60 * 60 * 2; // 2시간 유효
 
-    // ✅ 토큰 발급
+    // 토큰 발급
     public String generateToken(Integer adminId) {
         return Jwts.builder()
                 .setSubject(String.valueOf(adminId))
@@ -21,7 +21,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // ✅ 토큰 검증 및 adminId 추출
+    // 토큰 검증 및 adminId 추출
     public Integer validateTokenAndGetAdminId(String token) {
         try {
             Claims claims = Jwts.parserBuilder()

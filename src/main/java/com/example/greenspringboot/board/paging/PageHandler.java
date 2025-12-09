@@ -95,14 +95,5 @@ public class PageHandler {
         this.showNext = showNext;
     }
 
-//    public void print() {
-//        System.out.println("page =" + sc.getPage());
-//        System.out.print(showPrev ? "[PREV] " : "");
-//        for(int i = beginPage; i<= endPage; i++){
-//            System.out.print(i+" ");
-//
-//        }
-//        System.out.println(showNext ? " [NEXT]" : "");
-//    }
 
 }

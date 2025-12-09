@@ -53,7 +53,7 @@ public class AdminApiController {
                     .body(Map.of("message", "로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다."));
         }
 
-        String token = jwtUtil.generateToken(adminId); // ✅ 토큰 생성
+        String token = jwtUtil.generateToken(adminId); // 토큰 생성
 
         return ResponseEntity.ok(Map.of(
                 "message", "로그인 성공",
@@ -225,7 +225,6 @@ public class AdminApiController {
     // 댓글 삭제
     @DeleteMapping("/comments/{cno}/remove")
     public ResponseEntity<String> commentRemove(@PathVariable Integer cno, @RequestBody CommentDto commentDto, @RequestHeader("Authorization") String authHeader) {
-//        session.setAttribute("aId", 1);
 
         String token = authHeader.replace("Bearer ", "");
         Integer aId = jwtUtil.validateTokenAndGetAdminId(token);

@@ -313,7 +313,6 @@
     <script>
         let toHtml = function (comments) {
 
-            // 지금까 콘솔로 값 제대로 들고옴
             const cId = "${sessionScope.cId}";
 
             let tmp = "<ul>";
@@ -331,8 +330,6 @@
                 tmp += '>';
 
                 if (comment.pcno != null) tmp += 'ㄴ';
-
-
 
                 tmp += '<span class="commenter">' + comment.commenter + '=' + '</span>';
                 tmp += '<span class="comment">' + comment.comment + '</span>';

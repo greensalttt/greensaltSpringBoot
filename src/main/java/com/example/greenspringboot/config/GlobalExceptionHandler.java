@@ -17,6 +17,14 @@ import java.util.Map;
  * - 이 예외를 글로벌 예외처리기에서 잡아 적절한 에러 페이지로 안내
  */
 
+
+/*
+ * UX 관점: 입력 오류는 try-catch로 처리해 페이지를 유지하며 메시지 제공
+ * 시스템 관점: NullPointer 등 예측 불가 오류는 글로벌 예외 처리기로 일괄 처리
+ */
+
+//글로벌 예외처리기를 어떻게 써야 더 좋은건지 생각해보기
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
