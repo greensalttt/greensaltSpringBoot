@@ -15,7 +15,7 @@ public class OrderCleanupScheduler {
     @Scheduled(fixedRate = 600000) // 10분마다
     public void expireOldOrders() {
         orderService.expirePendingOrders();
-        System.out.println("10분 경과된 미결제 주문 'expired' 처리: " + LocalDateTime.now());
+        System.out.println("10분 경과된 미결제 주문 '만료됨' 처리: " + LocalDateTime.now());
     }
 
 }

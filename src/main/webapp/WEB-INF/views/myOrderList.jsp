@@ -132,3 +132,10 @@
         return confirm("정말로 이 주문을 취소하시겠습니까?");
     }
 </script>
+
+<c:if test="${not empty msg}">
+    <script>
+        alert("${msg}");
+    </script>
+</c:if>
+
